@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#fff7f3" />
   <title>DUONERA ONE — Jeden člověk. Jedno setkání.</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="styles.css?v=3.0" />
+  <link rel="stylesheet" href="styles.css?v=4.0" />
 </head>
 <body>
   <div class="grain" aria-hidden="true"></div>
@@ -25,6 +25,8 @@
     <div class="header-actions">
       <div class="language-switch" aria-label="Změnit jazyk">
         <button type="button" class="active" data-lang="cs">CZ</button>
+        <button type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="uk">UA</button>
         <button type="button" data-lang="ru">RU</button>
       </div>
       <button class="pill-button open-signup" type="button" data-i18n="headerCta">Chci skutečné setkání</button>
@@ -247,8 +249,8 @@
   </main>
 
   <div class="mobile-cta-bar">
-    <div><strong>DUONERA ONE</strong><span>Jedno skutečné setkání</span></div>
-    <button class="open-signup" type="button">Chci se potkat</button>
+    <div><strong>DUONERA ONE</strong><span data-i18n="mobileTagline">Jedno skutečné setkání</span></div>
+    <button class="open-signup" type="button" data-i18n="mobileCta">Chci se potkat</button>
   </div>
 
   <footer class="site-footer">
@@ -257,13 +259,13 @@
     <div class="footer-links">
       <a href="#" data-i18n="privacy">Ochrana soukromí</a>
       <a href="#" data-i18n="terms">Podmínky</a>
-      <a href="mailto:hello@duonera.cz">hello@duonera.cz</a>
+      <a href="mailto:executive@luxes.cz">executive@luxes.cz</a>
     </div>
     <span>© <span id="year"></span> DUONERA</span>
   </footer>
 
   <dialog id="signupModal" class="signup-modal">
-    <form method="dialog" id="signupForm" class="signup-form">
+    <form method="post" id="signupForm" class="signup-form">
       <button type="button" class="modal-close" aria-label="Zavřít">×</button>
       <div class="form-brand"><img src="assets/mark.svg" alt="" /></div>
       <span class="section-kicker" data-i18n="modalKicker">PILOTNÍ REGISTRACE</span>
@@ -278,12 +280,13 @@
         <label><span data-i18n="seekingLabel">Hledám</span><select name="seeking" required><option value="" data-i18n="choose2">Vyberte</option><option value="woman" data-i18n="womanAcc">Ženu</option><option value="man" data-i18n="manAcc">Muže</option></select></label>
         <label class="full"><span data-i18n="goalLabel">Co hledáte</span><select name="goal" required><option value="" data-i18n="choose3">Vyberte</option><option value="serious" data-i18n="serious">Vážný vztah</option><option value="life" data-i18n="life">Společný život</option><option value="marriage" data-i18n="marriage">Manželství</option></select></label>
       </div>
-      <label class="consent"><input type="checkbox" required><span data-i18n="consent">Souhlasím s kontaktováním ohledně pilotního spuštění DUONERA.</span></label>
+      <label class="consent"><input type="checkbox" name="consent" value="yes" required><span data-i18n="consent">Souhlasím s kontaktováním ohledně pilotního spuštění DUONERA.</span></label>
+      <input type="text" name="_honey" tabindex="-1" autocomplete="off" class="honey-field" aria-hidden="true">
       <button class="submit-button" type="submit" data-i18n="submit">Odeslat registraci</button>
       <div class="form-message" id="formMessage" role="status" aria-live="polite"></div>
     </form>
   </dialog>
 
-  <script src="app.js?v=2.0"></script>
+  <script src="app.js?v=4.0"></script>
 </body>
 </html>
