@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 470" role="img" aria-labelledby="title desc">
+<title id="title">Elegantní ilustrace muže a ženy</title><desc id="desc">Ukázkový pár pro doporučení DUONERA</desc>
+<defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff7f3"/><stop offset="1" stop-color="#f6d8df"/></linearGradient>
+ <linearGradient id="dress" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#c23561"/><stop offset="1" stop-color="#8f1e43"/></linearGradient>
+ <linearGradient id="coat" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#21364c"/><stop offset="1" stop-color="#142536"/></linearGradient>
+ <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="#67283c" flood-opacity=".16"/></filter>
+</defs>
+<rect x="12" y="12" width="736" height="446" rx="42" fill="url(#bg)"/>
+<path d="M380 34v402" stroke="#d7a4b3" stroke-width="2" stroke-dasharray="8 12"/>
+<g opacity=".45" fill="none" stroke="#dfa6b5"><circle cx="380" cy="235" r="194"/><circle cx="380" cy="235" r="146"/><circle cx="380" cy="235" r="96"/></g>
+<g filter="url(#shadow)">
+ <rect x="76" y="64" width="260" height="342" rx="120" fill="#fff9f5" stroke="#ead7d9" stroke-width="2"/>
+ <rect x="424" y="64" width="260" height="342" rx="120" fill="#f9e1e6" stroke="#e7bdc9" stroke-width="2"/>
+</g>
+<g transform="translate(92 92)">
+ <ellipse cx="116" cy="138" rx="62" ry="74" fill="#d7a27e"/>
+ <path d="M52 126c3-58 25-92 66-92 42 0 67 35 68 92-20-17-43-24-70-24-26 0-48 8-64 24z" fill="#2d2022"/>
+ <path d="M74 112c8-15 22-23 42-23 20 0 34 8 42 23" fill="none" stroke="#2d2022" stroke-width="7" stroke-linecap="round"/>
+ <circle cx="94" cy="138" r="4.5" fill="#2c2426"/><circle cx="139" cy="138" r="4.5" fill="#2c2426"/>
+ <path d="M116 145c-3 9-3 14 2 18" fill="none" stroke="#b47c61" stroke-width="3" stroke-linecap="round"/>
+ <path d="M96 177c14 10 28 10 42 0" fill="none" stroke="#8f4f50" stroke-width="4" stroke-linecap="round"/>
+ <path d="M58 250c18-42 38-62 58-62 22 0 42 20 60 62v82H58z" fill="url(#coat)"/>
+ <path d="M98 195l18 24 19-24" fill="#f7f3ed"/>
+ <path d="M115 219v112" stroke="#52667a" stroke-width="3"/>
+</g>
+<g transform="translate(440 92)">
+ <ellipse cx="116" cy="140" rx="60" ry="74" fill="#e0ae8f"/>
+ <path d="M54 132c0-65 26-99 68-99 47 0 70 40 70 99v73c-13-21-23-48-23-75-21-15-39-23-60-23-18 0-36 8-55 25z" fill="#3a2227"/>
+ <path d="M63 102c15-38 38-58 69-58 35 0 57 24 63 67-26-18-52-27-78-27-19 0-37 6-54 18z" fill="#3a2227"/>
+ <circle cx="95" cy="141" r="4.5" fill="#322426"/><circle cx="139" cy="141" r="4.5" fill="#322426"/>
+ <path d="M117 148c-3 9-2 14 3 17" fill="none" stroke="#b98066" stroke-width="3" stroke-linecap="round"/>
+ <path d="M96 178c14 10 29 10 43 0" fill="none" stroke="#9a4c59" stroke-width="4" stroke-linecap="round"/>
+ <path d="M54 252c18-43 39-64 63-64 24 0 45 21 63 64l24 79H31z" fill="url(#dress)"/>
+ <path d="M101 190c6 18 25 24 35 0" fill="none" stroke="#efcfbd" stroke-width="9" stroke-linecap="round"/>
+ <circle cx="174" cy="141" r="8" fill="#c59b56"/><circle cx="174" cy="141" r="3" fill="#fff3d7"/>
+</g>
+<g transform="translate(347 202)"><circle cx="33" cy="33" r="33" fill="#fff" stroke="#c22f5c" stroke-width="6"/><text x="33" y="43" text-anchor="middle" fill="#9d2045" font-family="Georgia,serif" font-size="28" font-weight="700">D</text></g>
+</svg>

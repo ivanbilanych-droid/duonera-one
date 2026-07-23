@@ -1,16 +1,14 @@
-DUONERA ONE V5 PREMIUM
+DUONERA ONE V6 FINAL TESTED
 
 Obsah:
-- nový světlý prémiový design podle vybraného návrhu
-- plná mobilní responzivita
-- jazyky CZ / EN / UA / RU
-- funkční pilotní registrace přes FormSubmit na executive@luxes.cz
-- žádný server ani databáze nejsou nutné
+- mobile-first rozložení bez horizontálního posunu
+- CZ / EN / UA / RU
+- funkční formulář přes FormSubmit na executive@luxes.cz
+- CNAME pro duonera.cz
 
-Nasazení na GitHub Pages:
+Nahrání na GitHub:
 1. Rozbalte ZIP.
-2. Nahrajte obsah složky do kořene repozitáře duonera-one.
-3. Nahraďte stávající index.html, styles.css, app.js a složku assets.
-4. Počkejte 1–3 minuty a obnovte duonera.cz pomocí Ctrl+F5.
-
-Verze: V5 PREMIUM
+2. V repozitáři duonera-one nahraďte index.html, styles.css, app.js a složku assets.
+3. Nahrajte také CNAME a VERSION.txt.
+4. Potvrďte commit.
+5. Po nasazení proveďte tvrdé obnovení Ctrl+F5.
