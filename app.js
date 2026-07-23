@@ -1,112 +1,102 @@
 const translations = {
   cs: {
-    headerCta: 'Chci se seznámit',
-    eyebrow: 'SEZNAMOVÁNÍ PRO SKUTEČNÝ ŽIVOT',
-    heroTitle: 'Jeden člověk.<br>Jedno setkání.<br><span>Jedna upřímná volba.</span>',
-    heroLead: 'Bez nekonečného psaní, bez stovek profilů a bez lidí, kteří se nikdy nechtějí opravdu potkat.',
-    heroCta: 'Chci skutečné setkání', howLink: 'Jak DUONERA funguje',
-    trust1: 'Ověřená identita', trust2: 'Žádné nekonečné chatování', trust3: 'Skutečné termíny setkání',
-    todayMatch: 'DNEŠNÍ DOPORUČENÍ', matchName: 'Martin, 49 & Helena, 46', matchMeta: 'Praha • vážný vztah • víkendové setkání', readyMeet: 'Jsem připraven/a se setkat',
-    proof1: 'doporučení najednou', proof2: 'povinných zpráv před schůzkou', proof3: 'zaměření na skutečné setkání',
-    howEyebrow: 'JAK TO FUNGUJE', howTitle: 'Méně profilů. Více skutečných šancí.', howLead: 'DUONERA vás nenutí trávit večery posouváním fotografií. Každý krok vede k reálnému setkání.',
-    step1Title: 'Ověříme, že jste skuteční', step1Text: 'Doklad, živé selfie a krátké video. Méně falešných profilů, více důvěry.',
-    step2Title: 'Zjistíme, co je opravdu důležité', step2Text: 'Životní styl, rodina, víra, děti, vzdálenost a hranice, přes které nejdete.',
-    step3Title: 'Dostanete jedno doporučení', step3Text: 'Žádný katalog lidí. Jeden člověk, který odpovídá vašim hodnotám a možnostem.',
-    step4Title: 'Vyberete termín a potkáte se', step4Text: 'Po vzájemném souhlasu systém navrhne bezpečné veřejné místo a společný čas.',
-    oneEyebrow: 'PRINCIP DUONERA ONE', oneTitle: 'Když souhlasíte se setkáním, opravdu mu dáte šanci.', oneText: 'Po potvrzení schůzky se váš profil dočasně skryje. Žádné souběžné domlouvání s deseti dalšími lidmi. Jeden člověk. Jedna férová příležitost.', oneCta: 'Chci být u toho',
-    safetyEyebrow: 'DŮVĚRA A BEZPEČÍ', safetyTitle: 'Nejprve důvěra. Potom setkání.',
-    safe1Title: 'Ověřený profil', safe1Text: 'Kontrola identity, fotografie a krátkého videa před aktivací profilu.',
-    safe2Title: 'Veřejné místo', safe2Text: 'První schůzka se plánuje na bezpečném veřejném místě.',
-    safe3Title: 'Hodnocení spolehlivosti', safe3Text: 'Ne popularita, ale dochvilnost, respekt a skutečná účast na schůzkách.',
-    safe4Title: 'Soukromí kontaktů', safe4Text: 'Telefon a osobní chat se otevřou až po vzájemném zájmu po schůzce.',
-    audienceEyebrow: 'PRVNÍ KOMUNITA', audienceTitle: 'Pro lidi 35–65 let, kteří chtějí skutečný vztah.', audienceText: 'Začínáme v Česku. Praha, Karlovy Vary, Plzeň, Ústí nad Labem a okolí. Nehledáme nejvíce členů. Hledáme správné členy.', audienceCta: 'Přidat se mezi první',
-    finalEyebrow: 'DUONERA ONE', finalTitle: 'Možná nepotřebujete více možností.<br>Možná potřebujete jednoho správného člověka.', finalCta: 'Chci skutečné setkání', pilotNote: 'Pilotní registrace je nyní nezávazná.',
-    footerTagline: 'Seznamování pro skutečný život.', privacy: 'Ochrana soukromí', terms: 'Podmínky',
-    modalEyebrow: 'PILOTNÍ REGISTRACE', modalTitle: 'Začněte skutečným záměrem.', modalLead: 'Vyplňte krátký formulář. V této demo verzi se údaje uloží pouze ve vašem prohlížeči.',
-    nameLabel: 'Jméno', ageLabel: 'Věk', cityLabel: 'Město', emailLabel: 'E-mail', genderLabel: 'Jsem', seekingLabel: 'Hledám', chooseOption: 'Vyberte', chooseOption2: 'Vyberte', manOption: 'Muž', womanOption: 'Žena', womanOption2: 'Ženu', manOption2: 'Muže', goalLabel: 'Co hledáte', chooseGoal: 'Vyberte', seriousGoal: 'Vážný vztah', lifeGoal: 'Společný život', marriageGoal: 'Manželství',
-    availabilityLegend: 'Kdy se nejraději potkáváte?', weekdayOption: 'Ve všední den večer', saturdayOption: 'V sobotu', sundayOption: 'V neděli', consentText: 'Souhlasím s kontaktováním ohledně pilotního spuštění DUONERA.', submitCta: 'Odeslat registraci', success: 'Děkujeme. Vaše demo registrace byla uložena.'
+    navIdea:'Myšlenka', navHow:'Jak to funguje', navTrust:'Důvěra', headerCta:'Chci skutečné setkání',
+    visualLeft:'Jeden skutečný člověk', visualRight:'Druhý skutečný člověk', meetingPoint:'SETKÁNÍ',
+    heroEyebrow:'NOVÝ RITUÁL SEZNAMOVÁNÍ', heroTitle:'Nechcete další profil.<br><span>Chcete člověka, který přijde.</span>',
+    heroLead:'DUONERA nenabízí nekonečný katalog lidí. Nabídne jednoho ověřeného člověka a skutečný termín setkání.',
+    heroCta:'Chci se opravdu potkat', discoverLink:'Poznat princip DUONERA ONE', proofA:'doporučení', proofB:'povinných zpráv', proofC:'skutečný záměr',
+    manifestoKicker:'NE DALŠÍ SEZNAMKA', manifestoTitle:'Lidé už nepotřebují více možností.<br><em>Potřebují méně pochybností.</em>', manifestoText:'DUONERA mění seznamování z nekonečného hledání na jasné rozhodnutí. Jeden doporučený člověk. Jeden společný čas. Jedna férová šance.',
+    oldTitle:'Stovky profilů', oldText:'Více výběru, více porovnávání, více únavy a méně skutečných setkání.', newTitle:'Jeden skutečný návrh', newText:'Méně rozptylování. Více pozornosti. Větší šance zjistit, zda mezi vámi něco opravdu je.',
+    ritualKicker:'RITUÁL SKUTEČNÉHO SETKÁNÍ', ritualTitle:'Od ověřené identity<br>k jednomu stolu.', step1Short:'Jsem skutečný', step2Short:'Vím, co hledám', step3Short:'Dostanu jednoho člověka', step4Short:'Potkáme se',
+    step1Title:'Nejdřív ověříme, že jste opravdu vy.', step1Text:'Doklad, živé selfie a krátké video. Ne kvůli kontrole, ale kvůli důvěře mezi lidmi.', step1Bullet1:'Ověření identity', step1Bullet2:'Aktuální fotografie', step1Bullet3:'Krátké představení hlasem',
+    step2Title:'Neptáme se na oblíbenou barvu. Ptáme se na život.', step2Text:'Rodina, děti, víra, vzdálenost, životní rytmus a hranice, přes které nejdete.',
+    step3Title:'Žádný katalog. Jeden člověk pro dnešek.', step3Text:'Systém vám ukáže jedno doporučení s jasným důvodem, proč by mezi vámi mohl být skutečný soulad.',
+    step4Title:'Nejdřív čas. Potom setkání. Chat až tehdy, když dává smysl.', step4Text:'Vyberete jeden z reálných termínů. Po vzájemném souhlasu dostanete bezpečné veřejné místo.', dateLabel:'VYBERTE TERMÍN', slot1:'Sklenka vína', slot2:'Káva v centru', slot3:'Klidná večeře', confirmed:'Připraveno k potvrzení',
+    choiceKicker:'PRINCIP JEDNÉ ŠANCE', choiceTitle:'Když řeknete ano, profil se na chvíli zavře.', choiceText:'Žádné domlouvání s deseti dalšími lidmi. Žádné porovnávání během schůzky. DUONERA vytvoří prostor, aby jedno setkání dostalo skutečnou šanci.', choiceCta:'Chci zažít DUONERA ONE',
+    trustKicker:'DŮVĚRA NENÍ DOPLNĚK', trustTitle:'Je to začátek každého setkání.', trust1Title:'Ověřená identita', trust1Text:'Víme, že za profilem stojí skutečný člověk.', trust2Title:'Veřejné místo', trust2Text:'První schůzka vždy začíná na bezpečném místě.', trust3Title:'Hodnocení spolehlivosti', trust3Text:'Ne krásy. Dochvilnosti, respektu a skutečné účasti.', trust4Title:'Kontakty až potom', trust4Text:'Telefon se otevře jen při vzájemném zájmu po setkání.',
+    finalTitle:'Možná nehledáte více lidí.<br><em>Možná hledáte jedno skutečné setkání.</em>', finalCta:'Přidat se mezi první', pilotNote:'Pilotní registrace v Česku je nezávazná.', footerTagline:'Seznamování pro skutečný život.', privacy:'Ochrana soukromí', terms:'Podmínky',
+    modalKicker:'PILOTNÍ REGISTRACE', modalTitle:'Začněte jedním opravdovým záměrem.', modalLead:'Krátká registrace pro první komunitu DUONERA v Česku.', nameLabel:'Jméno', ageLabel:'Věk', cityLabel:'Město', emailLabel:'E-mail', genderLabel:'Jsem', seekingLabel:'Hledám', choose:'Vyberte', choose2:'Vyberte', choose3:'Vyberte', man:'Muž', woman:'Žena', womanAcc:'Ženu', manAcc:'Muže', goalLabel:'Co hledáte', serious:'Vážný vztah', life:'Společný život', marriage:'Manželství', consent:'Souhlasím s kontaktováním ohledně pilotního spuštění DUONERA.', submit:'Odeslat registraci', success:'Děkujeme. Vaše pilotní registrace byla uložena.'
   },
   ru: {
-    headerCta: 'Хочу познакомиться',
-    eyebrow: 'ЗНАКОМСТВА ДЛЯ НАСТОЯЩЕЙ ЖИЗНИ',
-    heroTitle: 'Один человек.<br>Одна встреча.<br><span>Один честный выбор.</span>',
-    heroLead: 'Без бесконечной переписки, сотен анкет и людей, которые никогда не собираются встречаться.',
-    heroCta: 'Хочу настоящую встречу', howLink: 'Как работает DUONERA',
-    trust1: 'Проверенная личность', trust2: 'Без бесконечных чатов', trust3: 'Реальные даты встреч',
-    todayMatch: 'РЕКОМЕНДАЦИЯ СЕГОДНЯ', matchName: 'Мартин, 49 и Хелена, 46', matchMeta: 'Прага • серьёзные отношения • встреча на выходных', readyMeet: 'Я готов(а) встретиться',
-    proof1: 'одна рекомендация одновременно', proof2: 'обязательных сообщений до встречи', proof3: 'ориентация на реальную встречу',
-    howEyebrow: 'КАК ЭТО РАБОТАЕТ', howTitle: 'Меньше анкет. Больше настоящих шансов.', howLead: 'DUONERA не заставляет проводить вечера за просмотром фотографий. Каждый шаг ведёт к настоящей встрече.',
-    step1Title: 'Проверяем, что вы настоящий человек', step1Text: 'Документ, живое селфи и короткое видео. Меньше фальшивых анкет, больше доверия.',
-    step2Title: 'Узнаём, что действительно важно', step2Text: 'Образ жизни, семья, вера, дети, расстояние и ваши личные границы.',
-    step3Title: 'Предлагаем одного человека', step3Text: 'Не каталог людей, а один человек, подходящий вашим ценностям и возможностям.',
-    step4Title: 'Выбираете время и встречаетесь', step4Text: 'После взаимного согласия система предложит безопасное общественное место и общее время.',
-    oneEyebrow: 'ПРИНЦИП DUONERA ONE', oneTitle: 'Согласившись на встречу, вы действительно даёте ей шанс.', oneText: 'После подтверждения встречи анкета временно скрывается. Никаких параллельных договорённостей ещё с десятью людьми. Один человек. Один честный шанс.', oneCta: 'Хочу участвовать',
-    safetyEyebrow: 'ДОВЕРИЕ И БЕЗОПАСНОСТЬ', safetyTitle: 'Сначала доверие. Потом встреча.',
-    safe1Title: 'Проверенная анкета', safe1Text: 'Проверка личности, фотографий и короткого видео до активации анкеты.',
-    safe2Title: 'Общественное место', safe2Text: 'Первая встреча планируется в безопасном общественном месте.',
-    safe3Title: 'Рейтинг надёжности', safe3Text: 'Не популярность, а пунктуальность, уважение и реальное участие во встречах.',
-    safe4Title: 'Конфиденциальность контактов', safe4Text: 'Телефон и личный чат открываются только после взаимного интереса после встречи.',
-    audienceEyebrow: 'ПЕРВОЕ СООБЩЕСТВО', audienceTitle: 'Для людей 35–65 лет, которые хотят настоящих отношений.', audienceText: 'Начинаем в Чехии: Прага, Карловы Вары, Пльзень, Усти-над-Лабем и окрестности. Нам нужны не все люди, а правильные люди.', audienceCta: 'Войти в число первых',
-    finalEyebrow: 'DUONERA ONE', finalTitle: 'Возможно, вам не нужно больше вариантов.<br>Возможно, вам нужен один правильный человек.', finalCta: 'Хочу настоящую встречу', pilotNote: 'Пилотная регистрация сейчас ни к чему не обязывает.',
-    footerTagline: 'Знакомства для настоящей жизни.', privacy: 'Конфиденциальность', terms: 'Условия',
-    modalEyebrow: 'ПИЛОТНАЯ РЕГИСТРАЦИЯ', modalTitle: 'Начните с настоящего намерения.', modalLead: 'Заполните короткую форму. В этой демоверсии данные сохраняются только в вашем браузере.',
-    nameLabel: 'Имя', ageLabel: 'Возраст', cityLabel: 'Город', emailLabel: 'E-mail', genderLabel: 'Я', seekingLabel: 'Ищу', chooseOption: 'Выберите', chooseOption2: 'Выберите', manOption: 'Мужчина', womanOption: 'Женщина', womanOption2: 'Женщину', manOption2: 'Мужчину', goalLabel: 'Что вы ищете', chooseGoal: 'Выберите', seriousGoal: 'Серьёзные отношения', lifeGoal: 'Совместную жизнь', marriageGoal: 'Брак',
-    availabilityLegend: 'Когда вам удобнее встречаться?', weekdayOption: 'В будний день вечером', saturdayOption: 'В субботу', sundayOption: 'В воскресенье', consentText: 'Согласен(на) получить информацию о пилотном запуске DUONERA.', submitCta: 'Отправить регистрацию', success: 'Спасибо. Ваша демо-регистрация сохранена.'
+    navIdea:'Идея', navHow:'Как это работает', navTrust:'Доверие', headerCta:'Хочу настоящую встречу',
+    visualLeft:'Один настоящий человек', visualRight:'Другой настоящий человек', meetingPoint:'ВСТРЕЧА',
+    heroEyebrow:'НОВЫЙ РИТУАЛ ЗНАКОМСТВ', heroTitle:'Вам не нужна ещё одна анкета.<br><span>Вам нужен человек, который придёт.</span>',
+    heroLead:'DUONERA не показывает бесконечный каталог людей. Она предлагает одного проверенного человека и реальное время встречи.',
+    heroCta:'Хочу действительно встретиться', discoverLink:'Понять принцип DUONERA ONE', proofA:'одно предложение', proofB:'обязательных сообщений', proofC:'настоящий намерение',
+    manifestoKicker:'НЕ ЕЩЁ ОДИН САЙТ ЗНАКОМСТВ', manifestoTitle:'Людям больше не нужно больше вариантов.<br><em>Им нужно меньше сомнений.</em>', manifestoText:'DUONERA превращает бесконечный поиск в ясное решение. Один рекомендованный человек. Одно общее время. Один честный шанс.',
+    oldTitle:'Сотни анкет', oldText:'Больше выбора, больше сравнений, больше усталости и меньше настоящих встреч.', newTitle:'Одно настоящее предложение', newText:'Меньше отвлечения. Больше внимания. Больше шансов понять, есть ли между вами настоящее чувство.',
+    ritualKicker:'РИТУАЛ НАСТОЯЩЕЙ ВСТРЕЧИ', ritualTitle:'От подтверждённой личности<br>к одному столу.', step1Short:'Я настоящий', step2Short:'Я знаю, чего хочу', step3Short:'Я получаю одного человека', step4Short:'Мы встречаемся',
+    step1Title:'Сначала мы подтверждаем, что вы — это действительно вы.', step1Text:'Документ, живое селфи и короткое видео. Не ради контроля, а ради доверия между людьми.', step1Bullet1:'Проверка личности', step1Bullet2:'Актуальные фотографии', step1Bullet3:'Короткое голосовое представление',
+    step2Title:'Мы не спрашиваем любимый цвет. Мы спрашиваем о жизни.', step2Text:'Семья, дети, вера, расстояние, ритм жизни и границы, которые для вас важны.',
+    step3Title:'Не каталог. Один человек на сегодня.', step3Text:'Система покажет одного человека и объяснит, почему между вами может быть настоящее совпадение.',
+    step4Title:'Сначала время. Потом встреча. Чат — только когда он имеет смысл.', step4Text:'Вы выбираете одно реальное время. После взаимного согласия получаете безопасное общественное место.', dateLabel:'ВЫБЕРИТЕ ВРЕМЯ', slot1:'Бокал вина', slot2:'Кофе в центре', slot3:'Спокойный ужин', confirmed:'Готово к подтверждению',
+    choiceKicker:'ПРИНЦИП ОДНОГО ШАНСА', choiceTitle:'Когда вы говорите «да», анкета на время закрывается.', choiceText:'Никаких параллельных договорённостей ещё с десятью людьми. Никаких сравнений во время встречи. DUONERA создаёт пространство, чтобы одна встреча получила настоящий шанс.', choiceCta:'Хочу испытать DUONERA ONE',
+    trustKicker:'ДОВЕРИЕ — НЕ ДОПОЛНЕНИЕ', trustTitle:'Это начало каждой встречи.', trust1Title:'Подтверждённая личность', trust1Text:'Мы знаем, что за анкетой стоит настоящий человек.', trust2Title:'Общественное место', trust2Text:'Первая встреча всегда начинается в безопасном месте.', trust3Title:'Рейтинг надёжности', trust3Text:'Не красоты. Пунктуальности, уважения и реального участия.', trust4Title:'Контакты только потом', trust4Text:'Телефон открывается только при взаимном интересе после встречи.',
+    finalTitle:'Возможно, вы ищете не больше людей.<br><em>Возможно, вы ищете одну настоящую встречу.</em>', finalCta:'Войти в число первых', pilotNote:'Пилотная регистрация в Чехии ни к чему не обязывает.', footerTagline:'Знакомства для настоящей жизни.', privacy:'Конфиденциальность', terms:'Условия',
+    modalKicker:'ПИЛОТНАЯ РЕГИСТРАЦИЯ', modalTitle:'Начните с одного настоящего намерения.', modalLead:'Короткая регистрация для первого сообщества DUONERA в Чехии.', nameLabel:'Имя', ageLabel:'Возраст', cityLabel:'Город', emailLabel:'E-mail', genderLabel:'Я', seekingLabel:'Ищу', choose:'Выберите', choose2:'Выберите', choose3:'Выберите', man:'Мужчина', woman:'Женщина', womanAcc:'Женщину', manAcc:'Мужчину', goalLabel:'Что вы ищете', serious:'Серьёзные отношения', life:'Совместную жизнь', marriage:'Брак', consent:'Согласен(на) получить информацию о пилотном запуске DUONERA.', submit:'Отправить регистрацию', success:'Спасибо. Ваша пилотная регистрация сохранена.'
   }
 };
 
-const modal = document.getElementById('signupModal');
-const form = document.getElementById('signupForm');
-const message = document.getElementById('formMessage');
+const $ = (selector, scope = document) => scope.querySelector(selector);
+const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
 let currentLang = localStorage.getItem('duoneraLang') || 'cs';
 
 function setLanguage(lang) {
   currentLang = lang;
   localStorage.setItem('duoneraLang', lang);
   document.documentElement.lang = lang;
-  document.querySelectorAll('[data-i18n]').forEach((el) => {
-    const key = el.dataset.i18n;
-    const value = translations[lang][key];
+  $$('[data-i18n]').forEach((el) => {
+    const value = translations[lang]?.[el.dataset.i18n];
     if (value) el.innerHTML = value;
   });
-  document.querySelectorAll('.language-switch button').forEach((button) => {
-    button.classList.toggle('active', button.dataset.lang === lang);
-  });
+  $$('.language-switch button').forEach((button) => button.classList.toggle('active', button.dataset.lang === lang));
 }
 
-document.querySelectorAll('.language-switch button').forEach((button) => {
-  button.addEventListener('click', () => setLanguage(button.dataset.lang));
+$$('.language-switch button').forEach((button) => button.addEventListener('click', () => setLanguage(button.dataset.lang)));
+
+const header = $('.site-header');
+window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 40), { passive: true });
+
+const stage = $('.hero-stage');
+window.addEventListener('pointermove', (event) => {
+  if (window.innerWidth < 760) return;
+  const x = (event.clientX / window.innerWidth - .5) * 12;
+  const y = (event.clientY / window.innerHeight - .5) * 10;
+  stage.style.transform = `translate3d(${x}px,${y}px,0)`;
 });
 
-document.querySelectorAll('.open-signup').forEach((button) => {
-  button.addEventListener('click', () => {
-    message.textContent = '';
-    if (typeof modal.showModal === 'function') modal.showModal();
+const cursor = $('.cursor-orbit');
+window.addEventListener('pointermove', (event) => {
+  cursor.classList.add('visible');
+  cursor.style.left = `${event.clientX}px`;
+  cursor.style.top = `${event.clientY}px`;
+});
+$$('a,button').forEach((el) => {
+  el.addEventListener('pointerenter', () => cursor.classList.add('large'));
+  el.addEventListener('pointerleave', () => cursor.classList.remove('large'));
+});
+
+$$('.magnetic').forEach((button) => {
+  button.addEventListener('pointermove', (event) => {
+    const rect = button.getBoundingClientRect();
+    const x = (event.clientX - rect.left - rect.width / 2) * .12;
+    const y = (event.clientY - rect.top - rect.height / 2) * .12;
+    button.style.transform = `translate(${x}px,${y}px)`;
+  });
+  button.addEventListener('pointerleave', () => button.style.transform = '');
+});
+
+$$('.ritual-tab').forEach((tab) => {
+  tab.addEventListener('click', () => {
+    const index = tab.dataset.step;
+    $$('.ritual-tab').forEach((item) => item.classList.toggle('active', item === tab));
+    $$('.ritual-panel').forEach((panel) => panel.classList.toggle('active', panel.dataset.panel === index));
   });
 });
 
-document.querySelector('.modal-close').addEventListener('click', () => modal.close());
-modal.addEventListener('click', (event) => {
-  const rect = modal.getBoundingClientRect();
-  const outside = event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom;
-  if (outside) modal.close();
-});
-
-form.addEventListener('submit', (event) => {
-  event.preventDefault();
-  const data = Object.fromEntries(new FormData(form).entries());
-  data.savedAt = new Date().toISOString();
-  localStorage.setItem('duoneraPilotRegistration', JSON.stringify(data));
-  message.textContent = translations[currentLang].success;
-  setTimeout(() => {
-    form.reset();
-    modal.close();
-  }, 1400);
-});
-
-document.querySelectorAll('.date-slots button').forEach((button) => {
+$$('.date-console button').forEach((button) => {
   button.addEventListener('click', () => {
-    document.querySelectorAll('.date-slots button').forEach((item) => item.classList.remove('selected'));
+    $$('.date-console button').forEach((item) => item.classList.remove('selected'));
     button.classList.add('selected');
   });
 });
@@ -115,8 +105,29 @@ const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) entry.target.classList.add('visible');
   });
-}, { threshold: 0.12 });
-document.querySelectorAll('.reveal').forEach((element) => observer.observe(element));
+}, { threshold: .14 });
+$$('.reveal').forEach((el) => observer.observe(el));
 
-document.getElementById('year').textContent = new Date().getFullYear();
+const modal = $('#signupModal');
+const form = $('#signupForm');
+const formMessage = $('#formMessage');
+$$('.open-signup').forEach((button) => button.addEventListener('click', () => {
+  formMessage.textContent = '';
+  modal.showModal();
+}));
+$('.modal-close').addEventListener('click', () => modal.close());
+modal.addEventListener('click', (event) => {
+  const rect = modal.getBoundingClientRect();
+  if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) modal.close();
+});
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const data = Object.fromEntries(new FormData(form).entries());
+  data.savedAt = new Date().toISOString();
+  localStorage.setItem('duoneraPilotRegistration', JSON.stringify(data));
+  formMessage.textContent = translations[currentLang].success;
+  setTimeout(() => { form.reset(); modal.close(); }, 1300);
+});
+
+$('#year').textContent = new Date().getFullYear();
 setLanguage(currentLang);

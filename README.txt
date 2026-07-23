@@ -1,20 +1,20 @@
-DUONERA ONE — statické MVP webu
+DUONERA ONE V2 — CINEMATIC CONCEPT
 
 SOUBORY
 - index.html
 - styles.css
 - app.js
 - assets/logo.svg
+- assets/logo-light.svg
+- assets/mark.svg
 - assets/favicon.svg
 
-SPUŠTĚNÍ
-1. Rozbalte ZIP.
-2. Otevřete index.html v prohlížeči.
-3. Pro GitHub Pages nahrajte všechny soubory a složku assets do kořene repozitáře.
-4. V Settings > Pages nastavte main / (root).
+NASAZENI NA GITHUB
+1. Nahrajte vsechny soubory a slozku assets do korene repozitare duonera-one.
+2. Stare soubory index.html, styles.css, app.js a assets nahradte touto verzi.
+3. GitHub Pages ponechte na vetvi hlavni a slozce /(koren).
+4. Po nahrani vyckejte 2-3 minuty a obnovte stranku Ctrl+F5.
 
-DŮLEŽITÉ
-- Toto je funkční prezentační demo bez serveru a databáze.
-- Registrační formulář ukládá data pouze do localStorage v prohlížeči.
-- E-mail hello@duonera.cz je zatím ukázkový a před ostrým spuštěním ho změňte.
-- Před ostrým spuštěním je nutné doplnit GDPR, obchodní podmínky, ověřování identity, správu profilů, platby a bezpečnostní procesy.
+POZNAMKA
+Toto je staticke demonstracni MVP. Formular uklada data pouze do localStorage prohlizece.
+Pred ostrym provozem je nutne doplnit databazi, realne odesilani formularu, GDPR, podminky, bezpecnostni procesy a overeni identity.
