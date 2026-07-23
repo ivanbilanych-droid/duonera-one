@@ -8,3 +8,19 @@ function setLanguage(lang){if(!translations[lang])lang='cs';currentLang=lang;loc
 $$('.language-switch button').forEach(b=>b.addEventListener('click',()=>setLanguage(b.dataset.lang)));$$('.time-slots button').forEach(b=>b.addEventListener('click',()=>{$$('.time-slots button').forEach(x=>x.classList.remove('selected'));b.classList.add('selected')}));
 const modal=$('#signupModal'),form=$('#signupForm'),formMessage=$('#formMessage');$$('.open-signup').forEach(b=>b.addEventListener('click',()=>{formMessage.textContent='';modal.showModal()}));$('.modal-close').addEventListener('click',()=>modal.close());modal.addEventListener('click',e=>{const r=modal.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)modal.close()});
 form.addEventListener('submit',async e=>{e.preventDefault();const btn=form.querySelector('.submit-button'),fd=new FormData(form);if(fd.get('_honey'))return;const t=translations[currentLang],goal=fd.get('goal'),payload={_subject:`Nová registrace DUONERA — ${fd.get('name')}`,_template:'table',_captcha:'false',Name:fd.get('name'),Age:fd.get('age'),City:fd.get('city'),Email:fd.get('email'),Gender:fd.get('gender')==='man'?t.man:t.woman,Seeking:fd.get('seeking')==='woman'?t.womanAcc:t.manAcc,Goal:goal==='serious'?t.serious:goal==='life'?t.life:t.marriage,Language:currentLang.toUpperCase(),Consent:'Yes',Submitted:new Date().toLocaleString('cs-CZ',{timeZone:'Europe/Prague'})};btn.disabled=true;btn.textContent=t.sending;formMessage.textContent='';try{const res=await fetch('https://formsubmit.co/ajax/executive@luxes.cz',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)}),result=await res.json();if(!res.ok||result.success===false)throw new Error(result.message||'Submission failed');formMessage.textContent=t.success;form.reset()}catch(err){console.error(err);formMessage.textContent=t.error}finally{btn.disabled=false;btn.textContent=translations[currentLang].submit}});$('#year').textContent=new Date().getFullYear();setLanguage(currentLang);
+
+
+// V7: show the mobile sticky CTA only after the first-screen content.
+(()=>{
+  const sticky=document.querySelector('.mobile-sticky');
+  const hero=document.querySelector('.hero');
+  if(!sticky||!hero)return;
+  const update=()=>{
+    const mobile=window.matchMedia('(max-width: 720px)').matches;
+    const threshold=Math.max(420, hero.offsetTop + hero.offsetHeight * .72);
+    sticky.classList.toggle('is-visible', mobile && window.scrollY > threshold);
+  };
+  update();
+  window.addEventListener('scroll',update,{passive:true});
+  window.addEventListener('resize',update);
+})();
