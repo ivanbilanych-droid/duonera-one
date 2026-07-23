@@ -4,18 +4,26 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="description" content="DUONERA ONE — seznamování pro skutečný život. Jeden člověk, jedno setkání, jedna upřímná volba.">
-  <meta name="theme-color" content="#fff9f5">
+  <meta name="theme-color" content="#fff8f3">
+  <meta property="og:title" content="DUONERA ONE — Jeden člověk. Jedno setkání.">
+  <meta property="og:description" content="Bez nekonečného psaní. Jeden ověřený člověk a skutečný termín setkání.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://duonera.cz/">
   <title>DUONERA ONE — Jeden člověk. Jedno setkání.</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=7.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=8.0">
 </head>
 <body>
 <header class="site-header" id="top">
   <a class="brand" href="#top" aria-label="DUONERA ONE"><img src="assets/logo.svg" alt="DUONERA ONE"></a>
   <nav class="desktop-nav" aria-label="Hlavní navigace">
-    <a href="#idea" data-i18n="navIdea">Myšlenka</a>
     <a href="#how" data-i18n="navHow">Jak to funguje</a>
+    <a href="#experience" data-i18n="navStories">Příběhy</a>
     <a href="#trust" data-i18n="navTrust">Důvěra</a>
+    <a href="#why" data-i18n="navWhy">Proč DUONERA?</a>
   </nav>
   <div class="header-actions">
     <div class="language-switch" aria-label="Změnit jazyk">
@@ -24,67 +32,124 @@
     <button class="header-cta open-signup" type="button" data-i18n="headerCta">Chci skutečné setkání</button>
   </div>
 </header>
+
 <main>
-<section class="hero" id="idea">
-  <div class="hero-copy">
-    <span class="eyebrow" data-i18n="heroEyebrow">SEZNAMOVÁNÍ PRO SKUTEČNÝ ŽIVOT</span>
-    <h1 data-i18n="heroTitle">Jeden člověk.<br>Jedno setkání.<br><span>Jedna upřímná volba.</span></h1>
-    <p data-i18n="heroLead">Bez nekonečného psaní, bez stovek profilů a bez lidí, kteří se nikdy nechtějí opravdu potkat.</p>
-    <button class="primary-cta open-signup" type="button"><span data-i18n="heroCta">Chci skutečné setkání</span><b>↗</b></button>
-    <div class="benefits">
-      <span><i>✓</i><b data-i18n="benefit1">Ověřená identita</b></span>
-      <span><i>✓</i><b data-i18n="benefit2">Žádné nekonečné chatování</b></span>
-      <span><i>✓</i><b data-i18n="benefit3">Skutečný termín setkání</b></span>
+  <section class="hero" id="idea">
+    <img class="flora flora-left" src="assets/flora-left.png" alt="" aria-hidden="true">
+    <img class="flora flora-right" src="assets/flora-right.png" alt="" aria-hidden="true">
+    <div class="hero-copy">
+      <span class="eyebrow" data-i18n="heroEyebrow">SEZNAMOVÁNÍ PRO SKUTEČNÝ ŽIVOT</span>
+      <h1 data-i18n="heroTitle">Jeden člověk.<br>Jedno setkání.<br><span>Jedna upřímná volba.</span></h1>
+      <p class="hero-lead" data-i18n="heroLead">Bez nekonečného psaní, bez stovek profilů a bez lidí, kteří se nikdy nechtějí opravdu potkat.</p>
+      <button class="primary-cta open-signup" type="button"><span data-i18n="heroCta">Chci skutečné setkání</span><b>→</b></button>
+      <div class="benefit-row">
+        <div><span>✓</span><strong data-i18n="benefit1">Ověřená identita</strong><small data-i18n="benefit1Text">Každý profil ověříme.</small></div>
+        <div><span>◌</span><strong data-i18n="benefit2">Žádné nekonečné chatování</strong><small data-i18n="benefit2Text">Jdeme rovnou k setkání.</small></div>
+        <div><span>▣</span><strong data-i18n="benefit3">Skutečný termín setkání</strong><small data-i18n="benefit3Text">Potkání je cíl, ne možnost.</small></div>
+      </div>
     </div>
-  </div>
-  <div class="recommendation-card" aria-label="Ukázka doporučení">
-    <div class="card-head"><span data-i18n="sampleLabel">UKÁZKA DOPORUČENÍ</span><strong>92%</strong></div>
-    <img class="couple-art" src="assets/couple.svg" alt="Ukázkový muž a žena">
-    <div class="card-copy"><h2>Martin, 49 &amp; Helena, 46</h2><p data-i18n="sampleMeta">Praha · vážný vztah · víkendové setkání</p></div>
-    <div class="time-slots"><button type="button">PÁ 18:00</button><button class="selected" type="button">SO 15:00</button><button type="button">NE 17:00</button></div>
-    <button class="card-cta open-signup" type="button"><span data-i18n="cardCta">Jsem připraven/a se setkat</span><b>↗</b></button>
-  </div>
-</section>
-<section class="proof-strip" aria-label="Princip služby"><div><strong>1</strong><span data-i18n="proof1">doporučení najednou</span></div><div><strong>0</strong><span data-i18n="proof2">povinných zpráv</span></div><div><strong>100%</strong><span data-i18n="proof3">zaměření na skutečné setkání</span></div></section>
-<section class="how" id="how">
-  <div class="section-copy"><span class="eyebrow" data-i18n="howKicker">JEDNODUŠE A JASNĚ</span><h2 data-i18n="howTitle">Jak to funguje</h2><p data-i18n="howLead">Promyšlený proces, který šetří váš čas a přináší skutečná setkání.</p></div>
-  <div class="steps-grid">
-    <article><b>01</b><span class="step-icon">✓</span><h3 data-i18n="step1Title">Ověříme, že jste skuteční</h3><p data-i18n="step1Text">Profil i fotografie ověříme ručně.</p></article>
-    <article><b>02</b><span class="step-icon">♡</span><h3 data-i18n="step2Title">Zjistíme, co je opravdu důležité</h3><p data-i18n="step2Text">Probereme, jaký vztah a život hledáte.</p></article>
-    <article><b>03</b><span class="step-icon">1</span><h3 data-i18n="step3Title">Dostanete jedno doporučení</h3><p data-i18n="step3Text">Pečlivě vybraný člověk — ne desítky profilů.</p></article>
-    <article><b>04</b><span class="step-icon">□</span><h3 data-i18n="step4Title">Vyberete termín a potkáte se</h3><p data-i18n="step4Text">Domluvíme bezpečné veřejné místo.</p></article>
-  </div>
-</section>
-<section class="trust" id="trust">
-  <div class="trust-copy"><span class="eyebrow" data-i18n="trustKicker">DŮVĚRA NENÍ DOPLNĚK</span><h2 data-i18n="trustTitle">Je to začátek každého setkání.</h2><p data-i18n="trustLead">Bezpečí, respekt a skutečný zájem jsou součástí služby od prvního kroku.</p></div>
-  <div class="trust-grid">
-    <article><b>01</b><h3 data-i18n="trust1Title">Ověřená identita</h3><p data-i18n="trust1Text">Víme, že za profilem stojí skutečný člověk.</p></article>
-    <article><b>02</b><h3 data-i18n="trust2Title">Veřejné místo</h3><p data-i18n="trust2Text">První schůzka vždy začíná na bezpečném místě.</p></article>
-    <article><b>03</b><h3 data-i18n="trust3Title">Hodnocení spolehlivosti</h3><p data-i18n="trust3Text">Dochvilnost, respekt a skutečná účast.</p></article>
-    <article><b>04</b><h3 data-i18n="trust4Title">Kontakty až potom</h3><p data-i18n="trust4Text">Telefon se otevře jen při vzájemném zájmu po setkání.</p></article>
-  </div>
-</section>
-<section class="final-cta"><div><span class="eyebrow" data-i18n="finalKicker">PŘIPRAVENI NA SKUTEČNÉ SETKÁNÍ?</span><h2 data-i18n="finalTitle">Chci být u toho.</h2><p data-i18n="finalLead">Přidejte se mezi první zájemce o pilotní spuštění DUONERA v Česku.</p></div><button class="light-cta open-signup" type="button"><span data-i18n="finalCta">Vytvořit profil</span><b>↗</b></button></section>
+
+    <div class="hero-visual" aria-label="Modelový příklad doporučení">
+      <div class="visual-label"><span>♡</span><b data-i18n="recommendationLabel">DOPORUČENÍ PRO VÁS</b></div>
+      <img src="assets/hero-couple.webp" alt="Muž a žena při prvním setkání">
+      <div class="match-score"><b>92%</b><span data-i18n="matchScore">kompatibilita</span></div>
+      <div class="match-panel">
+        <div class="names"><div><b>Martin, 49</b><span data-i18n="martinMeta">Praha · podnikatel</span></div><i>♡</i><div><b>Helena, 46</b><span data-i18n="helenaMeta">Praha · marketing</span></div></div>
+        <p class="time-title" data-i18n="timeTitle">Navrhovaný termín setkání</p>
+        <div class="time-slots"><button type="button">PÁ 18:00</button><button class="selected" type="button">SO 15:00</button><button type="button">NE 17:00</button></div>
+        <button class="card-cta open-signup" type="button"><span data-i18n="cardCta">Jsem připraven/a se setkat</span><b>→</b></button>
+      </div>
+      <span class="illustration-note" data-i18n="illustrationNote">Ilustrační ukázka budoucí služby</span>
+    </div>
+  </section>
+
+  <section class="truth-strip" aria-label="Princip DUONERA">
+    <article><b>1</b><span data-i18n="truth1">ověřené doporučení najednou</span></article>
+    <article><b>0</b><span data-i18n="truth2">povinných zpráv před setkáním</span></article>
+    <article><b>100%</b><span data-i18n="truth3">zaměření na skutečné setkání</span></article>
+  </section>
+
+  <section class="how section-shell" id="how">
+    <div class="section-heading centered">
+      <span class="eyebrow" data-i18n="howKicker">JAK TO FUNGUJE</span>
+      <h2 data-i18n="howTitle">Jednoduchá cesta ke skutečnému setkání.</h2>
+      <p data-i18n="howLead">Méně výběru. Více jistoty. Každý krok vede k reálnému setkání, ne k dalšímu týdnu psaní.</p>
+    </div>
+    <div class="steps-grid">
+      <article><span class="step-number">01</span><i>✓</i><h3 data-i18n="step1Title">Ověříme vaši identitu</h3><p data-i18n="step1Text">Profil, fotografii a základní údaje zkontrolujeme ručně.</p></article>
+      <article><span class="step-number">02</span><i>♡</i><h3 data-i18n="step2Title">Poznáme, co je pro vás důležité</h3><p data-i18n="step2Text">Hodnoty, životní styl, vzdálenost a skutečný záměr.</p></article>
+      <article><span class="step-number">03</span><i>1</i><h3 data-i18n="step3Title">Vybereme jedno doporučení</h3><p data-i18n="step3Text">Žádný katalog. Jeden člověk, který dává smysl.</p></article>
+      <article><span class="step-number">04</span><i>▣</i><h3 data-i18n="step4Title">Domluvíme termín a potkáte se</h3><p data-i18n="step4Text">Bezpečné veřejné místo a jasný čas setkání.</p></article>
+    </div>
+  </section>
+
+  <section class="experience" id="experience">
+    <div class="experience-photo"><img src="assets/couple-sea.webp" alt="Pár při západu slunce"><span data-i18n="experiencePhotoNote">Ilustrační fotografie</span></div>
+    <div class="experience-copy">
+      <span class="eyebrow" data-i18n="experienceKicker">NE DALŠÍ SEZNAMKA</span>
+      <h2 data-i18n="experienceTitle">Méně pochybností.<br><span>Více skutečných setkání.</span></h2>
+      <p data-i18n="experienceLead">DUONERA je pro lidi, kteří nehledají pozornost, ale vztah. Neprodává nekonečné procházení profilů. Připravuje prostor, ve kterém se dva lidé opravdu potkají.</p>
+      <ul>
+        <li><b data-i18n="experience1Title">Jeden člověk</b><span data-i18n="experience1Text">Místo stovek profilů dostanete jedno promyšlené doporučení.</span></li>
+        <li><b data-i18n="experience2Title">Jeden jasný krok</b><span data-i18n="experience2Text">Vyberete termín, potvrdíte setkání a přijdete.</span></li>
+        <li><b data-i18n="experience3Title">Jedna férová šance</b><span data-i18n="experience3Text">Bez souběžného domlouvání s desítkami dalších lidí.</span></li>
+      </ul>
+      <button class="outline-cta open-signup" type="button"><span data-i18n="experienceCta">Chci být mezi prvními</span><b>→</b></button>
+    </div>
+  </section>
+
+  <section class="trust section-shell" id="trust">
+    <div class="section-heading">
+      <span class="eyebrow" data-i18n="trustKicker">DŮVĚRA JE ZÁKLAD</span>
+      <h2 data-i18n="trustTitle">Ověřeno. Respektováno. Chráněno.</h2>
+      <p data-i18n="trustLead">DUONERA staví bezpečí a důstojnost před rychlost a počet profilů.</p>
+    </div>
+    <div class="trust-grid">
+      <article><i>⌁</i><h3 data-i18n="trust1Title">Ověřený profil</h3><p data-i18n="trust1Text">Kontrola identity a fotografie omezuje falešné profily.</p></article>
+      <article><i>◉</i><h3 data-i18n="trust2Title">Diskrétní komunikace</h3><p data-i18n="trust2Text">Vaše údaje nejsou veřejný katalog pro každého.</p></article>
+      <article><i>⌖</i><h3 data-i18n="trust3Title">Bezpečné místo</h3><p data-i18n="trust3Text">První setkání je na veřejném a předem domluveném místě.</p></article>
+      <article><i>♡</i><h3 data-i18n="trust4Title">Vzájemný respekt</h3><p data-i18n="trust4Text">Kontakty se otevírají až po oboustranném zájmu.</p></article>
+    </div>
+  </section>
+
+  <section class="why" id="why">
+    <img class="why-flora" src="assets/flora-right.png" alt="" aria-hidden="true">
+    <div><span class="eyebrow" data-i18n="whyKicker">PROČ DUONERA ONE?</span><h2 data-i18n="whyTitle">Láska nezačíná tisíci zpráv.<br><span>Začíná jedním rozhodnutím.</span></h2><p data-i18n="whyLead">Projekt je nyní v pilotní fázi. První zájemci pomohou vytvořit komunitu, ve které je normální přijít, potkat se a dát skutečnému člověku férovou šanci.</p></div>
+    <button class="light-cta open-signup" type="button"><span data-i18n="whyCta">Chci skutečné setkání</span><b>→</b></button>
+  </section>
 </main>
-<footer><img src="assets/logo.svg" alt="DUONERA ONE"><span data-i18n="footerTagline">Seznamování pro skutečný život.</span><a href="mailto:executive@luxes.cz">executive@luxes.cz</a><span>© <span id="year"></span> DUONERA</span></footer>
+
+<footer>
+  <img src="assets/logo.svg" alt="DUONERA ONE">
+  <span data-i18n="footerTagline">Seznamování pro skutečný život.</span>
+  <a href="mailto:executive@luxes.cz">executive@luxes.cz</a>
+  <span>© <span id="year"></span> DUONERA</span>
+</footer>
+
 <button class="mobile-sticky open-signup" type="button" data-i18n="mobileCta">Chci skutečné setkání</button>
+
 <dialog id="signupModal" class="signup-modal">
-<form id="signupForm" class="signup-form" method="post">
-  <button class="modal-close" type="button" aria-label="Zavřít">×</button><img class="form-mark" src="assets/mark.svg" alt="">
-  <span class="eyebrow" data-i18n="modalKicker">PILOTNÍ REGISTRACE</span><h2 data-i18n="modalTitle">Začněte jedním opravdovým záměrem.</h2><p data-i18n="modalLead">Krátká registrace pro první komunitu DUONERA v Česku.</p>
-  <div class="form-grid">
-    <label><span data-i18n="nameLabel">Jméno</span><input name="name" type="text" autocomplete="name" required></label>
-    <label><span data-i18n="ageLabel">Věk</span><input name="age" type="number" min="18" max="90" required></label>
-    <label><span data-i18n="cityLabel">Město</span><input name="city" type="text" autocomplete="address-level2" required></label>
-    <label><span data-i18n="emailLabel">E-mail</span><input name="email" type="email" autocomplete="email" required></label>
-    <label><span data-i18n="genderLabel">Jsem</span><select name="gender" required><option value="" data-i18n="choose">Vyberte</option><option value="man" data-i18n="man">Muž</option><option value="woman" data-i18n="woman">Žena</option></select></label>
-    <label><span data-i18n="seekingLabel">Hledám</span><select name="seeking" required><option value="" data-i18n="choose2">Vyberte</option><option value="woman" data-i18n="womanAcc">Ženu</option><option value="man" data-i18n="manAcc">Muže</option></select></label>
-    <label class="full"><span data-i18n="goalLabel">Co hledáte</span><select name="goal" required><option value="" data-i18n="choose3">Vyberte</option><option value="serious" data-i18n="serious">Vážný vztah</option><option value="life" data-i18n="life">Společný život</option><option value="marriage" data-i18n="marriage">Manželství</option></select></label>
-  </div>
-  <label class="consent"><input name="consent" value="yes" type="checkbox" required><span data-i18n="consent">Souhlasím s kontaktováním ohledně pilotního spuštění DUONERA.</span></label>
-  <input class="honey-field" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
-  <button class="submit-button" type="submit" data-i18n="submit">Odeslat registraci</button><div class="form-message" id="formMessage" role="status" aria-live="polite"></div>
-</form>
+  <form id="signupForm" class="signup-form" method="post">
+    <button class="modal-close" type="button" aria-label="Zavřít">×</button>
+    <img class="form-mark" src="assets/mark.svg" alt="">
+    <span class="eyebrow" data-i18n="modalKicker">PILOTNÍ REGISTRACE</span>
+    <h2 data-i18n="modalTitle">Začněte jedním opravdovým záměrem.</h2>
+    <p data-i18n="modalLead">Krátká registrace pro první komunitu DUONERA v Česku.</p>
+    <div class="form-grid">
+      <label><span data-i18n="nameLabel">Jméno</span><input name="name" type="text" autocomplete="name" required></label>
+      <label><span data-i18n="ageLabel">Věk</span><input name="age" type="number" min="18" max="90" required></label>
+      <label><span data-i18n="cityLabel">Město</span><input name="city" type="text" autocomplete="address-level2" required></label>
+      <label><span data-i18n="emailLabel">E-mail</span><input name="email" type="email" autocomplete="email" required></label>
+      <label><span data-i18n="genderLabel">Jsem</span><select name="gender" required><option value="" data-i18n="choose">Vyberte</option><option value="man" data-i18n="man">Muž</option><option value="woman" data-i18n="woman">Žena</option></select></label>
+      <label><span data-i18n="seekingLabel">Hledám</span><select name="seeking" required><option value="" data-i18n="choose2">Vyberte</option><option value="woman" data-i18n="womanAcc">Ženu</option><option value="man" data-i18n="manAcc">Muže</option></select></label>
+      <label class="full"><span data-i18n="goalLabel">Co hledáte</span><select name="goal" required><option value="" data-i18n="choose3">Vyberte</option><option value="serious" data-i18n="serious">Vážný vztah</option><option value="life" data-i18n="life">Společný život</option><option value="marriage" data-i18n="marriage">Manželství</option></select></label>
+    </div>
+    <label class="consent"><input name="consent" value="yes" type="checkbox" required><span data-i18n="consent">Souhlasím s kontaktováním ohledně pilotního spuštění DUONERA.</span></label>
+    <input class="honey-field" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <button class="submit-button" type="submit" data-i18n="submit">Odeslat registraci</button>
+    <div class="form-message" id="formMessage" role="status" aria-live="polite"></div>
+  </form>
 </dialog>
-<script src="app.js?v=7.0"></script>
-</body></html>
+<script src="app.js?v=8.0"></script>
+</body>
+</html>

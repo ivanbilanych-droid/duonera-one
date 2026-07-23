@@ -1,14 +1,13 @@
-DUONERA ONE V6 FINAL TESTED
+DUONERA ONE V8 WOW FINAL
 
-Obsah:
-- mobile-first rozložení bez horizontálního posunu
-- CZ / EN / UA / RU
-- funkční formulář přes FormSubmit na executive@luxes.cz
-- CNAME pro duonera.cz
+Files to upload to the root of the GitHub repository:
+- assets/
+- index.html
+- styles.css
+- app.js
+- CNAME
+- VERSION.txt
+- README.txt
 
-Nahrání na GitHub:
-1. Rozbalte ZIP.
-2. V repozitáři duonera-one nahraďte index.html, styles.css, app.js a složku assets.
-3. Nahrajte také CNAME a VERSION.txt.
-4. Potvrďte commit.
-5. Po nasazení proveďte tvrdé obnovení Ctrl+F5.
+The registration form sends data to executive@luxes.cz through FormSubmit.
+Languages: Czech, English, Ukrainian, Russian.
