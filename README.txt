@@ -1,21 +1,16 @@
-DUONERA ONE V4 — CZ / EN / UA / RU + funkční registrace
+DUONERA ONE V5 PREMIUM
 
-SOUBORY
-- index.html
-- styles.css
-- app.js
-- assets/
+Obsah:
+- nový světlý prémiový design podle vybraného návrhu
+- plná mobilní responzivita
+- jazyky CZ / EN / UA / RU
+- funkční pilotní registrace přes FormSubmit na executive@luxes.cz
+- žádný server ani databáze nejsou nutné
 
-NASAZENÍ NA GITHUB
-1. Nahrajte obsah této složky do kořene repozitáře duonera-one.
-2. Nahraďte staré index.html, styles.css a app.js.
-3. Složku assets ponechte / nahraďte touto verzí.
+Nasazení na GitHub Pages:
+1. Rozbalte ZIP.
+2. Nahrajte obsah složky do kořene repozitáře duonera-one.
+3. Nahraďte stávající index.html, styles.css, app.js a složku assets.
+4. Počkejte 1–3 minuty a obnovte duonera.cz pomocí Ctrl+F5.
 
-REGISTRACE E-MAILEM
-Formulář odesílá registrace na executive@luxes.cz přes FormSubmit.
-Při úplně prvním testu přijde na executive@luxes.cz potvrzovací e-mail od FormSubmit.
-Klikněte v něm na potvrzení. Potom budou všechny další registrace chodit přímo na e-mail.
-Zkontrolujte také Spam.
-
-JAZYKY
-CZ / EN / UA / RU
+Verze: V5 PREMIUM

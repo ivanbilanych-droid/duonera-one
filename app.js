@@ -401,60 +401,15 @@ function setLanguage(lang) {
 }
 
 $$('.language-switch button').forEach((button) => button.addEventListener('click', () => setLanguage(button.dataset.lang)));
-
-const header = $('.site-header');
-window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 40), { passive: true });
-
-const stage = $('.hero-stage');
-window.addEventListener('pointermove', (event) => {
-  if (window.innerWidth < 760) return;
-  const x = (event.clientX / window.innerWidth - .5) * 12;
-  const y = (event.clientY / window.innerHeight - .5) * 10;
-  stage.style.transform = `translate3d(${x}px,${y}px,0)`;
-});
-
-const cursor = $('.cursor-orbit');
-window.addEventListener('pointermove', (event) => {
-  cursor.classList.add('visible');
-  cursor.style.left = `${event.clientX}px`;
-  cursor.style.top = `${event.clientY}px`;
-});
-$$('a,button').forEach((el) => {
-  el.addEventListener('pointerenter', () => cursor.classList.add('large'));
-  el.addEventListener('pointerleave', () => cursor.classList.remove('large'));
-});
-
-$$('.magnetic').forEach((button) => {
-  button.addEventListener('pointermove', (event) => {
-    const rect = button.getBoundingClientRect();
-    const x = (event.clientX - rect.left - rect.width / 2) * .12;
-    const y = (event.clientY - rect.top - rect.height / 2) * .12;
-    button.style.transform = `translate(${x}px,${y}px)`;
-  });
-  button.addEventListener('pointerleave', () => button.style.transform = '');
-});
-
-$$('.ritual-tab').forEach((tab) => {
-  tab.addEventListener('click', () => {
-    const index = tab.dataset.step;
-    $$('.ritual-tab').forEach((item) => item.classList.toggle('active', item === tab));
-    $$('.ritual-panel').forEach((panel) => panel.classList.toggle('active', panel.dataset.panel === index));
-  });
-});
-
-$$('.date-console button').forEach((button) => {
-  button.addEventListener('click', () => {
-    $$('.date-console button').forEach((item) => item.classList.remove('selected'));
-    button.classList.add('selected');
-  });
-});
+$$('.time-slots button').forEach((button) => button.addEventListener('click', () => {
+  $$('.time-slots button').forEach((item) => item.classList.remove('selected'));
+  button.classList.add('selected');
+}));
 
 const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) entry.target.classList.add('visible');
-  });
-}, { threshold: .14 });
-$$('.reveal').forEach((el) => observer.observe(el));
+  entries.forEach((entry) => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+}, { threshold: .12 });
+$$('.reveal').forEach((element) => observer.observe(element));
 
 const modal = $('#signupModal');
 const form = $('#signupForm');
@@ -468,12 +423,12 @@ modal.addEventListener('click', (event) => {
   const rect = modal.getBoundingClientRect();
   if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) modal.close();
 });
+
 form.addEventListener('submit', async (event) => {
   event.preventDefault();
   const submitButton = form.querySelector('.submit-button');
   const formData = new FormData(form);
   if (formData.get('_honey')) return;
-
   const t = translations[currentLang];
   const gender = formData.get('gender');
   const seeking = formData.get('seeking');
@@ -493,11 +448,9 @@ form.addEventListener('submit', async (event) => {
     Consent: 'Yes',
     Submitted: new Date().toLocaleString('cs-CZ', { timeZone: 'Europe/Prague' })
   };
-
   submitButton.disabled = true;
   submitButton.textContent = t.sending;
   formMessage.textContent = '';
-
   try {
     const response = await fetch('https://formsubmit.co/ajax/executive@luxes.cz', {
       method: 'POST',
@@ -506,7 +459,6 @@ form.addEventListener('submit', async (event) => {
     });
     const result = await response.json();
     if (!response.ok || result.success === false) throw new Error(result.message || 'Submission failed');
-    localStorage.setItem('duoneraPilotRegistration', JSON.stringify({ ...payload, savedAt: new Date().toISOString() }));
     formMessage.textContent = t.success;
     form.reset();
     setTimeout(() => modal.close(), 2200);
