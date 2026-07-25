@@ -1,3 +1,5 @@
+import { createUuid, insertRow } from './supabase-client.js';
+
 const profileTranslations = {
   cs: {
     backHome:'Zpět na hlavní stránku',eyebrow:'VÁŠ SOUKROMÝ PROFIL',title:'Pomozte nám vybrat lidi, kteří se k vám opravdu hodí.',intro:'Čím přesněji profil vyplníte, tím kvalitnější bude vaše osobní výběr. Vaše údaje nejsou veřejné a uvidí je pouze vybraní kandidáti.',promiseTitle:'Přibližně 8–10 minut',promiseText:'Rozpracovaný profil se automaticky ukládá v tomto zařízení.',journey:'VAŠE CESTA',step1:'Základní údaje',step1s:'Kdo jste a kde žijete',step2:'Životní styl',step2s:'Jak žijete každý den',step3:'Koho hledáte',step3s:'Vaše důležité preference',step4:'O vás',step4s:'Charakter, zájmy a hodnoty',step5:'Fotografie a souhlas',step5s:'Poslední krok',privateTitle:'Profil není veřejný',privateText:'Nezobrazujeme otevřený katalog. Váš profil uvidí pouze lidé, které pro vás systém vybere.',progressLabel:'PRŮBĚH PROFILU',progressStep:'Krok',s1label:'KROK 1',s1title:'Základní údaje',s1text:'Tyto informace potřebujeme pro základní výběr podle věku, města a toho, koho hledáte.',firstName:'Křestní jméno',birthDate:'Datum narození',gender:'Jsem',seeking:'Hledám',choose:'Vyberte',chooseOptional:'Vyberte (volitelné)',man:'Muž',woman:'Žena',otherGender:'Jiné / nechci uvést',seekWoman:'Ženu',seekMan:'Muže',seekBoth:'Muže i ženy',country:'Země',city:'Město',email:'E-mail',phone:'Telefon',languages:'Jazyky, kterými se domluvíte',s2label:'KROK 2',s2title:'Váš životní styl',s2text:'Nejde o dokonalost. Potřebujeme pochopit váš běžný život, aby se k vám druhý člověk opravdu hodil.',height:'Výška (cm)',occupation:'Povolání / obor',education:'Vzdělání',relationshipStatus:'Rodinný stav',children:'Děti',pets:'Domácí zvířata',smoking:'Kouření',alcohol:'Alkohol',workRhythm:'Pracovní rytmus',weekend:'Ideální víkend',s3label:'KROK 3',s3title:'Koho chcete potkat',s3text:'Rozlišujeme pevné podmínky a přání. Díky tomu systém nevyloučí dobrého člověka kvůli nepodstatnému detailu.',ageFrom:'Věk od',ageTo:'Věk do',distance:'Max. vzdálenost',goal:'Cíl seznámení',partnerChildren:'Děti u partnera',partnerSmoking:'Kouření u partnera',relocation:'Stěhování / vztah na dálku',mustHave:'Tři vlastnosti, které jsou pro vás u partnera nejdůležitější',dealBreakers:'Co je pro vás nepřijatelné? (volitelné)',s4label:'KROK 4',s4title:'Co vás vystihuje',s4text:'Vyberte pouze to, co je vám skutečně blízké. Kvalitní výběr nevzniká z dokonalé ankety, ale z upřímné ankety.',character:'Jaký jste člověk? Vyberte maximálně 6 vlastností.',interests:'Vaše zájmy',aboutMe:'Napište krátce o sobě',relationshipVision:'Jak si představujete dobrý vztah?',s5label:'KROK 5',s5title:'Fotografie a dokončení profilu',s5text:'Nahrajte aktuální fotografie, na kterých jste dobře vidět. Nepoužívejte skupinové snímky jako hlavní fotografii.',uploadTitle:'Vyberte 1 až 3 fotografie',uploadText:'JPG, PNG nebo WEBP. Celková velikost maximálně 10 MB.',choosePhotos:'Vybrat fotografie',adultConsent:'Potvrzuji, že mi je nejméně 18 let.',dataConsent:'Výslovně souhlasím se zpracováním údajů z této ankety a fotografií za účelem vytvoření soukromého profilu a výběru vhodných kandidátů.',termsConsent:'Souhlasím s',termsLink:'podmínkami služby',andWord:'a',privacyLink:'ochranou soukromí',truthConsent:'Potvrzuji, že uvedené údaje a fotografie jsou pravdivé a patří mně.',finalTitle:'Po odeslání profil zkontrolujeme technicky.',finalText:'V pilotní fázi ještě neprobíhá automatické párování v reálném čase. Profil bude připraven pro první uzavřené výběry DUONERA.',back:'Zpět',saved:'Uloženo v tomto zařízení',continue:'Pokračovat',submitProfile:'Odeslat úplný profil',footer:'Soukromí. Kvalitní výběr. Skutečné setkání.',validation:'Prosím doplňte označené povinné údaje.',ageValidation:'Věk „od“ nemůže být vyšší než věk „do“.',photoValidation:'Nahrajte 1 až 3 fotografie o celkové velikosti maximálně 10 MB.',maxChoices:'Můžete vybrat maximálně 6 vlastností.',sending:'Odesílám profil…'
@@ -182,12 +184,119 @@ function renderPhotoPreviews(){
   });
 }
 
-form.addEventListener('submit',event=>{
-  if(currentStep!==steps.length-1){ event.preventDefault(); currentStep=steps.length-1; updateStep(); return; }
-  if(!validateCurrentStep()) { event.preventDefault(); return; }
-  submitButton.disabled=true;
-  submitButton.textContent=t('sending');
-  localStorage.setItem(draftKey,JSON.stringify(serializeDraft()));
+function getFormValue(formData, name){
+  return String(formData.get(name) || '').trim();
+}
+
+function getFormValues(formData, name){
+  return formData.getAll(name).map(value=>String(value).trim()).filter(Boolean);
+}
+
+function parseDistance(value){
+  const number = Number.parseInt(String(value || ''), 10);
+  return Number.isFinite(number) ? number : null;
+}
+
+function buildRawData(){
+  const raw = {};
+  [...form.elements].forEach(element=>{
+    if(!element.name || element.type === 'file' || element.name.startsWith('_')) return;
+    if(element.type === 'checkbox'){
+      if(!raw[element.name]) raw[element.name] = [];
+      if(element.checked) raw[element.name].push(element.value || 'Ano');
+    }else if(element.type === 'radio'){
+      if(element.checked) raw[element.name] = element.value;
+    }else{
+      raw[element.name] = element.value;
+    }
+  });
+  return raw;
+}
+
+function validUuid(value){
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value || '');
+}
+
+form.addEventListener('submit', async event=>{
+  event.preventDefault();
+  if(currentStep!==steps.length-1){ currentStep=steps.length-1; updateStep(); return; }
+  if(!validateCurrentStep()) return;
+
+  const formData = new FormData(form);
+  const profileId = createUuid();
+  const storedLeadId = localStorage.getItem('duonera-lead-id') || '';
+  const leadId = validUuid(storedLeadId) ? storedLeadId : null;
+  const originalButtonText = submitButton.textContent;
+
+  const payload = {
+    id: profileId,
+    lead_id: leadId,
+    status: 'new',
+    first_name: getFormValue(formData, 'Křestní jméno'),
+    birth_date: getFormValue(formData, 'Datum narození'),
+    gender: getFormValue(formData, 'Jsem'),
+    looking_for: getFormValue(formData, 'Hledám'),
+    country: getFormValue(formData, 'Země') || 'Česko',
+    city: getFormValue(formData, 'Město'),
+    email: getFormValue(formData, 'email').toLowerCase(),
+    phone: getFormValue(formData, 'Telefon'),
+    languages: getFormValues(formData, 'Jazyky'),
+    height_cm: Number(getFormValue(formData, 'Výška')),
+    occupation: getFormValue(formData, 'Povolání'),
+    education: getFormValue(formData, 'Vzdělání'),
+    relationship_status: getFormValue(formData, 'Rodinný stav'),
+    children: getFormValue(formData, 'Děti'),
+    pets: getFormValue(formData, 'Domácí zvířata'),
+    smoking: getFormValue(formData, 'Kouření'),
+    alcohol: getFormValue(formData, 'Alkohol'),
+    traits: getFormValues(formData, 'Povaha'),
+    interests: getFormValues(formData, 'Zájmy'),
+    about_me: getFormValue(formData, 'O mně'),
+    ideal_relationship: getFormValue(formData, 'Představa o vztahu'),
+    preferred_age_min: Number(getFormValue(formData, 'Hledaný věk od')),
+    preferred_age_max: Number(getFormValue(formData, 'Hledaný věk do')),
+    preferred_distance_km: parseDistance(getFormValue(formData, 'Maximální vzdálenost')),
+    relationship_goal: getFormValue(formData, 'Cíl seznámení'),
+    consent_privacy: formData.get('Souhlas se zpracováním profilu') === 'Ano',
+    consent_contact: false,
+    source: 'duonera.cz',
+    raw_data: buildRawData()
+  };
+
+  try{
+    submitButton.disabled = true;
+    submitButton.textContent = t('sending');
+    localStorage.setItem(draftKey, JSON.stringify(serializeDraft()));
+
+    await insertRow('duonera_profiles', payload);
+
+    const profileIdInput = document.createElement('input');
+    profileIdInput.type = 'hidden';
+    profileIdInput.name = 'Supabase profile ID';
+    profileIdInput.value = profileId;
+    form.appendChild(profileIdInput);
+
+    if(leadId){
+      const leadIdInput = document.createElement('input');
+      leadIdInput.type = 'hidden';
+      leadIdInput.name = 'Supabase lead ID';
+      leadIdInput.value = leadId;
+      form.appendChild(leadIdInput);
+    }
+
+    HTMLFormElement.prototype.submit.call(form);
+  }catch(error){
+    console.error(error);
+    submitButton.disabled = false;
+    submitButton.textContent = originalButtonText;
+    const errors = {
+      cs:'Profil se nepodařilo bezpečně uložit do databáze. Zkontrolujte připojení a zkuste odeslání znovu.',
+      en:'The profile could not be saved securely. Check your connection and submit it again.',
+      uk:'Не вдалося безпечно зберегти анкету. Перевірте з’єднання та надішліть її ще раз.',
+      ru:'Не удалось безопасно сохранить анкету. Проверьте соединение и отправьте её ещё раз.'
+    };
+    showMessage(errors[currentLang] || errors.cs);
+  }
 });
 
 

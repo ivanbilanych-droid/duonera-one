@@ -1,3 +1,5 @@
+import { createUuid, insertRow } from './supabase-client.js';
+
 const translations = {
   cs: {
     navHow:'Jak to funguje',navSelection:'Vaše výběry',navResult:'Výsledek',navSafety:'Soukromí',registerFree:'Registrace zdarma',
@@ -57,9 +59,69 @@ mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
 
 const shortRegistrationForm = document.querySelector('.register-form');
 if(shortRegistrationForm){
-  shortRegistrationForm.addEventListener('submit',()=>{
-    const data = Object.fromEntries(new FormData(shortRegistrationForm).entries());
-    localStorage.setItem('duonera-short-registration',JSON.stringify(data));
+  let isSubmitting = false;
+
+  shortRegistrationForm.addEventListener('submit', async event => {
+    event.preventDefault();
+    if(isSubmitting) return;
+    if(!shortRegistrationForm.reportValidity()) return;
+
+    const honeypot = shortRegistrationForm.querySelector('[name="_honey"]');
+    if(honeypot && honeypot.value) return;
+
+    const formData = new FormData(shortRegistrationForm);
+    const leadId = createUuid();
+    const submitButton = shortRegistrationForm.querySelector('button[type="submit"]');
+    const originalButtonText = submitButton.textContent;
+    const language = localStorage.getItem('duonera-lang') || 'cs';
+    const statusMessages = {
+      cs:{sending:'Ukládáme registraci…',error:'Registraci se nepodařilo bezpečně uložit. Zkontrolujte připojení a zkuste to znovu.'},
+      en:{sending:'Saving registration…',error:'The registration could not be saved securely. Check your connection and try again.'},
+      uk:{sending:'Зберігаємо реєстрацію…',error:'Не вдалося безпечно зберегти реєстрацію. Перевірте з’єднання та спробуйте ще раз.'},
+      ru:{sending:'Сохраняем регистрацию…',error:'Не удалось безопасно сохранить регистрацию. Проверьте соединение и попробуйте ещё раз.'}
+    };
+    const status = statusMessages[language] || statusMessages.cs;
+
+    const localData = Object.fromEntries(formData.entries());
+    const payload = {
+      id: leadId,
+      gender: String(formData.get('Jsem') || '').trim(),
+      looking_for: String(formData.get('Hledám') || '').trim(),
+      age: Number(formData.get('Věk')),
+      city: String(formData.get('Město') || '').trim(),
+      email: String(formData.get('email') || '').trim().toLowerCase(),
+      phone: String(formData.get('Telefon') || '').trim(),
+      consent_privacy: formData.get('consent_privacy') === 'true',
+      source: 'duonera.cz'
+    };
+
+    try{
+      isSubmitting = true;
+      submitButton.disabled = true;
+      submitButton.textContent = status.sending;
+
+      await insertRow('duonera_leads', payload);
+
+      localStorage.setItem('duonera-short-registration', JSON.stringify(localData));
+      localStorage.setItem('duonera-lead-id', leadId);
+
+      const leadIdInput = document.createElement('input');
+      leadIdInput.type = 'hidden';
+      leadIdInput.name = 'Supabase lead ID';
+      leadIdInput.value = leadId;
+      shortRegistrationForm.appendChild(leadIdInput);
+
+      HTMLFormElement.prototype.submit.call(shortRegistrationForm);
+    }catch(error){
+      console.error(error);
+      isSubmitting = false;
+      submitButton.disabled = false;
+      submitButton.textContent = originalButtonText;
+      toast.textContent = status.error;
+      toast.classList.add('show');
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(()=>toast.classList.remove('show'), 5200);
+    }
   });
 }
 
