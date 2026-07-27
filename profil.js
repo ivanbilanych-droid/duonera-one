@@ -1,4 +1,9 @@
-import { createUuid, insertRow } from './supabase-client.js';
+import {
+  PROFILE_PHOTO_BUCKET,
+  createUuid,
+  insertRow,
+  uploadPrivateFile
+} from './supabase-client.js?v=2';
 
 const profileTranslations = {
   cs: {
@@ -251,6 +256,28 @@ function validUuid(value){
   return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value || '');
 }
 
+function photoExtension(file){
+  const byType = {
+    'image/jpeg':'jpg',
+    'image/png':'png',
+    'image/webp':'webp'
+  };
+  return byType[file.type] || 'jpg';
+}
+
+async function uploadProfilePhotos(profileId){
+  const files = [...photoInput.files].slice(0, 3);
+  const paths = [];
+
+  for(let index = 0; index < files.length; index += 1){
+    const file = files[index];
+    const path = `${profileId}/${String(index + 1).padStart(2, '0')}.${photoExtension(file)}`;
+    paths.push(await uploadPrivateFile(PROFILE_PHOTO_BUCKET, path, file));
+  }
+
+  return paths;
+}
+
 form.addEventListener('submit', async event=>{
   event.preventDefault();
   if(currentStep!==steps.length-1){ currentStep=steps.length-1; updateStep(); return; }
@@ -294,6 +321,7 @@ form.addEventListener('submit', async event=>{
     consent_privacy: formData.get('Souhlas se zpracováním profilu') === 'Ano',
     consent_contact: false,
     source: 'duonera.cz',
+    photo_paths: [],
     raw_data: buildRawData()
   };
 
@@ -302,6 +330,7 @@ form.addEventListener('submit', async event=>{
     submitButton.textContent = t('sending');
     localStorage.setItem(draftKey, JSON.stringify(serializeDraft()));
 
+    payload.photo_paths = await uploadProfilePhotos(profileId);
     await insertRow('duonera_profiles', payload);
 
     const profileIdInput = document.createElement('input');

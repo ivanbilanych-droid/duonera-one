@@ -35,6 +35,11 @@ V8:
 - přehled tabulek duonera_leads a duonera_profiles
 - čtení osobních údajů povoluje RLS pouze účtu info@duonera.cz
 
+V9:
+- fotografie profilu se ukládají do soukromého Supabase Storage
+- fotografie se zobrazují pouze přihlášenému správci v detailu profilu
+- před nasazením V9 spustit soubor supabase-photo-storage.sql
+
 Aktivace administrace:
 1. V Supabase otevřít Authentication > Users.
 2. Vytvořit uživatele info@duonera.cz a nastavit silné heslo.
@@ -44,4 +49,4 @@ Aktivace administrace:
 DŮLEŽITÉ:
 - heslo administrátora se nikdy nevkládá do souborů webu
 - service_role key se nikdy nevkládá do souborů webu
-- fotografie jsou zatím dostupné pouze jako přílohy e-mailu
+- fotografie zůstávají také jako přílohy e-mailu

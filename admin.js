@@ -1,4 +1,8 @@
-import { SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY } from './supabase-client.js';
+import {
+  PROFILE_PHOTO_BUCKET,
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+} from './supabase-client.js?v=2';
 
 const ADMIN_EMAIL = 'info@duonera.cz';
 const SESSION_KEY = 'duonera-admin-session';
@@ -319,6 +323,84 @@ function appendDetail(label, value, wide = false) {
   detailContent.appendChild(item);
 }
 
+function encodedObjectPath(path) {
+  return path
+    .split('/')
+    .map(segment => encodeURIComponent(segment))
+    .join('/');
+}
+
+async function createSignedPhotoUrl(path) {
+  const response = await fetch(
+    `${SUPABASE_URL}/storage/v1/object/sign/${encodeURIComponent(PROFILE_PHOTO_BUCKET)}/${encodedObjectPath(path)}`,
+    {
+      method: 'POST',
+      headers: {
+        ...authHeaders(session.access_token),
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ expiresIn: 3600 })
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(await readError(response, 'Fotografii se nepodařilo otevřít.'));
+  }
+
+  const data = await response.json();
+  if (!data.signedURL) throw new Error('Úložiště nevrátilo odkaz na fotografii.');
+  if (/^https?:\/\//i.test(data.signedURL)) return data.signedURL;
+  return `${SUPABASE_URL}/storage/v1${data.signedURL}`;
+}
+
+async function appendPhotos(paths) {
+  const section = document.createElement('div');
+  section.className = 'detail-item wide photo-section';
+  const heading = document.createElement('span');
+  heading.textContent = 'Fotografie';
+  const gallery = document.createElement('div');
+  gallery.className = 'admin-photo-grid';
+  section.append(heading, gallery);
+  detailContent.appendChild(section);
+
+  if (!Array.isArray(paths) || !paths.length) {
+    const empty = document.createElement('p');
+    empty.className = 'photo-empty';
+    empty.textContent = 'Fotografie nebyly u tohoto profilu uloženy.';
+    gallery.appendChild(empty);
+    return;
+  }
+
+  const loading = document.createElement('p');
+  loading.className = 'photo-empty';
+  loading.textContent = 'Načítání fotografií…';
+  gallery.appendChild(loading);
+
+  try {
+    const urls = await Promise.all(paths.map(createSignedPhotoUrl));
+    gallery.replaceChildren();
+    urls.forEach((url, index) => {
+      const link = document.createElement('a');
+      link.href = url;
+      link.target = '_blank';
+      link.rel = 'noopener';
+      link.ariaLabel = `Otevřít fotografii ${index + 1}`;
+      const image = document.createElement('img');
+      image.src = url;
+      image.alt = `Fotografie profilu ${index + 1}`;
+      image.loading = 'lazy';
+      link.appendChild(image);
+      gallery.appendChild(link);
+    });
+  } catch (error) {
+    gallery.replaceChildren();
+    const message = document.createElement('p');
+    message.className = 'photo-error';
+    message.textContent = error.message;
+    gallery.appendChild(message);
+  }
+}
+
 function rawDataEntries(rawData) {
   if (!rawData || typeof rawData !== 'object' || Array.isArray(rawData)) return [];
   return Object.entries(rawData).filter(([, value]) => {
@@ -327,9 +409,11 @@ function rawDataEntries(rawData) {
   });
 }
 
-function openProfile(profile) {
+async function openProfile(profile) {
   detailTitle.textContent = `${text(profile.first_name)}, ${calculateAge(profile.birth_date)}`;
   detailContent.replaceChildren();
+  detailDialog.showModal();
+  await appendPhotos(profile.photo_paths);
 
   [
     ['Datum registrace', formatDate(profile.created_at)],
@@ -364,8 +448,6 @@ function openProfile(profile) {
   rawDataEntries(profile.raw_data).forEach(([label, value]) => {
     appendDetail(label, value, true);
   });
-
-  detailDialog.showModal();
 }
 
 async function loadData() {
