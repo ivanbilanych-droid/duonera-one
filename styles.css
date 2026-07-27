@@ -151,6 +151,7 @@ h1{font-family:Georgia,serif;font-size:clamp(48px,4.8vw,68px);font-weight:400;li
 .consent{grid-template-columns:auto 1fr!important;align-items:start!important;font-weight:400!important}
 .consent input{width:18px;height:18px}
 .register-form small{display:block;text-align:center;color:#746d63;margin-top:10px}
+.register-form small a{color:#6f5319;text-underline-offset:2px}
 .honeypot{display:none!important}
 
 footer{padding:44px 0 18px;background:#050505;border-top:1px solid rgba(215,174,85,.20)}

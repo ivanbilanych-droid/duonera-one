@@ -19,19 +19,19 @@
     <div class="done-sub">PRIVATE DATING CONCIERGE</div>
     <div class="done-icon">✓</div>
     <h1>Váš profil byl odeslán.</h1>
-    <p>Děkujeme za důvěru. Vaše údaje a fotografie byly předány do pilotní části DUONERA. Profil není veřejný. Chybějící informace můžete doplnit později; pro výběr použijeme údaje, které jste uvedli.</p>
+    <p>Děkujeme za důvěru. Vaše údaje a fotografie byly bezpečně uloženy. Profil není veřejný. Po kontrole profilu vás budeme kontaktovat, jakmile pro vás připravíme vhodný soukromý výběr.</p>
     <div class="done-actions"><a class="primary" href="index.html">Zpět na DUONERA</a><a class="secondary" href="mailto:info@duonera.cz">Kontaktovat podporu</a></div>
-    <p class="done-next">Další etapa: soukromý účet uživatele, automatické výběry a vzájemné potvrzení schůzky.</p>
+    <p class="done-next">Vaše kontaktní údaje nezveřejňujeme a předáváme je pouze po vzájemném potvrzení.</p>
   </main>
   <script>
     if(localStorage.getItem('duonera-lang')==='de'){
       document.documentElement.lang='de';
       document.title='Profil gesendet — DUONERA';
       document.querySelector('.done-card h1').textContent='Ihr Profil wurde gesendet.';
-      document.querySelector('.done-card p').textContent='Vielen Dank für Ihr Vertrauen. Ihre Angaben und Fotos wurden an den DUONERA-Pilotbereich übermittelt. Das Profil ist nicht öffentlich. Fehlende Angaben können Sie später ergänzen; für die Auswahl verwenden wir die von Ihnen angegebenen Informationen.';
+      document.querySelector('.done-card p').textContent='Vielen Dank für Ihr Vertrauen. Ihre Angaben und Fotos wurden sicher gespeichert. Das Profil ist nicht öffentlich. Nach der Prüfung kontaktieren wir Sie, sobald wir eine passende private Auswahl für Sie vorbereitet haben.';
       document.querySelector('.done-actions .primary').textContent='Zurück zu DUONERA';
       document.querySelector('.done-actions .secondary').textContent='Support kontaktieren';
-      document.querySelector('.done-next').textContent='Nächste Etappe: privates Benutzerkonto, automatische Auswahl und gegenseitige Bestätigung des Treffens.';
+      document.querySelector('.done-next').textContent='Ihre Kontaktdaten werden nicht veröffentlicht und erst nach gegenseitiger Bestätigung weitergegeben.';
     }
     localStorage.removeItem('duonera-profile-draft');localStorage.removeItem('duonera-short-registration');
   </script>

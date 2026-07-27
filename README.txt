@@ -41,6 +41,14 @@ V9:
 - správce může přidat fotografie i k existujícímu profilu
 - před nasazením V9 spustit soubor supabase-photo-storage.sql
 
+V10:
+- krátká registrace trvá přibližně jednu minutu
+- telefon je v krátké i úplné registraci volitelný
+- registrace jasně uvádí, že profil není veřejný a nevzniká platba ani závazek
+- odstraněny veřejné formulace o pilotní a nedokončené verzi
+- aktualizovány podmínky služby a informace o ochraně soukromí
+- texty důvěry byly sjednoceny v češtině, angličtině, němčině, ukrajinštině a ruštině
+
 Aktivace administrace:
 1. V Supabase otevřít Authentication > Users.
 2. Vytvořit uživatele info@duonera.cz a nastavit silné heslo.
