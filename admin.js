@@ -2,7 +2,7 @@ import {
   PROFILE_PHOTO_BUCKET,
   SUPABASE_URL,
   SUPABASE_PUBLISHABLE_KEY
-} from './supabase-client.js?v=2';
+} from './supabase-client.js?v=3';
 
 const ADMIN_EMAIL = 'info@duonera.cz';
 const SESSION_KEY = 'duonera-admin-session';
@@ -353,17 +353,56 @@ async function createSignedPhotoUrl(path) {
   return `${SUPABASE_URL}/storage/v1${data.signedURL}`;
 }
 
-async function appendPhotos(paths) {
-  const section = document.createElement('div');
-  section.className = 'detail-item wide photo-section';
-  const heading = document.createElement('span');
-  heading.textContent = 'Fotografie';
-  const gallery = document.createElement('div');
-  gallery.className = 'admin-photo-grid';
-  section.append(heading, gallery);
-  detailContent.appendChild(section);
+function adminPhotoExtension(file) {
+  const byType = {
+    'image/jpeg': 'jpg',
+    'image/png': 'png',
+    'image/webp': 'webp'
+  };
+  return byType[file.type] || 'jpg';
+}
 
-  if (!Array.isArray(paths) || !paths.length) {
+async function uploadAdminPhoto(path, file) {
+  const response = await fetch(
+    `${SUPABASE_URL}/storage/v1/object/${encodeURIComponent(PROFILE_PHOTO_BUCKET)}/${encodedObjectPath(path)}`,
+    {
+      method: 'POST',
+      headers: {
+        ...authHeaders(session.access_token),
+        'Content-Type': file.type,
+        'x-upsert': 'false'
+      },
+      body: file
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(await readError(response, 'Fotografii se nepodařilo uložit.'));
+  }
+}
+
+async function updateProfilePhotoPaths(profileId, paths) {
+  const response = await fetch(
+    `${SUPABASE_URL}/rest/v1/duonera_profiles?id=eq.${encodeURIComponent(profileId)}`,
+    {
+      method: 'PATCH',
+      headers: {
+        ...authHeaders(session.access_token),
+        'Content-Type': 'application/json',
+        Prefer: 'return=minimal'
+      },
+      body: JSON.stringify({ photo_paths: paths })
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(await readError(response, 'Fotografie se nepodařilo připojit k profilu.'));
+  }
+}
+
+async function renderStoredPhotos(gallery, paths) {
+  gallery.replaceChildren();
+  if (!paths.length) {
     const empty = document.createElement('p');
     empty.className = 'photo-empty';
     empty.textContent = 'Fotografie nebyly u tohoto profilu uloženy.';
@@ -401,6 +440,81 @@ async function appendPhotos(paths) {
   }
 }
 
+async function appendPhotos(profile) {
+  const paths = Array.isArray(profile.photo_paths) ? [...profile.photo_paths] : [];
+  const section = document.createElement('div');
+  section.className = 'detail-item wide photo-section';
+  const heading = document.createElement('span');
+  heading.textContent = 'Fotografie';
+  const gallery = document.createElement('div');
+  gallery.className = 'admin-photo-grid';
+  section.append(heading, gallery);
+  detailContent.appendChild(section);
+  await renderStoredPhotos(gallery, paths);
+
+  if (paths.length >= 3) return;
+
+  const controls = document.createElement('div');
+  controls.className = 'admin-photo-upload';
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'image/jpeg,image/png,image/webp';
+  input.multiple = true;
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'button button-outline';
+  button.textContent = 'Přidat fotografie';
+  button.disabled = true;
+  const status = document.createElement('p');
+  status.className = 'upload-status';
+  controls.append(input, button, status);
+  section.appendChild(controls);
+
+  input.addEventListener('change', () => {
+    const files = [...input.files];
+    const total = files.reduce((sum, file) => sum + file.size, 0);
+    const validTypes = files.every(file => ['image/jpeg', 'image/png', 'image/webp'].includes(file.type));
+    const valid = files.length > 0
+      && files.length <= 3 - paths.length
+      && total <= 10 * 1024 * 1024
+      && validTypes;
+    button.disabled = !valid;
+    status.textContent = valid
+      ? `Vybráno fotografií: ${files.length}`
+      : 'Vyberte JPG, PNG nebo WEBP. Profil může mít nejvýše 3 fotografie a nový výběr nejvýše 10 MB.';
+  });
+
+  button.addEventListener('click', async () => {
+    const files = [...input.files];
+    if (!files.length || button.disabled) return;
+    button.disabled = true;
+    button.textContent = 'Ukládání…';
+    status.textContent = '';
+
+    try {
+      const newPaths = [];
+      const uploadId = Date.now();
+      for (let index = 0; index < files.length; index += 1) {
+        const path = `${profile.id}/admin-${uploadId}-${index + 1}.${adminPhotoExtension(files[index])}`;
+        await uploadAdminPhoto(path, files[index]);
+        newPaths.push(path);
+      }
+      paths.push(...newPaths);
+      await updateProfilePhotoPaths(profile.id, paths);
+      profile.photo_paths = [...paths];
+      await renderStoredPhotos(gallery, paths);
+      status.textContent = 'Fotografie byly bezpečně uloženy.';
+      input.value = '';
+      if (paths.length >= 3) controls.classList.add('complete');
+    } catch (error) {
+      status.textContent = error.message;
+      button.disabled = false;
+    } finally {
+      button.textContent = 'Přidat fotografie';
+    }
+  });
+}
+
 function rawDataEntries(rawData) {
   if (!rawData || typeof rawData !== 'object' || Array.isArray(rawData)) return [];
   return Object.entries(rawData).filter(([, value]) => {
@@ -413,7 +527,7 @@ async function openProfile(profile) {
   detailTitle.textContent = `${text(profile.first_name)}, ${calculateAge(profile.birth_date)}`;
   detailContent.replaceChildren();
   detailDialog.showModal();
-  await appendPhotos(profile.photo_paths);
+  await appendPhotos(profile);
 
   [
     ['Datum registrace', formatDate(profile.created_at)],

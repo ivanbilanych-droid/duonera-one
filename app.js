@@ -1,4 +1,4 @@
-import { createUuid, insertRow } from './supabase-client.js?v=2';
+import { createUuid, insertRow } from './supabase-client.js?v=3';
 
 const translations = {
   cs: {

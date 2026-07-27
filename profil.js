@@ -3,7 +3,7 @@ import {
   createUuid,
   insertRow,
   uploadPrivateFile
-} from './supabase-client.js?v=2';
+} from './supabase-client.js?v=3';
 
 const profileTranslations = {
   cs: {
@@ -192,26 +192,68 @@ document.querySelectorAll('.choice-grid[data-max]').forEach(group=>{
 });
 
 choosePhotos.addEventListener('click',event=>{event.preventDefault();photoInput.click();});
+let selectedPhotos = [];
+
 photoInput.addEventListener('change',()=>{
-  validatePhotos(true);
+  const incoming = [...photoInput.files];
+  const known = new Set(selectedPhotos.map(file=>`${file.name}:${file.size}:${file.lastModified}`));
+  const merged = [...selectedPhotos];
+
+  incoming.forEach(file=>{
+    const key = `${file.name}:${file.size}:${file.lastModified}`;
+    if(!known.has(key)){
+      known.add(key);
+      merged.push(file);
+    }
+  });
+
+  const total = merged.reduce((sum,file)=>sum+file.size,0);
+  if(merged.length>3 || total>10*1024*1024){
+    syncPhotoInput();
+    validatePhotos(true);
+    return;
+  }
+
+  selectedPhotos = merged;
+  syncPhotoInput();
+  validatePhotos(false);
   renderPhotoPreviews();
 });
+
+function syncPhotoInput(){
+  const transfer = new DataTransfer();
+  selectedPhotos.forEach(file=>transfer.items.add(file));
+  photoInput.files = transfer.files;
+}
+
 function validatePhotos(show=true){
-  const files=[...photoInput.files];
-  const total=files.reduce((sum,file)=>sum+file.size,0);
-  const valid=files.length<=3&&total<=10*1024*1024;
+  const total=selectedPhotos.reduce((sum,file)=>sum+file.size,0);
+  const valid=selectedPhotos.length<=3&&total<=10*1024*1024;
   photoInput.classList.toggle('invalid',!valid);
   if(!valid&&show) showMessage(t('photoValidation'));
   return valid;
 }
+
 function renderPhotoPreviews(){
   photoPreviews.innerHTML='';
-  [...photoInput.files].slice(0,3).forEach(file=>{
+  selectedPhotos.forEach((file,index)=>{
     const item=document.createElement('div');
     item.className='photo-preview';
     const reader=new FileReader();
     reader.onload=()=>item.style.backgroundImage=`url("${reader.result}")`;
     reader.readAsDataURL(file);
+    const remove=document.createElement('button');
+    remove.type='button';
+    remove.className='photo-remove';
+    remove.textContent='×';
+    remove.setAttribute('aria-label','Odstranit fotografii');
+    remove.addEventListener('click',()=>{
+      selectedPhotos.splice(index,1);
+      syncPhotoInput();
+      validatePhotos(false);
+      renderPhotoPreviews();
+    });
+    item.appendChild(remove);
     photoPreviews.appendChild(item);
   });
 }

@@ -38,6 +38,7 @@ V8:
 V9:
 - fotografie profilu se ukládají do soukromého Supabase Storage
 - fotografie se zobrazují pouze přihlášenému správci v detailu profilu
+- správce může přidat fotografie i k existujícímu profilu
 - před nasazením V9 spustit soubor supabase-photo-storage.sql
 
 Aktivace administrace:

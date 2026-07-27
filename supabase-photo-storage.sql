@@ -44,3 +44,27 @@ using (
   bucket_id = 'duonera-profile-photos'
   and lower(coalesce(auth.jwt() ->> 'email', '')) = 'info@duonera.cz'
 );
+
+drop policy if exists "duonera_admin_upload_profile_photos" on storage.objects;
+create policy "duonera_admin_upload_profile_photos"
+on storage.objects
+for insert
+to authenticated
+with check (
+  bucket_id = 'duonera-profile-photos'
+  and lower(coalesce(auth.jwt() ->> 'email', '')) = 'info@duonera.cz'
+);
+
+grant update on table public.duonera_profiles to authenticated;
+
+drop policy if exists "duonera_admin_update_profiles" on public.duonera_profiles;
+create policy "duonera_admin_update_profiles"
+on public.duonera_profiles
+for update
+to authenticated
+using (
+  lower(coalesce(auth.jwt() ->> 'email', '')) = 'info@duonera.cz'
+)
+with check (
+  lower(coalesce(auth.jwt() ->> 'email', '')) = 'info@duonera.cz'
+);
