@@ -1,5 +1,5 @@
-const SUPABASE_URL = 'https://lhoicaivkkyofirmtbsr.supabase.co';
-const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_D0P1PoRmG-6-SCIYGqJydw_km1D_OD1';
+export const SUPABASE_URL = 'https://lhoicaivkkyofirmtbsr.supabase.co';
+export const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_D0P1PoRmG-6-SCIYGqJydw_km1D_OD1';
 
 export function createUuid() {
   if (globalThis.crypto && typeof globalThis.crypto.randomUUID === 'function') {

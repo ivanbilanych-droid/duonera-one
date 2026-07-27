@@ -25,3 +25,23 @@ Soubor supabase-client.js obsahuje pouze veřejný publishable key. Secret key a
 V5: Kroky 2-4 a fotografie jsou volitelné. Povinné zůstávají pouze základní identifikační údaje a právní souhlasy.
 
 V6: public contact and FormSubmit recipient changed to info@duonera.cz.
+
+V7:
+- německá jazyková verze webu a profilu
+
+V8:
+- soukromá administrace na admin.html
+- přihlášení administrátora přes Supabase Auth
+- přehled tabulek duonera_leads a duonera_profiles
+- čtení osobních údajů povoluje RLS pouze účtu info@duonera.cz
+
+Aktivace administrace:
+1. V Supabase otevřít Authentication > Users.
+2. Vytvořit uživatele info@duonera.cz a nastavit silné heslo.
+3. V SQL Editoru spustit soubor supabase-admin-policy.sql.
+4. Otevřít https://duonera.cz/admin.html a přihlásit se.
+
+DŮLEŽITÉ:
+- heslo administrátora se nikdy nevkládá do souborů webu
+- service_role key se nikdy nevkládá do souborů webu
+- fotografie jsou zatím dostupné pouze jako přílohy e-mailu

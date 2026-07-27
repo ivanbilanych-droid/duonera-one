@@ -1,1 +1,1 @@
-DUONERA Supabase Database V5 - optional profile fields
+DUONERA V8 - private administration
