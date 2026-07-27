@@ -21,3 +21,5 @@ Test:
 
 DŮLEŽITÉ:
 Soubor supabase-client.js obsahuje pouze veřejný publishable key. Secret key ani service_role key ve webu nejsou.
+
+V5: Kroky 2-4 a fotografie jsou volitelné. Povinné zůstávají pouze základní identifikační údaje a právní souhlasy.

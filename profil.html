@@ -69,7 +69,7 @@
         <div class="progress-track"><span id="progressBar"></span></div>
 
         <form id="fullProfileForm" class="full-profile-form" action="https://formsubmit.co/executive@luxes.cz" method="POST" enctype="multipart/form-data" novalidate>
-          <input type="hidden" name="_subject" value="Nový úplný profil DUONERA">
+          <input type="hidden" name="_subject" value="Nový profil DUONERA">
           <input type="hidden" name="_template" value="table">
           <input type="hidden" name="_captcha" value="false">
           <input type="hidden" name="_next" value="https://duonera.cz/profil-hotovo.html">
@@ -81,6 +81,7 @@
               <p class="section-label" data-i18n="s1label">KROK 1</p>
               <h2 data-i18n="s1title">Základní údaje</h2>
               <p data-i18n="s1text">Tyto informace potřebujeme pro základní výběr podle věku, města a toho, koho hledáte.</p>
+              <p class="optional-note" data-i18n="optionalNote">Stačí vyplnit základní údaje. Ostatní položky můžete přeskočit a doplnit později.</p>
             </div>
             <div class="field-grid two">
               <label class="field"><span data-i18n="firstName">Křestní jméno</span><input type="text" name="Křestní jméno" autocomplete="given-name" required placeholder="Jana"></label>
@@ -90,7 +91,7 @@
               <label class="field"><span data-i18n="country">Země</span><select name="Země" required><option value="Česko">Česko</option><option value="Slovensko">Slovensko</option><option value="Německo">Německo</option><option value="Rakousko">Rakousko</option><option value="Polsko">Polsko</option><option value="Ukrajina">Ukrajina</option><option value="Jiná">Jiná</option></select></label>
               <label class="field"><span data-i18n="city">Město</span><input type="text" name="Město" autocomplete="address-level2" required placeholder="Praha"></label>
               <label class="field"><span data-i18n="email">E-mail</span><input type="email" name="email" autocomplete="email" required placeholder="vas@email.cz"></label>
-              <label class="field"><span data-i18n="phone">Telefon</span><input type="tel" name="Telefon" autocomplete="tel" required placeholder="+420 777 000 000"></label>
+              <label class="field"><span data-i18n="phone">Telefon</span><input type="tel" name="Telefon" autocomplete="tel" placeholder="+420 777 000 000"></label>
             </div>
             <div class="field-block">
               <span class="field-title" data-i18n="languages">Jazyky, kterými se domluvíte</span>
@@ -112,16 +113,16 @@
               <p data-i18n="s2text">Nejde o dokonalost. Potřebujeme pochopit váš běžný život, aby se k vám druhý člověk opravdu hodil.</p>
             </div>
             <div class="field-grid two">
-              <label class="field"><span data-i18n="height">Výška (cm)</span><input type="number" name="Výška" min="140" max="220" required placeholder="175"></label>
-              <label class="field"><span data-i18n="occupation">Povolání / obor</span><input type="text" name="Povolání" placeholder="Podnikání, zdravotnictví…"></label>
+              <label class="field"><span data-i18n="height">Výška (cm) — volitelné</span><input type="number" name="Výška" min="140" max="220" placeholder="175"></label>
+              <label class="field"><span data-i18n="occupation">Povolání / obor — volitelné</span><input type="text" name="Povolání" placeholder="Podnikání, zdravotnictví…"></label>
               <label class="field"><span data-i18n="education">Vzdělání</span><select name="Vzdělání"><option value="" data-i18n="chooseOptional">Vyberte (volitelné)</option><option>Základní</option><option>Středoškolské</option><option>Vyšší odborné</option><option>Vysokoškolské</option></select></label>
-              <label class="field"><span data-i18n="relationshipStatus">Rodinný stav</span><select name="Rodinný stav" required><option value="" data-i18n="choose">Vyberte</option><option>Svobodný/á</option><option>Rozvedený/á</option><option>Vdovec / vdova</option><option>Žiji odděleně</option></select></label>
-              <label class="field"><span data-i18n="children">Děti</span><select name="Děti" required><option value="" data-i18n="choose">Vyberte</option><option>Nemám děti</option><option>Mám děti, žijí se mnou</option><option>Mám děti, nežijí se mnou</option><option>Děti jsou dospělé</option></select></label>
-              <label class="field"><span data-i18n="pets">Domácí zvířata</span><select name="Domácí zvířata"><option>Nemám</option><option>Pes</option><option>Kočka</option><option>Jiné</option></select></label>
-              <label class="field"><span data-i18n="smoking">Kouření</span><select name="Kouření" required><option value="" data-i18n="choose">Vyberte</option><option>Nekouřím</option><option>Příležitostně</option><option>Pravidelně</option></select></label>
-              <label class="field"><span data-i18n="alcohol">Alkohol</span><select name="Alkohol" required><option value="" data-i18n="choose">Vyberte</option><option>Nepiji</option><option>Příležitostně</option><option>Společensky</option><option>Pravidelně</option></select></label>
-              <label class="field"><span data-i18n="workRhythm">Pracovní rytmus</span><select name="Pracovní rytmus"><option>Běžná pracovní doba</option><option>Směny</option><option>Podnikání / nepravidelně</option><option>Pracuji z domova</option><option>V důchodu</option></select></label>
-              <label class="field"><span data-i18n="weekend">Ideální víkend</span><select name="Ideální víkend"><option>Klid doma</option><option>Výlet a příroda</option><option>Kultura a restaurace</option><option>Sport a aktivita</option><option>Kombinace všeho</option></select></label>
+              <label class="field"><span data-i18n="relationshipStatus">Rodinný stav — volitelné</span><select name="Rodinný stav"><option value="" data-i18n="chooseOptional">Vyberte (volitelné)</option><option>Svobodný/á</option><option>Rozvedený/á</option><option>Vdovec / vdova</option><option>Žiji odděleně</option></select></label>
+              <label class="field"><span data-i18n="children">Děti — volitelné</span><select name="Děti"><option value="" data-i18n="chooseOptional">Vyberte (volitelné)</option><option>Nemám děti</option><option>Mám děti, žijí se mnou</option><option>Mám děti, nežijí se mnou</option><option>Děti jsou dospělé</option></select></label>
+              <label class="field"><span data-i18n="pets">Domácí zvířata — volitelné</span><select name="Domácí zvířata"><option value="" data-i18n="chooseOptional">Vyberte (volitelné)</option><option>Nemám</option><option>Pes</option><option>Kočka</option><option>Jiné</option></select></label>
+              <label class="field"><span data-i18n="smoking">Kouření — volitelné</span><select name="Kouření"><option value="" data-i18n="chooseOptional">Vyberte (volitelné)</option><option>Nekouřím</option><option>Příležitostně</option><option>Pravidelně</option></select></label>
+              <label class="field"><span data-i18n="alcohol">Alkohol — volitelné</span><select name="Alkohol"><option value="" data-i18n="chooseOptional">Vyberte (volitelné)</option><option>Nepiji</option><option>Příležitostně</option><option>Společensky</option><option>Pravidelně</option></select></label>
+              <label class="field"><span data-i18n="workRhythm">Pracovní rytmus — volitelné</span><select name="Pracovní rytmus"><option value="" data-i18n="chooseOptional">Vyberte (volitelné)</option><option>Běžná pracovní doba</option><option>Směny</option><option>Podnikání / nepravidelně</option><option>Pracuji z domova</option><option>V důchodu</option></select></label>
+              <label class="field"><span data-i18n="weekend">Ideální víkend — volitelné</span><select name="Ideální víkend"><option value="" data-i18n="chooseOptional">Vyberte (volitelné)</option><option>Klid doma</option><option>Výlet a příroda</option><option>Kultura a restaurace</option><option>Sport a aktivita</option><option>Kombinace všeho</option></select></label>
             </div>
           </fieldset>
 
@@ -132,17 +133,17 @@
               <p data-i18n="s3text">Rozlišujeme pevné podmínky a přání. Díky tomu systém nevyloučí dobrého člověka kvůli nepodstatnému detailu.</p>
             </div>
             <div class="field-grid three">
-              <label class="field"><span data-i18n="ageFrom">Věk od</span><input id="ageFrom" type="number" name="Hledaný věk od" min="18" max="90" required placeholder="40"></label>
-              <label class="field"><span data-i18n="ageTo">Věk do</span><input id="ageTo" type="number" name="Hledaný věk do" min="18" max="90" required placeholder="55"></label>
-              <label class="field"><span data-i18n="distance">Max. vzdálenost</span><select name="Maximální vzdálenost" required><option value="" data-i18n="choose">Vyberte</option><option>25 km</option><option>50 km</option><option>100 km</option><option>200 km</option><option>Celá země</option><option>Nezáleží</option></select></label>
+              <label class="field"><span data-i18n="ageFrom">Věk od — volitelné</span><input id="ageFrom" type="number" name="Hledaný věk od" min="18" max="90" placeholder="40"></label>
+              <label class="field"><span data-i18n="ageTo">Věk do — volitelné</span><input id="ageTo" type="number" name="Hledaný věk do" min="18" max="90" placeholder="55"></label>
+              <label class="field"><span data-i18n="distance">Max. vzdálenost — volitelné</span><select name="Maximální vzdálenost"><option value="" data-i18n="chooseOptional">Vyberte (volitelné)</option><option>25 km</option><option>50 km</option><option>100 km</option><option>200 km</option><option>Celá země</option><option>Nezáleží</option></select></label>
             </div>
             <div class="field-grid two">
-              <label class="field"><span data-i18n="goal">Cíl seznámení</span><select name="Cíl seznámení" required><option value="" data-i18n="choose">Vyberte</option><option>Vážný partnerský vztah</option><option>Partnerství s výhledem na společný život</option><option>Nejprve poznávání, potom se uvidí</option></select></label>
-              <label class="field"><span data-i18n="partnerChildren">Děti u partnera</span><select name="Děti u partnera"><option>Nezáleží</option><option>Bez dětí</option><option>Děti nevadí</option><option>Raději dospělé děti</option></select></label>
-              <label class="field"><span data-i18n="partnerSmoking">Kouření u partnera</span><select name="Kouření u partnera"><option>Nezáleží</option><option>Pouze nekuřák/čka</option><option>Příležitostně nevadí</option></select></label>
-              <label class="field"><span data-i18n="relocation">Stěhování / vztah na dálku</span><select name="Stěhování a vzdálenost"><option>Chci někoho blízko</option><option>Jsem otevřen/a větší vzdálenosti</option><option>V budoucnu se mohu přestěhovat</option><option>Nezáleží</option></select></label>
+              <label class="field"><span data-i18n="goal">Cíl seznámení — volitelné</span><select name="Cíl seznámení"><option value="" data-i18n="chooseOptional">Vyberte (volitelné)</option><option>Vážný partnerský vztah</option><option>Partnerství s výhledem na společný život</option><option>Nejprve poznávání, potom se uvidí</option></select></label>
+              <label class="field"><span data-i18n="partnerChildren">Děti u partnera</span><select name="Děti u partnera"><option value="" data-i18n="chooseOptional">Vyberte (volitelné)</option><option>Nezáleží</option><option>Bez dětí</option><option>Děti nevadí</option><option>Raději dospělé děti</option></select></label>
+              <label class="field"><span data-i18n="partnerSmoking">Kouření u partnera</span><select name="Kouření u partnera"><option value="" data-i18n="chooseOptional">Vyberte (volitelné)</option><option>Nezáleží</option><option>Pouze nekuřák/čka</option><option>Příležitostně nevadí</option></select></label>
+              <label class="field"><span data-i18n="relocation">Stěhování / vztah na dálku</span><select name="Stěhování a vzdálenost"><option value="" data-i18n="chooseOptional">Vyberte (volitelné)</option><option>Chci někoho blízko</option><option>Jsem otevřen/a větší vzdálenosti</option><option>V budoucnu se mohu přestěhovat</option><option>Nezáleží</option></select></label>
             </div>
-            <label class="field wide"><span data-i18n="mustHave">Tři vlastnosti, které jsou pro vás u partnera nejdůležitější</span><input type="text" name="Nejdůležitější vlastnosti partnera" required placeholder="Upřímnost, spolehlivost, smysl pro humor"></label>
+            <label class="field wide"><span data-i18n="mustHave">Tři vlastnosti, které jsou pro vás u partnera nejdůležitější — volitelné</span><input type="text" name="Nejdůležitější vlastnosti partnera" placeholder="Upřímnost, spolehlivost, smysl pro humor"></label>
             <label class="field wide"><span data-i18n="dealBreakers">Co je pro vás nepřijatelné? (volitelné)</span><textarea name="Nepřijatelné vlastnosti nebo situace" rows="4" maxlength="500" placeholder="Například kouření, neupřímnost, neochota cestovat…"></textarea><small class="char-count"><span>0</span>/500</small></label>
           </fieldset>
 
@@ -184,20 +185,20 @@
                 <label class="choice"><input type="checkbox" name="Zájmy" value="Automobily"><span>Automobily</span></label>
               </div>
             </div>
-            <label class="field wide"><span data-i18n="aboutMe">Napište krátce o sobě</span><textarea name="O mně" rows="6" minlength="80" maxlength="1000" required placeholder="Jak žijete, co vám dělá radost a co by měl druhý člověk vědět…"></textarea><small class="char-count"><span>0</span>/1000</small></label>
-            <label class="field wide"><span data-i18n="relationshipVision">Jak si představujete dobrý vztah?</span><textarea name="Představa o vztahu" rows="5" minlength="40" maxlength="700" required placeholder="Co je pro vás ve vztahu důležité a jak chcete trávit společný čas…"></textarea><small class="char-count"><span>0</span>/700</small></label>
+            <label class="field wide"><span data-i18n="aboutMe">Napište krátce o sobě — volitelné</span><textarea name="O mně" rows="6" maxlength="1000" placeholder="Jak žijete, co vám dělá radost a co by měl druhý člověk vědět…"></textarea><small class="char-count"><span>0</span>/1000</small></label>
+            <label class="field wide"><span data-i18n="relationshipVision">Jak si představujete dobrý vztah? — volitelné</span><textarea name="Představa o vztahu" rows="5" maxlength="700" placeholder="Co je pro vás ve vztahu důležité a jak chcete trávit společný čas…"></textarea><small class="char-count"><span>0</span>/700</small></label>
           </fieldset>
 
           <fieldset class="form-step" data-step="4">
             <div class="form-step-heading">
               <p class="section-label" data-i18n="s5label">KROK 5</p>
               <h2 data-i18n="s5title">Fotografie a dokončení profilu</h2>
-              <p data-i18n="s5text">Nahrajte aktuální fotografie, na kterých jste dobře vidět. Nepoužívejte skupinové snímky jako hlavní fotografii.</p>
+              <p data-i18n="s5text">Fotografie jsou volitelné. Pokud je nahrajete, použijte aktuální snímky, na kterých jste dobře vidět.</p>
             </div>
             <div class="upload-box" id="uploadBox">
-              <input id="photos" type="file" name="Fotografie" accept="image/jpeg,image/png,image/webp" multiple required>
+              <input id="photos" type="file" name="Fotografie" accept="image/jpeg,image/png,image/webp" multiple>
               <div class="upload-symbol">＋</div>
-              <h3 data-i18n="uploadTitle">Vyberte 1 až 3 fotografie</h3>
+              <h3 data-i18n="uploadTitle">Vyberte až 3 fotografie (volitelné)</h3>
               <p data-i18n="uploadText">JPG, PNG nebo WEBP. Celková velikost maximálně 10 MB.</p>
               <button type="button" class="btn btn-dark" id="choosePhotos" data-i18n="choosePhotos">Vybrat fotografie</button>
             </div>
@@ -218,7 +219,7 @@
             <button class="btn btn-dark" id="prevStep" type="button" data-i18n="back">Zpět</button>
             <div class="save-state"><span id="saveDot"></span><span id="saveText" data-i18n="saved">Uloženo v tomto zařízení</span></div>
             <button class="btn btn-gold" id="nextStep" type="button" data-i18n="continue">Pokračovat</button>
-            <button class="btn btn-gold submit-profile" id="submitProfile" type="submit" data-i18n="submitProfile">Odeslat úplný profil</button>
+            <button class="btn btn-gold submit-profile" id="submitProfile" type="submit" data-i18n="submitProfile">Odeslat profil</button>
           </div>
         </form>
       </div>
@@ -229,6 +230,6 @@
     <div class="shell"><span>© <span id="year"></span> DUONERA</span><span data-i18n="footer">Soukromí. Kvalitní výběr. Skutečné setkání.</span></div>
   </footer>
   <div class="form-message" id="formMessage" role="alert" aria-live="assertive"></div>
-  <script src="profil.js?v=1"></script>
+  <script type="module" src="profil.js?v=3"></script>
 </body>
 </html>

@@ -1,1 +1,1 @@
-3.0-supabase
+DUONERA Supabase Database V5 - optional profile fields
