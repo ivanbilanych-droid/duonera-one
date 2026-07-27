@@ -25,5 +25,16 @@
     <div class="thank-you-actions"><a class="thank-you-button primary" href="profil.html">Pokračovat k úplnému profilu</a><a class="thank-you-button secondary" href="index.html">Dokončit později</a></div>
     <p class="thank-you-note">Vyplnění trvá přibližně 8–10 minut a rozpracovaná anketa se v tomto zařízení automaticky ukládá.</p>
   </main>
+<script>
+  if(localStorage.getItem('duonera-lang')==='de'){
+    document.documentElement.lang='de';
+    document.title='Der erste Schritt ist geschafft — DUONERA';
+    document.querySelector('.thank-you-card h1').textContent='Der erste Schritt ist geschafft.';
+    document.querySelector('.thank-you-card p').textContent='Ihre kurze Registrierung wurde sicher übermittelt. Erstellen Sie jetzt Ihr vollständiges privates Profil, damit DUONERA passende Menschen für Sie auswählen kann.';
+    document.querySelector('.thank-you-button.primary').textContent='Zum vollständigen Profil';
+    document.querySelector('.thank-you-button.secondary').textContent='Später fortfahren';
+    document.querySelector('.thank-you-note').textContent='Das Ausfüllen dauert etwa 8–10 Minuten. Ihr Entwurf wird auf diesem Gerät automatisch gespeichert.';
+  }
+</script>
 </body>
 </html>

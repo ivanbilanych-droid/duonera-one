@@ -23,7 +23,18 @@
     <div class="done-actions"><a class="primary" href="index.html">Zpět na DUONERA</a><a class="secondary" href="mailto:info@duonera.cz">Kontaktovat podporu</a></div>
     <p class="done-next">Další etapa: soukromý účet uživatele, automatické výběry a vzájemné potvrzení schůzky.</p>
   </main>
-  <script>localStorage.removeItem('duonera-profile-draft');localStorage.removeItem('duonera-short-registration');</script>
+  <script>
+    if(localStorage.getItem('duonera-lang')==='de'){
+      document.documentElement.lang='de';
+      document.title='Profil gesendet — DUONERA';
+      document.querySelector('.done-card h1').textContent='Ihr Profil wurde gesendet.';
+      document.querySelector('.done-card p').textContent='Vielen Dank für Ihr Vertrauen. Ihre Angaben und Fotos wurden an den DUONERA-Pilotbereich übermittelt. Das Profil ist nicht öffentlich. Fehlende Angaben können Sie später ergänzen; für die Auswahl verwenden wir die von Ihnen angegebenen Informationen.';
+      document.querySelector('.done-actions .primary').textContent='Zurück zu DUONERA';
+      document.querySelector('.done-actions .secondary').textContent='Support kontaktieren';
+      document.querySelector('.done-next').textContent='Nächste Etappe: privates Benutzerkonto, automatische Auswahl und gegenseitige Bestätigung des Treffens.';
+    }
+    localStorage.removeItem('duonera-profile-draft');localStorage.removeItem('duonera-short-registration');
+  </script>
   <script>
     localStorage.removeItem('duonera-profile-draft');
     localStorage.removeItem('duonera-short-registration');
