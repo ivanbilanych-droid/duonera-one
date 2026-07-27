@@ -58,7 +58,7 @@ function setLanguage(lang){
 }
 function markOptionalLabels(){
   const optionalNames = new Set([
-    'Telefon','Výška','Povolání','Vzdělání','Rodinný stav','Děti','Domácí zvířata',
+    'Výška','Povolání','Vzdělání','Rodinný stav','Děti','Domácí zvířata',
     'Kouření','Alkohol','Pracovní rytmus','Ideální víkend','Hledaný věk od','Hledaný věk do',
     'Maximální vzdálenost','Cíl seznámení','Děti u partnera','Kouření u partnera',
     'Stěhování a vzdálenost','Nejdůležitější vlastnosti partnera',
@@ -164,7 +164,6 @@ function restoreDraft(){
   let short={};
   try{ short=JSON.parse(localStorage.getItem('duonera-short-registration')||'{}'); }catch(e){}
   if(short.email && !draft.email) draft.email=short.email;
-  if(short.Telefon && !draft.Telefon) draft.Telefon=short.Telefon;
   if(short.Město && !draft.Město) draft.Město=short.Město;
   if(short.Jsem && !draft.Jsem) draft.Jsem=short.Jsem;
   if(short.Hledám && !draft.Hledám) draft.Hledám=short.Hledám;
@@ -342,7 +341,6 @@ form.addEventListener('submit', async event=>{
     country: getFormValue(formData, 'Země') || 'Česko',
     city: getFormValue(formData, 'Město'),
     email: getFormValue(formData, 'email').toLowerCase(),
-    phone: getFormValue(formData, 'Telefon'),
     languages: getFormValues(formData, 'Jazyky'),
     height_cm: parseOptionalNumber(getFormValue(formData, 'Výška')),
     occupation: getFormValue(formData, 'Povolání'),
