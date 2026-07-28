@@ -10,7 +10,7 @@ import {
   requestEmailOtp,
   requireMemberSession,
   signOutMember
-} from './member-auth.js?v=3';
+} from './member-auth.js?v=4';
 
 const DISCOVERY_BUCKET = 'duonera-discovery-photos';
 const translations = {

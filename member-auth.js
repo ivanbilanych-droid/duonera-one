@@ -14,8 +14,8 @@ const supabaseAuthClient = window.supabase?.createClient(
       storageKey: SUPABASE_AUTH_STORAGE_KEY,
       persistSession: true,
       autoRefreshToken: true,
-      detectSessionInUrl: true,
-      flowType: 'pkce'
+      detectSessionInUrl: false,
+      flowType: 'implicit'
     }
   }
 );
@@ -146,6 +146,10 @@ export async function getAuthenticatedMember(accessToken) {
 }
 
 export async function requireMemberSession() {
+  // Magic-link callbacks return the tokens in the URL hash. Save them
+  // before asking the Supabase client for an existing browser session.
+  consumeAuthRedirect();
+
   if (supabaseAuthClient) {
     try {
       const { data, error } = await supabaseAuthClient.auth.getSession();
@@ -156,8 +160,6 @@ export async function requireMemberSession() {
     } catch {
       // The legacy session fallback below still supports existing members.
     }
-  } else {
-    consumeAuthRedirect();
   }
 
   let session = getMemberSession();
