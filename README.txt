@@ -54,7 +54,7 @@ V11:
 - hlavní stránka načítá pouze skutečné, schválené profily s výslovným souhlasem
 - odstraněny ukázkové profily, které mohly působit jako skuteční členové
 - každý klient získá osobní účet na ucet.html
-- přihlášení probíhá bezpečným odkazem zaslaným na e-mail, bez hesla
+- přihlášení probíhá šestimístným kódem zaslaným na e-mail, bez hesla
 - klient ve svém účtu vidí vlastní anketu a soukromé fotografie
 - klient může označit více lidí, kteří se mu líbí
 - vzájemná volba se zobrazí teprve po oboustranném výběru
@@ -70,7 +70,7 @@ Aktivace V11:
    Redirect URLs: https://duonera.cz/ucet.html
 4. Nahrát aktualizované soubory webu do kořene repozitáře.
 5. Provést novou registraci s novým testovacím e-mailem.
-6. Otevřít přihlašovací odkaz z e-mailu a ověřit osobní účet.
+6. Otevřít osobní účet, zadat šestimístný kód z e-mailu a ověřit přihlášení.
 7. Vyplnit úplný profil a ověřit vlastní anketu a fotografie v ucet.html.
 8. V admin.html profil schválit a zveřejnit.
 9. Ověřit, že se na hlavní stránce ukáže pouze bezpečná část profilu bez kontaktů.

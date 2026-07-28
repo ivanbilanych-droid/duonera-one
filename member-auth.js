@@ -58,7 +58,7 @@ export function consumeAuthRedirect() {
   return getMemberSession();
 }
 
-export async function requestMagicLink(email, redirectTo) {
+export async function requestEmailOtp(email, redirectTo) {
   const endpoint = new URL(`${SUPABASE_URL}/auth/v1/otp`);
   endpoint.searchParams.set('redirect_to', redirectTo);
   const response = await fetch(endpoint, {
@@ -71,8 +71,29 @@ export async function requestMagicLink(email, redirectTo) {
     })
   });
   if (!response.ok) {
-    throw new Error(await readError(response, 'Aktivační odkaz se nepodařilo odeslat.'));
+    throw new Error(await readError(response, 'Přihlašovací kód se nepodařilo odeslat.'));
   }
+}
+
+export async function verifyEmailOtp(email, token) {
+  const response = await fetch(`${SUPABASE_URL}/auth/v1/verify`, {
+    method: 'POST',
+    headers: authHeaders('', true),
+    body: JSON.stringify({
+      email: String(email || '').trim().toLowerCase(),
+      token: String(token || '').replace(/\D/g, '').slice(0, 6),
+      type: 'email'
+    })
+  });
+  if (!response.ok) {
+    throw new Error(await readError(response, 'Kód není platný nebo již vypršel.'));
+  }
+  const session = await response.json();
+  if (!session?.access_token) {
+    throw new Error('Přihlášení se nepodařilo dokončit.');
+  }
+  saveMemberSession(session);
+  return getMemberSession();
 }
 
 async function refreshMemberSession(refreshToken) {

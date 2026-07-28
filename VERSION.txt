@@ -1,1 +1,1 @@
-DUONERA V11 - member accounts and mutual choice
+DUONERA V11.1 - member accounts with email code login

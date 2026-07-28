@@ -7,27 +7,28 @@ import {
   callMemberRpc,
   clearMemberSession,
   memberRest,
-  requestMagicLink,
+  requestEmailOtp,
   requireMemberSession,
-  signOutMember
-} from './member-auth.js?v=1';
+  signOutMember,
+  verifyEmailOtp
+} from './member-auth.js?v=2';
 
 const DISCOVERY_BUCKET = 'duonera-discovery-photos';
 const translations = {
   cs:{
-    home:'Hlavní stránka',logout:'Odhlásit',loginLabel:'SOUKROMÝ PŘÍSTUP',loginTitle:'Váš osobní prostor DUONERA.',loginText:'Zadejte e-mail. Pošleme vám bezpečný přihlašovací odkaz — bez hesla.',loginTrust1:'✓ Uvidíte vlastní profil a fotografie',loginTrust2:'✓ Omezený výběr ověřených lidí',loginTrust3:'✓ Kontakty zůstávají skryté',email:'E-mail',sendLink:'Poslat přihlašovací odkaz',loginNote:'Odkaz platí pouze krátkou dobu a lze ho použít jen pro váš účet.',accountLabel:'MŮJ ÚČET',accountTitle:'Vítejte v DUONERA.',createProfile:'Vytvořit můj profil',ownLabel:'MOJE ANKETA',ownTitle:'Takto vás DUONERA vidí.',notCompleted:'Není vyplněna',emptyOwnTitle:'Ještě nemáte úplnou anketu.',emptyOwnText:'Po vyplnění zde uvidíte vlastní údaje a všechny uložené fotografie.',premiumLabel:'PRÉMIOVÁ SLUŽBA DUONERA',premiumTitle:'Tři nejlepší kandidáti pro vás.',premiumText:'DUONERA ručně připraví tři nejsilnější shody podle celé ankety. Nejde o další katalog, ale o osobní doporučení.',premiumEmpty:'Prémiová trojice zatím není připravena.',discoveryLabel:'OMEZENÝ VÝBĚR',discoveryTitle:'Skuteční lidé, které můžete poznat.',discoveryText:'Žádné nekonečné listování. Ukazujeme pouze omezený počet schválených profilů bez kontaktních údajů.',mutualTitle:'Máte vzájemnou sympatii.',mutualText:'DUONERA vás bude kontaktovat a pomůže domluvit skutečné setkání.',loading:'Načítání profilů…',footer:'Soukromí. Omezený výběr. Skutečné setkání.',linkSent:'Odkaz jsme poslali. Otevřete e-mail a klikněte na přihlášení.',loginError:'Odkaz se nepodařilo odeslat. Zkuste to znovu.',loadError:'Účet se nepodařilo načíst. Obnovte stránku.',profilePending:'Čeká na kontrolu',profileApproved:'Schválený profil',profileHidden:'Profil není ve výběru',age:'Věk',location:'Město',seeking:'Hledám',languages:'Jazyky',occupation:'Povolání',traits:'Povaha',interests:'Zájmy',about:'O mně',like:'Tento člověk se mi líbí',selected:'Vybráno',mutual:'Vzájemná volba',completeFirst:'Nejdříve dokončete vlastní profil.',noProfiles:'Momentálně nejsou k dispozici žádné schválené profily.',premiumReason:'Proč DUONERA doporučuje',accountReady:'Váš osobní účet je připraven.'
+    home:'Hlavní stránka',logout:'Odhlásit',loginLabel:'SOUKROMÝ PŘÍSTUP',loginTitle:'Váš osobní prostor DUONERA.',loginText:'Zadejte e-mail. Pošleme vám bezpečný šestimístný přihlašovací kód — bez hesla.',loginTrust1:'✓ Uvidíte vlastní profil a fotografie',loginTrust2:'✓ Omezený výběr ověřených lidí',loginTrust3:'✓ Kontakty zůstávají skryté',email:'E-mail',sendCode:'Poslat přihlašovací kód',otpCode:'Šestimístný kód z e-mailu',verifyCode:'Potvrdit kód a vstoupit',loginNote:'Kód platí pouze krátkou dobu a lze ho použít jen pro váš účet.',accountLabel:'MŮJ ÚČET',accountTitle:'Vítejte v DUONERA.',createProfile:'Vytvořit můj profil',ownLabel:'MOJE ANKETA',ownTitle:'Takto vás DUONERA vidí.',notCompleted:'Není vyplněna',emptyOwnTitle:'Ještě nemáte úplnou anketu.',emptyOwnText:'Po vyplnění zde uvidíte vlastní údaje a všechny uložené fotografie.',premiumLabel:'PRÉMIOVÁ SLUŽBA DUONERA',premiumTitle:'Tři nejlepší kandidáti pro vás.',premiumText:'DUONERA ručně připraví tři nejsilnější shody podle celé ankety. Nejde o další katalog, ale o osobní doporučení.',premiumEmpty:'Prémiová trojice zatím není připravena.',discoveryLabel:'OMEZENÝ VÝBĚR',discoveryTitle:'Skuteční lidé, které můžete poznat.',discoveryText:'Žádné nekonečné listování. Ukazujeme pouze omezený počet schválených profilů bez kontaktních údajů.',mutualTitle:'Máte vzájemnou sympatii.',mutualText:'DUONERA vás bude kontaktovat a pomůže domluvit skutečné setkání.',loading:'Načítání profilů…',footer:'Soukromí. Omezený výběr. Skutečné setkání.',linkSent:'Kód jsme poslali. Otevřete e-mail a zadejte šest číslic.',loginError:'Kód se nepodařilo odeslat. Zkuste to znovu.',codeError:'Kód není platný nebo již vypršel. Pošlete si nový kód.',loadError:'Účet se nepodařilo načíst. Obnovte stránku.',profilePending:'Čeká na kontrolu',profileApproved:'Schválený profil',profileHidden:'Profil není ve výběru',age:'Věk',location:'Město',seeking:'Hledám',languages:'Jazyky',occupation:'Povolání',traits:'Povaha',interests:'Zájmy',about:'O mně',like:'Tento člověk se mi líbí',selected:'Vybráno',mutual:'Vzájemná volba',completeFirst:'Nejdříve dokončete vlastní profil.',noProfiles:'Momentálně nejsou k dispozici žádné schválené profily.',premiumReason:'Proč DUONERA doporučuje',accountReady:'Váš osobní účet je připraven.'
   },
   en:{
-    home:'Home',logout:'Sign out',loginLabel:'PRIVATE ACCESS',loginTitle:'Your personal DUONERA space.',loginText:'Enter your email. We will send a secure sign-in link — no password.',loginTrust1:'✓ See your own profile and photos',loginTrust2:'✓ A limited selection of verified people',loginTrust3:'✓ Contact details stay hidden',email:'Email',sendLink:'Send sign-in link',loginNote:'The link is valid for a short time and works only for your account.',accountLabel:'MY ACCOUNT',accountTitle:'Welcome to DUONERA.',createProfile:'Create my profile',ownLabel:'MY PROFILE',ownTitle:'This is how DUONERA sees you.',notCompleted:'Not completed',emptyOwnTitle:'You have not completed your profile yet.',emptyOwnText:'Once completed, your details and saved photos will appear here.',premiumLabel:'DUONERA PREMIUM SERVICE',premiumTitle:'Your three best candidates.',premiumText:'DUONERA manually prepares the three strongest matches from your full profile. This is personal guidance, not another catalogue.',premiumEmpty:'Your premium three are not ready yet.',discoveryLabel:'LIMITED SELECTION',discoveryTitle:'Real people you can meet.',discoveryText:'No endless browsing. We show only a limited number of approved profiles without contact details.',mutualTitle:'You have a mutual choice.',mutualText:'DUONERA will contact you and help arrange a real meeting.',loading:'Loading profiles…',footer:'Privacy. Limited selection. A real meeting.',linkSent:'We sent the link. Open your email and click to sign in.',loginError:'The link could not be sent. Please try again.',loadError:'Your account could not be loaded. Refresh the page.',profilePending:'Awaiting review',profileApproved:'Approved profile',profileHidden:'Profile is not in discovery',age:'Age',location:'Location',seeking:'Looking for',languages:'Languages',occupation:'Occupation',traits:'Traits',interests:'Interests',about:'About me',like:'I would like to meet this person',selected:'Selected',mutual:'Mutual choice',completeFirst:'Complete your own profile first.',noProfiles:'No approved profiles are available at the moment.',premiumReason:'Why DUONERA recommends',accountReady:'Your personal account is ready.'
+    home:'Home',logout:'Sign out',loginLabel:'PRIVATE ACCESS',loginTitle:'Your personal DUONERA space.',loginText:'Enter your email. We will send a secure six-digit sign-in code — no password.',loginTrust1:'✓ See your own profile and photos',loginTrust2:'✓ A limited selection of verified people',loginTrust3:'✓ Contact details stay hidden',email:'Email',sendCode:'Send sign-in code',otpCode:'Six-digit code from the email',verifyCode:'Confirm code and sign in',loginNote:'The code is valid for a short time and works only for your account.',accountLabel:'MY ACCOUNT',accountTitle:'Welcome to DUONERA.',createProfile:'Create my profile',ownLabel:'MY PROFILE',ownTitle:'This is how DUONERA sees you.',notCompleted:'Not completed',emptyOwnTitle:'You have not completed your profile yet.',emptyOwnText:'Once completed, your details and saved photos will appear here.',premiumLabel:'DUONERA PREMIUM SERVICE',premiumTitle:'Your three best candidates.',premiumText:'DUONERA manually prepares the three strongest matches from your full profile. This is personal guidance, not another catalogue.',premiumEmpty:'Your premium three are not ready yet.',discoveryLabel:'LIMITED SELECTION',discoveryTitle:'Real people you can meet.',discoveryText:'No endless browsing. We show only a limited number of approved profiles without contact details.',mutualTitle:'You have a mutual choice.',mutualText:'DUONERA will contact you and help arrange a real meeting.',loading:'Loading profiles…',footer:'Privacy. Limited selection. A real meeting.',linkSent:'We sent the code. Open your email and enter the six digits.',loginError:'The code could not be sent. Please try again.',codeError:'The code is invalid or has expired. Request a new code.',loadError:'Your account could not be loaded. Refresh the page.',profilePending:'Awaiting review',profileApproved:'Approved profile',profileHidden:'Profile is not in discovery',age:'Age',location:'Location',seeking:'Looking for',languages:'Languages',occupation:'Occupation',traits:'Traits',interests:'Interests',about:'About me',like:'I would like to meet this person',selected:'Selected',mutual:'Mutual choice',completeFirst:'Complete your own profile first.',noProfiles:'No approved profiles are available at the moment.',premiumReason:'Why DUONERA recommends',accountReady:'Your personal account is ready.'
   },
   de:{
-    home:'Startseite',logout:'Abmelden',loginLabel:'PRIVATER ZUGANG',loginTitle:'Ihr persönlicher DUONERA-Bereich.',loginText:'Geben Sie Ihre E-Mail ein. Wir senden Ihnen einen sicheren Anmeldelink — ohne Passwort.',loginTrust1:'✓ Eigenes Profil und Fotos sehen',loginTrust2:'✓ Begrenzte Auswahl geprüfter Menschen',loginTrust3:'✓ Kontaktdaten bleiben verborgen',email:'E-Mail',sendLink:'Anmeldelink senden',loginNote:'Der Link ist nur kurze Zeit gültig und funktioniert ausschließlich für Ihr Konto.',accountLabel:'MEIN KONTO',accountTitle:'Willkommen bei DUONERA.',createProfile:'Mein Profil erstellen',ownLabel:'MEIN PROFIL',ownTitle:'So sieht DUONERA Sie.',notCompleted:'Nicht ausgefüllt',emptyOwnTitle:'Sie haben noch kein vollständiges Profil.',emptyOwnText:'Nach dem Ausfüllen sehen Sie hier Ihre Angaben und alle gespeicherten Fotos.',premiumLabel:'DUONERA PREMIUM-SERVICE',premiumTitle:'Ihre drei besten Kandidaten.',premiumText:'DUONERA stellt anhand Ihres vollständigen Profils persönlich die drei stärksten Übereinstimmungen zusammen. Kein weiterer Katalog, sondern eine persönliche Empfehlung.',premiumEmpty:'Ihre Premium-Dreierauswahl ist noch nicht vorbereitet.',discoveryLabel:'BEGRENZTE AUSWAHL',discoveryTitle:'Echte Menschen, die Sie kennenlernen können.',discoveryText:'Kein endloses Wischen. Wir zeigen nur eine begrenzte Zahl geprüfter Profile ohne Kontaktdaten.',mutualTitle:'Sie haben sich gegenseitig ausgewählt.',mutualText:'DUONERA kontaktiert Sie und hilft, ein echtes Treffen zu organisieren.',loading:'Profile werden geladen…',footer:'Privatsphäre. Begrenzte Auswahl. Ein echtes Treffen.',linkSent:'Wir haben den Link gesendet. Öffnen Sie Ihre E-Mail und klicken Sie auf die Anmeldung.',loginError:'Der Link konnte nicht gesendet werden. Versuchen Sie es erneut.',loadError:'Ihr Konto konnte nicht geladen werden. Aktualisieren Sie die Seite.',profilePending:'Wartet auf Prüfung',profileApproved:'Geprüftes Profil',profileHidden:'Profil ist nicht in der Auswahl',age:'Alter',location:'Ort',seeking:'Ich suche',languages:'Sprachen',occupation:'Beruf',traits:'Eigenschaften',interests:'Interessen',about:'Über mich',like:'Diese Person gefällt mir',selected:'Ausgewählt',mutual:'Gegenseitige Wahl',completeFirst:'Vervollständigen Sie zuerst Ihr eigenes Profil.',noProfiles:'Zurzeit sind keine geprüften Profile verfügbar.',premiumReason:'Warum DUONERA empfiehlt',accountReady:'Ihr persönliches Konto ist bereit.'
+    home:'Startseite',logout:'Abmelden',loginLabel:'PRIVATER ZUGANG',loginTitle:'Ihr persönlicher DUONERA-Bereich.',loginText:'Geben Sie Ihre E-Mail ein. Wir senden Ihnen einen sicheren sechsstelligen Anmeldecode — ohne Passwort.',loginTrust1:'✓ Eigenes Profil und Fotos sehen',loginTrust2:'✓ Begrenzte Auswahl geprüfter Menschen',loginTrust3:'✓ Kontaktdaten bleiben verborgen',email:'E-Mail',sendCode:'Anmeldecode senden',otpCode:'Sechsstelliger Code aus der E-Mail',verifyCode:'Code bestätigen und anmelden',loginNote:'Der Code ist nur kurze Zeit gültig und funktioniert ausschließlich für Ihr Konto.',accountLabel:'MEIN KONTO',accountTitle:'Willkommen bei DUONERA.',createProfile:'Mein Profil erstellen',ownLabel:'MEIN PROFIL',ownTitle:'So sieht DUONERA Sie.',notCompleted:'Nicht ausgefüllt',emptyOwnTitle:'Sie haben noch kein vollständiges Profil.',emptyOwnText:'Nach dem Ausfüllen sehen Sie hier Ihre Angaben und alle gespeicherten Fotos.',premiumLabel:'DUONERA PREMIUM-SERVICE',premiumTitle:'Ihre drei besten Kandidaten.',premiumText:'DUONERA stellt anhand Ihres vollständigen Profils persönlich die drei stärksten Übereinstimmungen zusammen. Kein weiterer Katalog, sondern eine persönliche Empfehlung.',premiumEmpty:'Ihre Premium-Dreierauswahl ist noch nicht vorbereitet.',discoveryLabel:'BEGRENZTE AUSWAHL',discoveryTitle:'Echte Menschen, die Sie kennenlernen können.',discoveryText:'Kein endloses Wischen. Wir zeigen nur eine begrenzte Zahl geprüfter Profile ohne Kontaktdaten.',mutualTitle:'Sie haben sich gegenseitig ausgewählt.',mutualText:'DUONERA kontaktiert Sie und hilft, ein echtes Treffen zu organisieren.',loading:'Profile werden geladen…',footer:'Privatsphäre. Begrenzte Auswahl. Ein echtes Treffen.',linkSent:'Wir haben den Code gesendet. Öffnen Sie Ihre E-Mail und geben Sie die sechs Ziffern ein.',loginError:'Der Code konnte nicht gesendet werden. Versuchen Sie es erneut.',codeError:'Der Code ist ungültig oder abgelaufen. Fordern Sie einen neuen Code an.',loadError:'Ihr Konto konnte nicht geladen werden. Aktualisieren Sie die Seite.',profilePending:'Wartet auf Prüfung',profileApproved:'Geprüftes Profil',profileHidden:'Profil ist nicht in der Auswahl',age:'Alter',location:'Ort',seeking:'Ich suche',languages:'Sprachen',occupation:'Beruf',traits:'Eigenschaften',interests:'Interessen',about:'Über mich',like:'Diese Person gefällt mir',selected:'Ausgewählt',mutual:'Gegenseitige Wahl',completeFirst:'Vervollständigen Sie zuerst Ihr eigenes Profil.',noProfiles:'Zurzeit sind keine geprüften Profile verfügbar.',premiumReason:'Warum DUONERA empfiehlt',accountReady:'Ihr persönliches Konto ist bereit.'
   },
   uk:{
-    home:'Головна',logout:'Вийти',loginLabel:'ПРИВАТНИЙ ДОСТУП',loginTitle:'Ваш особистий простір DUONERA.',loginText:'Введіть e-mail. Ми надішлемо безпечне посилання для входу — без пароля.',loginTrust1:'✓ Власна анкета та фотографії',loginTrust2:'✓ Обмежена добірка перевірених людей',loginTrust3:'✓ Контактні дані приховані',email:'E-mail',sendLink:'Надіслати посилання для входу',loginNote:'Посилання діє недовго і призначене лише для вашого облікового запису.',accountLabel:'МІЙ КАБІНЕТ',accountTitle:'Ласкаво просимо до DUONERA.',createProfile:'Створити мою анкету',ownLabel:'МОЯ АНКЕТА',ownTitle:'Так вас бачить DUONERA.',notCompleted:'Не заповнена',emptyOwnTitle:'Ви ще не заповнили повну анкету.',emptyOwnText:'Після заповнення тут будуть ваші дані та всі збережені фотографії.',premiumLabel:'ПРЕМІАЛЬНА ПОСЛУГА DUONERA',premiumTitle:'Три найкращі кандидати для вас.',premiumText:'DUONERA особисто готує три найсильніші збіги на основі повної анкети. Це персональна рекомендація, а не ще один каталог.',premiumEmpty:'Преміальна трійка ще не підготовлена.',discoveryLabel:'ОБМЕЖЕНА ДОБІРКА',discoveryTitle:'Реальні люди, з якими можна познайомитися.',discoveryText:'Без нескінченного перегляду. Лише обмежена кількість схвалених анкет без контактних даних.',mutualTitle:'У вас взаємний вибір.',mutualText:'DUONERA зв’яжеться з вами та допоможе організувати справжню зустріч.',loading:'Завантажуємо анкети…',footer:'Приватність. Обмежений вибір. Справжня зустріч.',linkSent:'Ми надіслали посилання. Відкрийте e-mail і натисніть для входу.',loginError:'Не вдалося надіслати посилання. Спробуйте ще раз.',loadError:'Не вдалося завантажити кабінет. Оновіть сторінку.',profilePending:'Очікує перевірки',profileApproved:'Схвалена анкета',profileHidden:'Анкета не бере участі в добірці',age:'Вік',location:'Місто',seeking:'Шукаю',languages:'Мови',occupation:'Професія',traits:'Характер',interests:'Інтереси',about:'Про мене',like:'Ця людина мені подобається',selected:'Обрано',mutual:'Взаємний вибір',completeFirst:'Спочатку заповніть власну анкету.',noProfiles:'Наразі немає доступних схвалених анкет.',premiumReason:'Чому DUONERA рекомендує',accountReady:'Ваш особистий кабінет готовий.'
+    home:'Головна',logout:'Вийти',loginLabel:'ПРИВАТНИЙ ДОСТУП',loginTitle:'Ваш особистий простір DUONERA.',loginText:'Введіть e-mail. Ми надішлемо безпечний шестизначний код для входу — без пароля.',loginTrust1:'✓ Власна анкета та фотографії',loginTrust2:'✓ Обмежена добірка перевірених людей',loginTrust3:'✓ Контактні дані приховані',email:'E-mail',sendCode:'Надіслати код для входу',otpCode:'Шестизначний код з e-mail',verifyCode:'Підтвердити код і увійти',loginNote:'Код діє недовго і призначений лише для вашого облікового запису.',accountLabel:'МІЙ КАБІНЕТ',accountTitle:'Ласкаво просимо до DUONERA.',createProfile:'Створити мою анкету',ownLabel:'МОЯ АНКЕТА',ownTitle:'Так вас бачить DUONERA.',notCompleted:'Не заповнена',emptyOwnTitle:'Ви ще не заповнили повну анкету.',emptyOwnText:'Після заповнення тут будуть ваші дані та всі збережені фотографії.',premiumLabel:'ПРЕМІАЛЬНА ПОСЛУГА DUONERA',premiumTitle:'Три найкращі кандидати для вас.',premiumText:'DUONERA особисто готує три найсильніші збіги на основі повної анкети. Це персональна рекомендація, а не ще один каталог.',premiumEmpty:'Преміальна трійка ще не підготовлена.',discoveryLabel:'ОБМЕЖЕНА ДОБІРКА',discoveryTitle:'Реальні люди, з якими можна познайомитися.',discoveryText:'Без нескінченного перегляду. Лише обмежена кількість схвалених анкет без контактних даних.',mutualTitle:'У вас взаємний вибір.',mutualText:'DUONERA зв’яжеться з вами та допоможе організувати справжню зустріч.',loading:'Завантажуємо анкети…',footer:'Приватність. Обмежений вибір. Справжня зустріч.',linkSent:'Ми надіслали код. Відкрийте e-mail і введіть шість цифр.',loginError:'Не вдалося надіслати код. Спробуйте ще раз.',codeError:'Код недійсний або вже минув. Надішліть собі новий код.',loadError:'Не вдалося завантажити кабінет. Оновіть сторінку.',profilePending:'Очікує перевірки',profileApproved:'Схвалена анкета',profileHidden:'Анкета не бере участі в добірці',age:'Вік',location:'Місто',seeking:'Шукаю',languages:'Мови',occupation:'Професія',traits:'Характер',interests:'Інтереси',about:'Про мене',like:'Ця людина мені подобається',selected:'Обрано',mutual:'Взаємний вибір',completeFirst:'Спочатку заповніть власну анкету.',noProfiles:'Наразі немає доступних схвалених анкет.',premiumReason:'Чому DUONERA рекомендує',accountReady:'Ваш особистий кабінет готовий.'
   },
   ru:{
-    home:'Главная',logout:'Выйти',loginLabel:'ЗАКРЫТЫЙ ДОСТУП',loginTitle:'Ваше личное пространство DUONERA.',loginText:'Введите e-mail. Мы отправим безопасную ссылку для входа — без пароля.',loginTrust1:'✓ Собственная анкета и фотографии',loginTrust2:'✓ Ограниченная подборка проверенных людей',loginTrust3:'✓ Контактные данные скрыты',email:'E-mail',sendLink:'Отправить ссылку для входа',loginNote:'Ссылка действует недолго и предназначена только для вашего аккаунта.',accountLabel:'МОЙ КАБИНЕТ',accountTitle:'Добро пожаловать в DUONERA.',createProfile:'Создать мою анкету',ownLabel:'МОЯ АНКЕТА',ownTitle:'Так вас видит DUONERA.',notCompleted:'Не заполнена',emptyOwnTitle:'Вы ещё не заполнили полную анкету.',emptyOwnText:'После заполнения здесь появятся ваши данные и все сохранённые фотографии.',premiumLabel:'ПРЕМИАЛЬНАЯ УСЛУГА DUONERA',premiumTitle:'Три лучших кандидата для вас.',premiumText:'DUONERA лично готовит три самых сильных совпадения по полной анкете. Это персональная рекомендация, а не ещё один каталог.',premiumEmpty:'Премиальная тройка пока не подготовлена.',discoveryLabel:'ОГРАНИЧЕННАЯ ПОДБОРКА',discoveryTitle:'Реальные люди, с которыми можно познакомиться.',discoveryText:'Без бесконечного просмотра. Только ограниченное количество одобренных анкет без контактных данных.',mutualTitle:'У вас взаимный выбор.',mutualText:'DUONERA свяжется с вами и поможет организовать настоящую встречу.',loading:'Загружаем анкеты…',footer:'Приватность. Ограниченный выбор. Настоящая встреча.',linkSent:'Мы отправили ссылку. Откройте e-mail и нажмите для входа.',loginError:'Не удалось отправить ссылку. Попробуйте ещё раз.',loadError:'Не удалось загрузить кабинет. Обновите страницу.',profilePending:'Ожидает проверки',profileApproved:'Одобренная анкета',profileHidden:'Анкета не участвует в подборке',age:'Возраст',location:'Город',seeking:'Ищу',languages:'Языки',occupation:'Профессия',traits:'Характер',interests:'Интересы',about:'Обо мне',like:'Этот человек мне нравится',selected:'Выбрано',mutual:'Взаимный выбор',completeFirst:'Сначала заполните собственную анкету.',noProfiles:'Сейчас нет доступных одобренных анкет.',premiumReason:'Почему DUONERA рекомендует',accountReady:'Ваш личный кабинет готов.'
+    home:'Главная',logout:'Выйти',loginLabel:'ЗАКРЫТЫЙ ДОСТУП',loginTitle:'Ваше личное пространство DUONERA.',loginText:'Введите e-mail. Мы отправим безопасный шестизначный код для входа — без пароля.',loginTrust1:'✓ Собственная анкета и фотографии',loginTrust2:'✓ Ограниченная подборка проверенных людей',loginTrust3:'✓ Контактные данные скрыты',email:'E-mail',sendCode:'Отправить код для входа',otpCode:'Шестизначный код из письма',verifyCode:'Подтвердить код и войти',loginNote:'Код действует недолго и предназначен только для вашего аккаунта.',accountLabel:'МОЙ КАБИНЕТ',accountTitle:'Добро пожаловать в DUONERA.',createProfile:'Создать мою анкету',ownLabel:'МОЯ АНКЕТА',ownTitle:'Так вас видит DUONERA.',notCompleted:'Не заполнена',emptyOwnTitle:'Вы ещё не заполнили полную анкету.',emptyOwnText:'После заполнения здесь появятся ваши данные и все сохранённые фотографии.',premiumLabel:'ПРЕМИАЛЬНАЯ УСЛУГА DUONERA',premiumTitle:'Три лучших кандидата для вас.',premiumText:'DUONERA лично готовит три самых сильных совпадения по полной анкете. Это персональная рекомендация, а не ещё один каталог.',premiumEmpty:'Премиальная тройка пока не подготовлена.',discoveryLabel:'ОГРАНИЧЕННАЯ ПОДБОРКА',discoveryTitle:'Реальные люди, с которыми можно познакомиться.',discoveryText:'Без бесконечного просмотра. Только ограниченное количество одобренных анкет без контактных данных.',mutualTitle:'У вас взаимный выбор.',mutualText:'DUONERA свяжется с вами и поможет организовать настоящую встречу.',loading:'Загружаем анкеты…',footer:'Приватность. Ограниченный выбор. Настоящая встреча.',linkSent:'Мы отправили код. Откройте письмо и введите шесть цифр.',loginError:'Не удалось отправить код. Попробуйте ещё раз.',codeError:'Код недействителен или уже истёк. Отправьте себе новый код.',loadError:'Не удалось загрузить кабинет. Обновите страницу.',profilePending:'Ожидает проверки',profileApproved:'Одобренная анкета',profileHidden:'Анкета не участвует в подборке',age:'Возраст',location:'Город',seeking:'Ищу',languages:'Языки',occupation:'Профессия',traits:'Характер',interests:'Интересы',about:'Обо мне',like:'Этот человек мне нравится',selected:'Выбрано',mutual:'Взаимный выбор',completeFirst:'Сначала заполните собственную анкету.',noProfiles:'Сейчас нет доступных одобренных анкет.',premiumReason:'Почему DUONERA рекомендует',accountReady:'Ваш личный кабинет готов.'
   }
 };
 
@@ -36,6 +37,10 @@ const dashboardView = document.querySelector('#dashboardView');
 const loginForm = document.querySelector('#loginForm');
 const loginButton = document.querySelector('#loginButton');
 const loginMessage = document.querySelector('#loginMessage');
+const memberEmail = document.querySelector('#memberEmail');
+const otpField = document.querySelector('#otpField');
+const otpInput = document.querySelector('#memberOtp');
+const verifyOtpButton = document.querySelector('#verifyOtpButton');
 const logoutButton = document.querySelector('#logoutButton');
 const dashboardMessage = document.querySelector('#dashboardMessage');
 const memberEmailLabel = document.querySelector('#memberEmailLabel');
@@ -51,6 +56,7 @@ let selectedProfiles = new Map();
 let loadedDiscovery = [];
 let loadedPremium = [];
 let activeAuth = null;
+let pendingEmail = '';
 
 function t(key) {
   return translations[currentLang]?.[key] || translations.cs[key] || key;
@@ -331,14 +337,59 @@ loginForm.addEventListener('submit', async event => {
   loginMessage.className = 'member-message';
   loginMessage.textContent = '';
   try {
-    const email = document.querySelector('#memberEmail').value.trim().toLowerCase();
-    await requestMagicLink(email, `${location.origin}/ucet.html`);
+    const email = memberEmail.value.trim().toLowerCase();
+    await requestEmailOtp(email, `${location.origin}/ucet.html`);
+    pendingEmail = email;
+    otpField.hidden = false;
+    verifyOtpButton.hidden = false;
+    otpInput.value = '';
+    otpInput.focus();
     loginMessage.textContent = t('linkSent');
   } catch {
     loginMessage.className = 'member-message error';
     loginMessage.textContent = t('loginError');
   } finally {
     loginButton.disabled = false;
+  }
+});
+
+verifyOtpButton.addEventListener('click', async () => {
+  const email = (pendingEmail || memberEmail.value).trim().toLowerCase();
+  const token = otpInput.value.replace(/\D/g, '').slice(0, 6);
+  if (!email || token.length !== 6) {
+    loginMessage.className = 'member-message error';
+    loginMessage.textContent = t('codeError');
+    return;
+  }
+
+  verifyOtpButton.disabled = true;
+  loginMessage.className = 'member-message';
+  loginMessage.textContent = '';
+  try {
+    await verifyEmailOtp(email, token);
+    const auth = await requireMemberSession();
+    if (!auth) throw new Error('Session unavailable');
+    activeAuth = auth;
+    loginView.hidden = true;
+    dashboardView.hidden = false;
+    logoutButton.hidden = false;
+    await loadDashboard(auth);
+  } catch {
+    loginMessage.className = 'member-message error';
+    loginMessage.textContent = t('codeError');
+  } finally {
+    verifyOtpButton.disabled = false;
+  }
+});
+
+otpInput.addEventListener('input', () => {
+  otpInput.value = otpInput.value.replace(/\D/g, '').slice(0, 6);
+});
+
+otpInput.addEventListener('keydown', event => {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    verifyOtpButton.click();
   }
 });
 
@@ -352,6 +403,10 @@ logoutButton.addEventListener('click', async () => {
   dashboardView.hidden = true;
   logoutButton.hidden = true;
   loginView.hidden = false;
+  pendingEmail = '';
+  otpInput.value = '';
+  otpField.hidden = true;
+  verifyOtpButton.hidden = true;
 });
 
 document.querySelectorAll('[data-lang]').forEach(button => {
@@ -367,7 +422,7 @@ try {
 } catch {
   savedRegistration = {};
 }
-if (savedRegistration.email) document.querySelector('#memberEmail').value = savedRegistration.email;
+if (savedRegistration.email) memberEmail.value = savedRegistration.email;
 
 const auth = await requireMemberSession();
 if (auth) {

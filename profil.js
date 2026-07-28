@@ -4,7 +4,7 @@ import {
   insertRow,
   uploadPrivateFile
 } from './supabase-client.js?v=5';
-import { memberRest, requireMemberSession } from './member-auth.js?v=1';
+import { memberRest, requireMemberSession } from './member-auth.js?v=2';
 
 const memberAuth = await requireMemberSession();
 if(!memberAuth){

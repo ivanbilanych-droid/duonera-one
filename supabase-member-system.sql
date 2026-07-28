@@ -337,7 +337,7 @@ grant execute on function public.duonera_my_choices() to authenticated;
 
 create or replace function public.duonera_my_premium_selection()
 returns table (
-  position smallint,
+  "position" smallint,
   selection_note text,
   profile_id uuid,
   first_name text,
@@ -412,7 +412,7 @@ as $$
    and second_choice.chosen_profile_id = first_profile.id
   where lower(coalesce(auth.jwt() ->> 'email', '')) = 'info@duonera.cz'
     and first_profile.id < second_profile.id
-  order by matched_at desc;
+  order by greatest(first_choice.created_at, second_choice.created_at) desc;
 $$;
 
 revoke all on function public.duonera_admin_mutual_matches() from public;

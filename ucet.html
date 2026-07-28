@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#090908">
   <title>Můj účet — DUONERA</title>
   <link rel="stylesheet" href="styles.css?v=5">
-  <link rel="stylesheet" href="ucet.css?v=1">
+  <link rel="stylesheet" href="ucet.css?v=2">
 </head>
 <body class="member-page">
   <header class="site-header member-header">
@@ -34,7 +34,7 @@
       <div class="login-intro">
         <p class="section-label" data-i18n="loginLabel">SOUKROMÝ PŘÍSTUP</p>
         <h1 data-i18n="loginTitle">Váš osobní prostor DUONERA.</h1>
-        <p data-i18n="loginText">Zadejte e-mail. Pošleme vám bezpečný přihlašovací odkaz — bez hesla.</p>
+        <p data-i18n="loginText">Zadejte e-mail. Pošleme vám bezpečný šestimístný přihlašovací kód — bez hesla.</p>
         <div class="login-trust">
           <span data-i18n="loginTrust1">✓ Uvidíte vlastní profil a fotografie</span>
           <span data-i18n="loginTrust2">✓ Omezený výběr ověřených lidí</span>
@@ -46,9 +46,14 @@
           <span data-i18n="email">E-mail</span>
           <input id="memberEmail" type="email" autocomplete="email" placeholder="vas@email.cz" required>
         </label>
-        <button class="btn btn-gold full" id="loginButton" type="submit" data-i18n="sendLink">Poslat přihlašovací odkaz</button>
+        <button class="btn btn-gold full" id="loginButton" type="submit" data-i18n="sendCode">Poslat přihlašovací kód</button>
+        <label id="otpField" hidden>
+          <span data-i18n="otpCode">Šestimístný kód z e-mailu</span>
+          <input id="memberOtp" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" placeholder="123456">
+        </label>
+        <button class="btn btn-gold full" id="verifyOtpButton" type="button" hidden data-i18n="verifyCode">Potvrdit kód a vstoupit</button>
         <p class="member-message" id="loginMessage" role="status"></p>
-        <small data-i18n="loginNote">Odkaz platí pouze krátkou dobu a lze ho použít jen pro váš účet.</small>
+        <small data-i18n="loginNote">Kód platí pouze krátkou dobu a lze ho použít jen pro váš účet.</small>
       </form>
     </section>
 
@@ -122,6 +127,6 @@
       <a href="mailto:info@duonera.cz">info@duonera.cz</a>
     </div>
   </footer>
-  <script type="module" src="ucet.js?v=1"></script>
+  <script type="module" src="ucet.js?v=2"></script>
 </body>
 </html>

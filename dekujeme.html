@@ -21,17 +21,17 @@
     <div class="thank-you-sub">PRIVATE DATING CONCIERGE</div>
     <div class="thank-you-symbol">✓</div>
     <h1>Váš osobní účet je připraven.</h1>
-    <p>Na váš e-mail jsme poslali bezpečný přihlašovací odkaz. Otevřete zprávu od DUONERA a klikněte na odkaz. Potom uvidíte svou osobní stránku a můžete dokončit anketu.</p>
+    <p>Na váš e-mail jsme poslali šestimístný přihlašovací kód. Otevřete osobní účet, zadejte stejný e-mail a šest číslic. Potom uvidíte svou osobní stránku a můžete dokončit anketu.</p>
     <div class="thank-you-actions"><a class="thank-you-button primary" href="ucet.html">Otevřít osobní účet</a><a class="thank-you-button secondary" href="index.html">Zpět na hlavní stránku</a></div>
-    <p class="thank-you-note">Nepřišel e-mail? Zkontrolujte složku Spam. Nový odkaz si můžete poslat na stránce osobního účtu.</p>
+    <p class="thank-you-note">Nepřišel kód? Zkontrolujte složku Spam. Nový kód si můžete poslat na stránce osobního účtu.</p>
   </main>
 <script>
   const copy={
-    cs:{title:'Váš osobní účet je připraven.',text:'Na váš e-mail jsme poslali bezpečný přihlašovací odkaz. Otevřete zprávu od DUONERA a klikněte na odkaz. Potom uvidíte svou osobní stránku a můžete dokončit anketu.',primary:'Otevřít osobní účet',secondary:'Zpět na hlavní stránku',note:'Nepřišel e-mail? Zkontrolujte složku Spam. Nový odkaz si můžete poslat na stránce osobního účtu.'},
-    en:{title:'Your personal account is ready.',text:'We sent a secure sign-in link to your email. Open the DUONERA message and click the link. You will then see your personal page and can complete your profile.',primary:'Open my account',secondary:'Back to home',note:'No email? Check your Spam folder. You can request a new link on the account page.'},
-    de:{title:'Ihr persönliches Konto ist bereit.',text:'Wir haben einen sicheren Anmeldelink an Ihre E-Mail gesendet. Öffnen Sie die DUONERA-Nachricht und klicken Sie auf den Link. Danach sehen Sie Ihre persönliche Seite und können Ihr Profil vervollständigen.',primary:'Mein Konto öffnen',secondary:'Zur Startseite',note:'Keine E-Mail erhalten? Prüfen Sie den Spam-Ordner. Auf der Kontoseite können Sie einen neuen Link anfordern.'},
-    uk:{title:'Ваш особистий кабінет готовий.',text:'Ми надіслали безпечне посилання для входу на ваш e-mail. Відкрийте повідомлення DUONERA і натисніть посилання. Після цього ви побачите свою сторінку та зможете завершити анкету.',primary:'Відкрити мій кабінет',secondary:'На головну',note:'Немає листа? Перевірте папку Спам. Нове посилання можна отримати на сторінці кабінету.'},
-    ru:{title:'Ваш личный кабинет готов.',text:'Мы отправили безопасную ссылку для входа на ваш e-mail. Откройте письмо DUONERA и нажмите ссылку. После этого вы увидите свою страницу и сможете закончить анкету.',primary:'Открыть мой кабинет',secondary:'На главную',note:'Нет письма? Проверьте папку Спам. Новую ссылку можно получить на странице личного кабинета.'}
+    cs:{title:'Váš osobní účet je připraven.',text:'Na váš e-mail jsme poslali šestimístný přihlašovací kód. Otevřete osobní účet, zadejte stejný e-mail a šest číslic. Potom uvidíte svou osobní stránku a můžete dokončit anketu.',primary:'Otevřít osobní účet',secondary:'Zpět na hlavní stránku',note:'Nepřišel kód? Zkontrolujte složku Spam. Nový kód si můžete poslat na stránce osobního účtu.'},
+    en:{title:'Your personal account is ready.',text:'We sent a six-digit sign-in code to your email. Open your account, enter the same email and the six digits. You will then see your personal page and can complete your profile.',primary:'Open my account',secondary:'Back to home',note:'No code? Check your Spam folder. You can request a new code on the account page.'},
+    de:{title:'Ihr persönliches Konto ist bereit.',text:'Wir haben einen sechsstelligen Anmeldecode an Ihre E-Mail gesendet. Öffnen Sie Ihr Konto und geben Sie dieselbe E-Mail und die sechs Ziffern ein. Danach können Sie Ihr Profil vervollständigen.',primary:'Mein Konto öffnen',secondary:'Zur Startseite',note:'Kein Code erhalten? Prüfen Sie den Spam-Ordner. Auf der Kontoseite können Sie einen neuen Code anfordern.'},
+    uk:{title:'Ваш особистий кабінет готовий.',text:'Ми надіслали шестизначний код для входу на ваш e-mail. Відкрийте кабінет, введіть той самий e-mail і шість цифр. Після цього ви зможете завершити анкету.',primary:'Відкрити мій кабінет',secondary:'На головну',note:'Немає коду? Перевірте папку Спам. Новий код можна отримати на сторінці кабінету.'},
+    ru:{title:'Ваш личный кабинет готов.',text:'Мы отправили шестизначный код для входа на ваш e-mail. Откройте кабинет, введите тот же e-mail и шесть цифр. После этого вы сможете закончить анкету.',primary:'Открыть мой кабинет',secondary:'На главную',note:'Нет кода? Проверьте папку Спам. Новый код можно получить на странице личного кабинета.'}
   };
   const lang=localStorage.getItem('duonera-lang')||'cs';
   const text=copy[lang]||copy.cs;
