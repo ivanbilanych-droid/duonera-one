@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
   <title>Profil byl odeslán — DUONERA</title>
-  <link rel="stylesheet" href="styles.css?v=4">
+  <link rel="stylesheet" href="styles.css?v=5">
   <style>
     body.profile-done{min-height:100vh;margin:0;padding:24px;display:grid;place-items:center;background:radial-gradient(circle at 50% 0,rgba(215,174,85,.15),transparent 34%),#080807;color:#f7f0df;font-family:Arial,Helvetica,sans-serif}
     .done-card{width:min(780px,100%);border:1px solid rgba(215,174,85,.48);background:linear-gradient(145deg,#1a1711,#090908);padding:64px 52px;text-align:center;box-shadow:0 30px 100px rgba(0,0,0,.6)}
@@ -18,24 +18,27 @@
     <div class="done-logo">♛ DUONERA</div>
     <div class="done-sub">PRIVATE DATING CONCIERGE</div>
     <div class="done-icon">✓</div>
-    <h1>Váš profil byl odeslán.</h1>
-    <p>Děkujeme za důvěru. Vaše údaje a fotografie byly bezpečně uloženy. Profil není veřejný. Po kontrole profilu vás budeme kontaktovat, jakmile pro vás připravíme vhodný soukromý výběr.</p>
-    <div class="done-actions"><a class="primary" href="index.html">Zpět na DUONERA</a><a class="secondary" href="mailto:info@duonera.cz">Kontaktovat podporu</a></div>
-    <p class="done-next">Vaše kontaktní údaje nezveřejňujeme a předáváme je pouze po vzájemném potvrzení.</p>
+    <h1>Váš profil byl uložen.</h1>
+    <p>Děkujeme za důvěru. Údaje a fotografie jsou bezpečně uložené ve vašem osobním účtu. DUONERA profil zkontroluje před zařazením do omezeného výběru.</p>
+    <div class="done-actions"><a class="primary" href="ucet.html">Otevřít můj účet</a><a class="secondary" href="mailto:info@duonera.cz">Kontaktovat podporu</a></div>
+    <p class="done-next">Kontaktní údaje se v profilu nezobrazují. Vzájemnou volbu řeší DUONERA bezpečně a soukromě.</p>
   </main>
   <script>
-    if(localStorage.getItem('duonera-lang')==='de'){
-      document.documentElement.lang='de';
-      document.title='Profil gesendet — DUONERA';
-      document.querySelector('.done-card h1').textContent='Ihr Profil wurde gesendet.';
-      document.querySelector('.done-card p').textContent='Vielen Dank für Ihr Vertrauen. Ihre Angaben und Fotos wurden sicher gespeichert. Das Profil ist nicht öffentlich. Nach der Prüfung kontaktieren wir Sie, sobald wir eine passende private Auswahl für Sie vorbereitet haben.';
-      document.querySelector('.done-actions .primary').textContent='Zurück zu DUONERA';
-      document.querySelector('.done-actions .secondary').textContent='Support kontaktieren';
-      document.querySelector('.done-next').textContent='Ihre Kontaktdaten werden nicht veröffentlicht und erst nach gegenseitiger Bestätigung weitergegeben.';
-    }
-    localStorage.removeItem('duonera-profile-draft');localStorage.removeItem('duonera-short-registration');
-  </script>
-  <script>
+    const copy={
+      cs:{title:'Váš profil byl uložen.',text:'Děkujeme za důvěru. Údaje a fotografie jsou bezpečně uložené ve vašem osobním účtu. DUONERA profil zkontroluje před zařazením do omezeného výběru.',primary:'Otevřít můj účet',secondary:'Kontaktovat podporu',note:'Kontaktní údaje se v profilu nezobrazují. Vzájemnou volbu řeší DUONERA bezpečně a soukromě.'},
+      en:{title:'Your profile has been saved.',text:'Thank you for your trust. Your details and photos are securely stored in your personal account. DUONERA reviews the profile before it enters the limited selection.',primary:'Open my account',secondary:'Contact support',note:'Contact details are not displayed in profiles. DUONERA handles mutual choices securely and privately.'},
+      de:{title:'Ihr Profil wurde gespeichert.',text:'Vielen Dank für Ihr Vertrauen. Ihre Angaben und Fotos wurden sicher in Ihrem persönlichen Konto gespeichert. DUONERA prüft das Profil vor der Aufnahme in die begrenzte Auswahl.',primary:'Mein Konto öffnen',secondary:'Support kontaktieren',note:'Kontaktdaten werden im Profil nicht angezeigt. Eine gegenseitige Wahl begleitet DUONERA sicher und privat.'},
+      uk:{title:'Вашу анкету збережено.',text:'Дякуємо за довіру. Дані та фотографії безпечно збережені у вашому особистому кабінеті. DUONERA перевірить анкету перед додаванням до обмеженої добірки.',primary:'Відкрити мій кабінет',secondary:'Написати підтримці',note:'Контактні дані в анкетах не показуються. DUONERA супроводжує взаємний вибір безпечно та приватно.'},
+      ru:{title:'Ваша анкета сохранена.',text:'Спасибо за доверие. Данные и фотографии безопасно сохранены в вашем личном кабинете. DUONERA проверит анкету перед добавлением в ограниченную подборку.',primary:'Открыть мой кабинет',secondary:'Написать поддержке',note:'Контактные данные в анкетах не показываются. DUONERA сопровождает взаимный выбор безопасно и конфиденциально.'}
+    };
+    const lang=localStorage.getItem('duonera-lang')||'cs';
+    const text=copy[lang]||copy.cs;
+    document.documentElement.lang=lang==='uk'?'uk':lang;
+    document.querySelector('.done-card h1').textContent=text.title;
+    document.querySelector('.done-card p').textContent=text.text;
+    document.querySelector('.done-actions .primary').textContent=text.primary;
+    document.querySelector('.done-actions .secondary').textContent=text.secondary;
+    document.querySelector('.done-next').textContent=text.note;
     localStorage.removeItem('duonera-profile-draft');
     localStorage.removeItem('duonera-short-registration');
     localStorage.removeItem('duonera-lead-id');

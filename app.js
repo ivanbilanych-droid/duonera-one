@@ -1,4 +1,10 @@
-import { createUuid, insertRow } from './supabase-client.js?v=4';
+import {
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY,
+  createUuid,
+  insertRow
+} from './supabase-client.js?v=5';
+import { requestMagicLink } from './member-auth.js?v=1';
 
 const translations = {
   cs: {
@@ -42,6 +48,129 @@ const translations = {
   }
 };
 
+const processTranslations = {
+  cs:{
+    account:'Můj účet',navSelection:'Profily',
+    heroLead:'Nejdříve si prohlédnete omezený výběr skutečných profilů. Po registraci získáte vlastní stránku, můžete označit sympatie a při vzájemné volbě DUONERA připraví skutečné setkání.',
+    trustPrivate:'Kontaktní údaje nejsou veřejné',
+    statementTitle:'Omezený výběr pro vlastní rozhodnutí. Tři nejlepší kandidáti jako prémiová služba.',
+    statementText:'Můžete si sami prohlédnout několik schválených profilů. Pokud chcete přesnější výběr, DUONERA pro vás osobně připraví tři nejsilnější kandidáty podle celé ankety.',
+    howTitle:'Pět jednoduchých kroků od prvního pohledu ke schůzce',
+    step1Title:'Prohlédnete si profily',step1Text:'Hned vidíte omezený počet skutečných a schválených profilů.',
+    step2Title:'Získáte vlastní stránku',step2Text:'Po registraci vidíte svou anketu, fotografie a stav profilu.',
+    step3Title:'Označíte sympatii',step3Text:'Vyberete lidi, které byste chtěli poznat. Kontakty zůstávají skryté.',
+    step4Title:'Vzájemná volba',step4Text:'DUONERA odhalí shodu pouze tehdy, když jste si vybrali navzájem.',
+    step5Text:'DUONERA pomůže domluvit termín a vhodné veřejné místo.',
+    selectionLabel:'OMEZENÝ VÝBĚR',selectionTitle:'Skutečné profily. Žádný nekonečný katalog.',
+    selectionText:'Zobrazujeme pouze schválené profily lidí, kteří výslovně souhlasili s jejich zobrazením. Kontaktní údaje ani přesné datum narození nezveřejňujeme.',
+    selectionNote:'Kontaktní údaje zůstávají vždy skryté.',
+    privacyTitle:'Vy rozhodujete, zda se váš profil může zobrazit.',
+    privacyText:'Zobrazí se pouze po vašem výslovném souhlasu a schválení DUONERA. E-mail, telefon, příjmení a přesné datum narození se nezobrazují.',
+    registerTitle:'Získejte vlastní stránku DUONERA zdarma.',
+    registerText:'Krátká registrace trvá přibližně jednu minutu. Na e-mail dostanete bezpečný odkaz do osobního účtu, kde uvidíte svou anketu, fotografie a výběry.',
+    regCheck2:'✓ Přihlášení bezpečným odkazem bez hesla',regCheck3:'✓ E-mail a kontaktní údaje nezveřejňujeme',
+    formNote:'Bez platby a bez závazku. O zobrazení profilu rozhodujete vy.',
+    discoveryLoading:'Načítání schválených profilů…',noDiscoveryProfiles:'Momentálně nejsou k dispozici žádné schválené profily.',openAccount:'Chci tohoto člověka poznat'
+  },
+  en:{
+    account:'My account',navSelection:'Profiles',
+    heroLead:'First, browse a limited selection of real profiles. After registration you receive your own page, can mark who you like, and DUONERA prepares a real meeting when the choice is mutual.',
+    trustPrivate:'Contact details are not public',
+    statementTitle:'A limited selection for your own decision. Your three best candidates as a premium service.',
+    statementText:'Browse a few approved profiles yourself. If you want a more precise selection, DUONERA personally prepares the three strongest candidates from your full profile.',
+    howTitle:'Five simple steps from the first look to a real date',
+    step1Title:'Browse profiles',step1Text:'Immediately see a limited number of real, approved profiles.',
+    step2Title:'Get your own page',step2Text:'After registration, see your profile, photos and approval status.',
+    step3Title:'Mark your interest',step3Text:'Choose the people you would like to meet. Contact details remain hidden.',
+    step4Title:'Mutual choice',step4Text:'DUONERA reveals a match only when you choose each other.',
+    step5Text:'DUONERA helps arrange a suitable time and public place.',
+    selectionLabel:'LIMITED SELECTION',selectionTitle:'Real profiles. No endless catalogue.',
+    selectionText:'We show only approved profiles of people who explicitly consented to display. Contact details and exact birth dates are never shown.',
+    selectionNote:'Contact details always remain hidden.',
+    privacyTitle:'You decide whether your profile may be shown.',
+    privacyText:'It appears only with your explicit consent and DUONERA approval. Email, phone, surname and exact birth date are not displayed.',
+    registerTitle:'Get your own DUONERA page for free.',
+    registerText:'Short registration takes about one minute. You receive a secure email link to your account, where you can see your profile, photos and selections.',
+    regCheck2:'✓ Secure password-free email sign-in',regCheck3:'✓ Email and contact details are never public',
+    formNote:'No payment and no obligation. You decide whether your profile is displayed.',
+    discoveryLoading:'Loading approved profiles…',noDiscoveryProfiles:'No approved profiles are available at the moment.',openAccount:'I would like to meet this person'
+  },
+  de:{
+    account:'Mein Konto',navSelection:'Profile',
+    heroLead:'Zuerst sehen Sie eine begrenzte Auswahl echter Profile. Nach der Registrierung erhalten Sie Ihre persönliche Seite, markieren Ihre Sympathien und bei gegenseitiger Wahl organisiert DUONERA ein echtes Treffen.',
+    trustPrivate:'Kontaktdaten sind nicht öffentlich',
+    statementTitle:'Eine begrenzte Auswahl für Ihre eigene Entscheidung. Die drei besten Kandidaten als Premium-Service.',
+    statementText:'Sie können einige geprüfte Profile selbst ansehen. Für eine genauere Auswahl stellt DUONERA anhand Ihres vollständigen Profils persönlich die drei stärksten Kandidaten zusammen.',
+    howTitle:'Fünf einfache Schritte vom ersten Blick zum echten Treffen',
+    step1Title:'Profile ansehen',step1Text:'Sie sehen sofort eine begrenzte Zahl echter, geprüfter Profile.',
+    step2Title:'Eigene Seite erhalten',step2Text:'Nach der Registrierung sehen Sie Ihr Profil, Ihre Fotos und den Prüfstatus.',
+    step3Title:'Sympathie markieren',step3Text:'Wählen Sie Menschen, die Sie kennenlernen möchten. Kontaktdaten bleiben verborgen.',
+    step4Title:'Gegenseitige Wahl',step4Text:'DUONERA zeigt eine Übereinstimmung nur, wenn Sie sich gegenseitig gewählt haben.',
+    step5Text:'DUONERA hilft, einen Termin und einen geeigneten öffentlichen Ort zu vereinbaren.',
+    selectionLabel:'BEGRENZTE AUSWAHL',selectionTitle:'Echte Profile. Kein endloser Katalog.',
+    selectionText:'Wir zeigen nur geprüfte Profile von Menschen, die der Anzeige ausdrücklich zugestimmt haben. Kontaktdaten und das genaue Geburtsdatum werden nie gezeigt.',
+    selectionNote:'Kontaktdaten bleiben immer verborgen.',
+    privacyTitle:'Sie entscheiden, ob Ihr Profil angezeigt werden darf.',
+    privacyText:'Es erscheint nur mit Ihrer ausdrücklichen Zustimmung und nach Freigabe durch DUONERA. E-Mail, Telefon, Nachname und genaues Geburtsdatum werden nicht angezeigt.',
+    registerTitle:'Erhalten Sie Ihre eigene DUONERA-Seite kostenlos.',
+    registerText:'Die kurze Registrierung dauert etwa eine Minute. Per E-Mail erhalten Sie einen sicheren Link zu Ihrem Konto mit Profil, Fotos und Auswahl.',
+    regCheck2:'✓ Sicherer E-Mail-Zugang ohne Passwort',regCheck3:'✓ E-Mail und Kontaktdaten sind nie öffentlich',
+    formNote:'Keine Zahlung und keine Verpflichtung. Sie entscheiden über die Anzeige Ihres Profils.',
+    discoveryLoading:'Geprüfte Profile werden geladen…',noDiscoveryProfiles:'Zurzeit sind keine geprüften Profile verfügbar.',openAccount:'Ich möchte diese Person kennenlernen'
+  },
+  uk:{
+    account:'Мій кабінет',navSelection:'Анкети',
+    heroLead:'Спочатку ви бачите обмежену добірку реальних анкет. Після реєстрації отримуєте власну сторінку, відмічаєте симпатії, а при взаємному виборі DUONERA організовує справжню зустріч.',
+    trustPrivate:'Контактні дані не є публічними',
+    statementTitle:'Обмежений вибір для власного рішення. Три найкращі кандидати як преміальна послуга.',
+    statementText:'Ви можете самі переглянути кілька схвалених анкет. Для точнішого вибору DUONERA особисто підготує три найсильніші кандидатури за повною анкетою.',
+    howTitle:'П’ять простих кроків від першого погляду до зустрічі',
+    step1Title:'Переглядаєте анкети',step1Text:'Одразу бачите обмежену кількість реальних і схвалених анкет.',
+    step2Title:'Отримуєте власну сторінку',step2Text:'Після реєстрації бачите свою анкету, фотографії та статус перевірки.',
+    step3Title:'Відмічаєте симпатію',step3Text:'Обираєте людей, з якими хочете познайомитися. Контакти приховані.',
+    step4Title:'Взаємний вибір',step4Text:'DUONERA показує збіг лише тоді, коли ви обрали одне одного.',
+    step5Text:'DUONERA допоможе домовитися про час і відповідне публічне місце.',
+    selectionLabel:'ОБМЕЖЕНА ДОБІРКА',selectionTitle:'Реальні анкети. Без нескінченного каталогу.',
+    selectionText:'Ми показуємо лише схвалені анкети людей, які дали явну згоду на показ. Контактні дані та точна дата народження не відображаються.',
+    selectionNote:'Контактні дані завжди приховані.',
+    privacyTitle:'Ви вирішуєте, чи можна показувати вашу анкету.',
+    privacyText:'Вона з’явиться лише після вашої явної згоди та схвалення DUONERA. E-mail, телефон, прізвище і точна дата народження не показуються.',
+    registerTitle:'Отримайте власну сторінку DUONERA безкоштовно.',
+    registerText:'Коротка реєстрація займає близько хвилини. На e-mail ви отримаєте безпечне посилання до кабінету з анкетою, фотографіями та добірками.',
+    regCheck2:'✓ Безпечний вхід через e-mail без пароля',regCheck3:'✓ E-mail і контакти не публікуються',
+    formNote:'Без оплати та зобов’язань. Ви вирішуєте, чи показувати анкету.',
+    discoveryLoading:'Завантажуємо схвалені анкети…',noDiscoveryProfiles:'Наразі немає доступних схвалених анкет.',openAccount:'Хочу познайомитися з цією людиною'
+  },
+  ru:{
+    account:'Мой кабинет',navSelection:'Анкеты',
+    heroLead:'Сначала вы видите ограниченную подборку реальных анкет. После регистрации получаете личную страницу, отмечаете симпатии, а при взаимном выборе DUONERA организует настоящую встречу.',
+    trustPrivate:'Контактные данные не публикуются',
+    statementTitle:'Ограниченный выбор для собственного решения. Три лучших кандидата как премиальная услуга.',
+    statementText:'Вы можете сами посмотреть несколько одобренных анкет. Для более точного выбора DUONERA лично подготовит три самых сильных кандидатуры по полной анкете.',
+    howTitle:'Пять простых шагов от первого взгляда до встречи',
+    step1Title:'Смотрите анкеты',step1Text:'Сразу видите ограниченное количество реальных и одобренных анкет.',
+    step2Title:'Получаете личную страницу',step2Text:'После регистрации видите свою анкету, фотографии и статус проверки.',
+    step3Title:'Отмечаете симпатию',step3Text:'Выбираете людей, с которыми хотите познакомиться. Контакты скрыты.',
+    step4Title:'Взаимный выбор',step4Text:'DUONERA показывает совпадение только тогда, когда вы выбрали друг друга.',
+    step5Text:'DUONERA поможет договориться о времени и подходящем публичном месте.',
+    selectionLabel:'ОГРАНИЧЕННАЯ ПОДБОРКА',selectionTitle:'Реальные анкеты. Без бесконечного каталога.',
+    selectionText:'Мы показываем только одобренные анкеты людей, которые дали явное согласие на показ. Контактные данные и точная дата рождения не отображаются.',
+    selectionNote:'Контактные данные всегда скрыты.',
+    privacyTitle:'Вы решаете, можно ли показывать вашу анкету.',
+    privacyText:'Она появится только после вашего явного согласия и одобрения DUONERA. E-mail, телефон, фамилия и точная дата рождения не показываются.',
+    registerTitle:'Получите личную страницу DUONERA бесплатно.',
+    registerText:'Короткая регистрация занимает около минуты. На e-mail придёт безопасная ссылка в кабинет с вашей анкетой, фотографиями и подборками.',
+    regCheck2:'✓ Безопасный вход по e-mail без пароля',regCheck3:'✓ E-mail и контакты не публикуются',
+    formNote:'Без оплаты и обязательств. Вы решаете, показывать ли анкету.',
+    discoveryLoading:'Загружаем одобренные анкеты…',noDiscoveryProfiles:'Сейчас нет доступных одобренных анкет.',openAccount:'Хочу познакомиться с этим человеком'
+  }
+};
+
+Object.entries(processTranslations).forEach(([language, values]) => {
+  Object.assign(translations[language], values);
+});
+
+let publicProfiles = [];
 const fallback = translations.cs;
 const translatable = document.querySelectorAll('[data-i18n]');
 const langButtons = document.querySelectorAll('[data-lang]');
@@ -55,6 +184,7 @@ function setLanguage(lang){
   });
   langButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.lang === lang));
   localStorage.setItem('duonera-lang',lang);
+  if(publicProfiles.length) renderPublicProfiles();
 }
 langButtons.forEach(btn => btn.addEventListener('click',()=>setLanguage(btn.dataset.lang)));
 setLanguage(localStorage.getItem('duonera-lang') || 'cs');
@@ -73,6 +203,86 @@ mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
   menuButton.setAttribute('aria-expanded','false');
   mobileMenu.setAttribute('aria-hidden','true');
 }));
+
+const publicProfileGrid = document.querySelector('#publicProfileGrid');
+const DISCOVERY_BUCKET = 'duonera-discovery-photos';
+
+function encodedPublicPath(path){
+  return String(path).split('/').map(encodeURIComponent).join('/');
+}
+
+function publicPhotoUrl(path){
+  return `${SUPABASE_URL}/storage/v1/object/public/${encodeURIComponent(DISCOVERY_BUCKET)}/${encodedPublicPath(path)}`;
+}
+
+function renderPublicProfiles(){
+  if(!publicProfileGrid) return;
+  const lang = localStorage.getItem('duonera-lang') || 'cs';
+  const dict = translations[lang] || fallback;
+  publicProfileGrid.replaceChildren();
+
+  if(!publicProfiles.length){
+    const state = document.createElement('div');
+    state.className = 'public-profile-state';
+    state.textContent = dict.noDiscoveryProfiles || fallback.noDiscoveryProfiles;
+    publicProfileGrid.appendChild(state);
+    return;
+  }
+
+  publicProfiles.slice(0,6).forEach(profile=>{
+    const card = document.createElement('article');
+    card.className = 'profile-card';
+    const photo = document.createElement('div');
+    photo.className = 'profile-photo';
+    const photoPath = Array.isArray(profile.public_photo_paths) ? profile.public_photo_paths[0] : '';
+    if(photoPath) photo.style.backgroundImage = `url("${publicPhotoUrl(photoPath)}")`;
+
+    const body = document.createElement('div');
+    body.className = 'profile-body';
+    const title = document.createElement('h3');
+    title.textContent = `${profile.first_name || 'DUONERA'}, ${profile.age || '—'}`;
+    const location = document.createElement('p');
+    location.className = 'location';
+    location.textContent = [profile.city,profile.country].filter(Boolean).join(', ');
+    const about = document.createElement('p');
+    about.className = 'public-profile-about';
+    about.textContent = profile.about_me || profile.relationship_goal || '—';
+    const list = document.createElement('ul');
+    [...(profile.traits || []),...(profile.interests || [])].slice(0,3).forEach(value=>{
+      const item = document.createElement('li');
+      item.textContent = value;
+      list.appendChild(item);
+    });
+    const link = document.createElement('a');
+    link.className = 'btn btn-gold';
+    link.href = 'ucet.html';
+    link.textContent = dict.openAccount || fallback.openAccount;
+    body.append(title,location,about,list,link);
+    card.append(photo,body);
+    publicProfileGrid.appendChild(card);
+  });
+}
+
+async function loadPublicProfiles(){
+  if(!publicProfileGrid) return;
+  try{
+    const response = await fetch(`${SUPABASE_URL}/rest/v1/rpc/duonera_discovery_profiles`,{
+      method:'POST',
+      headers:{
+        apikey:SUPABASE_PUBLISHABLE_KEY,
+        Accept:'application/json',
+        'Content-Type':'application/json'
+      },
+      body:'{}'
+    });
+    if(!response.ok) throw new Error('Discovery unavailable');
+    publicProfiles = await response.json();
+  }catch(error){
+    console.error(error);
+    publicProfiles = [];
+  }
+  renderPublicProfiles();
+}
 
 
 const shortRegistrationForm = document.querySelector('.register-form');
@@ -93,11 +303,11 @@ if(shortRegistrationForm){
     const originalButtonText = submitButton.textContent;
     const language = localStorage.getItem('duonera-lang') || 'cs';
     const statusMessages = {
-      cs:{sending:'Ukládáme registraci…',stillSaving:'Ještě chvíli, bezpečně ukládáme…',opening:'Registrace je uložena. Pokračujeme…',error:'Registraci se nepodařilo bezpečně uložit. Zkontrolujte připojení a zkuste to znovu.'},
-      en:{sending:'Saving registration…',stillSaving:'Please wait, we are saving securely…',opening:'Registration saved. Continuing…',error:'The registration could not be saved securely. Check your connection and try again.'},
-      uk:{sending:'Зберігаємо реєстрацію…',stillSaving:'Ще мить, безпечно зберігаємо…',opening:'Реєстрацію збережено. Продовжуємо…',error:'Не вдалося безпечно зберегти реєстрацію. Перевірте з’єднання та спробуйте ще раз.'},
-      ru:{sending:'Сохраняем регистрацию…',stillSaving:'Ещё немного, безопасно сохраняем…',opening:'Регистрация сохранена. Продолжаем…',error:'Не удалось безопасно сохранить регистрацию. Проверьте соединение и попробуйте ещё раз.'},
-      de:{sending:'Registrierung wird gespeichert…',stillSaving:'Einen Moment, wir speichern Ihre Daten sicher…',opening:'Registrierung gespeichert. Es geht weiter…',error:'Die Registrierung konnte nicht sicher gespeichert werden. Prüfen Sie Ihre Verbindung und versuchen Sie es erneut.'}
+      cs:{sending:'Ukládáme registraci…',stillSaving:'Ještě chvíli, bezpečně ukládáme…',opening:'Registrace je uložena. Posíláme odkaz do účtu…',error:'Registraci se nepodařilo bezpečně uložit. Zkontrolujte připojení a zkuste to znovu.'},
+      en:{sending:'Saving registration…',stillSaving:'Please wait, we are saving securely…',opening:'Registration saved. Sending your account link…',error:'The registration could not be saved securely. Check your connection and try again.'},
+      uk:{sending:'Зберігаємо реєстрацію…',stillSaving:'Ще мить, безпечно зберігаємо…',opening:'Реєстрацію збережено. Надсилаємо посилання до кабінету…',error:'Не вдалося безпечно зберегти реєстрацію. Перевірте з’єднання та спробуйте ще раз.'},
+      ru:{sending:'Сохраняем регистрацию…',stillSaving:'Ещё немного, безопасно сохраняем…',opening:'Регистрация сохранена. Отправляем ссылку в кабинет…',error:'Не удалось безопасно сохранить регистрацию. Проверьте соединение и попробуйте ещё раз.'},
+      de:{sending:'Registrierung wird gespeichert…',stillSaving:'Einen Moment, wir speichern Ihre Daten sicher…',opening:'Registrierung gespeichert. Ihr Kontolink wird gesendet…',error:'Die Registrierung konnte nicht sicher gespeichert werden. Prüfen Sie Ihre Verbindung und versuchen Sie es erneut.'}
     };
     const status = statusMessages[language] || statusMessages.cs;
 
@@ -125,6 +335,7 @@ if(shortRegistrationForm){
       await insertRow('duonera_leads', payload, 20000);
       clearTimeout(stillSavingTimer);
       submitButton.textContent = status.opening;
+      await requestMagicLink(payload.email, `${location.origin}/ucet.html`);
 
       localStorage.setItem('duonera-short-registration', JSON.stringify(localData));
       localStorage.setItem('duonera-lead-id', leadId);
@@ -151,11 +362,4 @@ if(shortRegistrationForm){
 }
 
 const toast = document.querySelector('.toast');
-function showToast(){
-  const lang = localStorage.getItem('duonera-lang') || 'cs';
-  toast.textContent = (translations[lang] || fallback).demoToast || fallback.demoToast;
-  toast.classList.add('show');
-  clearTimeout(window.__toastTimer);
-  window.__toastTimer=setTimeout(()=>toast.classList.remove('show'),2600);
-}
-document.querySelectorAll('.choose-demo,.skip-demo').forEach(btn=>btn.addEventListener('click',showToast));
+loadPublicProfiles();

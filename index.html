@@ -6,7 +6,7 @@
   <meta name="description" content="DUONERA — privátní seznamování pro skutečný život. Tři vybraní lidé, jedna vzájemná volba, skutečné setkání.">
   <meta name="theme-color" content="#090909">
   <title>DUONERA — Private Dating Concierge</title>
-  <link rel="stylesheet" href="styles.css?v=3">
+  <link rel="stylesheet" href="styles.css?v=5">
 </head>
 <body>
   <header class="site-header" id="top">
@@ -18,7 +18,7 @@
 
     <nav class="desktop-nav" aria-label="Hlavní navigace">
       <a href="#how" data-i18n="navHow">Jak to funguje</a>
-      <a href="#selection" data-i18n="navSelection">Vaše výběry</a>
+      <a href="#selection" data-i18n="navSelection">Profily</a>
       <a href="#result" data-i18n="navResult">Výsledek</a>
       <a href="#safety" data-i18n="navSafety">Soukromí</a>
     </nav>
@@ -31,6 +31,7 @@
         <button type="button" data-lang="uk">UA</button>
         <button type="button" data-lang="ru">RU</button>
       </div>
+      <a class="account-link" href="ucet.html" data-i18n="account">Můj účet</a>
       <a class="btn btn-outline header-cta" href="#register" data-i18n="registerFree">Registrace zdarma</a>
       <button class="menu-toggle" type="button" aria-label="Otevřít menu" aria-expanded="false">☰</button>
     </div>
@@ -38,9 +39,10 @@
 
   <div class="mobile-menu" aria-hidden="true">
     <a href="#how" data-i18n="navHow">Jak to funguje</a>
-    <a href="#selection" data-i18n="navSelection">Vaše výběry</a>
+    <a href="#selection" data-i18n="navSelection">Profily</a>
     <a href="#result" data-i18n="navResult">Výsledek</a>
     <a href="#safety" data-i18n="navSafety">Soukromí</a>
+    <a href="ucet.html" data-i18n="account">Můj účet</a>
     <a class="btn btn-gold" href="#register" data-i18n="registerFree">Registrace zdarma</a>
   </div>
 
@@ -55,13 +57,13 @@
           <span class="gold" data-i18n="heroLine2">Jedna vzájemná volba.</span><br>
           <span data-i18n="heroLine3">Skutečné setkání.</span>
         </h1>
-        <p class="hero-lead" data-i18n="heroLead">DUONERA pro vás vybere několik lidí podle vašich přání, hodnot a životního stylu. Vy si zvolíte jednoho. Když je sympatie vzájemná, otevře se cesta ke skutečné schůzce.</p>
+        <p class="hero-lead" data-i18n="heroLead">Nejdříve si prohlédnete omezený výběr skutečných profilů. Po registraci získáte vlastní stránku, můžete označit sympatie a při vzájemné volbě DUONERA připraví skutečné setkání.</p>
         <div class="hero-actions">
           <a class="btn btn-gold" href="#register" data-i18n="createProfile">Vytvořit profil zdarma</a>
           <a class="btn btn-dark" href="#how" data-i18n="seeHow">Podívat se, jak to funguje</a>
         </div>
         <div class="hero-trust">
-          <span><b>◆</b><span data-i18n="trustPrivate">Profil není veřejný</span></span>
+          <span><b>◆</b><span data-i18n="trustPrivate">Kontaktní údaje nejsou veřejné</span></span>
           <span><b>◆</b><span data-i18n="trustNoSub">Bez automatického předplatného</span></span>
           <span><b>◆</b><span data-i18n="trustMeeting">Cíl: skutečné setkání</span></span>
         </div>
@@ -71,8 +73,8 @@
     <section class="statement">
       <div class="shell statement-inner">
         <p class="section-label" data-i18n="statementLabel">PROČ DUONERA</p>
-        <h2 data-i18n="statementTitle">Neplatíte za zprávy, lajky ani nekonečné prohlížení profilů.</h2>
-        <p data-i18n="statementText">Platíte pouze za službu, která vás dovede k potvrzenému vzájemnému seznámení a skutečné schůzce. Lásku slíbit nemůžeme. Kvalitní výběr, soukromí a organizovaný proces ano.</p>
+        <h2 data-i18n="statementTitle">Omezený výběr pro vlastní rozhodnutí. Tři nejlepší kandidáti jako prémiová služba.</h2>
+        <p data-i18n="statementText">Můžete si sami prohlédnout několik schválených profilů. Pokud chcete přesnější výběr, DUONERA pro vás osobně připraví tři nejsilnější kandidáty podle celé ankety.</p>
       </div>
     </section>
 
@@ -80,38 +82,38 @@
       <div class="shell">
         <div class="section-head center">
           <p class="section-label" data-i18n="howLabel">JAK TO FUNGUJE</p>
-          <h2 data-i18n="howTitle">Pět jednoduchých kroků od profilu ke schůzce</h2>
+          <h2 data-i18n="howTitle">Pět jednoduchých kroků od prvního pohledu ke schůzce</h2>
         </div>
         <div class="steps">
           <article class="step">
             <div class="step-no">1</div>
             <div class="step-icon">✎</div>
-            <h3 data-i18n="step1Title">Vytvoříte profil</h3>
-            <p data-i18n="step1Text">Popíšete sebe, svůj život a člověka, kterého chcete skutečně potkat.</p>
+            <h3 data-i18n="step1Title">Prohlédnete si profily</h3>
+            <p data-i18n="step1Text">Hned vidíte omezený počet skutečných a schválených profilů.</p>
           </article>
           <article class="step">
             <div class="step-no">2</div>
             <div class="step-icon">▤</div>
-            <h3 data-i18n="step2Title">Dostanete 3 výběry</h3>
-            <p data-i18n="step2Text">Ne stovky profilů. Jen několik lidí, kteří splňují vaše nejdůležitější podmínky.</p>
+            <h3 data-i18n="step2Title">Získáte vlastní stránku</h3>
+            <p data-i18n="step2Text">Po registraci vidíte svou anketu, fotografie a stav profilu.</p>
           </article>
           <article class="step">
             <div class="step-no">3</div>
             <div class="step-icon">♡</div>
-            <h3 data-i18n="step3Title">Vyberete jednoho</h3>
-            <p data-i18n="step3Text">Vyberete člověka, kterého chcete poznat. Můžete také všechny odmítnout.</p>
+            <h3 data-i18n="step3Title">Označíte sympatii</h3>
+            <p data-i18n="step3Text">Vyberete lidi, které byste chtěli poznat. Kontakty zůstávají skryté.</p>
           </article>
           <article class="step">
             <div class="step-no">4</div>
             <div class="step-icon">♢</div>
-            <h3 data-i18n="step4Title">Vzájemná sympatie</h3>
-            <p data-i18n="step4Text">Možnost schůzky se otevře pouze tehdy, když jste si vybrali navzájem.</p>
+            <h3 data-i18n="step4Title">Vzájemná volba</h3>
+            <p data-i18n="step4Text">DUONERA odhalí shodu pouze tehdy, když jste si vybrali navzájem.</p>
           </article>
           <article class="step">
             <div class="step-no">5</div>
             <div class="step-icon">♧</div>
             <h3 data-i18n="step5Title">Skutečné setkání</h3>
-            <p data-i18n="step5Text">Vyberete termín a vhodné veřejné místo. DUONERA vás procesem provede.</p>
+            <p data-i18n="step5Text">DUONERA pomůže domluvit termín a vhodné veřejné místo.</p>
           </article>
         </div>
       </div>
@@ -121,75 +123,17 @@
       <div class="shell">
         <div class="section-head split">
           <div>
-            <p class="section-label" data-i18n="selectionLabel">VAŠE SOUKROMÁ KOLEKCE</p>
-            <h2 data-i18n="selectionTitle">Několik kvalitních možností. Žádný nekonečný katalog.</h2>
-            <p data-i18n="selectionText">Každá karta vysvětluje, proč byl člověk vybrán právě pro vás. Ukázkové profily níže slouží pouze k představení principu.</p>
+            <p class="section-label" data-i18n="selectionLabel">OMEZENÝ VÝBĚR</p>
+            <h2 data-i18n="selectionTitle">Skutečné profily. Žádný nekonečný katalog.</h2>
+            <p data-i18n="selectionText">Zobrazujeme pouze schválené profily lidí, kteří výslovně souhlasili s jejich zobrazením. Kontaktní údaje ani přesné datum narození nezveřejňujeme.</p>
           </div>
-          <div class="luxury-note" data-i18n="selectionNote">Pouze vybraní lidé uvidí váš profil.</div>
+          <div class="luxury-note" data-i18n="selectionNote">Kontaktní údaje zůstávají vždy skryté.</div>
         </div>
 
-        <div class="profile-grid">
-          <article class="profile-card">
-            <div class="profile-photo" style="background-image:url('assets/profile-elena.jpg')"></div>
-            <div class="profile-body">
-              <span class="demo-badge" data-i18n="demoProfile">Ukázkový profil</span>
-              <h3>Helena, 46</h3>
-              <p class="location">Praha</p>
-              <p data-i18n="profile1Goal">Hledá vážný vztah</p>
-              <ul>
-                <li data-i18n="profile1A">cestování a kultura</li>
-                <li data-i18n="profile1B">nekuřačka</li>
-                <li data-i18n="profile1C">klidný životní styl</li>
-              </ul>
-              <details>
-                <summary data-i18n="whySelected">Proč je ve výběru?</summary>
-                <p data-i18n="profile1Why">Bydlí blízko, hledá stejný typ vztahu a odpovídá vašim hlavním hodnotám.</p>
-              </details>
-              <button class="btn btn-gold choose-demo" type="button" data-i18n="choosePerson">Chci ji poznat</button>
-            </div>
-          </article>
-
-          <article class="profile-card featured">
-            <div class="profile-photo" style="background-image:url('assets/profile-igor.jpg')"></div>
-            <div class="profile-body">
-              <span class="demo-badge" data-i18n="demoProfile">Ukázkový profil</span>
-              <h3>Petr, 49</h3>
-              <p class="location">Praha</p>
-              <p data-i18n="profile2Goal">Hledá stabilní partnerství</p>
-              <ul>
-                <li data-i18n="profile2A">sport a cestování</li>
-                <li data-i18n="profile2B">rodinně založený</li>
-                <li data-i18n="profile2C">aktivní životní styl</li>
-              </ul>
-              <details>
-                <summary data-i18n="whySelected">Proč je ve výběru?</summary>
-                <p data-i18n="profile2Why">Má podobný denní rytmus, zájmy a stejné představy o budoucnosti.</p>
-              </details>
-              <button class="btn btn-gold choose-demo" type="button" data-i18n="choosePersonMale">Chci ho poznat</button>
-            </div>
-          </article>
-
-          <article class="profile-card">
-            <div class="profile-photo" style="background-image:url('assets/profile-marina.jpg')"></div>
-            <div class="profile-body">
-              <span class="demo-badge" data-i18n="demoProfile">Ukázkový profil</span>
-              <h3>Marina, 44</h3>
-              <p class="location">Karlovy Vary</p>
-              <p data-i18n="profile3Goal">Hledá opravdové partnerství</p>
-              <ul>
-                <li data-i18n="profile3A">gastronomie a umění</li>
-                <li data-i18n="profile3B">mluví česky a rusky</li>
-                <li data-i18n="profile3C">ráda cestuje</li>
-              </ul>
-              <details>
-                <summary data-i18n="whySelected">Proč je ve výběru?</summary>
-                <p data-i18n="profile3Why">Sdílíte jazyky, zájem o cestování a podobnou představu o společném čase.</p>
-              </details>
-              <button class="btn btn-gold choose-demo" type="button" data-i18n="choosePerson">Chci ji poznat</button>
-            </div>
-          </article>
+        <div class="profile-grid" id="publicProfileGrid" data-nosnippet>
+          <div class="public-profile-state" data-i18n="discoveryLoading">Načítání schválených profilů…</div>
         </div>
-        <button class="skip-demo" type="button" data-i18n="noneThisWeek">Tentokrát nikdo — počkám na další výběr</button>
+        <a class="skip-demo public-account-cta" href="ucet.html" data-i18n="account">Můj účet</a>
       </div>
     </section>
 
@@ -230,8 +174,8 @@
       <div class="shell">
         <div class="section-head center narrow">
           <p class="section-label" data-i18n="privacyLabel">LUXURY JE TAKÉ SOUKROMÍ</p>
-          <h2 data-i18n="privacyTitle">Váš profil není veřejný produkt v katalogu.</h2>
-          <p data-i18n="privacyText">Profil uvidí pouze lidé, které systém vybere jako vhodné kandidáty. Kontaktní údaje zůstávají skryté do vzájemného souhlasu.</p>
+          <h2 data-i18n="privacyTitle">Vy rozhodujete, zda se váš profil může zobrazit.</h2>
+          <p data-i18n="privacyText">Zobrazí se pouze po vašem výslovném souhlasu a schválení DUONERA. E-mail, telefon, příjmení a přesné datum narození se nezobrazují.</p>
         </div>
         <div class="privacy-cards">
           <article><span>◆</span><h3 data-i18n="private1Title">Uzavřený profil</h3><p data-i18n="private1Text">Žádné veřejné vyhledávání ani indexace profilů.</p></article>
@@ -246,12 +190,12 @@
       <div class="shell register-grid">
         <div class="register-copy">
           <p class="section-label" data-i18n="registerLabel">SOUKROMÁ REGISTRACE</p>
-          <h2 data-i18n="registerTitle">Začněte bezpečně. Bez veřejného profilu a bez platby.</h2>
-          <p data-i18n="registerText">Krátká registrace trvá přibližně jednu minutu. Poté se sami rozhodnete, zda chcete pokračovat k podrobné soukromé anketě.</p>
+          <h2 data-i18n="registerTitle">Získejte vlastní stránku DUONERA zdarma.</h2>
+          <p data-i18n="registerText">Krátká registrace trvá přibližně jednu minutu. Na e-mail dostanete bezpečný odkaz do osobního účtu, kde uvidíte svou anketu, fotografie a výběry.</p>
           <div class="register-checks">
             <span data-i18n="regCheck1">✓ Přibližně 1 minuta</span>
-            <span data-i18n="regCheck2">✓ Pro první krok stačí e-mail</span>
-            <span data-i18n="regCheck3">✓ Kontaktní údaje nezveřejňujeme</span>
+            <span data-i18n="regCheck2">✓ Přihlášení bezpečným odkazem bez hesla</span>
+            <span data-i18n="regCheck3">✓ E-mail a kontaktní údaje nezveřejňujeme</span>
           </div>
         </div>
 
@@ -286,7 +230,7 @@
           <label class="consent"><input type="checkbox" name="consent_privacy" value="true" required><span data-i18n="formConsent">Souhlasím se zpracováním údajů pro účely registrace a soukromého výběru DUONERA.</span></label>
           <button class="btn btn-gold full" type="submit" data-i18n="submit">Zaregistrovat se zdarma</button>
           <small>
-            <span data-i18n="formNote">Bez platby a bez závazku. Profil není veřejný.</span>
+            <span data-i18n="formNote">Bez platby a bez závazku. O zobrazení profilu rozhodujete vy.</span>
             <a href="privacy.html" target="_blank" rel="noopener" data-i18n="footerPrivacy">Ochrana soukromí</a>
             ·
             <a href="terms.html" target="_blank" rel="noopener" data-i18n="footerTerms">Podmínky služby</a>
@@ -316,6 +260,6 @@
   </footer>
 
   <div class="toast" role="status" aria-live="polite"></div>
-  <script type="module" src="app.js?v=11"></script>
+  <script type="module" src="app.js?v=12"></script>
 </body>
 </html>

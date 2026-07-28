@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="theme-color" content="#090908">
+  <title>Můj účet — DUONERA</title>
+  <link rel="stylesheet" href="styles.css?v=5">
+  <link rel="stylesheet" href="ucet.css?v=1">
+</head>
+<body class="member-page">
+  <header class="site-header member-header">
+    <a class="brand" href="index.html" aria-label="DUONERA">
+      <span class="brand-crown">♛</span>
+      <span class="brand-name">DUONERA</span>
+      <span class="brand-sub">PRIVATE DATING CONCIERGE</span>
+    </a>
+    <div class="header-actions">
+      <div class="lang-switch" aria-label="Jazyk">
+        <button type="button" class="active" data-lang="cs">CZ</button>
+        <button type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="de">DE</button>
+        <button type="button" data-lang="uk">UA</button>
+        <button type="button" data-lang="ru">RU</button>
+      </div>
+      <a class="member-home-link" href="index.html" data-i18n="home">Hlavní stránka</a>
+      <button class="btn btn-outline member-logout" id="logoutButton" type="button" hidden data-i18n="logout">Odhlásit</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="member-login shell" id="loginView">
+      <div class="login-intro">
+        <p class="section-label" data-i18n="loginLabel">SOUKROMÝ PŘÍSTUP</p>
+        <h1 data-i18n="loginTitle">Váš osobní prostor DUONERA.</h1>
+        <p data-i18n="loginText">Zadejte e-mail. Pošleme vám bezpečný přihlašovací odkaz — bez hesla.</p>
+        <div class="login-trust">
+          <span data-i18n="loginTrust1">✓ Uvidíte vlastní profil a fotografie</span>
+          <span data-i18n="loginTrust2">✓ Omezený výběr ověřených lidí</span>
+          <span data-i18n="loginTrust3">✓ Kontakty zůstávají skryté</span>
+        </div>
+      </div>
+      <form class="member-login-card" id="loginForm">
+        <label>
+          <span data-i18n="email">E-mail</span>
+          <input id="memberEmail" type="email" autocomplete="email" placeholder="vas@email.cz" required>
+        </label>
+        <button class="btn btn-gold full" id="loginButton" type="submit" data-i18n="sendLink">Poslat přihlašovací odkaz</button>
+        <p class="member-message" id="loginMessage" role="status"></p>
+        <small data-i18n="loginNote">Odkaz platí pouze krátkou dobu a lze ho použít jen pro váš účet.</small>
+      </form>
+    </section>
+
+    <section class="member-dashboard shell" id="dashboardView" hidden>
+      <div class="member-welcome">
+        <div>
+          <p class="section-label" data-i18n="accountLabel">MŮJ ÚČET</p>
+          <h1 id="welcomeTitle" data-i18n="accountTitle">Vítejte v DUONERA.</h1>
+          <p id="memberEmailLabel"></p>
+        </div>
+        <a class="btn btn-gold" id="createProfileButton" href="profil.html" data-i18n="createProfile">Vytvořit můj profil</a>
+      </div>
+
+      <p class="member-message dashboard-message" id="dashboardMessage" role="status"></p>
+
+      <section class="own-profile-section">
+        <div class="member-section-head">
+          <div>
+            <p class="section-label" data-i18n="ownLabel">MOJE ANKETA</p>
+            <h2 data-i18n="ownTitle">Takto vás DUONERA vidí.</h2>
+          </div>
+          <span class="profile-state" id="profileState" data-i18n="notCompleted">Není vyplněna</span>
+        </div>
+        <div class="own-profile-card" id="ownProfileCard">
+          <div class="empty-member-state">
+            <h3 data-i18n="emptyOwnTitle">Ještě nemáte úplnou anketu.</h3>
+            <p data-i18n="emptyOwnText">Po vyplnění zde uvidíte vlastní údaje a všechny uložené fotografie.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="premium-section">
+        <div class="member-section-head">
+          <div>
+            <p class="section-label" data-i18n="premiumLabel">PRÉMIOVÁ SLUŽBA DUONERA</p>
+            <h2 data-i18n="premiumTitle">Tři nejlepší kandidáti pro vás.</h2>
+            <p data-i18n="premiumText">DUONERA ručně připraví tři nejsilnější shody podle celé ankety. Nejde o další katalog, ale o osobní doporučení.</p>
+          </div>
+          <span class="premium-mark">3</span>
+        </div>
+        <div class="member-profile-grid premium-grid" id="premiumGrid">
+          <div class="empty-member-state">
+            <p data-i18n="premiumEmpty">Prémiová trojice zatím není připravena.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="discovery-section">
+        <div class="member-section-head">
+          <div>
+            <p class="section-label" data-i18n="discoveryLabel">OMEZENÝ VÝBĚR</p>
+            <h2 data-i18n="discoveryTitle">Skuteční lidé, které můžete poznat.</h2>
+            <p data-i18n="discoveryText">Žádné nekonečné listování. Ukazujeme pouze omezený počet schválených profilů bez kontaktních údajů.</p>
+          </div>
+        </div>
+        <div class="mutual-notice" id="mutualNotice" hidden>
+          <strong data-i18n="mutualTitle">Máte vzájemnou sympatii.</strong>
+          <span data-i18n="mutualText">DUONERA vás bude kontaktovat a pomůže domluvit skutečné setkání.</span>
+        </div>
+        <div class="member-profile-grid" id="discoveryGrid">
+          <div class="empty-member-state"><p data-i18n="loading">Načítání profilů…</p></div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <footer class="member-footer">
+    <div class="shell">
+      <span>© <span id="year"></span> DUONERA</span>
+      <span data-i18n="footer">Soukromí. Omezený výběr. Skutečné setkání.</span>
+      <a href="mailto:info@duonera.cz">info@duonera.cz</a>
+    </div>
+  </footer>
+  <script type="module" src="ucet.js?v=1"></script>
+</body>
+</html>

@@ -43,11 +43,38 @@ V9:
 
 V10:
 - krátká registrace trvá přibližně jednu minutu
-- telefon je v krátké i úplné registraci volitelný
+- telefon se nevyžaduje ani v krátké registraci, ani v úplném profilu
 - registrace jasně uvádí, že profil není veřejný a nevzniká platba ani závazek
 - odstraněny veřejné formulace o pilotní a nedokončené verzi
 - aktualizovány podmínky služby a informace o ochraně soukromí
 - texty důvěry byly sjednoceny v češtině, angličtině, němčině, ukrajinštině a ruštině
+- při pomalejším ukládání registrace se zobrazí průběžná zpráva; po 20 sekundách se čekání bezpečně ukončí
+
+V11:
+- hlavní stránka načítá pouze skutečné, schválené profily s výslovným souhlasem
+- odstraněny ukázkové profily, které mohly působit jako skuteční členové
+- každý klient získá osobní účet na ucet.html
+- přihlášení probíhá bezpečným odkazem zaslaným na e-mail, bez hesla
+- klient ve svém účtu vidí vlastní anketu a soukromé fotografie
+- klient může označit více lidí, kteří se mu líbí
+- vzájemná volba se zobrazí teprve po oboustranném výběru
+- administrace ukazuje vzájemné volby pro organizaci schůzky
+- administrátor může schválit profil a zveřejnit bezpečnou kopii vybraných fotografií
+- administrátor může sestavit prémiovou trojici kandidátů pro konkrétního klienta
+
+Aktivace V11:
+1. Reklama musí zůstat pozastavená až do dokončení testu.
+2. V Supabase > SQL Editor spustit celý soubor supabase-member-system.sql.
+3. V Supabase > Authentication > URL Configuration nastavit:
+   Site URL: https://duonera.cz
+   Redirect URLs: https://duonera.cz/ucet.html
+4. Nahrát aktualizované soubory webu do kořene repozitáře.
+5. Provést novou registraci s novým testovacím e-mailem.
+6. Otevřít přihlašovací odkaz z e-mailu a ověřit osobní účet.
+7. Vyplnit úplný profil a ověřit vlastní anketu a fotografie v ucet.html.
+8. V admin.html profil schválit a zveřejnit.
+9. Ověřit, že se na hlavní stránce ukáže pouze bezpečná část profilu bez kontaktů.
+10. Se dvěma testovacími účty ověřit volbu a vzájemnou shodu.
 
 Aktivace administrace:
 1. V Supabase otevřít Authentication > Users.

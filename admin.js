@@ -2,10 +2,11 @@ import {
   PROFILE_PHOTO_BUCKET,
   SUPABASE_URL,
   SUPABASE_PUBLISHABLE_KEY
-} from './supabase-client.js?v=3';
+} from './supabase-client.js?v=5';
 
 const ADMIN_EMAIL = 'info@duonera.cz';
 const SESSION_KEY = 'duonera-admin-session';
+const DISCOVERY_PHOTO_BUCKET = 'duonera-discovery-photos';
 
 const loginView = document.querySelector('#loginView');
 const dashboardView = document.querySelector('#dashboardView');
@@ -18,6 +19,7 @@ const lastUpdated = document.querySelector('#lastUpdated');
 const leadCount = document.querySelector('#leadCount');
 const profileCount = document.querySelector('#profileCount');
 const newProfileCount = document.querySelector('#newProfileCount');
+const matchCount = document.querySelector('#matchCount');
 const searchInput = document.querySelector('#searchInput');
 const dataMessage = document.querySelector('#dataMessage');
 const tableHead = document.querySelector('#tableHead');
@@ -29,6 +31,7 @@ const detailContent = document.querySelector('#detailContent');
 let session = null;
 let profiles = [];
 let leads = [];
+let matches = [];
 let currentView = 'profiles';
 
 function authHeaders(accessToken) {
@@ -160,6 +163,29 @@ async function fetchRows(table) {
   return response.json();
 }
 
+async function fetchRpc(name, payload = {}) {
+  const response = await fetch(`${SUPABASE_URL}/rest/v1/rpc/${encodeURIComponent(name)}`, {
+    method: 'POST',
+    headers: {
+      ...authHeaders(session.access_token),
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  });
+
+  if (response.status === 401) {
+    const refreshed = await refreshSession(session.refresh_token);
+    saveSession(refreshed);
+    return fetchRpc(name, payload);
+  }
+
+  if (!response.ok) {
+    throw new Error(await readError(response, 'Data se nepodařilo načíst.'));
+  }
+
+  return response.json();
+}
+
 function showLogin(message = '') {
   dashboardView.hidden = true;
   logoutButton.hidden = true;
@@ -211,7 +237,11 @@ function normalizedSearch(row) {
     row.gender,
     row.looking_for,
     row.country,
-    row.status
+    row.status,
+    row.first_name,
+    row.first_email,
+    row.second_name,
+    row.second_email
   ].map(value => text(value).toLocaleLowerCase('cs')).join(' ');
 }
 
@@ -251,7 +281,11 @@ function renderProfiles(rows) {
     const statusCell = document.createElement('td');
     const status = document.createElement('span');
     status.className = 'status-pill';
-    status.textContent = text(profile.status || 'new');
+    status.textContent = profile.is_discoverable
+      ? 'ZVEŘEJNĚN'
+      : profile.is_approved
+        ? 'SCHVÁLEN'
+        : text(profile.status || 'new');
     statusCell.appendChild(status);
     row.appendChild(statusCell);
 
@@ -296,15 +330,55 @@ function renderLeads(rows) {
   });
 }
 
+function renderMatches(rows) {
+  tableHead.innerHTML = `
+    <tr>
+      <th>Vzájemná volba</th>
+      <th>První člověk</th>
+      <th>E-mail</th>
+      <th>Druhý člověk</th>
+      <th>E-mail</th>
+      <th>Další krok</th>
+    </tr>`;
+
+  tableBody.replaceChildren();
+  if (!rows.length) {
+    tableBody.innerHTML = '<tr><td class="empty-row" colspan="6">Zatím nebyla nalezena žádná vzájemná volba.</td></tr>';
+    return;
+  }
+
+  rows.forEach(match => {
+    const row = document.createElement('tr');
+    appendCell(row, formatDate(match.matched_at));
+    appendCell(row, match.first_name, 'table-name');
+    appendCell(row, match.first_email);
+    appendCell(row, match.second_name, 'table-name');
+    appendCell(row, match.second_email);
+    const action = document.createElement('td');
+    const link = document.createElement('a');
+    link.className = 'detail-button';
+    link.href = `mailto:${encodeURIComponent(match.first_email)}?subject=${encodeURIComponent('Vzájemná volba DUONERA')}`;
+    link.textContent = 'Kontaktovat';
+    action.appendChild(link);
+    row.appendChild(action);
+    tableBody.appendChild(row);
+  });
+}
+
 function renderCurrentTable() {
   const needle = searchInput.value.trim().toLocaleLowerCase('cs');
-  const source = currentView === 'profiles' ? profiles : leads;
+  const source = currentView === 'profiles'
+    ? profiles
+    : currentView === 'leads'
+      ? leads
+      : matches;
   const filtered = needle
     ? source.filter(row => normalizedSearch(row).includes(needle))
     : source;
 
   if (currentView === 'profiles') renderProfiles(filtered);
-  else renderLeads(filtered);
+  else if (currentView === 'leads') renderLeads(filtered);
+  else renderMatches(filtered);
 
   dataMessage.className = 'data-message';
   dataMessage.textContent = needle
@@ -398,6 +472,243 @@ async function updateProfilePhotoPaths(profileId, paths) {
   if (!response.ok) {
     throw new Error(await readError(response, 'Fotografie se nepodařilo připojit k profilu.'));
   }
+}
+
+async function updateProfile(profileId, payload) {
+  const response = await fetch(
+    `${SUPABASE_URL}/rest/v1/duonera_profiles?id=eq.${encodeURIComponent(profileId)}`,
+    {
+      method: 'PATCH',
+      headers: {
+        ...authHeaders(session.access_token),
+        'Content-Type': 'application/json',
+        Prefer: 'return=minimal'
+      },
+      body: JSON.stringify(payload)
+    }
+  );
+  if (!response.ok) {
+    throw new Error(await readError(response, 'Profil se nepodařilo aktualizovat.'));
+  }
+}
+
+function discoveryPhotoExtension(path, contentType) {
+  const match = String(path).match(/\.([a-z0-9]+)$/i);
+  if (match) return match[1].toLowerCase() === 'jpeg' ? 'jpg' : match[1].toLowerCase();
+  if (contentType === 'image/png') return 'png';
+  if (contentType === 'image/webp') return 'webp';
+  return 'jpg';
+}
+
+async function uploadDiscoveryPhoto(path, blob) {
+  const response = await fetch(
+    `${SUPABASE_URL}/storage/v1/object/${encodeURIComponent(DISCOVERY_PHOTO_BUCKET)}/${encodedObjectPath(path)}`,
+    {
+      method: 'POST',
+      headers: {
+        ...authHeaders(session.access_token),
+        'Content-Type': blob.type || 'image/jpeg',
+        'x-upsert': 'true'
+      },
+      body: blob
+    }
+  );
+  if (!response.ok) {
+    throw new Error(await readError(response, 'Veřejný náhled fotografie se nepodařilo uložit.'));
+  }
+}
+
+async function deleteDiscoveryPhoto(path) {
+  const response = await fetch(
+    `${SUPABASE_URL}/storage/v1/object/${encodeURIComponent(DISCOVERY_PHOTO_BUCKET)}/${encodedObjectPath(path)}`,
+    {
+      method: 'DELETE',
+      headers: authHeaders(session.access_token)
+    }
+  );
+  if (!response.ok && response.status !== 404) {
+    throw new Error(await readError(response, 'Veřejný náhled fotografie se nepodařilo odstranit.'));
+  }
+}
+
+async function publishProfile(profile) {
+  const privatePaths = Array.isArray(profile.photo_paths) ? profile.photo_paths.slice(0, 3) : [];
+  if (!profile.consent_discovery) {
+    throw new Error('Klient nedal výslovný souhlas se zobrazením profilu.');
+  }
+  if (!privatePaths.length) {
+    throw new Error('Profil musí mít alespoň jednu fotografii.');
+  }
+
+  const signedUrls = await Promise.all(privatePaths.map(createSignedPhotoUrl));
+  const publicPaths = [];
+  for (let index = 0; index < signedUrls.length; index += 1) {
+    const response = await fetch(signedUrls[index]);
+    if (!response.ok) throw new Error('Soukromou fotografii se nepodařilo připravit ke zveřejnění.');
+    const blob = await response.blob();
+    const extension = discoveryPhotoExtension(privatePaths[index], blob.type);
+    const publicPath = `${profile.id}/${String(index + 1).padStart(2, '0')}.${extension}`;
+    await uploadDiscoveryPhoto(publicPath, blob);
+    publicPaths.push(publicPath);
+  }
+
+  await updateProfile(profile.id, {
+    is_approved: true,
+    is_discoverable: true,
+    public_photo_paths: publicPaths
+  });
+  profile.is_approved = true;
+  profile.is_discoverable = true;
+  profile.public_photo_paths = publicPaths;
+}
+
+async function hideProfile(profile) {
+  const publicPaths = Array.isArray(profile.public_photo_paths) ? profile.public_photo_paths : [];
+  await Promise.all(publicPaths.map(deleteDiscoveryPhoto));
+  await updateProfile(profile.id, {
+    is_discoverable: false,
+    public_photo_paths: []
+  });
+  profile.is_discoverable = false;
+  profile.public_photo_paths = [];
+}
+
+function appendPublicationControls(profile) {
+  const section = document.createElement('div');
+  section.className = 'detail-item wide publication-section';
+  const heading = document.createElement('span');
+  heading.textContent = 'Zobrazení v omezeném výběru';
+  const status = document.createElement('p');
+  status.className = 'publication-status';
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = profile.is_discoverable ? 'button button-quiet' : 'button button-gold';
+  button.textContent = profile.is_discoverable ? 'Skrýt profil' : 'Schválit a zveřejnit';
+  button.disabled = !profile.is_discoverable && !profile.consent_discovery;
+  status.textContent = profile.is_discoverable
+    ? 'Profil je viditelný na hlavní stránce a v omezeném výběru.'
+    : profile.consent_discovery
+      ? 'Klient souhlasil se zobrazením. Profil zatím není veřejný.'
+      : 'Profil nelze zveřejnit: chybí výslovný souhlas klienta.';
+
+  button.addEventListener('click', async () => {
+    button.disabled = true;
+    status.textContent = profile.is_discoverable ? 'Skrývání profilu…' : 'Kontrola a zveřejnění profilu…';
+    try {
+      if (profile.is_discoverable) await hideProfile(profile);
+      else await publishProfile(profile);
+      button.textContent = profile.is_discoverable ? 'Skrýt profil' : 'Schválit a zveřejnit';
+      button.className = profile.is_discoverable ? 'button button-quiet' : 'button button-gold';
+      status.textContent = profile.is_discoverable
+        ? 'Profil je viditelný v omezeném výběru.'
+        : 'Profil byl skryt a veřejné kopie fotografií byly odstraněny.';
+      renderCurrentTable();
+    } catch (error) {
+      status.textContent = error.message;
+    } finally {
+      button.disabled = false;
+    }
+  });
+
+  section.append(heading, status, button);
+  detailContent.appendChild(section);
+}
+
+async function assignPremiumCandidate(memberUserId, candidateProfileId, position, selectionNote) {
+  const query = new URLSearchParams({
+    on_conflict: 'member_user_id,position'
+  });
+  const response = await fetch(
+    `${SUPABASE_URL}/rest/v1/duonera_premium_selections?${query}`,
+    {
+      method: 'POST',
+      headers: {
+        ...authHeaders(session.access_token),
+        'Content-Type': 'application/json',
+        Prefer: 'resolution=merge-duplicates,return=minimal'
+      },
+      body: JSON.stringify({
+        member_user_id: memberUserId,
+        candidate_profile_id: candidateProfileId,
+        position,
+        selection_note: selectionNote || null,
+        active: true
+      })
+    }
+  );
+  if (!response.ok) {
+    throw new Error(await readError(response, 'Prémiové doporučení se nepodařilo uložit.'));
+  }
+}
+
+function appendPremiumControls(candidateProfile) {
+  const section = document.createElement('div');
+  section.className = 'detail-item wide premium-admin-section';
+  const heading = document.createElement('span');
+  heading.textContent = 'Přidat do prémiové trojice';
+  const memberSelect = document.createElement('select');
+  const emptyOption = document.createElement('option');
+  emptyOption.value = '';
+  emptyOption.textContent = 'Vyberte klienta';
+  memberSelect.appendChild(emptyOption);
+  profiles
+    .filter(profile => profile.user_id && profile.id !== candidateProfile.id)
+    .sort((a, b) => String(a.first_name || '').localeCompare(String(b.first_name || ''), 'cs'))
+    .forEach(profile => {
+      const option = document.createElement('option');
+      option.value = profile.user_id;
+      option.textContent = `${text(profile.first_name)} — ${text(profile.email)}`;
+      memberSelect.appendChild(option);
+    });
+  const positionSelect = document.createElement('select');
+  [1, 2, 3].forEach(position => {
+    const option = document.createElement('option');
+    option.value = String(position);
+    option.textContent = `Pozice ${position}`;
+    positionSelect.appendChild(option);
+  });
+  const note = document.createElement('textarea');
+  note.rows = 3;
+  note.maxLength = 400;
+  note.placeholder = 'Proč je tento člověk vhodný právě pro vybraného klienta?';
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'button button-outline';
+  button.textContent = 'Uložit do prémiové trojice';
+  const status = document.createElement('p');
+  status.className = 'upload-status';
+  if (!candidateProfile.is_approved) {
+    status.textContent = 'Nejdříve kandidáta schvalte.';
+  }
+
+  button.addEventListener('click', async () => {
+    if (!candidateProfile.is_approved) {
+      status.textContent = 'Nejdříve kandidáta schvalte.';
+      return;
+    }
+    if (!memberSelect.value) {
+      status.textContent = 'Vyberte klienta.';
+      return;
+    }
+    button.disabled = true;
+    status.textContent = 'Ukládání doporučení…';
+    try {
+      await assignPremiumCandidate(
+        memberSelect.value,
+        candidateProfile.id,
+        Number(positionSelect.value),
+        note.value.trim()
+      );
+      status.textContent = 'Kandidát byl uložen do prémiové trojice klienta.';
+    } catch (error) {
+      status.textContent = error.message;
+    } finally {
+      button.disabled = false;
+    }
+  });
+
+  section.append(heading, memberSelect, positionSelect, note, button, status);
+  detailContent.appendChild(section);
 }
 
 async function renderStoredPhotos(gallery, paths) {
@@ -555,6 +866,7 @@ async function openProfile(profile) {
       ? `${profile.preferred_distance_km} km`
       : null],
     ['Cíl seznámení', profile.relationship_goal],
+    ['Souhlas se zobrazením', profile.consent_discovery],
     ['O mně', profile.about_me, true],
     ['Představa o vztahu', profile.ideal_relationship, true]
   ].forEach(([label, value, wide]) => appendDetail(label, value, wide));
@@ -562,6 +874,8 @@ async function openProfile(profile) {
   rawDataEntries(profile.raw_data).forEach(([label, value]) => {
     appendDetail(label, value, true);
   });
+  appendPublicationControls(profile);
+  appendPremiumControls(profile);
 }
 
 async function loadData() {
@@ -570,15 +884,15 @@ async function loadData() {
   dataMessage.textContent = 'Načítání údajů…';
 
   try {
-    [profiles, leads] = await Promise.all([
+    [profiles, leads, matches] = await Promise.all([
       fetchRows('duonera_profiles'),
-      fetchRows('duonera_leads')
+      fetchRows('duonera_leads'),
+      fetchRpc('duonera_admin_mutual_matches')
     ]);
     profileCount.textContent = profiles.length;
     leadCount.textContent = leads.length;
-    newProfileCount.textContent = profiles.filter(profile => {
-      return String(profile.status || 'new').toLowerCase() === 'new';
-    }).length;
+    newProfileCount.textContent = profiles.filter(profile => !profile.is_approved).length;
+    matchCount.textContent = matches.length;
     lastUpdated.textContent = `Aktualizováno ${formatDate(new Date().toISOString())}`;
     renderCurrentTable();
   } catch (error) {
@@ -625,6 +939,7 @@ logoutButton.addEventListener('click', () => {
   clearSession();
   profiles = [];
   leads = [];
+  matches = [];
   showLogin('Byli jste bezpečně odhlášeni.');
 });
 

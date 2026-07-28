@@ -14,17 +14,29 @@ export function createUuid() {
   });
 }
 
-export async function insertRow(table, payload) {
-  const response = await fetch(`${SUPABASE_URL}/rest/v1/${encodeURIComponent(table)}`, {
-    method: 'POST',
-    headers: {
+export async function insertRow(table, payload, timeoutMs = 20000, accessToken = '') {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+
+  let response;
+  try {
+    const headers = {
       apikey: SUPABASE_PUBLISHABLE_KEY,
       Accept: 'application/json',
       'Content-Type': 'application/json',
       Prefer: 'return=minimal'
-    },
-    body: JSON.stringify(payload)
-  });
+    };
+    if (accessToken) headers.Authorization = `Bearer ${accessToken}`;
+
+    response = await fetch(`${SUPABASE_URL}/rest/v1/${encodeURIComponent(table)}`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(payload),
+      signal: controller.signal
+    });
+  } finally {
+    clearTimeout(timeoutId);
+  }
 
   if (!response.ok) {
     const details = await response.text();
@@ -32,19 +44,21 @@ export async function insertRow(table, payload) {
   }
 }
 
-export async function uploadPrivateFile(bucket, path, file) {
+export async function uploadPrivateFile(bucket, path, file, accessToken = '') {
   const encodedPath = path
     .split('/')
     .map(segment => encodeURIComponent(segment))
     .join('/');
+  const headers = {
+    apikey: SUPABASE_PUBLISHABLE_KEY,
+    'Content-Type': file.type,
+    'x-upsert': 'false'
+  };
+  if (accessToken) headers.Authorization = `Bearer ${accessToken}`;
+
   const response = await fetch(`${SUPABASE_URL}/storage/v1/object/${encodeURIComponent(bucket)}/${encodedPath}`, {
     method: 'POST',
-    headers: {
-      apikey: SUPABASE_PUBLISHABLE_KEY,
-      Authorization: `Bearer ${SUPABASE_PUBLISHABLE_KEY}`,
-      'Content-Type': file.type,
-      'x-upsert': 'false'
-    },
+    headers,
     body: file
   });
 

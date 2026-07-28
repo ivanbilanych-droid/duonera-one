@@ -3,7 +3,21 @@ import {
   createUuid,
   insertRow,
   uploadPrivateFile
-} from './supabase-client.js?v=3';
+} from './supabase-client.js?v=5';
+import { memberRest, requireMemberSession } from './member-auth.js?v=1';
+
+const memberAuth = await requireMemberSession();
+if(!memberAuth){
+  location.replace('ucet.html?next=profil.html');
+  throw new Error('Member authentication required');
+}
+const existingProfiles = await memberRest(
+  `duonera_profiles?select=id&user_id=eq.${encodeURIComponent(memberAuth.user.id)}&limit=1`
+);
+if(existingProfiles?.length){
+  location.replace('ucet.html');
+  throw new Error('Profile already exists');
+}
 
 const profileTranslations = {
   cs: {
@@ -27,6 +41,57 @@ const profileTranslations = {
     backHome:'На главную',eyebrow:'ВАША ЗАКРЫТАЯ АНКЕТА',title:'Помогите нам подобрать людей, которые действительно вам подходят.',intro:'Чем точнее заполнена анкета, тем качественнее будет персональная подборка. Ваши данные не публикуются, их увидят только выбранные кандидаты.',promiseTitle:'Примерно 8–10 минут',promiseText:'Черновик автоматически сохраняется на этом устройстве.',journey:'ВАШ ПУТЬ',step1:'Основные данные',step1s:'Кто вы и где живёте',step2:'Образ жизни',step2s:'Как проходит ваш день',step3:'Кого вы ищете',step3s:'Важные предпочтения',step4:'О вас',step4s:'Характер, интересы и ценности',step5:'Фото и согласие',step5s:'Последний шаг',privateTitle:'Анкета не публичная',privateText:'Открытого каталога нет. Вашу анкету увидят только люди, которых система подберёт для вас.',progressLabel:'ЗАПОЛНЕНИЕ АНКЕТЫ',progressStep:'Шаг',s1label:'ШАГ 1',s1title:'Основные данные',s1text:'Эти данные нужны для начального подбора по возрасту, городу и вашим пожеланиям.',optionalNote:'Достаточно заполнить основные данные. Остальные поля можно пропустить и дополнить позже.',firstName:'Имя',birthDate:'Дата рождения',gender:'Я',seeking:'Ищу',choose:'Выберите',chooseOptional:'Выберите (необязательно)',man:'Мужчина',woman:'Женщина',otherGender:'Другое / не хочу указывать',seekWoman:'Женщину',seekMan:'Мужчину',seekBoth:'Мужчин и женщин',country:'Страна',city:'Город',email:'E-mail',phone:'Телефон',languages:'Языки, на которых вы говорите',s2label:'ШАГ 2',s2title:'Ваш образ жизни',s2text:'Речь не об идеальности. Нам важно понять вашу обычную жизнь, чтобы другой человек действительно вам подходил.',height:'Рост (см)',occupation:'Профессия / сфера',education:'Образование',relationshipStatus:'Семейное положение',children:'Дети',pets:'Домашние животные',smoking:'Курение',alcohol:'Алкоголь',workRhythm:'Рабочий ритм',weekend:'Идеальные выходные',s3label:'ШАГ 3',s3title:'Кого вы хотите встретить',s3text:'Мы разделяем обязательные условия и пожелания, чтобы не исключить хорошего человека из-за несущественной детали.',ageFrom:'Возраст от',ageTo:'Возраст до',distance:'Максимальное расстояние',goal:'Цель знакомства',partnerChildren:'Дети у партнёра',partnerSmoking:'Курение партнёра',relocation:'Переезд / расстояние',mustHave:'Три самых важных качества партнёра',dealBreakers:'Что для вас неприемлемо? (необязательно)',s4label:'ШАГ 4',s4title:'Что вас характеризует',s4text:'Выберите только то, что вам действительно близко. Качественный подбор начинается с честной анкеты.',character:'Какой вы человек? Выберите до 6 качеств.',interests:'Ваши интересы',aboutMe:'Коротко напишите о себе',relationshipVision:'Какими вы видите хорошие отношения?',s5label:'ШАГ 5',s5title:'Фотографии и завершение',s5text:'Фотографии необязательны. Если вы их загружаете, выберите актуальные снимки, на которых вас хорошо видно.',uploadTitle:'Выберите до 3 фотографий (необязательно)',uploadText:'JPG, PNG или WEBP. Общий размер до 10 МБ.',choosePhotos:'Выбрать фотографии',adultConsent:'Подтверждаю, что мне исполнилось 18 лет.',dataConsent:'Я прямо соглашаюсь на обработку данных анкеты и фотографий для создания закрытого профиля и подбора подходящих кандидатов.',termsConsent:'Согласен с',termsLink:'условиями сервиса',andWord:'и',privacyLink:'политикой конфиденциальности',truthConsent:'Подтверждаю, что данные и загруженные фотографии правдивы и принадлежат мне.',finalTitle:'После отправки мы технически проверим анкету.',finalText:'После проверки анкеты мы свяжемся с вами, как только подготовим подходящую закрытую подборку.',back:'Назад',saved:'Сохранено на этом устройстве',continue:'Продолжить',submitProfile:'Отправить анкету',footer:'Приватность. Качественный выбор. Настоящая встреча.',validation:'Заполните отмеченные обязательные поля.',ageValidation:'Возраст «от» не может быть больше возраста «до».',photoValidation:'Можно загрузить до 3 фотографий общим размером до 10 МБ.',maxChoices:'Можно выбрать максимум 6 качеств.',sending:'Отправляем анкету…'
   }
 };
+
+const profileProcessTranslations = {
+  cs:{
+    privateTitle:'Kontakty zůstávají soukromé',
+    privateText:'Po vašem souhlasu a kontrole může omezená část profilu pomoci ostatním, aby vás našli. E-mail ani kontaktní údaje se nezobrazují.',
+    intro:'Čím přesněji profil vyplníte, tím kvalitnější budou vaše výběry. V osobním účtu uvidíte vlastní anketu, fotografie i lidi, které jste označili.',
+    dataConsent:'Výslovně souhlasím se zpracováním údajů a fotografií pro vytvoření mého účtu, výběr vhodných kandidátů a organizaci případné schůzky.',
+    discoveryConsent:'Souhlasím, aby po kontrole DUONERA mohly být moje křestní jméno, věk, město, vybrané údaje a fotografie zobrazeny v omezené nabídce. Kontaktní údaje se nezobrazí.',
+    finalTitle:'Po odeslání uvidíte profil ve svém osobním účtu.',
+    finalText:'DUONERA profil zkontroluje. Teprve po schválení se může zobrazit v omezeném výběru.'
+  },
+  en:{
+    privateTitle:'Your contact details remain private',
+    privateText:'With your consent and after review, a limited part of your profile may help others find you. Email and contact details are never displayed.',
+    intro:'The more accurately you complete your profile, the better your selections. Your account shows your own profile, photos and the people you selected.',
+    dataConsent:'I explicitly consent to the processing of my details and photos to create my account, select suitable candidates and arrange a possible meeting.',
+    discoveryConsent:'I agree that, after DUONERA review, my first name, age, city, selected profile details and photos may appear in the limited selection. Contact details will not be displayed.',
+    finalTitle:'After submission, your profile appears in your personal account.',
+    finalText:'DUONERA reviews the profile. It may enter the limited selection only after approval.'
+  },
+  de:{
+    privateTitle:'Ihre Kontaktdaten bleiben privat',
+    privateText:'Mit Ihrer Zustimmung und nach Prüfung kann ein begrenzter Teil Ihres Profils anderen helfen, Sie zu finden. E-Mail und Kontaktdaten werden nie angezeigt.',
+    intro:'Je genauer Sie Ihr Profil ausfüllen, desto besser werden Ihre Vorschläge. In Ihrem Konto sehen Sie Ihr Profil, Ihre Fotos und Ihre Auswahl.',
+    dataConsent:'Ich willige ausdrücklich in die Verarbeitung meiner Angaben und Fotos ein, um mein Konto zu erstellen, passende Personen auszuwählen und ein mögliches Treffen zu organisieren.',
+    discoveryConsent:'Ich stimme zu, dass nach der Prüfung durch DUONERA mein Vorname, Alter, Ort, ausgewählte Profildaten und Fotos in der begrenzten Auswahl erscheinen dürfen. Kontaktdaten werden nicht angezeigt.',
+    finalTitle:'Nach dem Absenden sehen Sie Ihr Profil in Ihrem persönlichen Konto.',
+    finalText:'DUONERA prüft das Profil. Erst nach der Freigabe kann es in der begrenzten Auswahl erscheinen.'
+  },
+  uk:{
+    privateTitle:'Ваші контактні дані залишаються приватними',
+    privateText:'Після вашої згоди та перевірки обмежена частина анкети може допомогти іншим знайти вас. E-mail і контакти не показуються.',
+    intro:'Чим точніше ви заповните анкету, тим кращими будуть добірки. У кабінеті ви бачите власну анкету, фотографії та обраних людей.',
+    dataConsent:'Я прямо погоджуюся на обробку даних і фотографій для створення мого кабінету, добору відповідних кандидатів та організації можливої зустрічі.',
+    discoveryConsent:'Я погоджуюся, що після перевірки DUONERA моє ім’я, вік, місто, вибрані дані анкети та фотографії можуть бути показані в обмеженій добірці. Контактні дані не показуються.',
+    finalTitle:'Після надсилання анкета з’явиться у вашому особистому кабінеті.',
+    finalText:'DUONERA перевірить анкету. Лише після схвалення вона може з’явитися в обмеженій добірці.'
+  },
+  ru:{
+    privateTitle:'Ваши контактные данные остаются закрытыми',
+    privateText:'После вашего согласия и проверки ограниченная часть анкеты может помочь другим найти вас. E-mail и контакты не показываются.',
+    intro:'Чем точнее заполнена анкета, тем лучше будут подборки. В личном кабинете вы видите свою анкету, фотографии и выбранных людей.',
+    dataConsent:'Я прямо соглашаюсь на обработку данных и фотографий для создания моего кабинета, подбора подходящих кандидатов и организации возможной встречи.',
+    discoveryConsent:'Я согласен, что после проверки DUONERA моё имя, возраст, город, выбранные данные анкеты и фотографии могут показываться в ограниченной подборке. Контактные данные не показываются.',
+    finalTitle:'После отправки анкета появится в вашем личном кабинете.',
+    finalText:'DUONERA проверит анкету. Только после одобрения она может появиться в ограниченной подборке.'
+  }
+};
+Object.entries(profileProcessTranslations).forEach(([language,values])=>{
+  Object.assign(profileTranslations[language],values);
+});
 
 const form = document.getElementById('fullProfileForm');
 const steps = [...document.querySelectorAll('.form-step')];
@@ -312,8 +377,13 @@ async function uploadProfilePhotos(profileId){
 
   for(let index = 0; index < files.length; index += 1){
     const file = files[index];
-    const path = `${profileId}/${String(index + 1).padStart(2, '0')}.${photoExtension(file)}`;
-    paths.push(await uploadPrivateFile(PROFILE_PHOTO_BUCKET, path, file));
+    const path = `${memberAuth.user.id}/${profileId}/${String(index + 1).padStart(2, '0')}.${photoExtension(file)}`;
+    paths.push(await uploadPrivateFile(
+      PROFILE_PHOTO_BUCKET,
+      path,
+      file,
+      memberAuth.session.access_token
+    ));
   }
 
   return paths;
@@ -332,6 +402,7 @@ form.addEventListener('submit', async event=>{
 
   const payload = {
     id: profileId,
+    user_id: memberAuth.user.id,
     lead_id: leadId,
     status: 'new',
     first_name: getFormValue(formData, 'Křestní jméno'),
@@ -359,9 +430,13 @@ form.addEventListener('submit', async event=>{
     preferred_distance_km: parseDistance(getFormValue(formData, 'Maximální vzdálenost')),
     relationship_goal: getFormValue(formData, 'Cíl seznámení'),
     consent_privacy: formData.get('Souhlas se zpracováním profilu') === 'Ano',
+    consent_discovery: formData.get('Souhlas se zobrazením profilu') === 'Ano',
     consent_contact: false,
+    is_approved: false,
+    is_discoverable: false,
     source: 'duonera.cz',
     photo_paths: [],
+    public_photo_paths: [],
     raw_data: buildRawData()
   };
 
@@ -371,7 +446,7 @@ form.addEventListener('submit', async event=>{
     localStorage.setItem(draftKey, JSON.stringify(serializeDraft()));
 
     payload.photo_paths = await uploadProfilePhotos(profileId);
-    await insertRow('duonera_profiles', payload);
+    await insertRow('duonera_profiles', payload, 20000, memberAuth.session.access_token);
 
     const profileIdInput = document.createElement('input');
     profileIdInput.type = 'hidden';
@@ -412,4 +487,9 @@ if(birthDateInput){
 }
 
 restoreDraft();
+const emailInput = form.querySelector('input[name="email"]');
+if(emailInput){
+  emailInput.value = memberAuth.user.email || '';
+  emailInput.readOnly = true;
+}
 updateStep();

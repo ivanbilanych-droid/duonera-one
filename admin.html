@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#090908">
   <meta name="robots" content="noindex, nofollow, noarchive">
   <title>Administrace — DUONERA</title>
-  <link rel="stylesheet" href="admin.css?v=3">
+  <link rel="stylesheet" href="admin.css?v=4">
 </head>
 <body>
   <header class="admin-header">
@@ -71,6 +71,11 @@
           <strong id="newProfileCount">—</strong>
           <small>čekají na kontrolu</small>
         </article>
+        <article>
+          <span>Vzájemné volby</span>
+          <strong id="matchCount">—</strong>
+          <small>čekají na organizaci schůzky</small>
+        </article>
       </div>
 
       <div class="workspace">
@@ -78,6 +83,7 @@
           <div class="tabs" role="tablist" aria-label="Databáze">
             <button class="tab active" type="button" role="tab" aria-selected="true" data-view="profiles">Úplné profily</button>
             <button class="tab" type="button" role="tab" aria-selected="false" data-view="leads">Krátké registrace</button>
+            <button class="tab" type="button" role="tab" aria-selected="false" data-view="matches">Vzájemné volby</button>
           </div>
           <label class="search">
             <span class="sr-only">Hledat</span>
@@ -110,6 +116,6 @@
     <div class="detail-grid" id="detailContent"></div>
   </dialog>
 
-  <script type="module" src="admin.js?v=3"></script>
+  <script type="module" src="admin.js?v=4"></script>
 </body>
 </html>
