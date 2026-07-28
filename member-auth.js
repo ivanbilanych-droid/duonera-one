@@ -4,6 +4,21 @@ import {
 } from './supabase-client.js?v=5';
 
 const MEMBER_SESSION_KEY = 'duonera-member-session';
+const SUPABASE_AUTH_STORAGE_KEY = 'duonera-supabase-auth';
+
+const supabaseAuthClient = window.supabase?.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY,
+  {
+    auth: {
+      storageKey: SUPABASE_AUTH_STORAGE_KEY,
+      persistSession: true,
+      autoRefreshToken: true,
+      detectSessionInUrl: true,
+      flowType: 'pkce'
+    }
+  }
+);
 
 function authHeaders(accessToken, json = false) {
   const headers = {
@@ -59,13 +74,27 @@ export function consumeAuthRedirect() {
 }
 
 export async function requestEmailOtp(email, redirectTo) {
+  const normalizedEmail = String(email || '').trim().toLowerCase();
+  if (supabaseAuthClient) {
+    const { error } = await supabaseAuthClient.auth.signInWithOtp({
+      email: normalizedEmail,
+      options: {
+        emailRedirectTo: redirectTo,
+        shouldCreateUser: true,
+        data: { source: 'duonera.cz' }
+      }
+    });
+    if (error) throw error;
+    return;
+  }
+
   const endpoint = new URL(`${SUPABASE_URL}/auth/v1/otp`);
   endpoint.searchParams.set('redirect_to', redirectTo);
   const response = await fetch(endpoint, {
     method: 'POST',
     headers: authHeaders('', true),
     body: JSON.stringify({
-      email: String(email || '').trim().toLowerCase(),
+      email: normalizedEmail,
       create_user: true,
       data: { source: 'duonera.cz' }
     })
@@ -117,7 +146,20 @@ export async function getAuthenticatedMember(accessToken) {
 }
 
 export async function requireMemberSession() {
-  consumeAuthRedirect();
+  if (supabaseAuthClient) {
+    try {
+      const { data, error } = await supabaseAuthClient.auth.getSession();
+      if (error) throw error;
+      if (data?.session?.access_token) {
+        saveMemberSession(data.session);
+      }
+    } catch {
+      // The legacy session fallback below still supports existing members.
+    }
+  } else {
+    consumeAuthRedirect();
+  }
+
   let session = getMemberSession();
   if (!session?.access_token) return null;
 
@@ -175,6 +217,9 @@ export async function callMemberRpc(name, payload = {}) {
 }
 
 export async function signOutMember() {
+  if (supabaseAuthClient) {
+    await supabaseAuthClient.auth.signOut().catch(() => {});
+  }
   const session = getMemberSession();
   if (session?.access_token) {
     await fetch(`${SUPABASE_URL}/auth/v1/logout`, {

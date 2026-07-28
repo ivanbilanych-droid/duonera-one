@@ -9,9 +9,8 @@ import {
   memberRest,
   requestEmailOtp,
   requireMemberSession,
-  signOutMember,
-  verifyEmailOtp
-} from './member-auth.js?v=2';
+  signOutMember
+} from './member-auth.js?v=3';
 
 const DISCOVERY_BUCKET = 'duonera-discovery-photos';
 const translations = {
@@ -32,15 +31,49 @@ const translations = {
   }
 };
 
+const magicLinkTranslations = {
+  cs: {
+    loginText: 'Zadejte e-mail. Pošleme vám bezpečný přihlašovací odkaz — bez hesla.',
+    sendCode: 'Poslat přihlašovací odkaz',
+    loginNote: 'Odkaz platí pouze krátkou dobu a lze ho použít jen pro váš účet.',
+    linkSent: 'Odkaz jsme poslali. Otevřete e-mail a klikněte na „Sign in“.'
+  },
+  en: {
+    loginText: 'Enter your email. We will send you a secure sign-in link — no password.',
+    sendCode: 'Send sign-in link',
+    loginNote: 'The link is valid for a short time and works only for your account.',
+    linkSent: 'We sent the link. Open your email and click “Sign in”.'
+  },
+  de: {
+    loginText: 'Geben Sie Ihre E-Mail ein. Wir senden Ihnen einen sicheren Anmeldelink — ohne Passwort.',
+    sendCode: 'Anmeldelink senden',
+    loginNote: 'Der Link ist nur kurze Zeit gültig und funktioniert ausschließlich für Ihr Konto.',
+    linkSent: 'Wir haben den Link gesendet. Öffnen Sie Ihre E-Mail und klicken Sie auf „Sign in“.'
+  },
+  uk: {
+    loginText: 'Введіть e-mail. Ми надішлемо безпечне посилання для входу — без пароля.',
+    sendCode: 'Надіслати посилання для входу',
+    loginNote: 'Посилання діє недовго і призначене лише для вашого облікового запису.',
+    linkSent: 'Ми надіслали посилання. Відкрийте e-mail і натисніть «Sign in».'
+  },
+  ru: {
+    loginText: 'Введите e-mail. Мы отправим безопасную ссылку для входа — без пароля.',
+    sendCode: 'Отправить ссылку для входа',
+    loginNote: 'Ссылка действует недолго и предназначена только для вашего аккаунта.',
+    linkSent: 'Мы отправили ссылку. Откройте письмо и нажмите «Sign in».'
+  }
+};
+
+Object.entries(magicLinkTranslations).forEach(([lang, values]) => {
+  Object.assign(translations[lang], values);
+});
+
 const loginView = document.querySelector('#loginView');
 const dashboardView = document.querySelector('#dashboardView');
 const loginForm = document.querySelector('#loginForm');
 const loginButton = document.querySelector('#loginButton');
 const loginMessage = document.querySelector('#loginMessage');
 const memberEmail = document.querySelector('#memberEmail');
-const otpField = document.querySelector('#otpField');
-const otpInput = document.querySelector('#memberOtp');
-const verifyOtpButton = document.querySelector('#verifyOtpButton');
 const logoutButton = document.querySelector('#logoutButton');
 const dashboardMessage = document.querySelector('#dashboardMessage');
 const memberEmailLabel = document.querySelector('#memberEmailLabel');
@@ -56,7 +89,6 @@ let selectedProfiles = new Map();
 let loadedDiscovery = [];
 let loadedPremium = [];
 let activeAuth = null;
-let pendingEmail = '';
 
 function t(key) {
   return translations[currentLang]?.[key] || translations.cs[key] || key;
@@ -339,57 +371,12 @@ loginForm.addEventListener('submit', async event => {
   try {
     const email = memberEmail.value.trim().toLowerCase();
     await requestEmailOtp(email, `${location.origin}/ucet.html`);
-    pendingEmail = email;
-    otpField.hidden = false;
-    verifyOtpButton.hidden = false;
-    otpInput.value = '';
-    otpInput.focus();
     loginMessage.textContent = t('linkSent');
   } catch {
     loginMessage.className = 'member-message error';
     loginMessage.textContent = t('loginError');
   } finally {
     loginButton.disabled = false;
-  }
-});
-
-verifyOtpButton.addEventListener('click', async () => {
-  const email = (pendingEmail || memberEmail.value).trim().toLowerCase();
-  const token = otpInput.value.replace(/\D/g, '').slice(0, 6);
-  if (!email || token.length !== 6) {
-    loginMessage.className = 'member-message error';
-    loginMessage.textContent = t('codeError');
-    return;
-  }
-
-  verifyOtpButton.disabled = true;
-  loginMessage.className = 'member-message';
-  loginMessage.textContent = '';
-  try {
-    await verifyEmailOtp(email, token);
-    const auth = await requireMemberSession();
-    if (!auth) throw new Error('Session unavailable');
-    activeAuth = auth;
-    loginView.hidden = true;
-    dashboardView.hidden = false;
-    logoutButton.hidden = false;
-    await loadDashboard(auth);
-  } catch {
-    loginMessage.className = 'member-message error';
-    loginMessage.textContent = t('codeError');
-  } finally {
-    verifyOtpButton.disabled = false;
-  }
-});
-
-otpInput.addEventListener('input', () => {
-  otpInput.value = otpInput.value.replace(/\D/g, '').slice(0, 6);
-});
-
-otpInput.addEventListener('keydown', event => {
-  if (event.key === 'Enter') {
-    event.preventDefault();
-    verifyOtpButton.click();
   }
 });
 
@@ -403,10 +390,6 @@ logoutButton.addEventListener('click', async () => {
   dashboardView.hidden = true;
   logoutButton.hidden = true;
   loginView.hidden = false;
-  pendingEmail = '';
-  otpInput.value = '';
-  otpField.hidden = true;
-  verifyOtpButton.hidden = true;
 });
 
 document.querySelectorAll('[data-lang]').forEach(button => {
