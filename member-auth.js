@@ -14,7 +14,7 @@ const supabaseAuthClient = window.supabase?.createClient(
       storageKey: SUPABASE_AUTH_STORAGE_KEY,
       persistSession: true,
       autoRefreshToken: true,
-      detectSessionInUrl: false,
+      detectSessionInUrl: true,
       flowType: 'implicit'
     }
   }
@@ -58,19 +58,70 @@ export function clearMemberSession() {
   localStorage.removeItem(MEMBER_SESSION_KEY);
 }
 
-export function consumeAuthRedirect() {
-  if (!location.hash.includes('access_token=')) return null;
-  const params = new URLSearchParams(location.hash.slice(1));
-  const session = {
-    access_token: params.get('access_token'),
-    refresh_token: params.get('refresh_token'),
-    expires_in: Number(params.get('expires_in') || 3600),
-    token_type: params.get('token_type') || 'bearer'
-  };
-  if (!session.access_token) return null;
-  saveMemberSession(session);
-  history.replaceState({}, document.title, `${location.pathname}${location.search}`);
-  return getMemberSession();
+export async function consumeAuthRedirect() {
+  const url = new URL(location.href);
+  const hashParams = new URLSearchParams(url.hash.replace(/^#/, ''));
+  const searchParams = url.searchParams;
+  let session = null;
+  let handled = false;
+
+  if (hashParams.get('access_token')) {
+    session = {
+      access_token: hashParams.get('access_token'),
+      refresh_token: hashParams.get('refresh_token'),
+      expires_in: Number(hashParams.get('expires_in') || 3600),
+      expires_at: Number(hashParams.get('expires_at') || 0),
+      token_type: hashParams.get('token_type') || 'bearer'
+    };
+    saveMemberSession(session);
+    if (supabaseAuthClient && session.refresh_token) {
+      await supabaseAuthClient.auth.setSession({
+        access_token: session.access_token,
+        refresh_token: session.refresh_token
+      }).catch(() => {});
+    }
+    handled = true;
+  }
+
+  const code = searchParams.get('code');
+  if (!session && code && supabaseAuthClient) {
+    const { data, error } = await supabaseAuthClient.auth.exchangeCodeForSession(code);
+    if (!error && data?.session?.access_token) {
+      session = data.session;
+      saveMemberSession(session);
+      handled = true;
+    }
+  }
+
+  const tokenHash = searchParams.get('token_hash');
+  const type = searchParams.get('type');
+  if (!session && tokenHash && type && supabaseAuthClient) {
+    const { data, error } = await supabaseAuthClient.auth.verifyOtp({
+      token_hash: tokenHash,
+      type
+    });
+    if (!error && data?.session?.access_token) {
+      session = data.session;
+      saveMemberSession(session);
+      handled = true;
+    }
+  }
+
+  if (handled || searchParams.has('error') || hashParams.has('error')) {
+    searchParams.delete('code');
+    searchParams.delete('token_hash');
+    searchParams.delete('type');
+    searchParams.delete('error');
+    searchParams.delete('error_code');
+    searchParams.delete('error_description');
+    history.replaceState(
+      {},
+      document.title,
+      `${url.pathname}${searchParams.toString() ? `?${searchParams}` : ''}`
+    );
+  }
+
+  return session || getMemberSession();
 }
 
 export async function requestEmailOtp(email, redirectTo) {
@@ -146,9 +197,9 @@ export async function getAuthenticatedMember(accessToken) {
 }
 
 export async function requireMemberSession() {
-  // Magic-link callbacks return the tokens in the URL hash. Save them
-  // before asking the Supabase client for an existing browser session.
-  consumeAuthRedirect();
+  // Accept every callback format used by Supabase before deciding that
+  // the member is signed out.
+  await consumeAuthRedirect();
 
   if (supabaseAuthClient) {
     try {
