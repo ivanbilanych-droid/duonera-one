@@ -356,9 +356,32 @@ function renderMatches(rows) {
     appendCell(row, match.second_email);
     const action = document.createElement('td');
     const link = document.createElement('a');
+    const firstName = text(match.first_name);
+    const secondName = text(match.second_name);
+    const recipients = [match.first_email, match.second_email]
+      .map(email => String(email || '').trim())
+      .filter(Boolean)
+      .join(',');
+    const subject = 'Vzájemná volba DUONERA';
+    const body = [
+      `Dobrý den, ${firstName} a ${secondName},`,
+      '',
+      'v systému DUONERA vznikla vzájemná volba. Oba jste uvedli, že se chcete poznat.',
+      '',
+      'DUONERA vám nyní pomůže domluvit skutečné setkání. Odpovězte prosím na tento e-mail a napište:',
+      '1. které dny a časy vám vyhovují,',
+      '2. ve kterém městě se chcete setkat.',
+      '',
+      'Vaše kontaktní údaje zůstávají skryté. Každému účastníkovi píšeme samostatně a další krok potvrdíme až po dohodě s oběma.',
+      '',
+      'DUONERA',
+      'info@duonera.cz',
+      'www.duonera.cz'
+    ].join('\r\n');
     link.className = 'detail-button';
-    link.href = `mailto:${encodeURIComponent(match.first_email)}?subject=${encodeURIComponent('Vzájemná volba DUONERA')}`;
+    link.href = `mailto:${encodeURIComponent(ADMIN_EMAIL)}?bcc=${encodeURIComponent(recipients)}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     link.textContent = 'Kontaktovat';
+    link.title = `Napsat ${firstName} a ${secondName} bez odhalení jejich e-mailových adres`;
     action.appendChild(link);
     row.appendChild(action);
     tableBody.appendChild(row);
