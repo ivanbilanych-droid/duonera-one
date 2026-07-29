@@ -15,7 +15,7 @@ import {
   signOutMember,
   takeAuthRedirectError,
   updateMemberPassword
-} from './member-auth.js?v=14';
+} from './member-auth.js?v=15';
 
 const DISCOVERY_BUCKET = 'duonera-discovery-photos';
 const translations = {
@@ -159,59 +159,7 @@ Object.assign(translations.ru, {
   authServiceError:'Не удалось войти. Попробуйте ещё раз.'
 });
 
-const registrationCopy = {
-  cs: {
-    loginText:'Přihlaste se e-mailem a heslem. Nový účet jednou potvrdíte kódem z e-mailu.',
-    registerNote:'Po vytvoření účtu vám pošleme šest číslic pro potvrzení e-mailu.',
-    passwordNote:'Kód zadáte pouze jednou při registraci. Potom se přihlašujete e-mailem a heslem.',
-    registrationCode:'Potvrzovací kód z e-mailu',
-    confirmRegistration:'Potvrdit e-mail a otevřít účet',
-    registrationCodeNote:'Kód použijete pouze jednou. Při dalším přihlášení stačí e-mail a heslo.',
-    registrationCodeSent:'Účet je vytvořen. Otevřete e-mail od DUONERA a zadejte šest číslic.',
-    registrationCodeInvalid:'Zadejte všech šest číslic z e-mailu.'
-  },
-  en: {
-    loginText:'Sign in with email and password. Confirm a new account once with the code from your email.',
-    registerNote:'After creating the account, we will email you six digits to confirm your address.',
-    passwordNote:'Enter the code only once during registration. Then sign in with email and password.',
-    registrationCode:'Confirmation code from email',
-    confirmRegistration:'Confirm email and open account',
-    registrationCodeNote:'Use the code only once. Next time, email and password are enough.',
-    registrationCodeSent:'Your account is ready. Open the DUONERA email and enter the six digits.',
-    registrationCodeInvalid:'Enter all six digits from the email.'
-  },
-  de: {
-    loginText:'Melden Sie sich mit E-Mail und Passwort an. Ein neues Konto bestätigen Sie einmal mit dem Code aus der E-Mail.',
-    registerNote:'Nach der Kontoerstellung senden wir sechs Ziffern zur Bestätigung Ihrer E-Mail.',
-    passwordNote:'Den Code geben Sie nur einmal bei der Registrierung ein. Danach genügen E-Mail und Passwort.',
-    registrationCode:'Bestätigungscode aus der E-Mail',
-    confirmRegistration:'E-Mail bestätigen und Konto öffnen',
-    registrationCodeNote:'Der Code wird nur einmal verwendet. Danach genügen E-Mail und Passwort.',
-    registrationCodeSent:'Ihr Konto ist erstellt. Öffnen Sie die DUONERA-E-Mail und geben Sie die sechs Ziffern ein.',
-    registrationCodeInvalid:'Geben Sie alle sechs Ziffern aus der E-Mail ein.'
-  },
-  uk: {
-    loginText:'Увійдіть за e-mail і паролем. Новий обліковий запис один раз підтвердьте кодом з листа.',
-    registerNote:'Після створення облікового запису ми надішлемо шість цифр для підтвердження e-mail.',
-    passwordNote:'Код вводиться лише один раз під час реєстрації. Потім входьте за e-mail і паролем.',
-    registrationCode:'Код підтвердження з листа',
-    confirmRegistration:'Підтвердити e-mail і відкрити обліковий запис',
-    registrationCodeNote:'Код використовується лише один раз. Надалі достатньо e-mail і пароля.',
-    registrationCodeSent:'Обліковий запис створено. Відкрийте лист DUONERA і введіть шість цифр.',
-    registrationCodeInvalid:'Введіть усі шість цифр із листа.'
-  },
-  ru: {
-    loginText:'Войдите по e-mail и паролю. Новый аккаунт один раз подтвердите кодом из письма.',
-    registerNote:'После создания аккаунта мы отправим шесть цифр для подтверждения e-mail.',
-    passwordNote:'Код вводится только один раз при регистрации. Затем входите по e-mail и паролю.',
-    registrationCode:'Код подтверждения из письма',
-    confirmRegistration:'Подтвердить e-mail и открыть аккаунт',
-    registrationCodeNote:'Код используется только один раз. В дальнейшем достаточно e-mail и пароля.',
-    registrationCodeSent:'Аккаунт создан. Откройте письмо DUONERA и введите шесть цифр.',
-    registrationCodeInvalid:'Введите все шесть цифр из письма.'
-  }
-};
-Object.entries(registrationCopy).forEach(([lang, values]) => Object.assign(translations[lang], values));
+
 
 const loginView = document.querySelector('#loginView');
 const dashboardView = document.querySelector('#dashboardView');
@@ -610,10 +558,10 @@ registerForm.addEventListener('submit', async event => {
     } else {
       pendingRegistrationEmail = registerEmail.value.trim().toLowerCase();
       sessionStorage.setItem('duonera-pending-registration-email', pendingRegistrationEmail);
-      registrationCode.value = '';
-      setAuthMode('confirm');
-      setLoginMessage(t('registrationCodeSent'));
-      registrationCode.focus();
+      memberEmail.value = pendingRegistrationEmail;
+      memberPassword.value = '';
+      setAuthMode('login');
+      setLoginMessage(t('confirmationSent'));
     }
   } catch (error) {
     setLoginMessage(authMessage(error), true);
