@@ -10,8 +10,8 @@ import {
   requestEmailOtp,
   requireMemberSession,
   signOutMember,
-  verifyEmailOtp
-} from './member-auth.js?v=8';
+  takeAuthRedirectError
+} from './member-auth.js?v=12';
 
 const DISCOVERY_BUCKET = 'duonera-discovery-photos';
 const translations = {
@@ -32,15 +32,48 @@ const translations = {
   }
 };
 
+Object.assign(translations.cs, {
+  loginText:'Zadejte e-mail. Pošleme vám bezpečný přihlašovací odkaz — bez hesla.',
+  sendCode:'Poslat přihlašovací odkaz',
+  loginNote:'Odkaz platí pouze krátkou dobu a lze ho použít jen pro váš účet.',
+  linkSent:'Odkaz jsme poslali. Otevřete e-mail a klikněte na přihlášení.',
+  loginError:'Přihlašovací odkaz se nepodařilo odeslat. Zkuste to znovu.'
+});
+Object.assign(translations.en, {
+  loginText:'Enter your email. We will send you a secure sign-in link — no password.',
+  sendCode:'Send sign-in link',
+  loginNote:'The link is valid for a short time and works only for your account.',
+  linkSent:'We sent the link. Open your email and click Sign in.',
+  loginError:'The sign-in link could not be sent. Please try again.'
+});
+Object.assign(translations.de, {
+  loginText:'Geben Sie Ihre E-Mail ein. Wir senden Ihnen einen sicheren Anmeldelink — ohne Passwort.',
+  sendCode:'Anmeldelink senden',
+  loginNote:'Der Link ist nur kurze Zeit gültig und funktioniert ausschließlich für Ihr Konto.',
+  linkSent:'Wir haben den Link gesendet. Öffnen Sie Ihre E-Mail und klicken Sie auf Anmelden.',
+  loginError:'Der Anmeldelink konnte nicht gesendet werden. Versuchen Sie es erneut.'
+});
+Object.assign(translations.uk, {
+  loginText:'Введіть e-mail. Ми надішлемо безпечне посилання для входу — без пароля.',
+  sendCode:'Надіслати посилання для входу',
+  loginNote:'Посилання діє недовго і призначене лише для вашого облікового запису.',
+  linkSent:'Ми надіслали посилання. Відкрийте e-mail і натисніть «Увійти».',
+  loginError:'Не вдалося надіслати посилання. Спробуйте ще раз.'
+});
+Object.assign(translations.ru, {
+  loginText:'Введите e-mail. Мы отправим безопасную ссылку для входа — без пароля.',
+  sendCode:'Отправить ссылку для входа',
+  loginNote:'Ссылка действует недолго и предназначена только для вашего аккаунта.',
+  linkSent:'Мы отправили ссылку. Откройте письмо и нажмите «Войти».',
+  loginError:'Не удалось отправить ссылку. Попробуйте ещё раз.'
+});
+
 const loginView = document.querySelector('#loginView');
 const dashboardView = document.querySelector('#dashboardView');
 const loginForm = document.querySelector('#loginForm');
 const loginButton = document.querySelector('#loginButton');
 const loginMessage = document.querySelector('#loginMessage');
 const memberEmail = document.querySelector('#memberEmail');
-const otpPanel = document.querySelector('#otpPanel');
-const memberOtp = document.querySelector('#memberOtp');
-const verifyOtpButton = document.querySelector('#verifyOtpButton');
 const logoutButton = document.querySelector('#logoutButton');
 const dashboardMessage = document.querySelector('#dashboardMessage');
 const memberEmailLabel = document.querySelector('#memberEmailLabel');
@@ -338,54 +371,12 @@ loginForm.addEventListener('submit', async event => {
   try {
     const email = memberEmail.value.trim().toLowerCase();
     await requestEmailOtp(email, `${location.origin}/ucet.html`);
-    otpPanel.hidden = false;
-    memberOtp.required = true;
-    memberOtp.value = '';
-    memberOtp.focus();
     loginMessage.textContent = t('linkSent');
   } catch {
     loginMessage.className = 'member-message error';
     loginMessage.textContent = t('loginError');
   } finally {
     loginButton.disabled = false;
-  }
-});
-
-verifyOtpButton.addEventListener('click', async () => {
-  const email = memberEmail.value.trim().toLowerCase();
-  const token = memberOtp.value.replace(/\D/g, '').slice(0, 6);
-  memberOtp.value = token;
-  loginMessage.className = 'member-message';
-  loginMessage.textContent = '';
-
-  if (token.length !== 6) {
-    loginMessage.className = 'member-message error';
-    loginMessage.textContent = t('codeError');
-    memberOtp.focus();
-    return;
-  }
-
-  verifyOtpButton.disabled = true;
-  try {
-    await verifyEmailOtp(email, token);
-    location.replace(`${location.origin}/ucet.html`);
-  } catch {
-    loginMessage.className = 'member-message error';
-    loginMessage.textContent = t('codeError');
-    memberOtp.select();
-  } finally {
-    verifyOtpButton.disabled = false;
-  }
-});
-
-memberOtp.addEventListener('input', () => {
-  memberOtp.value = memberOtp.value.replace(/\D/g, '').slice(0, 6);
-});
-
-memberOtp.addEventListener('keydown', event => {
-  if (event.key === 'Enter') {
-    event.preventDefault();
-    verifyOtpButton.click();
   }
 });
 
@@ -426,4 +417,11 @@ if (auth) {
 } else {
   loginView.hidden = false;
   dashboardView.hidden = true;
+  const redirectError = takeAuthRedirectError();
+  if (redirectError) {
+    loginMessage.className = 'member-message error';
+    loginMessage.textContent = currentLang === 'cs'
+      ? 'Přihlašovací odkaz vypršel nebo již byl použit. Pošlete si nový odkaz.'
+      : t('loginError');
+  }
 }
