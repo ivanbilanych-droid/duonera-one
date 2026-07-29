@@ -4,12 +4,21 @@ import {
   insertRow,
   uploadPrivateFile
 } from './supabase-client.js?v=5';
-import { memberRest, requireMemberSession } from './member-auth.js?v=2';
+import {
+  callMemberRpc,
+  memberRest,
+  requireMemberSession
+} from './member-auth.js?v=2';
 
 const memberAuth = await requireMemberSession();
 if(!memberAuth){
   location.replace('ucet.html?next=profil.html');
   throw new Error('Member authentication required');
+}
+try{
+  await callMemberRpc('duonera_claim_registration');
+}catch(error){
+  console.warn('The earlier registration could not be attached automatically', error);
 }
 const existingProfiles = await memberRest(
   `duonera_profiles?select=id&user_id=eq.${encodeURIComponent(memberAuth.user.id)}&limit=1`
@@ -18,6 +27,10 @@ if(existingProfiles?.length){
   location.replace('ucet.html');
   throw new Error('Profile already exists');
 }
+const memberLeads = await memberRest(
+  `duonera_leads?select=id&user_id=eq.${encodeURIComponent(memberAuth.user.id)}&order=created_at.desc&limit=1`
+);
+const memberLeadId = memberLeads?.[0]?.id || null;
 
 const profileTranslations = {
   cs: {
@@ -402,9 +415,9 @@ form.addEventListener('submit', async event=>{
   const payload = {
     id: profileId,
     user_id: memberAuth.user.id,
-    // The authenticated account is the source of truth. A lead ID kept in
-    // localStorage may point to an already deleted test registration.
-    lead_id: null,
+    // Link the full profile to the authenticated member's verified short
+    // registration. The database schema uses this relation for profiles.
+    lead_id: memberLeadId,
     status: 'new',
     first_name: getFormValue(formData, 'Křestní jméno'),
     birth_date: getFormValue(formData, 'Datum narození'),
