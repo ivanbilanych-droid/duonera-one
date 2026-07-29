@@ -4,7 +4,6 @@ import {
   createUuid,
   insertRow
 } from './supabase-client.js?v=5';
-import { requestEmailOtp } from './member-auth.js?v=2';
 
 const translations = {
   cs: {
@@ -67,8 +66,8 @@ const processTranslations = {
     privacyTitle:'Vy rozhodujete, zda se váš profil může zobrazit.',
     privacyText:'Zobrazí se pouze po vašem výslovném souhlasu a schválení DUONERA. E-mail, telefon, příjmení a přesné datum narození se nezobrazují.',
     registerTitle:'Získejte vlastní stránku DUONERA zdarma.',
-    registerText:'Krátká registrace trvá přibližně jednu minutu. Na e-mail dostanete šestimístný kód do osobního účtu, kde uvidíte svou anketu, fotografie a výběry.',
-    regCheck2:'✓ Přihlášení bezpečným kódem bez hesla',regCheck3:'✓ E-mail a kontaktní údaje nezveřejňujeme',
+    registerText:'Krátká registrace trvá přibližně jednu minutu. Poté si vytvoříte účet pomocí e-mailu a hesla a adresu jednou potvrdíte odkazem v e-mailu.',
+    regCheck2:'✓ E-mail potvrdíte pouze jednou',regCheck3:'✓ E-mail a kontaktní údaje nezveřejňujeme',
     formNote:'Bez platby a bez závazku. O zobrazení profilu rozhodujete vy.',
     discoveryLoading:'Načítání schválených profilů…',noDiscoveryProfiles:'Momentálně nejsou k dispozici žádné schválené profily.',openAccount:'Chci tohoto člověka poznat'
   },
@@ -90,8 +89,8 @@ const processTranslations = {
     privacyTitle:'You decide whether your profile may be shown.',
     privacyText:'It appears only with your explicit consent and DUONERA approval. Email, phone, surname and exact birth date are not displayed.',
     registerTitle:'Get your own DUONERA page for free.',
-    registerText:'Short registration takes about one minute. You receive a six-digit email code for your account, where you can see your profile, photos and selections.',
-    regCheck2:'✓ Secure password-free sign-in code',regCheck3:'✓ Email and contact details are never public',
+    registerText:'Short registration takes about one minute. Then create your account with an email and password and confirm the address once using the email link.',
+    regCheck2:'✓ Confirm your email only once',regCheck3:'✓ Email and contact details are never public',
     formNote:'No payment and no obligation. You decide whether your profile is displayed.',
     discoveryLoading:'Loading approved profiles…',noDiscoveryProfiles:'No approved profiles are available at the moment.',openAccount:'I would like to meet this person'
   },
@@ -113,8 +112,8 @@ const processTranslations = {
     privacyTitle:'Sie entscheiden, ob Ihr Profil angezeigt werden darf.',
     privacyText:'Es erscheint nur mit Ihrer ausdrücklichen Zustimmung und nach Freigabe durch DUONERA. E-Mail, Telefon, Nachname und genaues Geburtsdatum werden nicht angezeigt.',
     registerTitle:'Erhalten Sie Ihre eigene DUONERA-Seite kostenlos.',
-    registerText:'Die kurze Registrierung dauert etwa eine Minute. Per E-Mail erhalten Sie einen sechsstelligen Code für Ihr Konto mit Profil, Fotos und Auswahl.',
-    regCheck2:'✓ Sicherer Anmeldecode ohne Passwort',regCheck3:'✓ E-Mail und Kontaktdaten sind nie öffentlich',
+    registerText:'Die kurze Registrierung dauert etwa eine Minute. Danach erstellen Sie Ihr Konto mit E-Mail und Passwort und bestätigen die Adresse einmal über den Link in der E-Mail.',
+    regCheck2:'✓ E-Mail nur einmal bestätigen',regCheck3:'✓ E-Mail und Kontaktdaten sind nie öffentlich',
     formNote:'Keine Zahlung und keine Verpflichtung. Sie entscheiden über die Anzeige Ihres Profils.',
     discoveryLoading:'Geprüfte Profile werden geladen…',noDiscoveryProfiles:'Zurzeit sind keine geprüften Profile verfügbar.',openAccount:'Ich möchte diese Person kennenlernen'
   },
@@ -136,8 +135,8 @@ const processTranslations = {
     privacyTitle:'Ви вирішуєте, чи можна показувати вашу анкету.',
     privacyText:'Вона з’явиться лише після вашої явної згоди та схвалення DUONERA. E-mail, телефон, прізвище і точна дата народження не показуються.',
     registerTitle:'Отримайте власну сторінку DUONERA безкоштовно.',
-    registerText:'Коротка реєстрація займає близько хвилини. На e-mail ви отримаєте шестизначний код до кабінету з анкетою, фотографіями та добірками.',
-    regCheck2:'✓ Безпечний код для входу без пароля',regCheck3:'✓ E-mail і контакти не публікуються',
+    registerText:'Коротка реєстрація займає близько хвилини. Потім створіть акаунт за допомогою e-mail і пароля та один раз підтвердьте адресу посиланням у листі.',
+    regCheck2:'✓ Підтвердження e-mail лише один раз',regCheck3:'✓ E-mail і контакти не публікуються',
     formNote:'Без оплати та зобов’язань. Ви вирішуєте, чи показувати анкету.',
     discoveryLoading:'Завантажуємо схвалені анкети…',noDiscoveryProfiles:'Наразі немає доступних схвалених анкет.',openAccount:'Хочу познайомитися з цією людиною'
   },
@@ -159,8 +158,8 @@ const processTranslations = {
     privacyTitle:'Вы решаете, можно ли показывать вашу анкету.',
     privacyText:'Она появится только после вашего явного согласия и одобрения DUONERA. E-mail, телефон, фамилия и точная дата рождения не показываются.',
     registerTitle:'Получите личную страницу DUONERA бесплатно.',
-    registerText:'Короткая регистрация занимает около минуты. На e-mail придёт шестизначный код в кабинет с вашей анкетой, фотографиями и подборками.',
-    regCheck2:'✓ Безопасный код для входа без пароля',regCheck3:'✓ E-mail и контакты не публикуются',
+    registerText:'Короткая регистрация занимает около минуты. Затем создайте аккаунт с e-mail и паролем и один раз подтвердите адрес по ссылке из письма.',
+    regCheck2:'✓ Подтверждение e-mail только один раз',regCheck3:'✓ E-mail и контакты не публикуются',
     formNote:'Без оплаты и обязательств. Вы решаете, показывать ли анкету.',
     discoveryLoading:'Загружаем одобренные анкеты…',noDiscoveryProfiles:'Сейчас нет доступных одобренных анкет.',openAccount:'Хочу познакомиться с этим человеком'
   }
@@ -303,11 +302,11 @@ if(shortRegistrationForm){
     const originalButtonText = submitButton.textContent;
     const language = localStorage.getItem('duonera-lang') || 'cs';
     const statusMessages = {
-      cs:{sending:'Ukládáme registraci…',stillSaving:'Ještě chvíli, bezpečně ukládáme…',opening:'Registrace je uložena. Posíláme kód do účtu…',error:'Registraci se nepodařilo bezpečně uložit. Zkontrolujte připojení a zkuste to znovu.'},
-      en:{sending:'Saving registration…',stillSaving:'Please wait, we are saving securely…',opening:'Registration saved. Sending your account code…',error:'The registration could not be saved securely. Check your connection and try again.'},
-      uk:{sending:'Зберігаємо реєстрацію…',stillSaving:'Ще мить, безпечно зберігаємо…',opening:'Реєстрацію збережено. Надсилаємо код до кабінету…',error:'Не вдалося безпечно зберегти реєстрацію. Перевірте з’єднання та спробуйте ще раз.'},
-      ru:{sending:'Сохраняем регистрацию…',stillSaving:'Ещё немного, безопасно сохраняем…',opening:'Регистрация сохранена. Отправляем код в кабинет…',error:'Не удалось безопасно сохранить регистрацию. Проверьте соединение и попробуйте ещё раз.'},
-      de:{sending:'Registrierung wird gespeichert…',stillSaving:'Einen Moment, wir speichern Ihre Daten sicher…',opening:'Registrierung gespeichert. Ihr Anmeldecode wird gesendet…',error:'Die Registrierung konnte nicht sicher gespeichert werden. Prüfen Sie Ihre Verbindung und versuchen Sie es erneut.'}
+      cs:{sending:'Ukládáme registraci…',stillSaving:'Ještě chvíli, bezpečně ukládáme…',opening:'Registrace je uložena. Otevíráme vytvoření účtu…',error:'Registraci se nepodařilo bezpečně uložit. Zkontrolujte připojení a zkuste to znovu.'},
+      en:{sending:'Saving registration…',stillSaving:'Please wait, we are saving securely…',opening:'Registration saved. Opening account creation…',error:'The registration could not be saved securely. Check your connection and try again.'},
+      uk:{sending:'Зберігаємо реєстрацію…',stillSaving:'Ще мить, безпечно зберігаємо…',opening:'Реєстрацію збережено. Відкриваємо створення акаунта…',error:'Не вдалося безпечно зберегти реєстрацію. Перевірте з’єднання та спробуйте ще раз.'},
+      ru:{sending:'Сохраняем регистрацию…',stillSaving:'Ещё немного, безопасно сохраняем…',opening:'Регистрация сохранена. Открываем создание аккаунта…',error:'Не удалось безопасно сохранить регистрацию. Проверьте соединение и попробуйте ещё раз.'},
+      de:{sending:'Registrierung wird gespeichert…',stillSaving:'Einen Moment, wir speichern Ihre Daten sicher…',opening:'Registrierung gespeichert. Die Kontoerstellung wird geöffnet…',error:'Die Registrierung konnte nicht sicher gespeichert werden. Prüfen Sie Ihre Verbindung und versuchen Sie es erneut.'}
     };
     const status = statusMessages[language] || statusMessages.cs;
 
@@ -335,18 +334,13 @@ if(shortRegistrationForm){
       await insertRow('duonera_leads', payload, 20000);
       clearTimeout(stillSavingTimer);
       submitButton.textContent = status.opening;
-      await requestEmailOtp(payload.email, `${location.origin}/ucet.html`);
 
       localStorage.setItem('duonera-short-registration', JSON.stringify(localData));
       localStorage.setItem('duonera-lead-id', leadId);
-
-      const leadIdInput = document.createElement('input');
-      leadIdInput.type = 'hidden';
-      leadIdInput.name = 'Supabase lead ID';
-      leadIdInput.value = leadId;
-      shortRegistrationForm.appendChild(leadIdInput);
-
-      HTMLFormElement.prototype.submit.call(shortRegistrationForm);
+      const accountUrl = new URL('ucet.html', location.href);
+      accountUrl.searchParams.set('mode', 'register');
+      accountUrl.searchParams.set('email', payload.email);
+      location.assign(accountUrl);
     }catch(error){
       console.error(error);
       clearTimeout(stillSavingTimer);
