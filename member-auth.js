@@ -204,6 +204,27 @@ export async function registerMember(email, password, redirectTo) {
   return data || {};
 }
 
+export async function confirmRegistration(email, token) {
+  if (!supabaseAuthClient) throw new Error('Přihlašovací služba není dostupná.');
+  const normalizedEmail = String(email || '').trim().toLowerCase();
+  const normalizedToken = String(token || '').replace(/\D/g, '').slice(0, 6);
+  if (!normalizedEmail || normalizedToken.length !== 6) {
+    throw new Error('Zadejte platný šestimístný kód.');
+  }
+
+  const { data, error } = await supabaseAuthClient.auth.verifyOtp({
+    email: normalizedEmail,
+    token: normalizedToken,
+    type: 'signup'
+  });
+  if (error) throw error;
+  if (!data?.session?.access_token || !data?.user) {
+    throw new Error('Potvrzení účtu se nepodařilo dokončit.');
+  }
+  saveMemberSession(data.session);
+  return { session: data.session, user: data.user };
+}
+
 export async function signInMember(email, password) {
   if (!supabaseAuthClient) throw new Error('Přihlašovací služba není dostupná.');
   const { data, error } = await supabaseAuthClient.auth.signInWithPassword({
