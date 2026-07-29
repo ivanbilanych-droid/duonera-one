@@ -19,6 +19,7 @@
         const expiresAt = Number(
           params.get('expires_at') || Math.floor(Date.now() / 1000) + expiresIn
         );
+        sessionStorage.setItem('duonera-auth-flow-type', params.get('type') || '');
         localStorage.setItem('duonera-member-session', JSON.stringify({
           access_token: accessToken,
           refresh_token: params.get('refresh_token') || '',
@@ -33,7 +34,7 @@
     })();
   </script>
   <link rel="stylesheet" href="styles.css?v=5">
-  <link rel="stylesheet" href="ucet.css?v=2">
+  <link rel="stylesheet" href="ucet.css?v=3">
 </head>
 <body class="member-page">
   <header class="site-header member-header">
@@ -67,15 +68,58 @@
           <span data-i18n="loginTrust3">✓ Kontakty zůstávají skryté</span>
         </div>
       </div>
-      <form class="member-login-card" id="loginForm">
-        <label>
-          <span data-i18n="email">E-mail</span>
-          <input id="memberEmail" type="email" autocomplete="email" placeholder="vas@email.cz" required>
-        </label>
-        <button class="btn btn-gold full" id="loginButton" type="submit" data-i18n="sendCode">Poslat přihlašovací odkaz</button>
+      <div class="member-login-card">
+        <div class="auth-tabs" role="tablist" aria-label="Přihlášení nebo registrace">
+          <button type="button" class="auth-tab active" id="showLogin" data-i18n="signInTab">Přihlášení</button>
+          <button type="button" class="auth-tab" id="showRegister" data-i18n="registerTab">Registrace</button>
+        </div>
+
+        <form id="loginForm">
+          <label>
+            <span data-i18n="email">E-mail</span>
+            <input id="memberEmail" type="email" autocomplete="email" placeholder="vas@email.cz" required>
+          </label>
+          <label>
+            <span data-i18n="password">Heslo</span>
+            <input id="memberPassword" type="password" autocomplete="current-password" minlength="8" required>
+          </label>
+          <button class="btn btn-gold full" id="loginButton" type="submit" data-i18n="signIn">Přihlásit se</button>
+          <button class="auth-text-button" id="forgotPassword" type="button" data-i18n="forgotPassword">Zapomněli jste heslo?</button>
+        </form>
+
+        <form id="registerForm" hidden>
+          <label>
+            <span data-i18n="email">E-mail</span>
+            <input id="registerEmail" type="email" autocomplete="email" placeholder="vas@email.cz" required>
+          </label>
+          <label>
+            <span data-i18n="password">Heslo</span>
+            <input id="registerPassword" type="password" autocomplete="new-password" minlength="8" required>
+          </label>
+          <label>
+            <span data-i18n="repeatPassword">Zopakujte heslo</span>
+            <input id="registerPasswordAgain" type="password" autocomplete="new-password" minlength="8" required>
+          </label>
+          <button class="btn btn-gold full" id="registerButton" type="submit" data-i18n="createAccount">Vytvořit účet</button>
+          <small data-i18n="registerNote">Pošleme vám e-mail. Kliknutím jednou potvrdíte svou adresu.</small>
+        </form>
+
+        <form id="resetForm" hidden>
+          <h2 data-i18n="newPasswordTitle">Nastavit nové heslo</h2>
+          <label>
+            <span data-i18n="newPassword">Nové heslo</span>
+            <input id="newPassword" type="password" autocomplete="new-password" minlength="8" required>
+          </label>
+          <label>
+            <span data-i18n="repeatPassword">Zopakujte heslo</span>
+            <input id="newPasswordAgain" type="password" autocomplete="new-password" minlength="8" required>
+          </label>
+          <button class="btn btn-gold full" id="savePasswordButton" type="submit" data-i18n="savePassword">Uložit heslo a vstoupit</button>
+        </form>
+
         <p class="member-message" id="loginMessage" role="status"></p>
-        <small data-i18n="loginNote">Odkaz platí pouze krátkou dobu a lze ho použít jen pro váš účet.</small>
-      </form>
+        <small id="loginNote" data-i18n="passwordNote">Při registraci potvrdíte e-mail pouze jednou. Potom se přihlašujete e-mailem a heslem.</small>
+      </div>
     </section>
 
     <section class="member-dashboard shell" id="dashboardView" hidden>
@@ -149,6 +193,6 @@
     </div>
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.53.0/dist/umd/supabase.js"></script>
-  <script type="module" src="ucet.js?v=14"></script>
+  <script type="module" src="ucet.js?v=15"></script>
 </body>
 </html>
