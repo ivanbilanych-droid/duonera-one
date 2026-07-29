@@ -592,7 +592,48 @@ resetForm.addEventListener('submit', async event => {
   try {
     await updateMemberPassword(password);
     sessionStorage.removeItem('duonera-auth-flow-type');
+    setLoginMessage(t('passwordSaved'));
     const auth = await requireMemberSession();
+    if (auth) await openDashboard(auth);
+  } catch (error) {
+    setLoginMessage(authMessage(error), true);
+  } finally {
+    savePasswordButton.disabled = false;
+  }
+});
+
+logoutButton.addEventListener('click', async () => {
+  await signOutMember();
+  activeAuth = null;
+  currentProfile = null;
+  loadedDiscovery = [];
+  loadedPremium = [];
+  selectedProfiles.clear();
+  dashboardView.hidden = true;
+  logoutButton.hidden = true;
+  loginView.hidden = false;
+  setAuthMode('login');
+});
+
+document.querySelectorAll('[data-lang]').forEach(button => {
+  button.addEventListener('click', () => applyLanguage(button.dataset.lang));
+});
+
+document.querySelector('#year').textContent = new Date().getFullYear();
+applyLanguage(currentLang);
+
+let savedRegistration = {};
+try {
+  savedRegistration = JSON.parse(localStorage.getItem('duonera-short-registration') || '{}');
+} catch {
+  savedRegistration = {};
+}
+if (savedRegistration.email) {
+  memberEmail.value = savedRegistration.email;
+  registerEmail.value = savedRegistration.email;
+}
+
+const auth = await requireMemberSession();
 const recoveryFlow = sessionStorage.getItem('duonera-auth-flow-type') === 'recovery';
 if (auth && recoveryFlow) {
   activeAuth = auth;
@@ -605,6 +646,7 @@ if (auth && recoveryFlow) {
 } else {
   loginView.hidden = false;
   dashboardView.hidden = true;
+  logoutButton.hidden = true;
   setAuthMode('login');
   const redirectError = takeAuthRedirectError();
   if (redirectError) setLoginMessage(t('authServiceError'), true);
