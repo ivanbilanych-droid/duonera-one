@@ -7,11 +7,14 @@ import {
   callMemberRpc,
   clearMemberSession,
   memberRest,
-  requestEmailOtp,
+  registerMember,
+  requestPasswordReset,
   requireMemberSession,
+  signInMember,
   signOutMember,
-  takeAuthRedirectError
-} from './member-auth.js?v=12';
+  takeAuthRedirectError,
+  updateMemberPassword
+} from './member-auth.js?v=13';
 
 const DISCOVERY_BUCKET = 'duonera-discovery-photos';
 const translations = {
@@ -78,12 +81,103 @@ Object.assign(translations.ru, {
   loginServiceError:'Почтовая служба временно недоступна. Попробуйте ещё раз через несколько минут.'
 });
 
+
+Object.assign(translations.cs, {
+  loginText:'Přihlaste se e-mailem a heslem. Nový účet potvrdíte e-mailem pouze jednou.',
+  signInTab:'Přihlášení', registerTab:'Registrace', password:'Heslo',
+  repeatPassword:'Zopakujte heslo', signIn:'Přihlásit se',
+  forgotPassword:'Zapomněli jste heslo?', createAccount:'Vytvořit účet',
+  registerNote:'Pošleme vám e-mail. Kliknutím jednou potvrdíte svou adresu.',
+  passwordNote:'Při registraci potvrdíte e-mail pouze jednou. Potom se přihlašujete e-mailem a heslem.',
+  confirmationSent:'Hotovo. Otevřete potvrzovací e-mail od DUONERA a klikněte na odkaz.',
+  resetSent:'Poslali jsme vám e-mail pro nastavení nového hesla.',
+  newPasswordTitle:'Nastavit nové heslo', newPassword:'Nové heslo',
+  savePassword:'Uložit heslo a vstoupit', passwordSaved:'Heslo je uloženo.',
+  passwordMismatch:'Hesla se neshodují.', passwordShort:'Heslo musí mít alespoň 8 znaků.',
+  wrongLogin:'E-mail nebo heslo není správné.', emailNotConfirmed:'Nejdříve potvrďte e-mail.',
+  alreadyRegistered:'Tento e-mail už má účet. Přihlaste se nebo použijte „Zapomněli jste heslo?“.',
+  authServiceError:'Přihlášení se nepodařilo. Zkuste to prosím znovu.'
+});
+Object.assign(translations.en, {
+  loginText:'Sign in with email and password. A new account is confirmed by email only once.',
+  signInTab:'Sign in', registerTab:'Register', password:'Password',
+  repeatPassword:'Repeat password', signIn:'Sign in', forgotPassword:'Forgot password?',
+  createAccount:'Create account', registerNote:'We will email you. Click once to confirm your address.',
+  passwordNote:'Confirm your email once when registering. Then sign in with email and password.',
+  confirmationSent:'Done. Open the DUONERA confirmation email and click the link.',
+  resetSent:'We sent an email to set a new password.', newPasswordTitle:'Set a new password',
+  newPassword:'New password', savePassword:'Save password and enter', passwordSaved:'Password saved.',
+  passwordMismatch:'Passwords do not match.', passwordShort:'Password must contain at least 8 characters.',
+  wrongLogin:'The email or password is incorrect.', emailNotConfirmed:'Confirm your email first.',
+  alreadyRegistered:'This email already has an account. Sign in or use “Forgot password?”.',
+  authServiceError:'Sign-in failed. Please try again.'
+});
+Object.assign(translations.de, {
+  loginText:'Melden Sie sich mit E-Mail und Passwort an. Ein neues Konto bestätigen Sie nur einmal per E-Mail.',
+  signInTab:'Anmelden', registerTab:'Registrieren', password:'Passwort',
+  repeatPassword:'Passwort wiederholen', signIn:'Anmelden', forgotPassword:'Passwort vergessen?',
+  createAccount:'Konto erstellen', registerNote:'Wir senden eine E-Mail. Bestätigen Sie Ihre Adresse mit einem Klick.',
+  passwordNote:'Bei der Registrierung bestätigen Sie Ihre E-Mail einmal. Danach melden Sie sich mit E-Mail und Passwort an.',
+  confirmationSent:'Fertig. Öffnen Sie die DUONERA-Bestätigungs-E-Mail und klicken Sie auf den Link.',
+  resetSent:'Wir haben eine E-Mail zum Festlegen eines neuen Passworts gesendet.',
+  newPasswordTitle:'Neues Passwort festlegen', newPassword:'Neues Passwort',
+  savePassword:'Passwort speichern und öffnen', passwordSaved:'Passwort gespeichert.',
+  passwordMismatch:'Die Passwörter stimmen nicht überein.', passwordShort:'Das Passwort muss mindestens 8 Zeichen haben.',
+  wrongLogin:'E-Mail oder Passwort ist falsch.', emailNotConfirmed:'Bestätigen Sie zuerst Ihre E-Mail.',
+  alreadyRegistered:'Für diese E-Mail besteht bereits ein Konto. Melden Sie sich an oder nutzen Sie „Passwort vergessen?“.',
+  authServiceError:'Anmeldung fehlgeschlagen. Bitte versuchen Sie es erneut.'
+});
+Object.assign(translations.uk, {
+  loginText:'Увійдіть за допомогою e-mail і пароля. Новий обліковий запис підтверджується e-mail лише один раз.',
+  signInTab:'Вхід', registerTab:'Реєстрація', password:'Пароль',
+  repeatPassword:'Повторіть пароль', signIn:'Увійти', forgotPassword:'Забули пароль?',
+  createAccount:'Створити обліковий запис', registerNote:'Ми надішлемо лист. Натисніть один раз, щоб підтвердити адресу.',
+  passwordNote:'Під час реєстрації підтвердьте e-mail один раз. Потім входьте за e-mail і паролем.',
+  confirmationSent:'Готово. Відкрийте лист-підтвердження DUONERA та натисніть посилання.',
+  resetSent:'Ми надіслали лист для встановлення нового пароля.',
+  newPasswordTitle:'Встановити новий пароль', newPassword:'Новий пароль',
+  savePassword:'Зберегти пароль і увійти', passwordSaved:'Пароль збережено.',
+  passwordMismatch:'Паролі не збігаються.', passwordShort:'Пароль має містити щонайменше 8 символів.',
+  wrongLogin:'Неправильний e-mail або пароль.', emailNotConfirmed:'Спочатку підтвердьте e-mail.',
+  alreadyRegistered:'Цей e-mail уже має обліковий запис. Увійдіть або скористайтеся «Забули пароль?».',
+  authServiceError:'Не вдалося увійти. Спробуйте ще раз.'
+});
+Object.assign(translations.ru, {
+  loginText:'Войдите по e-mail и паролю. Новый аккаунт подтверждается через e-mail только один раз.',
+  signInTab:'Вход', registerTab:'Регистрация', password:'Пароль',
+  repeatPassword:'Повторите пароль', signIn:'Войти', forgotPassword:'Забыли пароль?',
+  createAccount:'Создать аккаунт', registerNote:'Мы отправим письмо. Нажмите один раз, чтобы подтвердить адрес.',
+  passwordNote:'При регистрации подтвердите e-mail один раз. Затем входите по e-mail и паролю.',
+  confirmationSent:'Готово. Откройте письмо DUONERA и нажмите ссылку подтверждения.',
+  resetSent:'Мы отправили письмо для установки нового пароля.',
+  newPasswordTitle:'Установить новый пароль', newPassword:'Новый пароль',
+  savePassword:'Сохранить пароль и войти', passwordSaved:'Пароль сохранён.',
+  passwordMismatch:'Пароли не совпадают.', passwordShort:'Пароль должен содержать не менее 8 символов.',
+  wrongLogin:'Неверный e-mail или пароль.', emailNotConfirmed:'Сначала подтвердите e-mail.',
+  alreadyRegistered:'Для этого e-mail уже есть аккаунт. Войдите или нажмите «Забыли пароль?».',
+  authServiceError:'Не удалось войти. Попробуйте ещё раз.'
+});
+
 const loginView = document.querySelector('#loginView');
 const dashboardView = document.querySelector('#dashboardView');
 const loginForm = document.querySelector('#loginForm');
 const loginButton = document.querySelector('#loginButton');
 const loginMessage = document.querySelector('#loginMessage');
 const memberEmail = document.querySelector('#memberEmail');
+const memberPassword = document.querySelector('#memberPassword');
+const registerForm = document.querySelector('#registerForm');
+const registerEmail = document.querySelector('#registerEmail');
+const registerPassword = document.querySelector('#registerPassword');
+const registerPasswordAgain = document.querySelector('#registerPasswordAgain');
+const registerButton = document.querySelector('#registerButton');
+const resetForm = document.querySelector('#resetForm');
+const newPassword = document.querySelector('#newPassword');
+const newPasswordAgain = document.querySelector('#newPasswordAgain');
+const savePasswordButton = document.querySelector('#savePasswordButton');
+const showLogin = document.querySelector('#showLogin');
+const showRegister = document.querySelector('#showRegister');
+const forgotPassword = document.querySelector('#forgotPassword');
+const loginNote = document.querySelector('#loginNote');
 const logoutButton = document.querySelector('#logoutButton');
 const dashboardMessage = document.querySelector('#dashboardMessage');
 const memberEmailLabel = document.querySelector('#memberEmailLabel');
@@ -373,104 +467,145 @@ function renderAll() {
   mutualNotice.hidden = ![...selectedProfiles.values()].some(choice => choice.is_mutual);
 }
 
-const LOGIN_COOLDOWN_KEY = 'duonera-login-link-requested-at';
-const LOGIN_COOLDOWN_MS = 60000;
-
-function isRateLimitError(error) {
-  const details = [
-    error?.message,
-    error?.error_description,
-    error?.code,
-    error?.status
-  ].filter(Boolean).join(' ').toLowerCase();
-  return details.includes('rate') ||
-    details.includes('too many') ||
-    details.includes('429') ||
-    details.includes('60 seconds');
+function authMessage(error) {
+  const details = String(error?.message || '').toLowerCase();
+  if (details.includes('invalid login credentials')) return t('wrongLogin');
+  if (details.includes('email not confirmed')) return t('emailNotConfirmed');
+  if (details.includes('already registered') || details.includes('already been registered')) return t('alreadyRegistered');
+  return t('authServiceError');
 }
 
-function loginFailureMessage(error) {
-  if (isRateLimitError(error)) return t('loginRateLimit');
-  const details = String(error?.message || '').trim();
-  if (details && !/failed to fetch|networkerror|load failed/i.test(details)) {
-    return `${t('loginServiceError')} (${details})`;
-  }
-  return t('loginServiceError');
+function setLoginMessage(message = '', error = false) {
+  loginMessage.className = error ? 'member-message error' : 'member-message';
+  loginMessage.textContent = message;
 }
 
-loginForm.addEventListener('submit', async event => {
-  event.preventDefault();
-  loginButton.disabled = true;
-  loginMessage.className = 'member-message';
-  loginMessage.textContent = '';
-
-  const lastRequestAt = Number(localStorage.getItem(LOGIN_COOLDOWN_KEY) || 0);
-  if (Date.now() - lastRequestAt < LOGIN_COOLDOWN_MS) {
-    loginMessage.className = 'member-message error';
-    loginMessage.textContent = t('loginRateLimit');
-    loginButton.disabled = false;
-    return;
-  }
-
-  try {
-    const email = memberEmail.value.trim().toLowerCase();
-    await requestEmailOtp(email, `${location.origin}/ucet.html`);
-    localStorage.setItem(LOGIN_COOLDOWN_KEY, String(Date.now()));
-    loginMessage.textContent = t('linkSent');
-  } catch (error) {
-    if (isRateLimitError(error)) {
-      localStorage.setItem(LOGIN_COOLDOWN_KEY, String(Date.now()));
-    }
-    console.error('DUONERA sign-in link request failed', error);
-    loginMessage.className = 'member-message error';
-    loginMessage.textContent = loginFailureMessage(error);
-  } finally {
-    loginButton.disabled = false;
-  }
-});
-
-logoutButton.addEventListener('click', async () => {
-  await signOutMember();
-  activeAuth = null;
-  currentProfile = null;
-  loadedDiscovery = [];
-  loadedPremium = [];
-  selectedProfiles.clear();
-  dashboardView.hidden = true;
-  logoutButton.hidden = true;
-  loginView.hidden = false;
-});
-
-document.querySelectorAll('[data-lang]').forEach(button => {
-  button.addEventListener('click', () => applyLanguage(button.dataset.lang));
-});
-
-document.querySelector('#year').textContent = new Date().getFullYear();
-applyLanguage(currentLang);
-
-let savedRegistration = {};
-try {
-  savedRegistration = JSON.parse(localStorage.getItem('duonera-short-registration') || '{}');
-} catch {
-  savedRegistration = {};
+function setAuthMode(mode) {
+  const loginMode = mode === 'login';
+  const registerMode = mode === 'register';
+  const resetMode = mode === 'reset';
+  loginForm.hidden = !loginMode;
+  registerForm.hidden = !registerMode;
+  resetForm.hidden = !resetMode;
+  showLogin.classList.toggle('active', loginMode);
+  showRegister.classList.toggle('active', registerMode);
+  showLogin.hidden = resetMode;
+  showRegister.hidden = resetMode;
+  loginNote.hidden = resetMode;
+  setLoginMessage();
 }
-if (savedRegistration.email) memberEmail.value = savedRegistration.email;
 
-const auth = await requireMemberSession();
-if (auth) {
+async function openDashboard(auth) {
   activeAuth = auth;
   loginView.hidden = true;
   dashboardView.hidden = false;
   logoutButton.hidden = false;
   await loadDashboard(auth);
+}
+
+showLogin.addEventListener('click', () => setAuthMode('login'));
+showRegister.addEventListener('click', () => {
+  registerEmail.value = memberEmail.value.trim();
+  setAuthMode('register');
+});
+
+loginForm.addEventListener('submit', async event => {
+  event.preventDefault();
+  loginButton.disabled = true;
+  setLoginMessage();
+  try {
+    const auth = await signInMember(memberEmail.value, memberPassword.value);
+    await openDashboard(auth);
+  } catch (error) {
+    setLoginMessage(authMessage(error), true);
+  } finally {
+    loginButton.disabled = false;
+  }
+});
+
+registerForm.addEventListener('submit', async event => {
+  event.preventDefault();
+  registerButton.disabled = true;
+  setLoginMessage();
+  const password = registerPassword.value;
+  if (password.length < 8) {
+    setLoginMessage(t('passwordShort'), true);
+    registerButton.disabled = false;
+    return;
+  }
+  if (password !== registerPasswordAgain.value) {
+    setLoginMessage(t('passwordMismatch'), true);
+    registerButton.disabled = false;
+    return;
+  }
+  try {
+    const data = await registerMember(
+      registerEmail.value,
+      password,
+      `${location.origin}/ucet.html`
+    );
+    if (data?.session?.access_token && data?.user) {
+      await openDashboard({ session: data.session, user: data.user });
+    } else {
+      setLoginMessage(t('confirmationSent'));
+    }
+  } catch (error) {
+    setLoginMessage(authMessage(error), true);
+  } finally {
+    registerButton.disabled = false;
+  }
+});
+
+forgotPassword.addEventListener('click', async () => {
+  const email = memberEmail.value.trim().toLowerCase();
+  if (!email) {
+    memberEmail.focus();
+    return;
+  }
+  forgotPassword.disabled = true;
+  setLoginMessage();
+  try {
+    await requestPasswordReset(email, `${location.origin}/ucet.html`);
+    setLoginMessage(t('resetSent'));
+  } catch (error) {
+    setLoginMessage(authMessage(error), true);
+  } finally {
+    forgotPassword.disabled = false;
+  }
+});
+
+resetForm.addEventListener('submit', async event => {
+  event.preventDefault();
+  savePasswordButton.disabled = true;
+  setLoginMessage();
+  const password = newPassword.value;
+  if (password.length < 8) {
+    setLoginMessage(t('passwordShort'), true);
+    savePasswordButton.disabled = false;
+    return;
+  }
+  if (password !== newPasswordAgain.value) {
+    setLoginMessage(t('passwordMismatch'), true);
+    savePasswordButton.disabled = false;
+    return;
+  }
+  try {
+    await updateMemberPassword(password);
+    sessionStorage.removeItem('duonera-auth-flow-type');
+    const auth = await requireMemberSession();
+const recoveryFlow = sessionStorage.getItem('duonera-auth-flow-type') === 'recovery';
+if (auth && recoveryFlow) {
+  activeAuth = auth;
+  loginView.hidden = false;
+  dashboardView.hidden = true;
+  logoutButton.hidden = true;
+  setAuthMode('reset');
+} else if (auth) {
+  await openDashboard(auth);
 } else {
   loginView.hidden = false;
   dashboardView.hidden = true;
+  setAuthMode('login');
   const redirectError = takeAuthRedirectError();
-  if (redirectError) {
-    loginMessage.className = 'member-message error';
-    loginMessage.textContent = currentLang === 'cs'
-      ? 'Přihlašovací odkaz vypršel nebo již byl použit. Pošlete si nový odkaz.'
-      : t('loginError');
-  }
+  if (redirectError) setLoginMessage(t('authServiceError'), true);
 }
