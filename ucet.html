@@ -6,6 +6,32 @@
   <meta name="robots" content="noindex, nofollow, noarchive">
   <meta name="theme-color" content="#090908">
   <title>Můj účet — DUONERA</title>
+  <script>
+    // Capture the Supabase magic-link session before the SDK can consume
+    // and remove the URL fragment. This prevents a valid link from
+    // returning the member to the login form.
+    (() => {
+      try {
+        const params = new URLSearchParams(location.hash.replace(/^#/, ''));
+        const accessToken = params.get('access_token');
+        if (!accessToken) return;
+        const expiresIn = Number(params.get('expires_in') || 3600);
+        const expiresAt = Number(
+          params.get('expires_at') || Math.floor(Date.now() / 1000) + expiresIn
+        );
+        localStorage.setItem('duonera-member-session', JSON.stringify({
+          access_token: accessToken,
+          refresh_token: params.get('refresh_token') || '',
+          expires_in: expiresIn,
+          expires_at: expiresAt,
+          token_type: params.get('token_type') || 'bearer'
+        }));
+        history.replaceState({}, document.title, `${location.pathname}${location.search}`);
+      } catch (error) {
+        console.error('DUONERA magic-link bootstrap failed', error);
+      }
+    })();
+  </script>
   <link rel="stylesheet" href="styles.css?v=5">
   <link rel="stylesheet" href="ucet.css?v=2">
 </head>
@@ -123,6 +149,6 @@
     </div>
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.53.0/dist/umd/supabase.js"></script>
-  <script type="module" src="ucet.js?v=13"></script>
+  <script type="module" src="ucet.js?v=14"></script>
 </body>
 </html>
