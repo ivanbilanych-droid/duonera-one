@@ -104,15 +104,6 @@
           <small data-i18n="registerNote">Pošleme vám e-mail. Kliknutím jednou potvrdíte svou adresu.</small>
         </form>
 
-        <form id="confirmRegistrationForm" hidden>
-          <label>
-            <span data-i18n="registrationCode">Potvrzovací kód z e-mailu</span>
-            <input id="registrationCode" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]{6}" placeholder="123456" required>
-          </label>
-          <button class="btn btn-gold full" id="confirmRegistrationButton" type="submit" data-i18n="confirmRegistration">Potvrdit e-mail a otevřít účet</button>
-          <small data-i18n="registrationCodeNote">Kód použijete pouze jednou. Při dalším přihlášení stačí e-mail a heslo.</small>
-        </form>
-
         <form id="resetForm" hidden>
           <h2 data-i18n="newPasswordTitle">Nastavit nové heslo</h2>
           <label>
@@ -202,6 +193,6 @@
     </div>
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.53.0/dist/umd/supabase.js"></script>
-  <script type="module" src="ucet.js?v=17"></script>
+  <script type="module" src="ucet.js?v=18"></script>
 </body>
 </html>
