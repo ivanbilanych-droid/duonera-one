@@ -449,13 +449,8 @@ form.addEventListener('submit', async event=>{
     payload.photo_paths = await uploadProfilePhotos(profileId);
     await insertRow('duonera_profiles', payload, 20000, memberAuth.session.access_token);
 
-    const profileIdInput = document.createElement('input');
-    profileIdInput.type = 'hidden';
-    profileIdInput.name = 'Supabase profile ID';
-    profileIdInput.value = profileId;
-    form.appendChild(profileIdInput);
-
-    HTMLFormElement.prototype.submit.call(form);
+    localStorage.removeItem(draftKey);
+    location.assign('profil-hotovo.html');
   }catch(error){
     console.error(error);
     submitButton.disabled = false;
