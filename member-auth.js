@@ -188,6 +188,52 @@ export async function consumeAuthRedirect() {
   return session || getMemberSession();
 }
 
+
+export async function registerMember(email, password, redirectTo) {
+  if (!supabaseAuthClient) throw new Error('Přihlašovací služba není dostupná.');
+  const { data, error } = await supabaseAuthClient.auth.signUp({
+    email: String(email || '').trim().toLowerCase(),
+    password: String(password || ''),
+    options: {
+      emailRedirectTo: redirectTo,
+      data: { source: 'duonera.cz' }
+    }
+  });
+  if (error) throw error;
+  if (data?.session?.access_token) saveMemberSession(data.session);
+  return data || {};
+}
+
+export async function signInMember(email, password) {
+  if (!supabaseAuthClient) throw new Error('Přihlašovací služba není dostupná.');
+  const { data, error } = await supabaseAuthClient.auth.signInWithPassword({
+    email: String(email || '').trim().toLowerCase(),
+    password: String(password || '')
+  });
+  if (error) throw error;
+  if (!data?.session?.access_token) throw new Error('Přihlášení se nepodařilo dokončit.');
+  saveMemberSession(data.session);
+  return { session: data.session, user: data.user };
+}
+
+export async function requestPasswordReset(email, redirectTo) {
+  if (!supabaseAuthClient) throw new Error('Přihlašovací služba není dostupná.');
+  const { error } = await supabaseAuthClient.auth.resetPasswordForEmail(
+    String(email || '').trim().toLowerCase(),
+    { redirectTo }
+  );
+  if (error) throw error;
+}
+
+export async function updateMemberPassword(password) {
+  if (!supabaseAuthClient) throw new Error('Přihlašovací služba není dostupná.');
+  const { data, error } = await supabaseAuthClient.auth.updateUser({
+    password: String(password || '')
+  });
+  if (error) throw error;
+  return data?.user || null;
+}
+
 export async function requestEmailOtp(email, redirectTo) {
   const normalizedEmail = String(email || '').trim().toLowerCase();
   if (supabaseAuthClient) {
