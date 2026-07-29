@@ -11,7 +11,7 @@ import {
   requireMemberSession,
   signOutMember,
   verifyEmailOtp
-} from './member-auth.js?v=7';
+} from './member-auth.js?v=8';
 
 const DISCOVERY_BUCKET = 'duonera-discovery-photos';
 const translations = {
