@@ -5,6 +5,7 @@ import {
 
 const MEMBER_SESSION_KEY = 'duonera-member-session';
 const SUPABASE_AUTH_STORAGE_KEY = 'duonera-supabase-auth';
+const AUTH_REDIRECT_ERROR_KEY = 'duonera-auth-redirect-error';
 
 const supabaseAuthClient = window.supabase?.createClient(
   SUPABASE_URL,
@@ -60,12 +61,68 @@ export function clearMemberSession() {
   localStorage.removeItem(MEMBER_SESSION_KEY);
 }
 
+export function takeAuthRedirectError() {
+  const message = sessionStorage.getItem(AUTH_REDIRECT_ERROR_KEY) || '';
+  sessionStorage.removeItem(AUTH_REDIRECT_ERROR_KEY);
+  return message;
+}
+
+async function readSupabaseSession() {
+  if (!supabaseAuthClient) return null;
+  try {
+    const { data, error } = await supabaseAuthClient.auth.getSession();
+    if (error) throw error;
+    if (data?.session?.access_token) {
+      saveMemberSession(data.session);
+      return data.session;
+    }
+  } catch {
+    // The local session fallback remains available below.
+  }
+  return null;
+}
+
+async function waitForSupabaseSession(timeout = 2500) {
+  const current = await readSupabaseSession();
+  if (current || !supabaseAuthClient) return current;
+
+  return new Promise(resolve => {
+    let settled = false;
+    let timer = null;
+    let subscription = null;
+    const finish = session => {
+      if (settled) return;
+      settled = true;
+      if (timer) clearTimeout(timer);
+      subscription?.unsubscribe();
+      if (session?.access_token) saveMemberSession(session);
+      resolve(session || null);
+    };
+
+    const result = supabaseAuthClient.auth.onAuthStateChange((_event, session) => {
+      if (session?.access_token) finish(session);
+    });
+    subscription = result?.data?.subscription || null;
+    timer = setTimeout(() => finish(null), timeout);
+  });
+}
+
 export async function consumeAuthRedirect() {
   const url = new URL(location.href);
   const hashParams = new URLSearchParams(url.hash.replace(/^#/, ''));
   const searchParams = url.searchParams;
+  const redirectError =
+    searchParams.get('error_description') ||
+    hashParams.get('error_description') ||
+    searchParams.get('error') ||
+    hashParams.get('error') ||
+    '';
   let session = null;
   let handled = false;
+
+  if (redirectError) {
+    sessionStorage.setItem(AUTH_REDIRECT_ERROR_KEY, redirectError);
+  }
 
   if (hashParams.get('access_token')) {
     session = {
@@ -107,6 +164,11 @@ export async function consumeAuthRedirect() {
       saveMemberSession(session);
       handled = true;
     }
+  }
+
+  if (!session && !redirectError) {
+    session = await waitForSupabaseSession();
+    handled = Boolean(session);
   }
 
   if (handled || searchParams.has('error') || hashParams.has('error')) {
@@ -203,17 +265,7 @@ export async function requireMemberSession() {
   // the member is signed out.
   await consumeAuthRedirect();
 
-  if (supabaseAuthClient) {
-    try {
-      const { data, error } = await supabaseAuthClient.auth.getSession();
-      if (error) throw error;
-      if (data?.session?.access_token) {
-        saveMemberSession(data.session);
-      }
-    } catch {
-      // The legacy session fallback below still supports existing members.
-    }
-  }
+  await readSupabaseSession();
 
   let session = getMemberSession();
   if (!session?.access_token) return null;
