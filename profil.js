@@ -358,10 +358,6 @@ function buildRawData(){
   return raw;
 }
 
-function validUuid(value){
-  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value || '');
-}
-
 function photoExtension(file){
   const byType = {
     'image/jpeg':'jpg',
@@ -378,12 +374,17 @@ async function uploadProfilePhotos(profileId){
   for(let index = 0; index < files.length; index += 1){
     const file = files[index];
     const path = `${memberAuth.user.id}/${profileId}/${String(index + 1).padStart(2, '0')}.${photoExtension(file)}`;
-    paths.push(await uploadPrivateFile(
-      PROFILE_PHOTO_BUCKET,
-      path,
-      file,
-      memberAuth.session.access_token
-    ));
+    try{
+      paths.push(await uploadPrivateFile(
+        PROFILE_PHOTO_BUCKET,
+        path,
+        file,
+        memberAuth.session.access_token
+      ));
+    }catch(error){
+      // A single photo must never block creation of the member profile.
+      console.error(`Photo ${index + 1} could not be uploaded`, error);
+    }
   }
 
   return paths;
@@ -396,14 +397,14 @@ form.addEventListener('submit', async event=>{
 
   const formData = new FormData(form);
   const profileId = createUuid();
-  const storedLeadId = localStorage.getItem('duonera-lead-id') || '';
-  const leadId = validUuid(storedLeadId) ? storedLeadId : null;
   const originalButtonText = submitButton.textContent;
 
   const payload = {
     id: profileId,
     user_id: memberAuth.user.id,
-    lead_id: leadId,
+    // The authenticated account is the source of truth. A lead ID kept in
+    // localStorage may point to an already deleted test registration.
+    lead_id: null,
     status: 'new',
     first_name: getFormValue(formData, 'Křestní jméno'),
     birth_date: getFormValue(formData, 'Datum narození'),
@@ -453,14 +454,6 @@ form.addEventListener('submit', async event=>{
     profileIdInput.name = 'Supabase profile ID';
     profileIdInput.value = profileId;
     form.appendChild(profileIdInput);
-
-    if(leadId){
-      const leadIdInput = document.createElement('input');
-      leadIdInput.type = 'hidden';
-      leadIdInput.name = 'Supabase lead ID';
-      leadIdInput.value = leadId;
-      form.appendChild(leadIdInput);
-    }
 
     HTMLFormElement.prototype.submit.call(form);
   }catch(error){
