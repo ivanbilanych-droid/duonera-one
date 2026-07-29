@@ -37,35 +37,45 @@ Object.assign(translations.cs, {
   sendCode:'Poslat přihlašovací odkaz',
   loginNote:'Odkaz platí pouze krátkou dobu a lze ho použít jen pro váš účet.',
   linkSent:'Odkaz jsme poslali. Otevřete e-mail a klikněte na přihlášení.',
-  loginError:'Přihlašovací odkaz se nepodařilo odeslat. Zkuste to znovu.'
+  loginError:'Přihlašovací odkaz se nepodařilo odeslat. Zkuste to znovu.',
+  loginRateLimit:'Odkaz byl nedávno odeslán. Počkejte 60 sekund a zkontrolujte Doručenou poštu i Spam.',
+  loginServiceError:'E-mailová služba je dočasně nedostupná. Zkuste to za několik minut.'
 });
 Object.assign(translations.en, {
   loginText:'Enter your email. We will send you a secure sign-in link — no password.',
   sendCode:'Send sign-in link',
   loginNote:'The link is valid for a short time and works only for your account.',
   linkSent:'We sent the link. Open your email and click Sign in.',
-  loginError:'The sign-in link could not be sent. Please try again.'
+  loginError:'The sign-in link could not be sent. Please try again.',
+  loginRateLimit:'A link was sent recently. Wait 60 seconds and check your inbox and spam folder.',
+  loginServiceError:'The email service is temporarily unavailable. Please try again in a few minutes.'
 });
 Object.assign(translations.de, {
   loginText:'Geben Sie Ihre E-Mail ein. Wir senden Ihnen einen sicheren Anmeldelink — ohne Passwort.',
   sendCode:'Anmeldelink senden',
   loginNote:'Der Link ist nur kurze Zeit gültig und funktioniert ausschließlich für Ihr Konto.',
   linkSent:'Wir haben den Link gesendet. Öffnen Sie Ihre E-Mail und klicken Sie auf Anmelden.',
-  loginError:'Der Anmeldelink konnte nicht gesendet werden. Versuchen Sie es erneut.'
+  loginError:'Der Anmeldelink konnte nicht gesendet werden. Versuchen Sie es erneut.',
+  loginRateLimit:'Ein Link wurde kürzlich gesendet. Warten Sie 60 Sekunden und prüfen Sie Posteingang und Spam.',
+  loginServiceError:'Der E-Mail-Dienst ist vorübergehend nicht verfügbar. Versuchen Sie es in einigen Minuten erneut.'
 });
 Object.assign(translations.uk, {
   loginText:'Введіть e-mail. Ми надішлемо безпечне посилання для входу — без пароля.',
   sendCode:'Надіслати посилання для входу',
   loginNote:'Посилання діє недовго і призначене лише для вашого облікового запису.',
   linkSent:'Ми надіслали посилання. Відкрийте e-mail і натисніть «Увійти».',
-  loginError:'Не вдалося надіслати посилання. Спробуйте ще раз.'
+  loginError:'Не вдалося надіслати посилання. Спробуйте ще раз.',
+  loginRateLimit:'Посилання нещодавно надіслано. Зачекайте 60 секунд і перевірте Вхідні та Спам.',
+  loginServiceError:'Поштова служба тимчасово недоступна. Спробуйте ще раз за кілька хвилин.'
 });
 Object.assign(translations.ru, {
   loginText:'Введите e-mail. Мы отправим безопасную ссылку для входа — без пароля.',
   sendCode:'Отправить ссылку для входа',
   loginNote:'Ссылка действует недолго и предназначена только для вашего аккаунта.',
   linkSent:'Мы отправили ссылку. Откройте письмо и нажмите «Войти».',
-  loginError:'Не удалось отправить ссылку. Попробуйте ещё раз.'
+  loginError:'Не удалось отправить ссылку. Попробуйте ещё раз.',
+  loginRateLimit:'Ссылка уже недавно отправлена. Подождите 60 секунд и проверьте папки «Входящие» и «Спам».',
+  loginServiceError:'Почтовая служба временно недоступна. Попробуйте ещё раз через несколько минут.'
 });
 
 const loginView = document.querySelector('#loginView');
@@ -363,18 +373,57 @@ function renderAll() {
   mutualNotice.hidden = ![...selectedProfiles.values()].some(choice => choice.is_mutual);
 }
 
+const LOGIN_COOLDOWN_KEY = 'duonera-login-link-requested-at';
+const LOGIN_COOLDOWN_MS = 60000;
+
+function isRateLimitError(error) {
+  const details = [
+    error?.message,
+    error?.error_description,
+    error?.code,
+    error?.status
+  ].filter(Boolean).join(' ').toLowerCase();
+  return details.includes('rate') ||
+    details.includes('too many') ||
+    details.includes('429') ||
+    details.includes('60 seconds');
+}
+
+function loginFailureMessage(error) {
+  if (isRateLimitError(error)) return t('loginRateLimit');
+  const details = String(error?.message || '').trim();
+  if (details && !/failed to fetch|networkerror|load failed/i.test(details)) {
+    return `${t('loginServiceError')} (${details})`;
+  }
+  return t('loginServiceError');
+}
+
 loginForm.addEventListener('submit', async event => {
   event.preventDefault();
   loginButton.disabled = true;
   loginMessage.className = 'member-message';
   loginMessage.textContent = '';
+
+  const lastRequestAt = Number(localStorage.getItem(LOGIN_COOLDOWN_KEY) || 0);
+  if (Date.now() - lastRequestAt < LOGIN_COOLDOWN_MS) {
+    loginMessage.className = 'member-message error';
+    loginMessage.textContent = t('loginRateLimit');
+    loginButton.disabled = false;
+    return;
+  }
+
   try {
     const email = memberEmail.value.trim().toLowerCase();
     await requestEmailOtp(email, `${location.origin}/ucet.html`);
+    localStorage.setItem(LOGIN_COOLDOWN_KEY, String(Date.now()));
     loginMessage.textContent = t('linkSent');
-  } catch {
+  } catch (error) {
+    if (isRateLimitError(error)) {
+      localStorage.setItem(LOGIN_COOLDOWN_KEY, String(Date.now()));
+    }
+    console.error('DUONERA sign-in link request failed', error);
     loginMessage.className = 'member-message error';
-    loginMessage.textContent = t('loginError');
+    loginMessage.textContent = loginFailureMessage(error);
   } finally {
     loginButton.disabled = false;
   }
