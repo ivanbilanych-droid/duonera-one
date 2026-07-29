@@ -175,6 +175,7 @@ as $$
   where p.consent_discovery = true
     and p.is_approved = true
     and p.is_discoverable = true
+    and (auth.uid() is null or p.user_id is distinct from auth.uid())
     and coalesce(array_length(p.public_photo_paths, 1), 0) > 0
   order by p.created_at desc
   limit 12;
