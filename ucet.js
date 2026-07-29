@@ -6,7 +6,6 @@ import {
 import {
   callMemberRpc,
   clearMemberSession,
-  confirmRegistration,
   memberRest,
   registerMember,
   requestPasswordReset,
@@ -173,9 +172,6 @@ const registerEmail = document.querySelector('#registerEmail');
 const registerPassword = document.querySelector('#registerPassword');
 const registerPasswordAgain = document.querySelector('#registerPasswordAgain');
 const registerButton = document.querySelector('#registerButton');
-const confirmRegistrationForm = document.querySelector('#confirmRegistrationForm');
-const registrationCode = document.querySelector('#registrationCode');
-const confirmRegistrationButton = document.querySelector('#confirmRegistrationButton');
 const resetForm = document.querySelector('#resetForm');
 const newPassword = document.querySelector('#newPassword');
 const newPasswordAgain = document.querySelector('#newPasswordAgain');
@@ -199,7 +195,6 @@ let selectedProfiles = new Map();
 let loadedDiscovery = [];
 let loadedPremium = [];
 let activeAuth = null;
-let pendingRegistrationEmail = sessionStorage.getItem('duonera-pending-registration-email') || '';
 
 function t(key) {
   return translations[currentLang]?.[key] || translations.cs[key] || key;
@@ -491,16 +486,14 @@ function setAuthMode(mode) {
   const loginMode = mode === 'login';
   const registerMode = mode === 'register';
   const resetMode = mode === 'reset';
-  const confirmMode = mode === 'confirm';
   loginForm.hidden = !loginMode;
   registerForm.hidden = !registerMode;
-  confirmRegistrationForm.hidden = !confirmMode;
   resetForm.hidden = !resetMode;
   showLogin.classList.toggle('active', loginMode);
   showRegister.classList.toggle('active', registerMode);
-  showLogin.hidden = resetMode || confirmMode;
-  showRegister.hidden = resetMode || confirmMode;
-  loginNote.hidden = resetMode || confirmMode;
+  showLogin.hidden = resetMode;
+  showRegister.hidden = resetMode;
+  loginNote.hidden = resetMode;
   setLoginMessage();
 }
 
@@ -556,9 +549,7 @@ registerForm.addEventListener('submit', async event => {
     if (data?.session?.access_token && data?.user) {
       await openDashboard({ session: data.session, user: data.user });
     } else {
-      pendingRegistrationEmail = registerEmail.value.trim().toLowerCase();
-      sessionStorage.setItem('duonera-pending-registration-email', pendingRegistrationEmail);
-      memberEmail.value = pendingRegistrationEmail;
+      memberEmail.value = registerEmail.value.trim().toLowerCase();
       memberPassword.value = '';
       setAuthMode('login');
       setLoginMessage(t('confirmationSent'));
@@ -567,29 +558,6 @@ registerForm.addEventListener('submit', async event => {
     setLoginMessage(authMessage(error), true);
   } finally {
     registerButton.disabled = false;
-  }
-});
-
-confirmRegistrationForm.addEventListener('submit', async event => {
-  event.preventDefault();
-  const token = registrationCode.value.replace(/\D/g, '').slice(0, 6);
-  if (token.length !== 6) {
-    setLoginMessage(t('registrationCodeInvalid'), true);
-    registrationCode.focus();
-    return;
-  }
-  const email = pendingRegistrationEmail || registerEmail.value.trim().toLowerCase();
-  confirmRegistrationButton.disabled = true;
-  setLoginMessage();
-  try {
-    const auth = await confirmRegistration(email, token);
-    sessionStorage.removeItem('duonera-pending-registration-email');
-    pendingRegistrationEmail = '';
-    await openDashboard(auth);
-  } catch (error) {
-    setLoginMessage(authMessage(error), true);
-  } finally {
-    confirmRegistrationButton.disabled = false;
   }
 });
 
@@ -669,6 +637,13 @@ if (savedRegistration.email) {
   memberEmail.value = savedRegistration.email;
   registerEmail.value = savedRegistration.email;
 }
+const pageParams = new URLSearchParams(location.search);
+const requestedEmail = String(pageParams.get('email') || '').trim().toLowerCase();
+const requestedMode = pageParams.get('mode');
+if (requestedEmail) {
+  memberEmail.value = requestedEmail;
+  registerEmail.value = requestedEmail;
+}
 
 const auth = await requireMemberSession();
 const recoveryFlow = sessionStorage.getItem('duonera-auth-flow-type') === 'recovery';
@@ -684,7 +659,7 @@ if (auth && recoveryFlow) {
   loginView.hidden = false;
   dashboardView.hidden = true;
   logoutButton.hidden = true;
-  setAuthMode('login');
+  setAuthMode(requestedMode === 'register' ? 'register' : 'login');
   const redirectError = takeAuthRedirectError();
   if (redirectError) setLoginMessage(t('authServiceError'), true);
 }
