@@ -9,6 +9,12 @@
 .login-trust{display:grid;gap:12px;margin-top:28px;color:#e7d49e}
 .member-login-card{background:#f7f1e7;color:#19150f;padding:38px;box-shadow:0 28px 90px rgba(0,0,0,.42)}
 .member-login-card [hidden]{display:none!important}
+.auth-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:26px;padding-bottom:18px;border-bottom:1px solid #dfd3bf}
+.auth-tab,.auth-text-button{appearance:none;border:0;background:transparent;font:inherit;cursor:pointer}
+.auth-tab{padding:11px 8px;border:1px solid #d8c9ad;color:#655d52;font-weight:700}
+.auth-tab.active{background:#17140f;border-color:#17140f;color:#f1d279}
+.auth-text-button{display:block;margin:14px auto 0;color:#7a5b1f;text-decoration:underline;font-size:13px}
+.member-login-card form h2{font-family:Georgia,serif;font-size:28px;font-weight:400;margin:0 0 20px}
 .member-login-card label{display:grid;gap:8px;font-size:12px;font-weight:700}
 .member-login-card #otpField{margin-top:18px}
 .member-login-card input{height:52px;border:1px solid #d8c9ad;background:#fff;padding:0 14px;margin-bottom:18px}
