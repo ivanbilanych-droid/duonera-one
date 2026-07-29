@@ -204,27 +204,6 @@ export async function registerMember(email, password, redirectTo) {
   return data || {};
 }
 
-export async function confirmRegistration(email, token) {
-  if (!supabaseAuthClient) throw new Error('Přihlašovací služba není dostupná.');
-  const normalizedEmail = String(email || '').trim().toLowerCase();
-  const normalizedToken = String(token || '').replace(/\D/g, '').slice(0, 6);
-  if (!normalizedEmail || normalizedToken.length !== 6) {
-    throw new Error('Zadejte platný šestimístný kód.');
-  }
-
-  const { data, error } = await supabaseAuthClient.auth.verifyOtp({
-    email: normalizedEmail,
-    token: normalizedToken,
-    type: 'signup'
-  });
-  if (error) throw error;
-  if (!data?.session?.access_token || !data?.user) {
-    throw new Error('Potvrzení účtu se nepodařilo dokončit.');
-  }
-  saveMemberSession(data.session);
-  return { session: data.session, user: data.user };
-}
-
 export async function signInMember(email, password) {
   if (!supabaseAuthClient) throw new Error('Přihlašovací služba není dostupná.');
   const { data, error } = await supabaseAuthClient.auth.signInWithPassword({
@@ -253,58 +232,6 @@ export async function updateMemberPassword(password) {
   });
   if (error) throw error;
   return data?.user || null;
-}
-
-export async function requestEmailOtp(email, redirectTo) {
-  const normalizedEmail = String(email || '').trim().toLowerCase();
-  if (supabaseAuthClient) {
-    const { error } = await supabaseAuthClient.auth.signInWithOtp({
-      email: normalizedEmail,
-      options: {
-        emailRedirectTo: redirectTo,
-        shouldCreateUser: true,
-        data: { source: 'duonera.cz' }
-      }
-    });
-    if (error) throw error;
-    return;
-  }
-
-  const endpoint = new URL(`${SUPABASE_URL}/auth/v1/otp`);
-  endpoint.searchParams.set('redirect_to', redirectTo);
-  const response = await fetch(endpoint, {
-    method: 'POST',
-    headers: authHeaders('', true),
-    body: JSON.stringify({
-      email: normalizedEmail,
-      create_user: true,
-      data: { source: 'duonera.cz' }
-    })
-  });
-  if (!response.ok) {
-    throw new Error(await readError(response, 'Přihlašovací kód se nepodařilo odeslat.'));
-  }
-}
-
-export async function verifyEmailOtp(email, token) {
-  const response = await fetch(`${SUPABASE_URL}/auth/v1/verify`, {
-    method: 'POST',
-    headers: authHeaders('', true),
-    body: JSON.stringify({
-      email: String(email || '').trim().toLowerCase(),
-      token: String(token || '').replace(/\D/g, '').slice(0, 6),
-      type: 'email'
-    })
-  });
-  if (!response.ok) {
-    throw new Error(await readError(response, 'Kód není platný nebo již vypršel.'));
-  }
-  const session = await response.json();
-  if (!session?.access_token) {
-    throw new Error('Přihlášení se nepodařilo dokončit.');
-  }
-  saveMemberSession(session);
-  return getMemberSession();
 }
 
 async function refreshMemberSession(refreshToken) {
