@@ -14,9 +14,9 @@ const supabaseAuthClient = window.supabase?.createClient(
       storageKey: SUPABASE_AUTH_STORAGE_KEY,
       persistSession: true,
       autoRefreshToken: true,
-      // DUONERA processes the callback itself below. Letting the SDK parse
-      // it at the same time can remove the tokens before we persist them.
-      detectSessionInUrl: false,
+      // Let the SDK accept Supabase magic-link callbacks. The manual parser
+      // below remains as a fallback for every callback format.
+      detectSessionInUrl: true,
       flowType: 'implicit'
     }
   }
