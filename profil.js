@@ -30,7 +30,7 @@ if(existingProfiles?.length){
 const memberLeads = await memberRest(
   `duonera_leads?select=id&user_id=eq.${encodeURIComponent(memberAuth.user.id)}&order=created_at.desc&limit=1`
 );
-const memberLeadId = memberLeads?.[0]?.id || null;
+let memberLeadId = memberLeads?.[0]?.id || null;
 
 const profileTranslations = {
   cs: {
@@ -380,6 +380,51 @@ function photoExtension(file){
   return byType[file.type] || 'jpg';
 }
 
+function calculateAge(birthDate){
+  const value = String(birthDate || '').trim();
+  if(!value) return null;
+  const birth = new Date(`${value}T00:00:00`);
+  if(Number.isNaN(birth.getTime())) return null;
+  const today = new Date();
+  let age = today.getFullYear() - birth.getFullYear();
+  const monthDifference = today.getMonth() - birth.getMonth();
+  if(monthDifference < 0 || (monthDifference === 0 && today.getDate() < birth.getDate())) age -= 1;
+  return age >= 18 && age <= 120 ? age : null;
+}
+
+async function ensureMemberLead(formData){
+  if(memberLeadId) return memberLeadId;
+
+  const leadId = createUuid();
+  const age = calculateAge(getFormValue(formData, 'Datum narození'));
+  const leadPayload = {
+    id: leadId,
+    gender: getFormValue(formData, 'Jsem'),
+    looking_for: getFormValue(formData, 'Hledám'),
+    age,
+    city: getFormValue(formData, 'Město'),
+    email: String(memberAuth.user.email || getFormValue(formData, 'email')).trim().toLowerCase(),
+    consent_privacy: formData.get('Souhlas se zpracováním profilu') === 'Ano',
+    source: 'duonera.cz/account'
+  };
+
+  // The public lead endpoint is intentionally used without the member token.
+  // It is the same protected registration endpoint as the short form.
+  await insertRow('duonera_leads', leadPayload, 20000);
+  localStorage.setItem('duonera-lead-id', leadId);
+  memberLeadId = leadId;
+
+  try{
+    await callMemberRpc('duonera_claim_registration');
+  }catch(error){
+    // The profile can still reference the newly created lead. Claiming only
+    // lets the member read the short registration from the account.
+    console.warn('The new short registration could not be attached automatically', error);
+  }
+
+  return memberLeadId;
+}
+
 async function uploadProfilePhotos(profileId){
   const files = [...photoInput.files].slice(0, 3);
   const paths = [];
@@ -459,6 +504,7 @@ form.addEventListener('submit', async event=>{
     submitButton.textContent = t('sending');
     localStorage.setItem(draftKey, JSON.stringify(serializeDraft()));
 
+    payload.lead_id = await ensureMemberLead(formData);
     payload.photo_paths = await uploadProfilePhotos(profileId);
     await insertRow('duonera_profiles', payload, 20000, memberAuth.session.access_token);
 
