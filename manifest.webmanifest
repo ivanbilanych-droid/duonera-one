@@ -1,0 +1,51 @@
+{
+  "name": "DUONERA – Private Meeting Club",
+  "short_name": "DUONERA",
+  "id": "/",
+  "start_url": "/?source=app",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#080806",
+  "theme_color": "#080806",
+  "lang": "cs",
+  "description": "Soukromý klub skutečných setkání. Méně profilů, lepší výběr, skutečné setkání.",
+  "categories": [
+    "social",
+    "lifestyle"
+  ],
+  "icons": [
+    {
+      "src": "/assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Můj účet",
+      "short_name": "Účet",
+      "url": "/ucet.html",
+      "icons": [
+        {
+          "src": "/assets/favicon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Registrace",
+      "short_name": "Registrace",
+      "url": "/#register",
+      "icons": [
+        {
+          "src": "/assets/favicon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
+        }
+      ]
+    }
+  ]
+}
