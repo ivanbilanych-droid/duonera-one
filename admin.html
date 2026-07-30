@@ -3,119 +3,114 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#090908">
   <meta name="robots" content="noindex, nofollow, noarchive">
-  <title>Administrace — DUONERA</title>
-  <link rel="stylesheet" href="admin.css?v=4">
+  <meta name="theme-color" content="#090908">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="DUONERA">
+  <title>Správa — DUONERA</title>
+  <link rel="manifest" href="manifest.webmanifest?v=1">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/favicon.svg">
+  <link rel="stylesheet" href="styles.css?v=21">
+  <link rel="stylesheet" href="admin.css?v=1">
 </head>
-<body>
-  <header class="admin-header">
+<body class="admin-page">
+  <header class="site-header admin-header">
     <a class="brand" href="index.html" aria-label="DUONERA">
       <span class="brand-crown">♛</span>
-      <span>
-        <strong>DUONERA</strong>
-        <small>PRIVATE DATING CONCIERGE</small>
-      </span>
+      <span class="brand-name">DUONERA</span>
+      <span class="brand-sub">PRIVATE MEETING CLUB</span>
     </a>
     <div class="admin-header-actions">
-      <span class="private-badge">SOUKROMÁ ADMINISTRACE</span>
-      <button class="button button-quiet" id="logoutButton" type="button" hidden>Odhlásit</button>
+      <a class="admin-header-link" href="ucet.html">Můj účet</a>
+      <button class="btn btn-outline" id="adminLogout" type="button" hidden>Odhlásit</button>
     </div>
   </header>
 
-  <main>
-    <section class="login-view" id="loginView">
-      <form class="login-card" id="loginForm">
-        <p class="eyebrow">CHRÁNĚNÝ PŘÍSTUP</p>
-        <h1>Administrace DUONERA</h1>
-        <p class="login-copy">Přihlaste se účtem správce. Přístup k osobním údajům je povolen pouze oprávněnému účtu DUONERA.</p>
-
-        <label>
-          <span>E-mail správce</span>
-          <input id="adminEmail" type="email" value="info@duonera.cz" autocomplete="username" required>
-        </label>
-        <label>
-          <span>Heslo</span>
-          <input id="adminPassword" type="password" autocomplete="current-password" required>
-        </label>
-
-        <p class="form-message" id="loginMessage" role="alert"></p>
-        <button class="button button-gold" id="loginButton" type="submit">Přihlásit se</button>
-        <p class="security-note">Heslo se neukládá do souborů webu.</p>
-      </form>
+  <main class="admin-shell">
+    <section class="admin-lock" id="adminLock">
+      <p class="section-label">SOUKROMÁ SPRÁVA</p>
+      <h1>Administrace DUONERA</h1>
+      <p id="adminLockText">Ověřujeme přístup správce…</p>
+      <a class="btn btn-gold" id="adminLoginLink" href="ucet.html" hidden>Přihlásit se</a>
     </section>
 
-    <section class="dashboard" id="dashboardView" hidden>
-      <div class="dashboard-heading">
+    <section id="adminDashboard" hidden>
+      <div class="admin-title-row">
         <div>
-          <p class="eyebrow">PŘEHLED SYSTÉMU</p>
-          <h1>Klienti DUONERA</h1>
-          <p id="lastUpdated">Načítání údajů…</p>
+          <p class="section-label">ŘÍDICÍ CENTRUM</p>
+          <h1>DUONERA přehled</h1>
+          <p class="admin-user" id="adminUser"></p>
         </div>
-        <button class="button button-outline" id="refreshButton" type="button">Obnovit údaje</button>
+        <button class="btn btn-gold admin-refresh" id="adminRefresh" type="button">Obnovit data</button>
       </div>
 
-      <div class="summary-grid" aria-label="Souhrn">
-        <article>
-          <span>Krátké registrace</span>
-          <strong id="leadCount">—</strong>
-          <small>duonera_leads</small>
-        </article>
-        <article>
-          <span>Úplné profily</span>
-          <strong id="profileCount">—</strong>
-          <small>duonera_profiles</small>
-        </article>
-        <article>
-          <span>Nové profily</span>
-          <strong id="newProfileCount">—</strong>
-          <small>čekají na kontrolu</small>
-        </article>
-        <article>
-          <span>Vzájemné volby</span>
-          <strong id="matchCount">—</strong>
-          <small>čekají na organizaci schůzky</small>
-        </article>
+      <p class="admin-message" id="adminMessage" role="status"></p>
+
+      <div class="admin-stats" aria-label="Souhrn">
+        <article><span>Registrace</span><strong id="statLeads">0</strong></article>
+        <article><span>Ankety</span><strong id="statProfiles">0</strong></article>
+        <article class="attention"><span>Čekají na kontrolu</span><strong id="statPending">0</strong></article>
+        <article><span>Schválené</span><strong id="statApproved">0</strong></article>
       </div>
 
-      <div class="workspace">
-        <div class="toolbar">
-          <div class="tabs" role="tablist" aria-label="Databáze">
-            <button class="tab active" type="button" role="tab" aria-selected="true" data-view="profiles">Úplné profily</button>
-            <button class="tab" type="button" role="tab" aria-selected="false" data-view="leads">Krátké registrace</button>
-            <button class="tab" type="button" role="tab" aria-selected="false" data-view="matches">Vzájemné volby</button>
+      <nav class="admin-tabs" aria-label="Administrace">
+        <button class="active" type="button" data-admin-tab="profiles">Ankety</button>
+        <button type="button" data-admin-tab="leads">Registrace</button>
+        <button type="button" data-admin-tab="analytics">Statistika</button>
+      </nav>
+
+      <section class="admin-panel active" data-admin-panel="profiles">
+        <div class="admin-panel-head">
+          <div>
+            <p class="section-label">KONTROLA PROFILŮ</p>
+            <h2>Nové a schválené ankety</h2>
           </div>
-          <label class="search">
-            <span class="sr-only">Hledat</span>
-            <input id="searchInput" type="search" placeholder="Hledat podle jména, města nebo e-mailu">
-          </label>
+          <select id="profileFilter" aria-label="Filtrovat ankety">
+            <option value="all">Všechny</option>
+            <option value="pending">Čekají</option>
+            <option value="approved">Schválené</option>
+            <option value="hidden">Skryté</option>
+          </select>
         </div>
+        <div class="admin-list" id="adminProfiles"></div>
+      </section>
 
-        <p class="data-message" id="dataMessage" role="status"></p>
-
-        <div class="table-wrap">
-          <table>
-            <thead id="tableHead"></thead>
-            <tbody id="tableBody"></tbody>
-          </table>
+      <section class="admin-panel" data-admin-panel="leads" hidden>
+        <div class="admin-panel-head">
+          <div>
+            <p class="section-label">NOVÉ KONTAKTY</p>
+            <h2>Krátké registrace</h2>
+          </div>
         </div>
-      </div>
+        <div class="admin-list" id="adminLeads"></div>
+      </section>
 
-      <p class="photo-note">Fotografie jsou uloženy v soukromém úložišti a zobrazují se pouze přihlášenému správci DUONERA.</p>
+      <section class="admin-panel" data-admin-panel="analytics" hidden>
+        <div class="admin-panel-head">
+          <div>
+            <p class="section-label">NÁVŠTĚVNOST</p>
+            <h2>Google Analytics</h2>
+          </div>
+        </div>
+        <div class="analytics-card">
+          <div>
+            <strong>Statistika webu DUONERA</strong>
+            <p>Návštěvníci, zdroje reklamy, stránky, události a aktivní uživatelé v reálném čase.</p>
+          </div>
+          <a class="btn btn-gold" href="https://analytics.google.com/analytics/web/" target="_blank" rel="noopener">Otevřít statistiku</a>
+        </div>
+        <div class="analytics-help">
+          <strong>Na telefonu</strong>
+          <p>Nainstalujte aplikaci Google Analytics, přihlaste se stejným Google účtem a vyberte službu DUONERA / https://duonera.cz.</p>
+        </div>
+      </section>
     </section>
   </main>
 
-  <dialog id="detailDialog">
-    <div class="dialog-head">
-      <div>
-        <p class="eyebrow">DETAIL PROFILU</p>
-        <h2 id="detailTitle">Profil</h2>
-      </div>
-      <button class="dialog-close" id="closeDialog" type="button" aria-label="Zavřít">×</button>
-    </div>
-    <div class="detail-grid" id="detailContent"></div>
-  </dialog>
-
-  <script type="module" src="admin.js?v=5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.53.0/dist/umd/supabase.js"></script>
+  <script type="module" src="admin.js?v=1"></script>
 </body>
 </html>
