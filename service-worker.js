@@ -1,4 +1,4 @@
-const CACHE_NAME = 'duonera-app-v2';
+const CACHE_NAME = 'duonera-app-v3';
 const CORE_FILES = [
   '/',
   '/index.html',
@@ -9,6 +9,9 @@ const CORE_FILES = [
   '/ucet.html',
   '/ucet.css',
   '/ucet.js',
+  '/admin.html',
+  '/admin.css?v=1',
+  '/admin.js?v=1',
   '/member-auth.js',
   '/supabase-client.js'
 ];
