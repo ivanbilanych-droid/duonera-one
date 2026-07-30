@@ -505,7 +505,7 @@ async function openDashboard(auth) {
   const adminLink = document.getElementById('adminLink');
   if (adminLink) {
     const email = String(auth.user.email || '').trim().toLowerCase();
-    adminLink.hidden = !['info@duonera.cz', 'ib.luxes@gmail.com'].includes(email);
+    adminLink.hidden = email !== 'info@duonera.cz';
   }
   await loadDashboard(auth);
 }
