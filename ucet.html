@@ -7,6 +7,21 @@
   <meta name="theme-color" content="#090908">
   <title>Můj účet — DUONERA</title>
   <script>
+    (function () {
+      try {
+        if (localStorage.getItem('duoneraAnalyticsConsent') !== 'granted') return;
+      } catch (e) { return; }
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function(){ dataLayer.push(arguments); };
+      gtag('js', new Date());
+      gtag('config', 'G-PR38YKQ9QF', { anonymize_ip: true });
+      var ga = document.createElement('script');
+      ga.async = true;
+      ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-PR38YKQ9QF';
+      document.head.appendChild(ga);
+    })();
+  </script>
+  <script>
     // Capture the Supabase magic-link session before the SDK can consume
     // and remove the URL fragment. This prevents a valid link from
     // returning the member to the login form.
