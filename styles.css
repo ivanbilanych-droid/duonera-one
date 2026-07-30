@@ -312,3 +312,36 @@ footer{padding:44px 0 18px;background:#050504;border-top:1px solid var(--line)}
   .step{min-height:0;border-right:0!important;border-bottom:1px solid var(--line)!important}
   .register-checks{grid-template-columns:1fr}
 }
+
+
+/* Installable app controls */
+.pwa-install-button{
+  appearance:none;
+  border:1px solid rgba(220,174,63,.56);
+  background:transparent;
+  color:var(--gold-light);
+  min-height:38px;
+  padding:0 16px;
+  font:700 .68rem/1 Arial,sans-serif;
+  letter-spacing:.04em;
+  cursor:pointer;
+  transition:background .2s ease,color .2s ease,border-color .2s ease;
+}
+.pwa-install-button:hover{
+  background:var(--gold);
+  border-color:var(--gold);
+  color:var(--black);
+}
+.mobile-menu .pwa-install-button{
+  width:100%;
+  min-height:44px;
+  margin-top:4px;
+}
+.footer-links .pwa-install-button{
+  display:block;
+  margin-left:auto;
+  margin-top:7px;
+}
+@media(max-width:760px){
+  .footer-links .pwa-install-button{margin-left:0}
+}
