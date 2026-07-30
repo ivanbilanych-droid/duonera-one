@@ -363,3 +363,84 @@ if(shortRegistrationForm){
 
 const toast = document.querySelector('.toast');
 loadPublicProfiles();
+
+
+/* Installable DUONERA app */
+let duoneraInstallPrompt = null;
+const duoneraInstallButtons = [...document.querySelectorAll('[data-pwa-install]')];
+const duoneraInstallLabels = {
+  cs: 'Instalovat aplikaci',
+  en: 'Install app',
+  de: 'App installieren',
+  uk: 'Встановити застосунок',
+  ru: 'Установить приложение'
+};
+
+function updateDuoneraInstallButtons() {
+  const standalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+  const lang = localStorage.getItem('duonera-public-language') || document.documentElement.lang || 'cs';
+  duoneraInstallButtons.forEach(button => {
+    button.hidden = Boolean(standalone);
+    button.textContent = duoneraInstallLabels[lang] || duoneraInstallLabels.cs;
+  });
+}
+
+function showInstallHelp() {
+  const lang = localStorage.getItem('duonera-public-language') || document.documentElement.lang || 'cs';
+  const messages = {
+    cs: /iPad|iPhone|iPod/.test(navigator.userAgent)
+      ? 'V Safari zvolte Sdílet a potom Přidat na plochu.'
+      : 'V nabídce prohlížeče zvolte Instalovat aplikaci nebo Přidat na plochu.',
+    en: 'Open the browser menu and choose Install app or Add to Home screen.',
+    de: 'Öffnen Sie das Browsermenü und wählen Sie App installieren oder Zum Startbildschirm.',
+    uk: 'У меню браузера виберіть Встановити застосунок або Додати на головний екран.',
+    ru: 'В меню браузера выберите Установить приложение или Добавить на главный экран.'
+  };
+  if (toast) {
+    toast.textContent = messages[lang] || messages.cs;
+    toast.classList.add('show');
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(() => toast.classList.remove('show'), 5200);
+  }
+}
+
+window.addEventListener('beforeinstallprompt', event => {
+  event.preventDefault();
+  duoneraInstallPrompt = event;
+  updateDuoneraInstallButtons();
+});
+
+window.addEventListener('appinstalled', () => {
+  duoneraInstallPrompt = null;
+  updateDuoneraInstallButtons();
+  if (typeof window.gtag === 'function') {
+    window.gtag('event', 'app_install', { method: 'pwa' });
+  }
+});
+
+duoneraInstallButtons.forEach(button => {
+  button.addEventListener('click', async () => {
+    if (!duoneraInstallPrompt) {
+      showInstallHelp();
+      return;
+    }
+    duoneraInstallPrompt.prompt();
+    await duoneraInstallPrompt.userChoice;
+    duoneraInstallPrompt = null;
+    updateDuoneraInstallButtons();
+  });
+});
+
+document.querySelectorAll('[data-lang]').forEach(button => {
+  button.addEventListener('click', () => setTimeout(updateDuoneraInstallButtons, 0));
+});
+
+updateDuoneraInstallButtons();
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(error => {
+      console.error('DUONERA app service worker:', error);
+    });
+  });
+}
