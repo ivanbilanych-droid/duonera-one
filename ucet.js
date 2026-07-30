@@ -546,6 +546,12 @@ registerForm.addEventListener('submit', async event => {
       password,
       `${location.origin}/ucet.html`
     );
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'sign_up', {
+        method: 'email',
+        transport_type: 'beacon'
+      });
+    }
     if (data?.session?.access_token && data?.user) {
       await openDashboard({ session: data.session, user: data.user });
     } else {
