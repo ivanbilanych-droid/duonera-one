@@ -5,6 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="DUONERA — privátní klub skutečných setkání. Najděte svou perlu, pozvěte ji na kávu a nechte DUONERA pomoci s organizací.">
   <meta name="theme-color" content="#080806">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="DUONERA">
+  <link rel="manifest" href="manifest.webmanifest?v=1">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/favicon.svg">
   <title>DUONERA — Najděte svou perlu</title>
   <script>
     window.duoneraLoadAnalytics = function () {
@@ -25,7 +32,7 @@
       }
     } catch (e) {}
   </script>
-  <link rel="stylesheet" href="styles.css?v=20">
+  <link rel="stylesheet" href="styles.css?v=21">
 </head>
 <body>
   <header class="site-header" id="top">
@@ -61,7 +68,7 @@
     <a href="#how" data-lx="navHow">Jak to funguje</a>
     <a href="#selection" data-lx="navPeople">Lidé</a>
     <a href="#membership" data-lx="navMembership">Členství</a>
-    <a href="ucet.html" data-i18n="account">Můj účet</a>
+    <a href="ucet.html" data-i18n="account">Můj účet</a>\n    <button class="pwa-install-button" type="button" data-pwa-install hidden>Instalovat aplikaci</button>
     <a class="btn btn-gold" href="#register" data-lx="join">Vstoupit do klubu</a>
   </div>
 
@@ -321,14 +328,14 @@
         <a href="privacy.html" data-i18n="footerPrivacy">Ochrana soukromí</a>
         <a href="terms.html" data-i18n="footerTerms">Podmínky služby</a>
         <a href="mailto:info@duonera.cz">info@duonera.cz</a>
-        <a href="https://duonera.cz">www.duonera.cz</a>
+        <a href="https://duonera.cz">www.duonera.cz</a>\n        <button class="pwa-install-button" type="button" data-pwa-install hidden>Instalovat aplikaci</button>
       </div>
     </div>
     <div class="shell footer-bottom">© <span id="year"></span> DUONERA. Private Meeting Club.</div>
   </footer>
 
   <div class="toast" role="status" aria-live="polite"></div>
-  <script type="module" src="app.js?v=14"></script>
+  <script type="module" src="app.js?v=15"></script>
   <script>
     (() => {
       const copy = {
