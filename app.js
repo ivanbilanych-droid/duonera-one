@@ -332,6 +332,12 @@ if(shortRegistrationForm){
       }, 4000);
 
       await insertRow('duonera_leads', payload, 20000);
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'generate_lead', {
+          method: 'short_registration',
+          transport_type: 'beacon'
+        });
+      }
       clearTimeout(stillSavingTimer);
       submitButton.textContent = status.opening;
 
