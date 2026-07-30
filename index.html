@@ -6,6 +6,25 @@
   <meta name="description" content="DUONERA — privátní klub skutečných setkání. Najděte svou perlu, pozvěte ji na kávu a nechte DUONERA pomoci s organizací.">
   <meta name="theme-color" content="#080806">
   <title>DUONERA — Najděte svou perlu</title>
+  <script>
+    window.duoneraLoadAnalytics = function () {
+      if (window.__duoneraAnalyticsLoaded) return;
+      window.__duoneraAnalyticsLoaded = true;
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function(){ dataLayer.push(arguments); };
+      gtag('js', new Date());
+      gtag('config', 'G-PR38YKQ9QF', { anonymize_ip: true });
+      var ga = document.createElement('script');
+      ga.async = true;
+      ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-PR38YKQ9QF';
+      document.head.appendChild(ga);
+    };
+    try {
+      if (localStorage.getItem('duoneraAnalyticsConsent') === 'granted') {
+        window.duoneraLoadAnalytics();
+      }
+    } catch (e) {}
+  </script>
   <link rel="stylesheet" href="styles.css?v=20">
 </head>
 <body>
@@ -387,6 +406,46 @@
       });
       applyLanguage(localStorage.getItem("duonera-public-language") || "cs");
     })();
+  </script>
+
+  <div class="analytics-consent" id="analyticsConsent" hidden role="dialog" aria-label="Nastavení statistiky">
+    <div>
+      <strong>Soukromí a statistika</strong>
+      <p>Pomozte nám zlepšovat DUONERA povolením anonymní statistiky návštěvnosti. Volba je na vás.</p>
+    </div>
+    <div class="analytics-consent-actions">
+      <button type="button" id="analyticsDecline">Pouze nezbytné</button>
+      <button type="button" id="analyticsAccept">Povolit statistiku</button>
+    </div>
+  </div>
+  <style>
+    .analytics-consent{position:fixed;z-index:9999;left:50%;bottom:18px;transform:translateX(-50%);width:min(720px,calc(100% - 32px));display:flex;align-items:center;justify-content:space-between;gap:24px;padding:16px 18px;background:#11110e;color:#f3eddf;border:1px solid rgba(220,174,63,.48);box-shadow:0 14px 44px rgba(0,0,0,.48);font-family:Arial,sans-serif}
+    .analytics-consent[hidden]{display:none}
+    .analytics-consent strong{font-size:14px;color:#f2d57d}
+    .analytics-consent p{margin:5px 0 0;font-size:12px;line-height:1.45;color:#c9c0af}
+    .analytics-consent-actions{display:flex;gap:8px;flex:0 0 auto}
+    .analytics-consent button{min-height:38px;padding:0 14px;border:1px solid #d4a638;background:transparent;color:#f2d57d;font-weight:700;cursor:pointer}
+    .analytics-consent #analyticsAccept{background:#d4a638;color:#080806}
+    @media(max-width:640px){.analytics-consent{bottom:10px;align-items:stretch;flex-direction:column;gap:12px}.analytics-consent-actions{display:grid;grid-template-columns:1fr 1fr}.analytics-consent button{padding:0 8px}}
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var banner = document.getElementById('analyticsConsent');
+      var accept = document.getElementById('analyticsAccept');
+      var decline = document.getElementById('analyticsDecline');
+      var choice = null;
+      try { choice = localStorage.getItem('duoneraAnalyticsConsent'); } catch (e) {}
+      if (!choice) banner.hidden = false;
+      accept.addEventListener('click', function () {
+        try { localStorage.setItem('duoneraAnalyticsConsent', 'granted'); } catch (e) {}
+        banner.hidden = true;
+        window.duoneraLoadAnalytics();
+      });
+      decline.addEventListener('click', function () {
+        try { localStorage.setItem('duoneraAnalyticsConsent', 'denied'); } catch (e) {}
+        banner.hidden = true;
+      });
+    });
   </script>
 </body>
 </html>
