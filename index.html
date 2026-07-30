@@ -3,24 +3,24 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="description" content="DUONERA — privátní seznamování pro skutečný život. Tři vybraní lidé, jedna vzájemná volba, skutečné setkání.">
-  <meta name="theme-color" content="#090909">
-  <title>DUONERA — Private Dating Concierge</title>
-  <link rel="stylesheet" href="styles.css?v=5">
+  <meta name="description" content="DUONERA — privátní klub skutečných setkání. Najděte svou perlu, pozvěte ji na kávu a nechte DUONERA pomoci s organizací.">
+  <meta name="theme-color" content="#080806">
+  <title>DUONERA — Najděte svou perlu</title>
+  <link rel="stylesheet" href="styles.css?v=16">
 </head>
 <body>
   <header class="site-header" id="top">
     <a class="brand" href="#top" aria-label="DUONERA">
       <span class="brand-crown">♛</span>
       <span class="brand-name">DUONERA</span>
-      <span class="brand-sub">PRIVATE DATING CONCIERGE</span>
+      <span class="brand-sub">PRIVATE MEETING CLUB</span>
     </a>
 
     <nav class="desktop-nav" aria-label="Hlavní navigace">
-      <a href="#how" data-i18n="navHow">Jak to funguje</a>
-      <a href="#selection" data-i18n="navSelection">Profily</a>
-      <a href="#result" data-i18n="navResult">Výsledek</a>
-      <a href="#safety" data-i18n="navSafety">Soukromí</a>
+      <a href="#experience" data-lx="navExperience">Zážitek</a>
+      <a href="#how" data-lx="navHow">Jak to funguje</a>
+      <a href="#selection" data-lx="navPeople">Lidé</a>
+      <a href="#membership" data-lx="navMembership">Členství</a>
     </nav>
 
     <div class="header-actions">
@@ -32,170 +32,200 @@
         <button type="button" data-lang="ru">RU</button>
       </div>
       <a class="account-link" href="ucet.html" data-i18n="account">Můj účet</a>
-      <a class="btn btn-outline header-cta" href="#register" data-i18n="registerFree">Registrace zdarma</a>
+      <a class="btn btn-outline header-cta" href="#register" data-lx="join">Vstoupit do klubu</a>
       <button class="menu-toggle" type="button" aria-label="Otevřít menu" aria-expanded="false">☰</button>
     </div>
   </header>
 
   <div class="mobile-menu" aria-hidden="true">
-    <a href="#how" data-i18n="navHow">Jak to funguje</a>
-    <a href="#selection" data-i18n="navSelection">Profily</a>
-    <a href="#result" data-i18n="navResult">Výsledek</a>
-    <a href="#safety" data-i18n="navSafety">Soukromí</a>
+    <a href="#experience" data-lx="navExperience">Zážitek</a>
+    <a href="#how" data-lx="navHow">Jak to funguje</a>
+    <a href="#selection" data-lx="navPeople">Lidé</a>
+    <a href="#membership" data-lx="navMembership">Členství</a>
     <a href="ucet.html" data-i18n="account">Můj účet</a>
-    <a class="btn btn-gold" href="#register" data-i18n="registerFree">Registrace zdarma</a>
+    <a class="btn btn-gold" href="#register" data-lx="join">Vstoupit do klubu</a>
   </div>
 
   <main>
     <section class="hero">
-      <div class="hero-image" role="img" aria-label="Elegantní pár na večeři"></div>
+      <div class="hero-image" role="img" aria-label="Elegantní pár při večeři"></div>
       <div class="hero-shade"></div>
       <div class="hero-content shell">
-        <p class="kicker" data-i18n="heroKicker">PRIVÁTNÍ SEZNAMOVÁNÍ PRO SKUTEČNÝ ŽIVOT</p>
+        <p class="kicker" data-lx="heroKicker">DUONERA · PRIVATE MEETING CLUB</p>
         <h1>
-          <span data-i18n="heroLine1">Tři vybraní lidé.</span><br>
-          <span class="gold" data-i18n="heroLine2">Jedna vzájemná volba.</span><br>
-          <span data-i18n="heroLine3">Skutečné setkání.</span>
+          <span data-lx="heroLine1">Možná je blíž,</span><br>
+          <span data-lx="heroLine2">než si myslíte.</span><br>
+          <span class="gold" data-lx="heroGold">Najděte svou perlu.</span>
         </h1>
-        <p class="hero-lead" data-i18n="heroLead">Nejdříve si prohlédnete omezený výběr skutečných profilů. Po registraci získáte vlastní stránku, můžete označit sympatie a při vzájemné volbě DUONERA připraví skutečné setkání.</p>
+        <p class="hero-lead" data-lx="heroLead">Ne další seznamka. Soukromý prostor, kde si vyberete člověka a pozvete ho na skutečné setkání. Bez nekonečného psaní a bez placení za prázdné sliby.</p>
         <div class="hero-actions">
-          <a class="btn btn-gold" href="#register" data-i18n="createProfile">Vytvořit profil zdarma</a>
-          <a class="btn btn-dark" href="#how" data-i18n="seeHow">Podívat se, jak to funguje</a>
+          <a class="btn btn-gold" href="#register" data-lx="heroCta">Chci najít svou perlu</a>
+          <a class="btn btn-dark" href="#experience" data-lx="heroMore">Zažít DUONERA</a>
         </div>
         <div class="hero-trust">
-          <span><b>◆</b><span data-i18n="trustPrivate">Kontaktní údaje nejsou veřejné</span></span>
-          <span><b>◆</b><span data-i18n="trustNoSub">Bez automatického předplatného</span></span>
-          <span><b>◆</b><span data-i18n="trustMeeting">Cíl: skutečné setkání</span></span>
+          <span><b>◆</b><span data-lx="trust1">Profil není veřejný</span></span>
+          <span><b>◆</b><span data-lx="trust2">Kontakty zůstávají skryté</span></span>
+          <span><b>◆</b><span data-lx="trust3">Bez automatického předplatného</span></span>
         </div>
       </div>
     </section>
 
-    <section class="statement">
-      <div class="shell statement-inner">
-        <p class="section-label" data-i18n="statementLabel">PROČ DUONERA</p>
-        <h2 data-i18n="statementTitle">Omezený výběr pro vlastní rozhodnutí. Tři nejlepší kandidáti jako prémiová služba.</h2>
-        <p data-i18n="statementText">Můžete si sami prohlédnout několik schválených profilů. Pokud chcete přesnější výběr, DUONERA pro vás osobně připraví tři nejsilnější kandidáty podle celé ankety.</p>
-      </div>
-    </section>
-
-    <section class="how section-light" id="how">
-      <div class="shell">
-        <div class="section-head center">
-          <p class="section-label" data-i18n="howLabel">JAK TO FUNGUJE</p>
-          <h2 data-i18n="howTitle">Pět jednoduchých kroků od prvního pohledu ke schůzce</h2>
-        </div>
-        <div class="steps">
-          <article class="step">
-            <div class="step-no">1</div>
-            <div class="step-icon">✎</div>
-            <h3 data-i18n="step1Title">Prohlédnete si profily</h3>
-            <p data-i18n="step1Text">Hned vidíte omezený počet skutečných a schválených profilů.</p>
-          </article>
-          <article class="step">
-            <div class="step-no">2</div>
-            <div class="step-icon">▤</div>
-            <h3 data-i18n="step2Title">Získáte vlastní stránku</h3>
-            <p data-i18n="step2Text">Po registraci vidíte svou anketu, fotografie a stav profilu.</p>
-          </article>
-          <article class="step">
-            <div class="step-no">3</div>
-            <div class="step-icon">♡</div>
-            <h3 data-i18n="step3Title">Označíte sympatii</h3>
-            <p data-i18n="step3Text">Vyberete lidi, které byste chtěli poznat. Kontakty zůstávají skryté.</p>
-          </article>
-          <article class="step">
-            <div class="step-no">4</div>
-            <div class="step-icon">♢</div>
-            <h3 data-i18n="step4Title">Vzájemná volba</h3>
-            <p data-i18n="step4Text">DUONERA odhalí shodu pouze tehdy, když jste si vybrali navzájem.</p>
-          </article>
-          <article class="step">
-            <div class="step-no">5</div>
-            <div class="step-icon">♧</div>
-            <h3 data-i18n="step5Title">Skutečné setkání</h3>
-            <p data-i18n="step5Text">DUONERA pomůže domluvit termín a vhodné veřejné místo.</p>
-          </article>
+    <section class="manifesto" id="experience">
+      <div class="shell manifesto-grid">
+        <p class="section-label" data-lx="manifestoLabel">NOVÝ RITUÁL SEZNÁMENÍ</p>
+        <div>
+          <h2 data-lx="manifestoTitle">Vy vyberete člověka.<br><em>O zbytek se postará DUONERA.</em></h2>
+          <p data-lx="manifestoText">Fotografie. Věk. Město. Koho hledá a jak daleko chce jet. To pro první jiskru stačí. Pokud se vám někdo líbí, nevedeme vás do nekonečného chatu. Pošlete soukromé pozvání na kávu.</p>
         </div>
       </div>
     </section>
 
-    <section class="selection" id="selection">
+    <section class="preview section-cream">
       <div class="shell">
         <div class="section-head split">
           <div>
-            <p class="section-label" data-i18n="selectionLabel">OMEZENÝ VÝBĚR</p>
-            <h2 data-i18n="selectionTitle">Skutečné profily. Žádný nekonečný katalog.</h2>
-            <p data-i18n="selectionText">Zobrazujeme pouze schválené profily lidí, kteří výslovně souhlasili s jejich zobrazením. Kontaktní údaje ani přesné datum narození nezveřejňujeme.</p>
+            <p class="section-label" data-lx="previewLabel">PRVNÍ DOJEM</p>
+            <h2 data-lx="previewTitle">Takhle může začít váš příběh.</h2>
           </div>
-          <div class="luxury-note" data-i18n="selectionNote">Kontaktní údaje zůstávají vždy skryté.</div>
+          <p class="preview-note" data-lx="previewNote">Ukázka rozhraní. Skutečné schválené profily uvidíte po přihlášení.</p>
         </div>
 
+        <div class="demo-deck" aria-label="Ukázka profilů">
+          <article class="demo-card demo-card-left">
+            <img src="profile-elena.jpg" alt="Ukázkový profil Elena" loading="lazy">
+            <div class="demo-card-info"><div><strong>Elena, 42</strong><span>Praha · 8 km</span></div><button type="button" data-lx="coffee">Pozvat na kávu</button></div>
+          </article>
+          <article class="demo-card demo-card-main">
+            <img src="assets/profile-marina.jpg" alt="Ukázkový profil Marina" loading="lazy">
+            <div class="demo-card-info"><div><strong>Marina, 47</strong><span>Praha · 12 km</span></div><button type="button" data-lx="coffee">Pozvat na kávu</button></div>
+          </article>
+          <article class="demo-card demo-card-right">
+            <img src="profile-igor.jpg" alt="Ukázkový profil Igor" loading="lazy">
+            <div class="demo-card-info"><div><strong>Igor, 51</strong><span>Praha · 18 km</span></div><button type="button" data-lx="coffee">Pozvat na kávu</button></div>
+          </article>
+        </div>
+        <div class="deck-caption">
+          <span>01</span>
+          <p data-lx="deckCaption">Žádné veřejné kontakty. Žádné hodiny dopisování. Jen jasná otázka: dáme si spolu kávu?</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="how" id="how">
+      <div class="shell">
+        <div class="section-head center">
+          <p class="section-label" data-lx="howLabel">MÉNĚ KROKŮ. VÍCE ODVAHY.</p>
+          <h2 data-lx="howTitle">Od fotografie ke skutečnému setkání.</h2>
+        </div>
+        <div class="steps">
+          <article class="step">
+            <div class="step-no">01</div>
+            <h3 data-lx="step1Title">Jednoduchý profil</h3>
+            <p data-lx="step1Text">1–3 fotografie, věk, město, koho hledáte a vzdálenost. Nic víc nemusíte.</p>
+          </article>
+          <article class="step">
+            <div class="step-no">02</div>
+            <h3 data-lx="step2Title">Soukromý výběr</h3>
+            <p data-lx="step2Text">V osobním účtu vidíte omezený počet schválených lidí ve svém okolí.</p>
+          </article>
+          <article class="step">
+            <div class="step-no">03</div>
+            <h3 data-lx="step3Title">Pozvání na kávu</h3>
+            <p data-lx="step3Text">Jedním krokem vyjádříte opravdový zájem. Druhý člověk může přijmout nebo odmítnout.</p>
+          </article>
+          <article class="step">
+            <div class="step-no">04</div>
+            <h3 data-lx="step4Title">DUONERA zařídí zbytek</h3>
+            <p data-lx="step4Text">Po vzájemném ano pomůžeme potvrdit termín a důstojné veřejné místo.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="selection section-deep" id="selection">
+      <div class="shell">
+        <div class="section-head split selection-head">
+          <div>
+            <p class="section-label" data-lx="selectionLabel">SKUTEČNÍ LIDÉ</p>
+            <h2 data-lx="selectionTitle">Ne katalog. Kurátorovaný výběr.</h2>
+            <p data-lx="selectionText">Zde se zobrazují pouze profily, které jejich majitelé dovolili ukázat a DUONERA schválila. E-mail, telefon ani přesná adresa nejsou nikdy veřejné.</p>
+          </div>
+          <a class="text-link" href="ucet.html" data-lx="openAccount">Otevřít osobní účet →</a>
+        </div>
         <div class="profile-grid" id="publicProfileGrid" data-nosnippet>
           <div class="public-profile-state" data-i18n="discoveryLoading">Načítání schválených profilů…</div>
         </div>
-        <a class="skip-demo public-account-cta" href="ucet.html" data-i18n="account">Můj účet</a>
       </div>
     </section>
 
-    <section class="mutual section-light" id="result">
-      <div class="shell mutual-grid">
-        <div class="mutual-photo" role="img" aria-label="Romantická pozvánka"></div>
-        <div class="mutual-copy">
-          <p class="section-label" data-i18n="mutualLabel">VZÁJEMNÁ SYMPATIE</p>
-          <h2 data-i18n="mutualTitle">Vybrali jste si navzájem. Teď přichází skutečný krok.</h2>
-          <p data-i18n="mutualText">Teprve při vzájemném zájmu se otevře možnost domluvit schůzku. Nejdřív volba. Potom termín. Až nakonec osobní kontakt.</p>
-          <div class="concierge-points">
-            <div><span>◫</span><div><b data-i18n="dateTitle">Výběr termínu</b><small data-i18n="dateText">Několik možností, které vyhovují oběma.</small></div></div>
-            <div><span>⌖</span><div><b data-i18n="placeTitle">Důstojné místo</b><small data-i18n="placeText">Veřejné a příjemné prostředí pro první setkání.</small></div></div>
-            <div><span>◇</span><div><b data-i18n="contactTitle">Soukromé kontakty</b><small data-i18n="contactText">Otevírají se až po vzájemném potvrzení.</small></div></div>
-          </div>
-          <a class="btn btn-gold" href="#register" data-i18n="startJourney">Začít svou cestu</a>
-        </div>
+    <section class="meeting">
+      <div class="meeting-image" role="img" aria-label="Setkání v elegantní restauraci"></div>
+      <div class="meeting-copy">
+        <p class="section-label" data-lx="meetingLabel">MOMENT PRAVDY</p>
+        <h2 data-lx="meetingTitle">Ne lajky.<br>Ne zprávy.<br><em>Setkání.</em></h2>
+        <p data-lx="meetingText">DUONERA nevydělává na tom, že vás drží před obrazovkou. Naše placená služba začíná až ve chvíli, kdy oba lidé opravdu chtějí udělat krok do skutečného života.</p>
+        <a class="btn btn-gold" href="#register" data-lx="meetingCta">Chci skutečné setkání</a>
       </div>
     </section>
 
-    <section class="result-band">
-      <div class="shell result-grid">
-        <article>
-          <p class="section-label" data-i18n="payLabel">PLATÍTE ZA VÝSLEDEK</p>
-          <h2 data-i18n="payTitle">Žádné placené zprávy. Žádná skrytá automatická předplatná.</h2>
-          <p data-i18n="payText">Registrace a vytvoření profilu jsou zdarma. Cena se zobrazí až před potvrzením konkrétního vzájemného seznámení a schůzky.</p>
-        </article>
-        <article class="guarantee">
-          <p class="section-label">MEETING GUARANTEE</p>
-          <h2 data-i18n="guaranteeTitle">Když druhý účastník schůzku zruší nebo nepřijde, další organizaci neplatíte.</h2>
-          <p data-i18n="guaranteeText">Nemůžeme garantovat lásku. Můžeme garantovat férovou službu a jasné podmínky.</p>
-          <div class="seal">D</div>
-        </article>
-      </div>
-    </section>
-
-    <section class="privacy section-light" id="safety">
+    <section class="membership section-cream" id="membership">
       <div class="shell">
         <div class="section-head center narrow">
-          <p class="section-label" data-i18n="privacyLabel">LUXURY JE TAKÉ SOUKROMÍ</p>
-          <h2 data-i18n="privacyTitle">Vy rozhodujete, zda se váš profil může zobrazit.</h2>
-          <p data-i18n="privacyText">Zobrazí se pouze po vašem výslovném souhlasu a schválení DUONERA. E-mail, telefon, příjmení a přesné datum narození se nezobrazují.</p>
+          <p class="section-label" data-lx="membershipLabel">TRANSPARENTNÍ HODNOTA</p>
+          <h2 data-lx="membershipTitle">Platíte za skutečný krok. Ne za čekání.</h2>
+          <p data-lx="membershipText">Vstup je zdarma. Placené služby vždy potvrdíte předem; žádné automatické předplatné.</p>
         </div>
-        <div class="privacy-cards">
-          <article><span>◆</span><h3 data-i18n="private1Title">Uzavřený profil</h3><p data-i18n="private1Text">Žádné veřejné vyhledávání ani indexace profilů.</p></article>
-          <article><span>◆</span><h3 data-i18n="private2Title">Omezený výběr</h3><p data-i18n="private2Text">Méně možností, ale větší pozornost každému člověku.</p></article>
-          <article><span>◆</span><h3 data-i18n="private3Title">Jasná pravidla</h3><p data-i18n="private3Text">Nahlášení, blokace a ochrana proti opakovaným neúčastem.</p></article>
-          <article><span>◆</span><h3 data-i18n="private4Title">Bez nátlaku</h3><p data-i18n="private4Text">Můžete odmítnout všechny nabídky a počkat na další.</p></article>
+        <div class="price-grid">
+          <article class="price-card">
+            <p class="price-name" data-lx="freeName">Private Entry</p>
+            <div class="price">0 Kč</div>
+            <p data-lx="freeText">Vytvoření profilu, vlastní stránka a omezený výběr schválených lidí.</p>
+            <ul>
+              <li data-lx="free1">Krátký profil a fotografie</li>
+              <li data-lx="free2">Soukromý osobní účet</li>
+              <li data-lx="free3">Kontakty vždy skryté</li>
+            </ul>
+            <a class="btn btn-dark full" href="#register" data-lx="freeCta">Vstoupit zdarma</a>
+          </article>
+          <article class="price-card featured">
+            <p class="price-badge" data-lx="launching">PŘIPRAVUJEME</p>
+            <p class="price-name">Meeting Pass</p>
+            <div class="price">390 Kč <small data-lx="perMeeting">/ potvrzené setkání</small></div>
+            <p data-lx="meetingPassText">Poplatek až po vzájemném přijetí pozvání. Potvrzení termínu a organizační podpora DUONERA.</p>
+            <ul>
+              <li data-lx="meetingPass1">Vzájemně přijaté pozvání</li>
+              <li data-lx="meetingPass2">Potvrzení obou účastníků</li>
+              <li data-lx="meetingPass3">Pomoc s termínem a místem</li>
+            </ul>
+            <a class="btn btn-gold full" href="#register" data-lx="meetingPassCta">Začít zdarma</a>
+          </article>
+          <article class="price-card signature">
+            <p class="price-badge" data-lx="requestOnly">NA VYŽÁDÁNÍ</p>
+            <p class="price-name">Signature Concierge</p>
+            <div class="price">1 990 Kč <small data-lx="perSelection">/ osobní výběr</small></div>
+            <p data-lx="signatureText">DUONERA ručně připraví tři nejsilnější kandidáty podle vašich přání a pomůže s prvním setkáním.</p>
+            <ul>
+              <li data-lx="signature1">Tři ručně vybraní lidé</li>
+              <li data-lx="signature2">Prioritní kontrola profilu</li>
+              <li data-lx="signature3">Osobní podpora DUONERA</li>
+            </ul>
+            <a class="btn btn-dark full" href="mailto:info@duonera.cz?subject=DUONERA%20Signature%20Concierge" data-lx="signatureCta">Mám zájem</a>
+          </article>
         </div>
+        <p class="price-legal" data-lx="priceLegal">DUONERA negarantuje lásku ani vztah. Garantujeme jasně popsanou službu, soukromí a férové podmínky. Uvedené ceny jsou plánované zaváděcí ceny a mohou se před spuštěním změnit.</p>
       </div>
     </section>
 
     <section class="register" id="register">
       <div class="shell register-grid">
         <div class="register-copy">
-          <p class="section-label" data-i18n="registerLabel">SOUKROMÁ REGISTRACE</p>
-          <h2 data-i18n="registerTitle">Získejte vlastní stránku DUONERA zdarma.</h2>
-          <p data-i18n="registerText">Krátká registrace trvá přibližně jednu minutu. Poté si vytvoříte účet pomocí e-mailu a hesla a adresu jednou potvrdíte odkazem v e-mailu.</p>
+          <p class="section-label" data-lx="registerLabel">VÁŠ PRVNÍ KROK</p>
+          <h2 data-lx="registerTitle">Možná právě dnes začíná váš nový příběh.</h2>
+          <p data-lx="registerText">Registrace trvá přibližně jednu minutu. Podrobný životopis nechceme. Stačí nám vědět, koho a kde chcete potkat.</p>
           <div class="register-checks">
-            <span data-i18n="regCheck1">✓ Přibližně 1 minuta</span>
-            <span data-i18n="regCheck2">✓ E-mail potvrdíte pouze jednou</span>
-            <span data-i18n="regCheck3">✓ E-mail a kontaktní údaje nezveřejňujeme</span>
+            <span data-lx="regCheck1">✓ Bez platby</span>
+            <span data-lx="regCheck2">✓ Bez veřejného profilu</span>
+            <span data-lx="regCheck3">✓ Telefon není potřeba</span>
           </div>
         </div>
 
@@ -206,6 +236,7 @@
           <input type="hidden" name="_next" value="https://duonera.cz/dekujeme.html">
           <input type="text" name="_honey" class="honeypot" tabindex="-1" autocomplete="off">
 
+          <p class="form-intro" data-lx="formIntro">Vstup do soukromého klubu</p>
           <div class="form-row two">
             <label><span data-i18n="formIAm">Jsem</span>
               <select name="Jsem" required>
@@ -228,9 +259,9 @@
           </div>
           <label><span data-i18n="formEmail">E-mail</span><input name="email" type="email" required placeholder="vas@email.cz"></label>
           <label class="consent"><input type="checkbox" name="consent_privacy" value="true" required><span data-i18n="formConsent">Souhlasím se zpracováním údajů pro účely registrace a soukromého výběru DUONERA.</span></label>
-          <button class="btn btn-gold full" type="submit" data-i18n="submit">Zaregistrovat se zdarma</button>
+          <button class="btn btn-gold full" type="submit" data-lx="submit">Chci najít svou perlu</button>
           <small>
-            <span data-i18n="formNote">Bez platby a bez závazku. O zobrazení profilu rozhodujete vy.</span>
+            <span data-lx="formNote">Bez platby a bez závazku. O zobrazení profilu rozhodujete vy.</span>
             <a href="privacy.html" target="_blank" rel="noopener" data-i18n="footerPrivacy">Ochrana soukromí</a>
             ·
             <a href="terms.html" target="_blank" rel="noopener" data-i18n="footerTerms">Podmínky služby</a>
@@ -246,20 +277,99 @@
         <a class="brand footer-brand" href="#top">
           <span class="brand-crown">♛</span>
           <span class="brand-name">DUONERA</span>
-          <span class="brand-sub">PRIVATE DATING CONCIERGE</span>
+          <span class="brand-sub">PRIVATE MEETING CLUB</span>
         </a>
-        <p data-i18n="footerTag">Méně profilů. Lepší výběr. Skutečné setkání.</p>
+        <p data-lx="footerTag">Najděte svou perlu. Zbytek zařídí DUONERA.</p>
       </div>
       <div class="footer-links">
         <a href="privacy.html" data-i18n="footerPrivacy">Ochrana soukromí</a>
         <a href="terms.html" data-i18n="footerTerms">Podmínky služby</a>
         <a href="mailto:info@duonera.cz">info@duonera.cz</a>
+        <a href="https://duonera.cz">www.duonera.cz</a>
       </div>
     </div>
-    <div class="shell footer-bottom">© <span id="year"></span> DUONERA. Private Dating Concierge.</div>
+    <div class="shell footer-bottom">© <span id="year"></span> DUONERA. Private Meeting Club.</div>
   </footer>
 
   <div class="toast" role="status" aria-live="polite"></div>
   <script type="module" src="app.js?v=14"></script>
+  <script>
+    (() => {
+      const copy = {
+        cs: {
+          navExperience:"Zážitek",navHow:"Jak to funguje",navPeople:"Lidé",navMembership:"Členství",join:"Vstoupit do klubu",
+          heroKicker:"DUONERA · PRIVATE MEETING CLUB",heroLine1:"Možná je blíž,",heroLine2:"než si myslíte.",heroGold:"Najděte svou perlu.",heroLead:"Ne další seznamka. Soukromý prostor, kde si vyberete člověka a pozvete ho na skutečné setkání. Bez nekonečného psaní a bez placení za prázdné sliby.",heroCta:"Chci najít svou perlu",heroMore:"Zažít DUONERA",trust1:"Profil není veřejný",trust2:"Kontakty zůstávají skryté",trust3:"Bez automatického předplatného",
+          manifestoLabel:"NOVÝ RITUÁL SEZNÁMENÍ",manifestoTitle:"Vy vyberete člověka. O zbytek se postará DUONERA.",manifestoText:"Fotografie. Věk. Město. Koho hledá a jak daleko chce jet. To pro první jiskru stačí. Pokud se vám někdo líbí, nevedeme vás do nekonečného chatu. Pošlete soukromé pozvání na kávu.",
+          previewLabel:"PRVNÍ DOJEM",previewTitle:"Takhle může začít váš příběh.",previewNote:"Ukázka rozhraní. Skutečné schválené profily uvidíte po přihlášení.",coffee:"Pozvat na kávu",deckCaption:"Žádné veřejné kontakty. Žádné hodiny dopisování. Jen jasná otázka: dáme si spolu kávu?",
+          howLabel:"MÉNĚ KROKŮ. VÍCE ODVAHY.",howTitle:"Od fotografie ke skutečnému setkání.",step1Title:"Jednoduchý profil",step1Text:"1–3 fotografie, věk, město, koho hledáte a vzdálenost. Nic víc nemusíte.",step2Title:"Soukromý výběr",step2Text:"V osobním účtu vidíte omezený počet schválených lidí ve svém okolí.",step3Title:"Pozvání na kávu",step3Text:"Jedním krokem vyjádříte opravdový zájem. Druhý člověk může přijmout nebo odmítnout.",step4Title:"DUONERA zařídí zbytek",step4Text:"Po vzájemném ano pomůžeme potvrdit termín a důstojné veřejné místo.",
+          selectionLabel:"SKUTEČNÍ LIDÉ",selectionTitle:"Ne katalog. Kurátorovaný výběr.",selectionText:"Zde se zobrazují pouze profily, které jejich majitelé dovolili ukázat a DUONERA schválila. E-mail, telefon ani přesná adresa nejsou nikdy veřejné.",openAccount:"Otevřít osobní účet →",
+          meetingLabel:"MOMENT PRAVDY",meetingTitle:"Ne lajky. Ne zprávy. Setkání.",meetingText:"DUONERA nevydělává na tom, že vás drží před obrazovkou. Naše placená služba začíná až ve chvíli, kdy oba lidé opravdu chtějí udělat krok do skutečného života.",meetingCta:"Chci skutečné setkání",
+          membershipLabel:"TRANSPARENTNÍ HODNOTA",membershipTitle:"Platíte za skutečný krok. Ne za čekání.",membershipText:"Vstup je zdarma. Placené služby vždy potvrdíte předem; žádné automatické předplatné.",freeName:"Private Entry",freeText:"Vytvoření profilu, vlastní stránka a omezený výběr schválených lidí.",free1:"Krátký profil a fotografie",free2:"Soukromý osobní účet",free3:"Kontakty vždy skryté",freeCta:"Vstoupit zdarma",launching:"PŘIPRAVUJEME",perMeeting:"/ potvrzené setkání",meetingPassText:"Poplatek až po vzájemném přijetí pozvání. Potvrzení termínu a organizační podpora DUONERA.",meetingPass1:"Vzájemně přijaté pozvání",meetingPass2:"Potvrzení obou účastníků",meetingPass3:"Pomoc s termínem a místem",meetingPassCta:"Začít zdarma",requestOnly:"NA VYŽÁDÁNÍ",perSelection:"/ osobní výběr",signatureText:"DUONERA ručně připraví tři nejsilnější kandidáty podle vašich přání a pomůže s prvním setkáním.",signature1:"Tři ručně vybraní lidé",signature2:"Prioritní kontrola profilu",signature3:"Osobní podpora DUONERA",signatureCta:"Mám zájem",priceLegal:"DUONERA negarantuje lásku ani vztah. Garantujeme jasně popsanou službu, soukromí a férové podmínky. Uvedené ceny jsou plánované zaváděcí ceny a mohou se před spuštěním změnit.",
+          registerLabel:"VÁŠ PRVNÍ KROK",registerTitle:"Možná právě dnes začíná váš nový příběh.",registerText:"Registrace trvá přibližně jednu minutu. Podrobný životopis nechceme. Stačí nám vědět, koho a kde chcete potkat.",regCheck1:"✓ Bez platby",regCheck2:"✓ Bez veřejného profilu",regCheck3:"✓ Telefon není potřeba",formIntro:"Vstup do soukromého klubu",submit:"Chci najít svou perlu",formNote:"Bez platby a bez závazku. O zobrazení profilu rozhodujete vy.",footerTag:"Najděte svou perlu. Zbytek zařídí DUONERA."
+        },
+        en: {
+          navExperience:"Experience",navHow:"How it works",navPeople:"People",navMembership:"Membership",join:"Enter the club",
+          heroKicker:"DUONERA · PRIVATE MEETING CLUB",heroLine1:"They may be closer",heroLine2:"than you think.",heroGold:"Find your pearl.",heroLead:"Not another dating app. A private space where you choose a person and invite them to a real meeting. No endless chatting and no paying for empty promises.",heroCta:"I want to find my pearl",heroMore:"Experience DUONERA",trust1:"Your profile is not public",trust2:"Contact details stay private",trust3:"No automatic subscription",
+          manifestoLabel:"A NEW RITUAL OF MEETING",manifestoTitle:"You choose the person. DUONERA takes care of the rest.",manifestoText:"Photo. Age. City. Who they seek and how far they will travel. That is enough for a first spark. If you like someone, we do not lead you into endless chat. You send a private coffee invitation.",
+          previewLabel:"FIRST IMPRESSION",previewTitle:"This is how your story can begin.",previewNote:"Interface preview. Real approved profiles appear after sign-in.",coffee:"Invite for coffee",deckCaption:"No public contacts. No hours of messaging. Just one clear question: shall we have coffee?",
+          howLabel:"FEWER STEPS. MORE COURAGE.",howTitle:"From a photo to a real meeting.",step1Title:"Simple profile",step1Text:"1–3 photos, age, city, who you seek and distance. Nothing more is required.",step2Title:"Private selection",step2Text:"Your personal account shows a limited number of approved people nearby.",step3Title:"Coffee invitation",step3Text:"Express genuine interest in one step. The other person can accept or decline.",step4Title:"DUONERA handles the rest",step4Text:"After a mutual yes, we help confirm the time and a respectable public place.",
+          selectionLabel:"REAL PEOPLE",selectionTitle:"Not a catalogue. A curated selection.",selectionText:"Only profiles whose owners allowed display and DUONERA approved appear here. Email, phone and exact address are never public.",openAccount:"Open personal account →",
+          meetingLabel:"THE MOMENT OF TRUTH",meetingTitle:"Not likes. Not messages. A meeting.",meetingText:"DUONERA does not profit from keeping you on a screen. Our paid service begins only when both people genuinely want to take a step into real life.",meetingCta:"I want a real meeting",
+          membershipLabel:"TRANSPARENT VALUE",membershipTitle:"Pay for a real step. Not for waiting.",membershipText:"Entry is free. You always approve paid services in advance; no automatic subscription.",freeName:"Private Entry",freeText:"Create a profile, get your own page and view a limited selection of approved people.",free1:"Short profile and photos",free2:"Private personal account",free3:"Contact details always hidden",freeCta:"Enter free",launching:"COMING SOON",perMeeting:"/ confirmed meeting",meetingPassText:"A fee only after both accept the invitation. Date confirmation and DUONERA coordination support.",meetingPass1:"Mutually accepted invitation",meetingPass2:"Confirmation by both people",meetingPass3:"Help with time and place",meetingPassCta:"Start free",requestOnly:"ON REQUEST",perSelection:"/ personal selection",signatureText:"DUONERA personally prepares the three strongest candidates and helps with the first meeting.",signature1:"Three hand-picked people",signature2:"Priority profile review",signature3:"Personal DUONERA support",signatureCta:"I am interested",priceLegal:"DUONERA does not guarantee love or a relationship. We guarantee a clearly described service, privacy and fair terms. Prices shown are planned introductory prices and may change before launch.",
+          registerLabel:"YOUR FIRST STEP",registerTitle:"Perhaps your new story begins today.",registerText:"Registration takes about one minute. We do not want your full biography. We only need to know whom and where you want to meet.",regCheck1:"✓ No payment",regCheck2:"✓ No public profile",regCheck3:"✓ No phone required",formIntro:"Enter the private club",submit:"I want to find my pearl",formNote:"No payment and no commitment. You control whether your profile is shown.",footerTag:"Find your pearl. DUONERA handles the rest."
+        },
+        de: {
+          navExperience:"Erlebnis",navHow:"So funktioniert es",navPeople:"Menschen",navMembership:"Mitgliedschaft",join:"Club beitreten",
+          heroKicker:"DUONERA · PRIVATE MEETING CLUB",heroLine1:"Vielleicht ist sie näher,",heroLine2:"als Sie denken.",heroGold:"Finden Sie Ihre Perle.",heroLead:"Keine weitere Dating-App. Ein privater Raum, in dem Sie einen Menschen wählen und zu einem echten Treffen einladen. Ohne endloses Schreiben und ohne Bezahlung für leere Versprechen.",heroCta:"Ich möchte meine Perle finden",heroMore:"DUONERA erleben",trust1:"Ihr Profil ist nicht öffentlich",trust2:"Kontaktdaten bleiben privat",trust3:"Kein automatisches Abo",
+          manifestoLabel:"EIN NEUES RITUAL DES KENNENLERNENS",manifestoTitle:"Sie wählen den Menschen. DUONERA kümmert sich um den Rest.",manifestoText:"Foto. Alter. Stadt. Wen die Person sucht und wie weit sie fahren möchte. Das genügt für den ersten Funken. Wenn Ihnen jemand gefällt, führen wir Sie nicht in einen endlosen Chat. Sie senden eine private Einladung zum Kaffee.",
+          previewLabel:"ERSTER EINDRUCK",previewTitle:"So kann Ihre Geschichte beginnen.",previewNote:"Vorschau der Oberfläche. Echte geprüfte Profile sehen Sie nach der Anmeldung.",coffee:"Zum Kaffee einladen",deckCaption:"Keine öffentlichen Kontakte. Keine Stunden voller Nachrichten. Nur eine klare Frage: Trinken wir einen Kaffee?",
+          howLabel:"WENIGER SCHRITTE. MEHR MUT.",howTitle:"Vom Foto zum echten Treffen.",step1Title:"Einfaches Profil",step1Text:"1–3 Fotos, Alter, Stadt, wen Sie suchen und Entfernung. Mehr ist nicht nötig.",step2Title:"Private Auswahl",step2Text:"In Ihrem Konto sehen Sie eine begrenzte Zahl geprüfter Menschen in Ihrer Nähe.",step3Title:"Kaffee-Einladung",step3Text:"Zeigen Sie mit einem Schritt echtes Interesse. Die andere Person kann annehmen oder ablehnen.",step4Title:"DUONERA übernimmt den Rest",step4Text:"Nach einem gegenseitigen Ja helfen wir bei Termin und einem angemessenen öffentlichen Ort.",
+          selectionLabel:"ECHTE MENSCHEN",selectionTitle:"Kein Katalog. Eine kuratierte Auswahl.",selectionText:"Hier erscheinen nur Profile, deren Inhaber zugestimmt haben und die DUONERA geprüft hat. E-Mail, Telefon und genaue Adresse bleiben privat.",openAccount:"Persönliches Konto öffnen →",
+          meetingLabel:"DER MOMENT DER WAHRHEIT",meetingTitle:"Keine Likes. Keine Nachrichten. Ein Treffen.",meetingText:"DUONERA verdient nicht daran, Sie vor dem Bildschirm zu halten. Unser bezahlter Service beginnt erst, wenn beide Menschen wirklich den Schritt ins echte Leben machen möchten.",meetingCta:"Ich möchte ein echtes Treffen",
+          membershipLabel:"TRANSPARENTER WERT",membershipTitle:"Zahlen Sie für einen echten Schritt. Nicht fürs Warten.",membershipText:"Der Einstieg ist kostenlos. Bezahlte Leistungen bestätigen Sie immer vorher; kein automatisches Abo.",freeName:"Private Entry",freeText:"Profil erstellen, eigene Seite erhalten und eine begrenzte Auswahl geprüfter Menschen sehen.",free1:"Kurzes Profil und Fotos",free2:"Privates persönliches Konto",free3:"Kontakte immer verborgen",freeCta:"Kostenlos starten",launching:"IN VORBEREITUNG",perMeeting:"/ bestätigtes Treffen",meetingPassText:"Gebühr erst nach beiderseitiger Annahme. Terminbestätigung und organisatorische Unterstützung.",meetingPass1:"Gegenseitig angenommene Einladung",meetingPass2:"Bestätigung durch beide",meetingPass3:"Hilfe bei Termin und Ort",meetingPassCta:"Kostenlos starten",requestOnly:"AUF ANFRAGE",perSelection:"/ persönliche Auswahl",signatureText:"DUONERA wählt persönlich die drei stärksten Kandidaten aus und hilft beim ersten Treffen.",signature1:"Drei handverlesene Menschen",signature2:"Priorisierte Profilprüfung",signature3:"Persönliche DUONERA-Betreuung",signatureCta:"Ich habe Interesse",priceLegal:"DUONERA garantiert weder Liebe noch Beziehung. Wir garantieren eine klar beschriebene Leistung, Privatsphäre und faire Bedingungen. Die Preise sind geplante Einführungspreise und können sich vor dem Start ändern.",
+          registerLabel:"IHR ERSTER SCHRITT",registerTitle:"Vielleicht beginnt Ihre neue Geschichte heute.",registerText:"Die Registrierung dauert etwa eine Minute. Wir möchten keine lange Biografie. Es genügt zu wissen, wen und wo Sie treffen möchten.",regCheck1:"✓ Keine Zahlung",regCheck2:"✓ Kein öffentliches Profil",regCheck3:"✓ Keine Telefonnummer nötig",formIntro:"Eintritt in den privaten Club",submit:"Ich möchte meine Perle finden",formNote:"Keine Zahlung und keine Verpflichtung. Sie entscheiden über die Anzeige Ihres Profils.",footerTag:"Finden Sie Ihre Perle. DUONERA kümmert sich um den Rest."
+        },
+        uk: {
+          navExperience:"Враження",navHow:"Як це працює",navPeople:"Люди",navMembership:"Членство",join:"Увійти до клубу",
+          heroKicker:"DUONERA · PRIVATE MEETING CLUB",heroLine1:"Можливо, вона ближче,",heroLine2:"ніж ви думаєте.",heroGold:"Знайдіть свою перлину.",heroLead:"Не черговий сайт знайомств. Приватний простір, де ви обираєте людину й запрошуєте її на справжню зустріч. Без нескінченного листування й оплати порожніх обіцянок.",heroCta:"Хочу знайти свою перлину",heroMore:"Відчути DUONERA",trust1:"Профіль не є публічним",trust2:"Контакти залишаються приватними",trust3:"Без автоматичної підписки",
+          manifestoLabel:"НОВИЙ РИТУАЛ ЗНАЙОМСТВА",manifestoTitle:"Ви обираєте людину. DUONERA подбає про решту.",manifestoText:"Фото. Вік. Місто. Кого людина шукає і як далеко готова їхати. Цього достатньо для першої іскри. Якщо хтось вам подобається, ми не ведемо вас у нескінченний чат. Ви надсилаєте приватне запрошення на каву.",
+          previewLabel:"ПЕРШЕ ВРАЖЕННЯ",previewTitle:"Так може початися ваша історія.",previewNote:"Демонстрація інтерфейсу. Реальні схвалені профілі з’являться після входу.",coffee:"Запросити на каву",deckCaption:"Жодних публічних контактів. Жодних годин листування. Лише одне запитання: вип’ємо кави?",
+          howLabel:"МЕНШЕ КРОКІВ. БІЛЬШЕ СМІЛИВОСТІ.",howTitle:"Від фотографії до справжньої зустрічі.",step1Title:"Простий профіль",step1Text:"1–3 фото, вік, місто, кого ви шукаєте та відстань. Більше нічого не потрібно.",step2Title:"Приватний вибір",step2Text:"В особистому кабінеті ви бачите обмежену кількість схвалених людей поруч.",step3Title:"Запрошення на каву",step3Text:"Одним кроком ви показуєте справжній інтерес. Інша людина може прийняти або відмовити.",step4Title:"DUONERA подбає про решту",step4Text:"Після взаємного «так» ми допоможемо підтвердити час і гідне публічне місце.",
+          selectionLabel:"СПРАВЖНІ ЛЮДИ",selectionTitle:"Не каталог. Відібрана добірка.",selectionText:"Тут з’являються лише профілі, власники яких дозволили показ і які схвалила DUONERA. Email, телефон і точна адреса ніколи не публікуються.",openAccount:"Відкрити особистий кабінет →",
+          meetingLabel:"МОМЕНТ ІСТИНИ",meetingTitle:"Не лайки. Не повідомлення. Зустріч.",meetingText:"DUONERA не заробляє на тому, щоб тримати вас біля екрана. Платна послуга починається лише тоді, коли обидві люди справді хочуть зробити крок у реальне життя.",meetingCta:"Хочу справжню зустріч",
+          membershipLabel:"ПРОЗОРА ЦІННІСТЬ",membershipTitle:"Платіть за реальний крок. Не за очікування.",membershipText:"Вхід безкоштовний. Платні послуги ви завжди підтверджуєте заздалегідь; без автоматичної підписки.",freeName:"Private Entry",freeText:"Створення профілю, власна сторінка та обмежений вибір схвалених людей.",free1:"Короткий профіль і фото",free2:"Приватний особистий кабінет",free3:"Контакти завжди приховані",freeCta:"Увійти безкоштовно",launching:"ГОТУЄМО",perMeeting:"/ підтверджена зустріч",meetingPassText:"Оплата лише після взаємного прийняття запрошення. Підтвердження часу й організаційна підтримка.",meetingPass1:"Взаємно прийняте запрошення",meetingPass2:"Підтвердження обох людей",meetingPass3:"Допомога з часом і місцем",meetingPassCta:"Почати безкоштовно",requestOnly:"ЗА ЗАПИТОМ",perSelection:"/ персональний вибір",signatureText:"DUONERA особисто підготує трьох найсильніших кандидатів і допоможе з першою зустріччю.",signature1:"Три особисто відібрані людини",signature2:"Пріоритетна перевірка профілю",signature3:"Особиста підтримка DUONERA",signatureCta:"Мені цікаво",priceLegal:"DUONERA не гарантує кохання чи стосунків. Ми гарантуємо чітко описану послугу, приватність і чесні умови. Ціни є запланованими стартовими цінами й можуть змінитися до запуску.",
+          registerLabel:"ВАШ ПЕРШИЙ КРОК",registerTitle:"Можливо, ваша нова історія починається сьогодні.",registerText:"Реєстрація триває близько хвилини. Нам не потрібна довга біографія. Достатньо знати, кого й де ви хочете зустріти.",regCheck1:"✓ Без оплати",regCheck2:"✓ Без публічного профілю",regCheck3:"✓ Телефон не потрібен",formIntro:"Вхід до приватного клубу",submit:"Хочу знайти свою перлину",formNote:"Без оплати й зобов’язань. Ви вирішуєте, чи показувати профіль.",footerTag:"Знайдіть свою перлину. DUONERA подбає про решту."
+        },
+        ru: {
+          navExperience:"Впечатление",navHow:"Как это работает",navPeople:"Люди",navMembership:"Членство",join:"Войти в клуб",
+          heroKicker:"DUONERA · PRIVATE MEETING CLUB",heroLine1:"Возможно, она ближе,",heroLine2:"чем вы думаете.",heroGold:"Найдите свою жемчужину.",heroLead:"Не очередной сайт знакомств. Приватное пространство, где вы выбираете человека и приглашаете его на настоящую встречу. Без бесконечной переписки и оплаты пустых обещаний.",heroCta:"Хочу найти свою жемчужину",heroMore:"Почувствовать DUONERA",trust1:"Профиль не публичный",trust2:"Контакты остаются скрытыми",trust3:"Без автоматической подписки",
+          manifestoLabel:"НОВЫЙ РИТУАЛ ЗНАКОМСТВА",manifestoTitle:"Вы выбираете человека. Об остальном позаботится DUONERA.",manifestoText:"Фотография. Возраст. Город. Кого человек ищет и как далеко готов ехать. Этого достаточно для первой искры. Если вам кто-то понравился, мы не ведём вас в бесконечный чат. Вы отправляете приватное приглашение на кофе.",
+          previewLabel:"ПЕРВОЕ ВПЕЧАТЛЕНИЕ",previewTitle:"Так может начаться ваша история.",previewNote:"Демонстрация интерфейса. Реальные одобренные профили появятся после входа.",coffee:"Пригласить на кофе",deckCaption:"Никаких публичных контактов. Никаких часов переписки. Только один ясный вопрос: выпьем кофе?",
+          howLabel:"МЕНЬШЕ ШАГОВ. БОЛЬШЕ СМЕЛОСТИ.",howTitle:"От фотографии к настоящей встрече.",step1Title:"Простой профиль",step1Text:"1–3 фотографии, возраст, город, кого вы ищете и расстояние. Больше ничего не требуется.",step2Title:"Приватный выбор",step2Text:"В личном кабинете вы видите ограниченное число одобренных людей поблизости.",step3Title:"Приглашение на кофе",step3Text:"Одним шагом вы показываете настоящий интерес. Другой человек может принять или отказаться.",step4Title:"DUONERA сделает остальное",step4Text:"После взаимного «да» мы поможем подтвердить время и достойное общественное место.",
+          selectionLabel:"РЕАЛЬНЫЕ ЛЮДИ",selectionTitle:"Не каталог. Отобранная подборка.",selectionText:"Здесь появляются только профили, владельцы которых разрешили показ и которые одобрила DUONERA. Email, телефон и точный адрес никогда не публикуются.",openAccount:"Открыть личный кабинет →",
+          meetingLabel:"МОМЕНТ ИСТИНЫ",meetingTitle:"Не лайки. Не сообщения. Встреча.",meetingText:"DUONERA не зарабатывает на том, чтобы удерживать вас у экрана. Платная услуга начинается только тогда, когда оба человека действительно хотят сделать шаг в реальную жизнь.",meetingCta:"Хочу настоящую встречу",
+          membershipLabel:"ПРОЗРАЧНАЯ ЦЕННОСТЬ",membershipTitle:"Платите за реальный шаг. Не за ожидание.",membershipText:"Вход бесплатный. Платные услуги вы всегда подтверждаете заранее; без автоматической подписки.",freeName:"Private Entry",freeText:"Создание профиля, собственная страница и ограниченный выбор одобренных людей.",free1:"Короткий профиль и фотографии",free2:"Приватный личный кабинет",free3:"Контакты всегда скрыты",freeCta:"Войти бесплатно",launching:"ГОТОВИМ",perMeeting:"/ подтверждённая встреча",meetingPassText:"Оплата только после взаимного принятия приглашения. Подтверждение времени и организационная поддержка.",meetingPass1:"Взаимно принятое приглашение",meetingPass2:"Подтверждение обоих участников",meetingPass3:"Помощь со временем и местом",meetingPassCta:"Начать бесплатно",requestOnly:"ПО ЗАПРОСУ",perSelection:"/ персональный подбор",signatureText:"DUONERA лично подготовит трёх самых подходящих кандидатов и поможет с первой встречей.",signature1:"Три лично отобранных человека",signature2:"Приоритетная проверка профиля",signature3:"Личная поддержка DUONERA",signatureCta:"Мне интересно",priceLegal:"DUONERA не гарантирует любовь или отношения. Мы гарантируем ясно описанную услугу, приватность и честные условия. Указанные цены являются планируемыми стартовыми ценами и могут измениться до запуска.",
+          registerLabel:"ВАШ ПЕРВЫЙ ШАГ",registerTitle:"Возможно, ваша новая история начинается сегодня.",registerText:"Регистрация занимает около минуты. Нам не нужна длинная биография. Достаточно знать, кого и где вы хотите встретить.",regCheck1:"✓ Без оплаты",regCheck2:"✓ Без публичного профиля",regCheck3:"✓ Телефон не нужен",formIntro:"Вход в приватный клуб",submit:"Хочу найти свою жемчужину",formNote:"Без оплаты и обязательств. Вы решаете, показывать ли профиль.",footerTag:"Найдите свою жемчужину. Об остальном позаботится DUONERA."
+        }
+      };
+
+      const applyLanguage = (lang) => {
+        const dict = copy[lang] || copy.cs;
+        document.documentElement.lang = lang;
+        document.querySelectorAll("[data-lx]").forEach((node) => {
+          const value = dict[node.dataset.lx];
+          if (value) node.textContent = value;
+        });
+      };
+
+      document.querySelectorAll("[data-lang]").forEach((button) => {
+        button.addEventListener("click", () => {
+          localStorage.setItem("duonera-public-language", button.dataset.lang);
+          setTimeout(() => applyLanguage(button.dataset.lang), 0);
+        });
+      });
+      applyLanguage(localStorage.getItem("duonera-public-language") || "cs");
+    })();
+  </script>
 </body>
 </html>
