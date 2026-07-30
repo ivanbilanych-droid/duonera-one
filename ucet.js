@@ -669,3 +669,13 @@ if (auth && recoveryFlow) {
   const redirectError = takeAuthRedirectError();
   if (redirectError) setLoginMessage(t('authServiceError'), true);
 }
+
+
+// Keep the member area available from the installed DUONERA app.
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(error => {
+      console.warn('DUONERA service worker registration failed', error);
+    });
+  });
+}
