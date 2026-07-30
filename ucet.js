@@ -502,6 +502,11 @@ async function openDashboard(auth) {
   loginView.hidden = true;
   dashboardView.hidden = false;
   logoutButton.hidden = false;
+  const adminLink = document.getElementById('adminLink');
+  if (adminLink) {
+    const email = String(auth.user.email || '').trim().toLowerCase();
+    adminLink.hidden = !['info@duonera.cz', 'ib.luxes@gmail.com'].includes(email);
+  }
   await loadDashboard(auth);
 }
 
