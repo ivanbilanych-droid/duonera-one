@@ -50,6 +50,7 @@ const translations = {
 const processTranslations = {
   cs:{
     account:'Můj účet',navSelection:'Profily',
+    foundingTitle:'Zakládající skupina DUONERA',foundingText:'Budujeme komunitu nezadaných lidí, kteří hledají svou životní perlu.',foundingMembers:'Přijímáme prvních 20 ověřených členů z celé České republiky. Registrace a vytvoření profilu jsou zdarma.',
     heroLead:'Nejdříve si prohlédnete omezený výběr skutečných profilů. Po registraci získáte vlastní stránku, můžete označit sympatie a při vzájemné volbě DUONERA připraví skutečné setkání.',
     trustPrivate:'Kontaktní údaje nejsou veřejné',
     statementTitle:'Omezený výběr pro vlastní rozhodnutí. Tři nejlepší kandidáti jako prémiová služba.',
@@ -73,6 +74,7 @@ const processTranslations = {
   },
   en:{
     account:'My account',navSelection:'Profiles',
+    foundingTitle:'Founding group DUONERA',foundingText:'We are building a community of single people looking for their life partner — their pearl.',foundingMembers:'We are accepting the first 20 verified members from across the Czech Republic. Registration and profile creation are free.',
     heroLead:'First, browse a limited selection of real profiles. After registration you receive your own page, can mark who you like, and DUONERA prepares a real meeting when the choice is mutual.',
     trustPrivate:'Contact details are not public',
     statementTitle:'A limited selection for your own decision. Your three best candidates as a premium service.',
@@ -96,6 +98,7 @@ const processTranslations = {
   },
   de:{
     account:'Mein Konto',navSelection:'Profile',
+    foundingTitle:'DUONERA Gründungsgruppe',foundingText:'Wir bauen eine Gemeinschaft alleinstehender Menschen auf, die ihre Perle fürs Leben suchen.',foundingMembers:'Wir nehmen die ersten 20 verifizierten Mitglieder aus der ganzen Tschechischen Republik auf. Registrierung und Profilerstellung sind kostenlos.',
     heroLead:'Zuerst sehen Sie eine begrenzte Auswahl echter Profile. Nach der Registrierung erhalten Sie Ihre persönliche Seite, markieren Ihre Sympathien und bei gegenseitiger Wahl organisiert DUONERA ein echtes Treffen.',
     trustPrivate:'Kontaktdaten sind nicht öffentlich',
     statementTitle:'Eine begrenzte Auswahl für Ihre eigene Entscheidung. Die drei besten Kandidaten als Premium-Service.',
@@ -119,6 +122,7 @@ const processTranslations = {
   },
   uk:{
     account:'Мій кабінет',navSelection:'Анкети',
+    foundingTitle:'Засновницька група DUONERA',foundingText:'Ми створюємо спільноту самотніх людей, які шукають свою життєву перлину.',foundingMembers:'Приймаємо перших 20 перевірених учасників з усієї Чеської Республіки. Реєстрація та створення анкети безкоштовні.',
     heroLead:'Спочатку ви бачите обмежену добірку реальних анкет. Після реєстрації отримуєте власну сторінку, відмічаєте симпатії, а при взаємному виборі DUONERA організовує справжню зустріч.',
     trustPrivate:'Контактні дані не є публічними',
     statementTitle:'Обмежений вибір для власного рішення. Три найкращі кандидати як преміальна послуга.',
@@ -142,6 +146,7 @@ const processTranslations = {
   },
   ru:{
     account:'Мой кабинет',navSelection:'Анкеты',
+    foundingTitle:'Первая группа DUONERA',foundingText:'Мы создаём сообщество одиноких людей, которые ищут свою жемчужину жизни.',foundingMembers:'Принимаем первых 20 проверенных участников со всей Чехии. Регистрация и создание анкеты бесплатны.',
     heroLead:'Сначала вы видите ограниченную подборку реальных анкет. После регистрации получаете личную страницу, отмечаете симпатии, а при взаимном выборе DUONERA организует настоящую встречу.',
     trustPrivate:'Контактные данные не публикуются',
     statementTitle:'Ограниченный выбор для собственного решения. Три лучших кандидата как премиальная услуга.',
