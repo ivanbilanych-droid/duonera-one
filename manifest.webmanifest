@@ -16,9 +16,9 @@
   ],
   "icons": [
     {
-      "src": "/assets/favicon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
+      "src": "/assets/duonera-avatar.png",
+      "sizes": "512x512",
+      "type": "image/png",
       "purpose": "any maskable"
     }
   ],
@@ -29,9 +29,9 @@
       "url": "/ucet.html",
       "icons": [
         {
-          "src": "/assets/favicon.svg",
-          "sizes": "any",
-          "type": "image/svg+xml"
+          "src": "/assets/duonera-avatar.png",
+          "sizes": "512x512",
+          "type": "image/png"
         }
       ]
     },
@@ -41,9 +41,9 @@
       "url": "/#register",
       "icons": [
         {
-          "src": "/assets/favicon.svg",
-          "sizes": "any",
-          "type": "image/svg+xml"
+          "src": "/assets/duonera-avatar.png",
+          "sizes": "512x512",
+          "type": "image/png"
         }
       ]
     }

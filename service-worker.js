@@ -1,4 +1,4 @@
-const CACHE_NAME = 'duonera-app-v5';
+const CACHE_NAME = 'duonera-app-v6';
 const CORE_FILES = [
   '/',
   '/index.html',
