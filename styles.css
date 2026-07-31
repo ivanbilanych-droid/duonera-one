@@ -69,6 +69,9 @@ button{font:inherit}
 .hero h1 span,.hero h1 em{display:block}
 .hero h1 em{color:var(--gold-light)}
 .hero-lead{max-width:580px;margin:22px 0 0;color:#d3caba;font-size:.96rem;line-height:1.65}
+.founding-callout{display:grid;gap:4px;max-width:580px;margin-top:18px;padding:13px 16px;border-left:3px solid var(--gold);background:rgba(8,8,7,.68);box-shadow:0 10px 32px rgba(0,0,0,.18)}
+.founding-callout strong{color:var(--gold-light);font-family:var(--serif);font-size:1.02rem;line-height:1.2}
+.founding-callout span{color:#e7dfd1;font-size:.72rem;line-height:1.45}
 .hero-actions{display:flex;align-items:center;gap:24px;margin-top:28px}
 .text-link{font-size:.76rem;font-weight:700;color:#f0e9dc;border-bottom:1px solid rgba(240,233,220,.35)}
 .trust-row{display:flex;flex-wrap:wrap;gap:9px 20px;margin-top:28px;color:#c9bfad;font-size:.7rem}
@@ -190,6 +193,9 @@ footer{padding:34px 0 20px;background:#080806;color:#9f9685}
   .eyebrow{margin-bottom:11px;font-size:.56rem}
   .hero h1{font-size:clamp(2.35rem,10.8vw,3.2rem);line-height:1.01}
   .hero-lead{margin-top:15px;font-size:.8rem;line-height:1.55}
+  .founding-callout{gap:3px;margin-top:13px;padding:11px 13px}
+  .founding-callout strong{font-size:.92rem}
+  .founding-callout span{font-size:.65rem;line-height:1.4}
   .hero-actions{display:grid;grid-template-columns:1fr;margin-top:19px}
   .hero-actions .text-link{display:none}
   .trust-row{display:grid;grid-template-columns:1fr 1fr;gap:6px 12px;margin-top:16px;font-size:.6rem}
