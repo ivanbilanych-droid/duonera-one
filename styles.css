@@ -21,3 +21,4 @@ footer{padding:34px 0 20px;background:#060503;color:#9e9483}.footer-grid{display
 @media(max-width:390px){:root{--shell:calc(100% - 22px)}.brand-sub{display:none}.hero{min-height:740px}.hero-backdrop{height:390px}.hero-content{padding-top:330px}.hero h1{font-size:2.65rem}.hero-person-tag{top:290px}.form-row.two{grid-template-columns:1fr}.register-form label{margin-bottom:9px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
 .member-card.featured .member-photo img{object-position:center 18%}
+.hero-backdrop{background-image:url('assets/hero-prague-night-v2.webp')}
