@@ -71,7 +71,14 @@ const processTranslations = {
     registerText:'Krátká registrace trvá přibližně jednu minutu. Poté si vytvoříte účet pomocí e-mailu a hesla a adresu jednou potvrdíte odkazem v e-mailu.',
     regCheck2:'✓ E-mail potvrdíte pouze jednou',regCheck3:'✓ E-mail a kontaktní údaje nezveřejňujeme',
     formNote:'Bez platby a bez závazku. O zobrazení profilu rozhodujete vy.',
-    discoveryLoading:'Načítání schválených profilů…',noDiscoveryProfiles:'Momentálně nejsou k dispozici žádné schválené profily.',openAccount:'Chci tohoto člověka poznat'
+    heroKicker:'SOUKROMÝ KLUB PRO SKUTEČNÁ SETKÁNÍ',heroLine1:'Nečekejte',heroLine2:'na náhodu.',heroLine3:'Poznejte někoho výjimečného.',
+    heroLead:'Prohlédněte si několik vybraných lidí, kteří také hledají vážný vztah. Žádné nekonečné swipování. Jen skutečný zájem a cesta ke schůzce.',
+    heroChoiceLabel:'Koho chcete poznat?',heroChoiceWoman:'Chci poznat ženu',heroChoiceMan:'Chci poznat muže',heroExample:'Ukázka člena DUONERA',
+    registerFree:'Vstoupit do klubu',createProfile:'Chci vstoupit do DUONERA',submit:'Chci vstoupit do DUONERA',continue:'Pokračovat',
+    selectionLabel:'KOHO MŮŽETE POTKAT',selectionTitle:'Nejdřív člověk. Potom vysvětlování.',selectionText:'Pár vybraných profilů vám ukáže, zda přeskočí jiskra. Kontakty zůstávají skryté, dokud není zájem vzájemný.',selectionNote:'Ukázkové profily vysvětlují princip. Skutečné profily zobrazujeme pouze se souhlasem.',
+    registerLabel:'SOUKROMÝ VSTUP',registerTitle:'Řekněte nám jen to nejdůležitější.',registerText:'Začněte za jednu minutu. DUONERA vás potom provede vytvořením soukromého profilu.',
+    howTitle:'Od prvního pohledu ke skutečné schůzce.',privacyTitle:'Vy rozhodujete, kdo vás uvidí.',footerTag:'Méně profilů. Více chemie. Skutečné setkání.',
+    discoveryLoading:'Načítání schválených profilů…',noDiscoveryProfiles:'Momentálně nejsou k dispozici žádné schválené profily.',openAccount:'Chci ji poznat',openAccountMale:'Chci ho poznat'
   },
   en:{
     account:'My account',navSelection:'Profiles',
@@ -96,7 +103,14 @@ const processTranslations = {
     registerText:'Short registration takes about one minute. Then create your account with an email and password and confirm the address once using the email link.',
     regCheck2:'✓ Confirm your email only once',regCheck3:'✓ Email and contact details are never public',
     formNote:'No payment and no obligation. You decide whether your profile is displayed.',
-    discoveryLoading:'Loading approved profiles…',noDiscoveryProfiles:'No approved profiles are available at the moment.',openAccount:'I would like to meet this person'
+    heroKicker:'A PRIVATE CLUB FOR REAL MEETINGS',heroLine1:'Do not wait',heroLine2:'for chance.',heroLine3:'Meet someone exceptional.',
+    heroLead:'Discover a few selected people who are also looking for a serious relationship. No endless swiping. Just genuine interest and a path to a real date.',
+    heroChoiceLabel:'Who would you like to meet?',heroChoiceWoman:'I want to meet a woman',heroChoiceMan:'I want to meet a man',heroExample:'DUONERA member example',
+    registerFree:'Enter the club',createProfile:'I want to join DUONERA',submit:'I want to join DUONERA',continue:'Continue',
+    selectionLabel:'WHO YOU CAN MEET',selectionTitle:'People first. Explanations second.',selectionText:'A few selected profiles let you see whether there is a spark. Contact details stay hidden until the interest is mutual.',selectionNote:'Example profiles explain the concept. Real profiles are shown only with consent.',
+    registerLabel:'PRIVATE ENTRY',registerTitle:'Tell us only what matters.',registerText:'Start in one minute. DUONERA then guides you through creating your private profile.',
+    howTitle:'From the first look to a real date.',privacyTitle:'You decide who can see you.',footerTag:'Fewer profiles. More chemistry. A real meeting.',
+    discoveryLoading:'Loading approved profiles…',noDiscoveryProfiles:'No approved profiles are available at the moment.',openAccount:'I want to meet her',openAccountMale:'I want to meet him'
   },
   de:{
     account:'Mein Konto',navSelection:'Profile',
@@ -121,7 +135,14 @@ const processTranslations = {
     registerText:'Die kurze Registrierung dauert etwa eine Minute. Danach erstellen Sie Ihr Konto mit E-Mail und Passwort und bestätigen die Adresse einmal über den Link in der E-Mail.',
     regCheck2:'✓ E-Mail nur einmal bestätigen',regCheck3:'✓ E-Mail und Kontaktdaten sind nie öffentlich',
     formNote:'Keine Zahlung und keine Verpflichtung. Sie entscheiden über die Anzeige Ihres Profils.',
-    discoveryLoading:'Geprüfte Profile werden geladen…',noDiscoveryProfiles:'Zurzeit sind keine geprüften Profile verfügbar.',openAccount:'Ich möchte diese Person kennenlernen'
+    heroKicker:'EIN PRIVATER CLUB FÜR ECHTE TREFFEN',heroLine1:'Warten Sie nicht',heroLine2:'auf den Zufall.',heroLine3:'Lernen Sie jemanden Besonderen kennen.',
+    heroLead:'Entdecken Sie einige ausgewählte Menschen, die ebenfalls eine ernsthafte Beziehung suchen. Kein endloses Swipen. Nur echtes Interesse und der Weg zu einem Treffen.',
+    heroChoiceLabel:'Wen möchten Sie kennenlernen?',heroChoiceWoman:'Ich möchte eine Frau kennenlernen',heroChoiceMan:'Ich möchte einen Mann kennenlernen',heroExample:'DUONERA Profilbeispiel',
+    registerFree:'Club beitreten',createProfile:'Ich möchte DUONERA beitreten',submit:'Ich möchte DUONERA beitreten',continue:'Weiter',
+    selectionLabel:'WEN SIE KENNENLERNEN KÖNNEN',selectionTitle:'Zuerst der Mensch. Dann die Erklärung.',selectionText:'Einige ausgewählte Profile zeigen, ob der Funke überspringt. Kontaktdaten bleiben verborgen, bis das Interesse gegenseitig ist.',selectionNote:'Beispielprofile erklären das Prinzip. Echte Profile werden nur mit Zustimmung gezeigt.',
+    registerLabel:'PRIVATER EINTRITT',registerTitle:'Sagen Sie uns nur das Wichtigste.',registerText:'Starten Sie in einer Minute. DUONERA führt Sie danach durch die Erstellung Ihres privaten Profils.',
+    howTitle:'Vom ersten Blick zum echten Treffen.',privacyTitle:'Sie entscheiden, wer Sie sehen darf.',footerTag:'Weniger Profile. Mehr Chemie. Ein echtes Treffen.',
+    discoveryLoading:'Geprüfte Profile werden geladen…',noDiscoveryProfiles:'Zurzeit sind keine geprüften Profile verfügbar.',openAccount:'Ich möchte sie kennenlernen',openAccountMale:'Ich möchte ihn kennenlernen'
   },
   uk:{
     account:'Мій кабінет',navSelection:'Анкети',
@@ -146,7 +167,14 @@ const processTranslations = {
     registerText:'Коротка реєстрація займає близько хвилини. Потім створіть акаунт за допомогою e-mail і пароля та один раз підтвердьте адресу посиланням у листі.',
     regCheck2:'✓ Підтвердження e-mail лише один раз',regCheck3:'✓ E-mail і контакти не публікуються',
     formNote:'Без оплати та зобов’язань. Ви вирішуєте, чи показувати анкету.',
-    discoveryLoading:'Завантажуємо схвалені анкети…',noDiscoveryProfiles:'Наразі немає доступних схвалених анкет.',openAccount:'Хочу познайомитися з цією людиною'
+    heroKicker:'ПРИВАТНИЙ КЛУБ ДЛЯ СПРАВЖНІХ ЗУСТРІЧЕЙ',heroLine1:'Не чекайте',heroLine2:'на випадковість.',heroLine3:'Познайомтеся з особливою людиною.',
+    heroLead:'Перегляньте кілька відібраних людей, які також шукають серйозні стосунки. Без нескінченного гортання. Лише справжній інтерес і шлях до зустрічі.',
+    heroChoiceLabel:'З ким хочете познайомитися?',heroChoiceWoman:'Хочу познайомитися з жінкою',heroChoiceMan:'Хочу познайомитися з чоловіком',heroExample:'Приклад учасника DUONERA',
+    registerFree:'Увійти до клубу',createProfile:'Хочу приєднатися до DUONERA',submit:'Хочу приєднатися до DUONERA',continue:'Продовжити',
+    selectionLabel:'КОГО ВИ МОЖЕТЕ ЗУСТРІТИ',selectionTitle:'Спочатку людина. Потім пояснення.',selectionText:'Кілька відібраних анкет покажуть, чи виникає іскра. Контакти приховані, доки інтерес не стане взаємним.',selectionNote:'Приклади анкет пояснюють принцип. Реальні анкети показуємо лише за згодою.',
+    registerLabel:'ПРИВАТНИЙ ВСТУП',registerTitle:'Розкажіть лише найважливіше.',registerText:'Почніть за одну хвилину. Далі DUONERA допоможе створити приватну анкету.',
+    howTitle:'Від першого погляду до справжньої зустрічі.',privacyTitle:'Ви вирішуєте, хто вас побачить.',footerTag:'Менше анкет. Більше хімії. Справжня зустріч.',
+    discoveryLoading:'Завантажуємо схвалені анкети…',noDiscoveryProfiles:'Наразі немає доступних схвалених анкет.',openAccount:'Хочу познайомитися з нею',openAccountMale:'Хочу познайомитися з ним'
   },
   ru:{
     account:'Мой кабинет',navSelection:'Анкеты',
@@ -171,7 +199,14 @@ const processTranslations = {
     registerText:'Короткая регистрация занимает около минуты. Затем создайте аккаунт с e-mail и паролем и один раз подтвердите адрес по ссылке из письма.',
     regCheck2:'✓ Подтверждение e-mail только один раз',regCheck3:'✓ E-mail и контакты не публикуются',
     formNote:'Без оплаты и обязательств. Вы решаете, показывать ли анкету.',
-    discoveryLoading:'Загружаем одобренные анкеты…',noDiscoveryProfiles:'Сейчас нет доступных одобренных анкет.',openAccount:'Хочу познакомиться с этим человеком'
+    heroKicker:'ЗАКРЫТЫЙ КЛУБ ДЛЯ НАСТОЯЩИХ ВСТРЕЧ',heroLine1:'Не ждите',heroLine2:'случайности.',heroLine3:'Познакомьтесь с особенным человеком.',
+    heroLead:'Посмотрите несколько отобранных людей, которые тоже ищут серьёзные отношения. Никакого бесконечного листания. Только настоящий интерес и путь к встрече.',
+    heroChoiceLabel:'С кем хотите познакомиться?',heroChoiceWoman:'Хочу познакомиться с женщиной',heroChoiceMan:'Хочу познакомиться с мужчиной',heroExample:'Пример участника DUONERA',
+    registerFree:'Войти в клуб',createProfile:'Хочу вступить в DUONERA',submit:'Хочу вступить в DUONERA',continue:'Продолжить',
+    selectionLabel:'КОГО МОЖНО ВСТРЕТИТЬ',selectionTitle:'Сначала человек. Потом объяснения.',selectionText:'Несколько отобранных анкет покажут, возникает ли искра. Контакты скрыты, пока интерес не станет взаимным.',selectionNote:'Примеры анкет объясняют принцип. Настоящие анкеты показываем только с согласия.',
+    registerLabel:'ЗАКРЫТЫЙ ВХОД',registerTitle:'Расскажите только самое важное.',registerText:'Начните за одну минуту. Затем DUONERA поможет создать закрытую анкету.',
+    howTitle:'От первого взгляда до настоящей встречи.',privacyTitle:'Вы решаете, кто вас увидит.',footerTag:'Меньше анкет. Больше химии. Настоящая встреча.',
+    discoveryLoading:'Загружаем одобренные анкеты…',noDiscoveryProfiles:'Сейчас нет доступных одобренных анкет.',openAccount:'Хочу познакомиться с ней',openAccountMale:'Хочу познакомиться с ним'
   }
 };
 
