@@ -35,7 +35,7 @@
       if (localStorage.getItem('duoneraAnalyticsConsent') === 'granted') window.duoneraLoadAnalytics();
     } catch (e) {}
   </script>
-  <link rel="stylesheet" href="styles.css?v=25">
+  <link rel="stylesheet" href="styles.css?v=26">
 </head>
 <body>
   <header class="site-header" id="top">
@@ -62,7 +62,7 @@
         <button type="button" data-lang="ru">RU</button>
       </div>
       <a class="account-link" href="ucet.html" data-i18n="account">Můj účet</a>
-      <a class="btn btn-outline header-cta" href="#register" data-i18n="registerFree">Vstoupit do klubu</a>
+      <a class="btn btn-outline header-cta" href="#register" data-open-registration data-gender="Muž" data-looking-for="Ženu" data-i18n="registerFree">Vstoupit do klubu</a>
       <button class="menu-toggle" type="button" aria-label="Otevřít menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -82,7 +82,7 @@
     <a href="#privacy" data-i18n="navSafety">Soukromí</a>
     <a href="ucet.html" data-i18n="account">Můj účet</a>
     <button class="pwa-install-button" type="button" data-pwa-install hidden>Instalovat aplikaci</button>
-    <a class="btn btn-gold" href="#register" data-i18n="registerFree">Vstoupit do klubu</a>
+    <a class="btn btn-gold" href="#register" data-open-registration data-gender="Muž" data-looking-for="Ženu" data-i18n="registerFree">Vstoupit do klubu</a>
   </div>
 
   <main>
@@ -109,8 +109,8 @@
 
           <div class="choice-label" data-i18n="heroChoiceLabel">Koho chcete poznat?</div>
           <div class="hero-choices">
-            <a class="btn btn-gold btn-large choice-link" href="#people" data-looking-for="Ženu" data-i18n="heroChoiceWoman">Chci poznat ženu</a>
-            <a class="btn btn-glass btn-large choice-link" href="#people" data-looking-for="Muže" data-i18n="heroChoiceMan">Chci poznat muže</a>
+            <a class="btn btn-gold btn-large choice-link" href="#register" data-open-registration data-gender="Muž" data-looking-for="Ženu" data-i18n="heroChoiceWoman">Chci poznat ženu</a>
+            <a class="btn btn-glass btn-large choice-link" href="#register" data-open-registration data-gender="Žena" data-looking-for="Muže" data-i18n="heroChoiceMan">Chci poznat muže</a>
           </div>
           <div class="trust-row">
             <span data-i18n="trustPrivate">✓ Kontakty nejsou veřejné</span>
@@ -145,7 +145,7 @@
               <small data-i18n="demoProfile">Ukázkový profil</small>
               <h3>Marina, 39</h3>
               <p>Praha · kultura · cestování</p>
-              <a href="#register" class="member-link" data-looking-for="Ženu" data-i18n="openAccount">Chci ji poznat</a>
+              <a href="#register" class="member-link" data-open-registration data-gender="Muž" data-looking-for="Ženu" data-i18n="openAccount">Chci ji poznat</a>
             </div>
           </article>
 
@@ -157,7 +157,7 @@
               <small data-i18n="demoProfile">Ukázkový profil</small>
               <h3>Karolína, 41</h3>
               <p>Praha · gastronomie · umění</p>
-              <a href="#register" class="member-link" data-looking-for="Ženu" data-i18n="openAccount">Chci ji poznat</a>
+              <a href="#register" class="member-link" data-open-registration data-gender="Muž" data-looking-for="Ženu" data-i18n="openAccount">Chci ji poznat</a>
             </div>
           </article>
 
@@ -169,14 +169,14 @@
               <small data-i18n="demoProfile">Ukázkový profil</small>
               <h3>David, 46</h3>
               <p>Brno · sport · cestování</p>
-              <a href="#register" class="member-link" data-looking-for="Muže" data-i18n="openAccountMale">Chci ho poznat</a>
+              <a href="#register" class="member-link" data-open-registration data-gender="Žena" data-looking-for="Muže" data-i18n="openAccountMale">Chci ho poznat</a>
             </div>
           </article>
         </div>
 
         <div class="people-cta">
           <span data-i18n="selectionNote">Ukázkové profily vysvětlují princip. Skutečné profily zobrazujeme pouze se souhlasem.</span>
-          <a class="btn btn-outline" href="#register" data-i18n="createProfile">Chci vstoupit do DUONERA</a>
+          <a class="btn btn-outline" href="#register" data-open-registration data-gender="Muž" data-looking-for="Ženu" data-i18n="createProfile">Chci vstoupit do DUONERA</a>
         </div>
       </div>
     </section>
@@ -186,7 +186,7 @@
         <div class="entry-copy">
           <p class="section-label" data-i18n="registerLabel">SOUKROMÝ VSTUP</p>
           <h2 data-i18n="registerTitle">Řekněte nám jen to nejdůležitější.</h2>
-          <p data-i18n="registerText">Začněte za jednu minutu. DUONERA vás potom provede vytvořením soukromého profilu.</p>
+          <p data-i18n="registerText">Stačí věk, město a e-mail. Zabere to přibližně 30 sekund.</p>
           <div class="entry-points">
             <span data-i18n="regCheck1">✓ Přibližně 1 minuta</span>
             <span data-i18n="regCheck2">✓ E-mail potvrdíte pouze jednou</span>
@@ -194,32 +194,13 @@
           </div>
         </div>
 
-        <form class="register-form" novalidate>
-          <input type="text" name="_honey" class="honeypot" tabindex="-1" autocomplete="off">
-          <div class="form-head">
-            <div><span class="form-kicker">DUONERA ENTRY</span><h2 data-i18n="registerFree">Vstoupit do klubu</h2></div>
-            <span class="form-time">1 MIN</span>
-          </div>
-          <div class="form-progress" aria-hidden="true"><span class="active"></span><span></span></div>
-          <div class="form-step" data-form-step="1">
-            <div class="form-row two">
-              <label><span data-i18n="formIAm">Jsem</span><select name="Jsem" required><option value="" data-i18n="select">Vyberte</option><option value="Muž" data-i18n="man">Muž</option><option value="Žena" data-i18n="woman">Žena</option></select></label>
-              <label><span data-i18n="formSeek">Hledám</span><select name="Hledám" required><option value="" data-i18n="select">Vyberte</option><option value="Ženu" data-i18n="seekWoman">Ženu</option><option value="Muže" data-i18n="seekMan">Muže</option></select></label>
-            </div>
-            <div class="form-row two">
-              <label><span data-i18n="formAge">Věk</span><input name="Věk" type="number" inputmode="numeric" min="18" max="90" required placeholder="45"></label>
-              <label><span data-i18n="formCity">Město</span><input name="Město" type="text" autocomplete="address-level2" required placeholder="Praha"></label>
-            </div>
-            <button class="btn btn-gold full form-next" type="button"><span data-i18n="continue">Pokračovat</span> <span aria-hidden="true">→</span></button>
-            <p class="form-micro">Bez platby · bez telefonu · bez veřejného profilu</p>
-          </div>
-          <div class="form-step" data-form-step="2" hidden>
-            <label><span data-i18n="formEmail">E-mail</span><input name="email" type="email" autocomplete="email" required placeholder="vas@email.cz"></label>
-            <label class="consent"><input type="checkbox" name="consent_privacy" value="true" required><span data-i18n="formConsent">Souhlasím se zpracováním údajů pro účely registrace a soukromého výběru DUONERA.</span></label>
-            <div class="form-buttons"><button class="btn btn-back form-back" type="button" aria-label="Zpět">←</button><button class="btn btn-gold full" type="submit" data-i18n="submit">Chci vstoupit do DUONERA</button></div>
-            <p class="form-note"><span data-i18n="formNote">Bez platby a bez závazku. Profil není veřejný.</span> <a href="privacy.html" target="_blank" rel="noopener" data-i18n="footerPrivacy">Ochrana soukromí</a></p>
-          </div>
-        </form>
+        <div class="entry-card">
+          <span class="form-kicker">DUONERA ENTRY</span>
+          <strong data-i18n="registerFree">Vstoupit do klubu</strong>
+          <p data-i18n="registerText">Začněte za jednu minutu. DUONERA vás potom provede vytvořením soukromého profilu.</p>
+          <button class="btn btn-gold btn-large full" type="button" data-open-registration data-gender="Muž" data-looking-for="Ženu" data-i18n="createProfile">Chci vstoupit do DUONERA</button>
+          <small data-i18n="formNote">Bez platby a bez závazku. Profil není veřejný.</small>
+        </div>
       </div>
     </section>
 
@@ -243,10 +224,53 @@
           <h2 data-i18n="privacyTitle">Vy rozhodujete, kdo vás uvidí.</h2>
           <p data-i18n="privacyText">Kontakty, příjmení a přesné datum narození nezveřejňujeme. Profil se zobrazí pouze s vaším souhlasem a po schválení DUONERA.</p>
         </div>
-        <a class="btn btn-gold btn-large" href="#register" data-i18n="createProfile">Chci vstoupit do DUONERA</a>
+        <a class="btn btn-gold btn-large" href="#register" data-open-registration data-gender="Muž" data-looking-for="Ženu" data-i18n="createProfile">Chci vstoupit do DUONERA</a>
       </div>
     </section>
   </main>
+
+  <div class="registration-modal" id="registrationModal" hidden>
+    <button class="registration-backdrop" type="button" data-close-registration aria-label="Zavřít"></button>
+    <div class="registration-panel" role="dialog" aria-modal="true" aria-labelledby="registrationTitle">
+      <button class="registration-close" type="button" data-close-registration aria-label="Zavřít">×</button>
+      <form class="register-form" novalidate>
+        <input type="text" name="_honey" class="honeypot" tabindex="-1" autocomplete="off">
+        <input type="hidden" name="Jsem" value="Muž">
+        <input type="hidden" name="Hledám" value="Ženu">
+        <div class="form-head">
+          <div><span class="form-kicker">DUONERA ENTRY</span><h2 id="registrationTitle" data-i18n="registerFree">Vstoupit do klubu</h2></div>
+          <span class="form-time">30 s</span>
+        </div>
+        <p class="quick-intro" data-i18n="registerText">Stačí věk, město a e-mail. Zabere to přibližně 30 sekund.</p>
+
+        <div class="quick-switches">
+          <fieldset>
+            <legend data-i18n="formIAm">Jsem</legend>
+            <div class="quick-toggle" data-toggle-name="Jsem">
+              <button type="button" data-toggle-value="Muž" class="active" data-i18n="man">Muž</button>
+              <button type="button" data-toggle-value="Žena" data-i18n="woman">Žena</button>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend data-i18n="formSeek">Hledám</legend>
+            <div class="quick-toggle" data-toggle-name="Hledám">
+              <button type="button" data-toggle-value="Ženu" class="active" data-i18n="seekWoman">Ženu</button>
+              <button type="button" data-toggle-value="Muže" data-i18n="seekMan">Muže</button>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="form-row two">
+          <label><span data-i18n="formAge">Věk</span><input name="Věk" type="number" inputmode="numeric" min="18" max="90" required placeholder="45"></label>
+          <label><span data-i18n="formCity">Město</span><input name="Město" type="text" autocomplete="address-level2" required placeholder="Praha"></label>
+        </div>
+        <label><span data-i18n="formEmail">E-mail</span><input name="email" type="email" autocomplete="email" required placeholder="vas@email.cz"></label>
+        <label class="consent"><input type="checkbox" name="consent_privacy" value="true" required><span data-i18n="formConsent">Souhlasím se zpracováním údajů pro účely registrace a soukromého výběru DUONERA.</span></label>
+        <button class="btn btn-gold btn-large full" type="submit" data-i18n="submit">Chci vstoupit do DUONERA</button>
+        <p class="form-note"><span data-i18n="formNote">Bez platby a bez závazku. Profil není veřejný.</span> <a href="privacy.html" target="_blank" rel="noopener" data-i18n="footerPrivacy">Ochrana soukromí</a></p>
+      </form>
+    </div>
+  </div>
 
   <footer>
     <div class="shell footer-grid">
@@ -258,39 +282,63 @@
   </footer>
 
   <div class="toast" role="status" aria-live="polite"></div>
-  <script type="module" src="app.js?v=16"></script>
+  <script type="module" src="app.js?v=17"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
+      var modal = document.getElementById('registrationModal');
       var form = document.querySelector('.register-form');
-      if (!form) return;
-      var step1 = form.querySelector('[data-form-step="1"]');
-      var step2 = form.querySelector('[data-form-step="2"]');
-      var progress = form.querySelectorAll('.form-progress span');
-      var next = form.querySelector('.form-next');
-      var back = form.querySelector('.form-back');
-      var seeking = form.querySelector('select[name="Hledám"]');
+      if (!modal || !form) return;
+      var genderInput = form.querySelector('input[name="Jsem"]');
+      var seekingInput = form.querySelector('input[name="Hledám"]');
+      var ageInput = form.querySelector('input[name="Věk"]');
+      var previousFocus = null;
 
-      document.querySelectorAll('[data-looking-for]').forEach(function(link){
-        link.addEventListener('click', function(){
-          if (seeking) seeking.value = link.getAttribute('data-looking-for');
+      function setToggle(name, value) {
+        var input = name === 'Jsem' ? genderInput : seekingInput;
+        if (input) input.value = value;
+        form.querySelectorAll('[data-toggle-name="' + name + '"] [data-toggle-value]').forEach(function(button) {
+          button.classList.toggle('active', button.getAttribute('data-toggle-value') === value);
+        });
+      }
+
+      function openRegistration(trigger) {
+        previousFocus = document.activeElement;
+        setToggle('Jsem', trigger.getAttribute('data-gender') || genderInput.value || 'Muž');
+        setToggle('Hledám', trigger.getAttribute('data-looking-for') || seekingInput.value || 'Ženu');
+        modal.hidden = false;
+        document.body.classList.add('modal-open');
+        window.requestAnimationFrame(function () { modal.classList.add('open'); });
+        window.setTimeout(function () { if (ageInput) ageInput.focus({preventScroll:true}); }, 180);
+        if (typeof window.gtag === 'function') window.gtag('event', 'begin_registration', {method:'quick_modal'});
+      }
+
+      function closeRegistration() {
+        modal.classList.remove('open');
+        document.body.classList.remove('modal-open');
+        window.setTimeout(function () { modal.hidden = true; }, 180);
+        if (previousFocus && typeof previousFocus.focus === 'function') previousFocus.focus({preventScroll:true});
+      }
+
+      document.querySelectorAll('[data-open-registration]').forEach(function(trigger) {
+        trigger.addEventListener('click', function(event) {
+          event.preventDefault();
+          openRegistration(trigger);
         });
       });
 
-      next.addEventListener('click', function () {
-        var fields = step1.querySelectorAll('select,input');
-        for (var i = 0; i < fields.length; i++) {
-          if (!fields[i].checkValidity()) { fields[i].reportValidity(); return; }
-        }
-        step1.hidden = true;
-        step2.hidden = false;
-        progress[0].classList.add('complete');
-        progress[1].classList.add('active');
-        var email = step2.querySelector('input[type="email"]');
-        if (email) email.focus({preventScroll:true});
-        if (typeof window.gtag === 'function') window.gtag('event', 'begin_registration');
+      document.querySelectorAll('[data-close-registration]').forEach(function(button) {
+        button.addEventListener('click', closeRegistration);
       });
-      back.addEventListener('click', function () {
-        step2.hidden = true; step1.hidden = false; progress[1].classList.remove('active');
+
+      form.querySelectorAll('[data-toggle-name] [data-toggle-value]').forEach(function(button) {
+        button.addEventListener('click', function() {
+          var group = button.closest('[data-toggle-name]');
+          setToggle(group.getAttribute('data-toggle-name'), button.getAttribute('data-toggle-value'));
+        });
+      });
+
+      document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && !modal.hidden) closeRegistration();
       });
     });
   </script>

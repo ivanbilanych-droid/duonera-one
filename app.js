@@ -76,7 +76,7 @@ const processTranslations = {
     heroChoiceLabel:'Koho chcete poznat?',heroChoiceWoman:'Chci poznat ženu',heroChoiceMan:'Chci poznat muže',heroExample:'Ukázka člena DUONERA',
     registerFree:'Vstoupit do klubu',createProfile:'Chci vstoupit do DUONERA',submit:'Chci vstoupit do DUONERA',continue:'Pokračovat',
     selectionLabel:'KOHO MŮŽETE POTKAT',selectionTitle:'Nejdřív člověk. Potom vysvětlování.',selectionText:'Pár vybraných profilů vám ukáže, zda přeskočí jiskra. Kontakty zůstávají skryté, dokud není zájem vzájemný.',selectionNote:'Ukázkové profily vysvětlují princip. Skutečné profily zobrazujeme pouze se souhlasem.',
-    registerLabel:'SOUKROMÝ VSTUP',registerTitle:'Řekněte nám jen to nejdůležitější.',registerText:'Začněte za jednu minutu. DUONERA vás potom provede vytvořením soukromého profilu.',
+    registerLabel:'SOUKROMÝ VSTUP',registerTitle:'Řekněte nám jen to nejdůležitější.',registerText:'Stačí věk, město a e-mail. Zabere to přibližně 30 sekund.',
     howTitle:'Od prvního pohledu ke skutečné schůzce.',privacyTitle:'Vy rozhodujete, kdo vás uvidí.',footerTag:'Méně profilů. Více chemie. Skutečné setkání.',
     discoveryLoading:'Načítání schválených profilů…',noDiscoveryProfiles:'Momentálně nejsou k dispozici žádné schválené profily.',openAccount:'Chci ji poznat',openAccountMale:'Chci ho poznat'
   },
@@ -108,7 +108,7 @@ const processTranslations = {
     heroChoiceLabel:'Who would you like to meet?',heroChoiceWoman:'I want to meet a woman',heroChoiceMan:'I want to meet a man',heroExample:'DUONERA member example',
     registerFree:'Enter the club',createProfile:'I want to join DUONERA',submit:'I want to join DUONERA',continue:'Continue',
     selectionLabel:'WHO YOU CAN MEET',selectionTitle:'People first. Explanations second.',selectionText:'A few selected profiles let you see whether there is a spark. Contact details stay hidden until the interest is mutual.',selectionNote:'Example profiles explain the concept. Real profiles are shown only with consent.',
-    registerLabel:'PRIVATE ENTRY',registerTitle:'Tell us only what matters.',registerText:'Start in one minute. DUONERA then guides you through creating your private profile.',
+    registerLabel:'PRIVATE ENTRY',registerTitle:'Tell us only what matters.',registerText:'Just your age, city and email. It takes about 30 seconds.',
     howTitle:'From the first look to a real date.',privacyTitle:'You decide who can see you.',footerTag:'Fewer profiles. More chemistry. A real meeting.',
     discoveryLoading:'Loading approved profiles…',noDiscoveryProfiles:'No approved profiles are available at the moment.',openAccount:'I want to meet her',openAccountMale:'I want to meet him'
   },
@@ -140,7 +140,7 @@ const processTranslations = {
     heroChoiceLabel:'Wen möchten Sie kennenlernen?',heroChoiceWoman:'Ich möchte eine Frau kennenlernen',heroChoiceMan:'Ich möchte einen Mann kennenlernen',heroExample:'DUONERA Profilbeispiel',
     registerFree:'Club beitreten',createProfile:'Ich möchte DUONERA beitreten',submit:'Ich möchte DUONERA beitreten',continue:'Weiter',
     selectionLabel:'WEN SIE KENNENLERNEN KÖNNEN',selectionTitle:'Zuerst der Mensch. Dann die Erklärung.',selectionText:'Einige ausgewählte Profile zeigen, ob der Funke überspringt. Kontaktdaten bleiben verborgen, bis das Interesse gegenseitig ist.',selectionNote:'Beispielprofile erklären das Prinzip. Echte Profile werden nur mit Zustimmung gezeigt.',
-    registerLabel:'PRIVATER EINTRITT',registerTitle:'Sagen Sie uns nur das Wichtigste.',registerText:'Starten Sie in einer Minute. DUONERA führt Sie danach durch die Erstellung Ihres privaten Profils.',
+    registerLabel:'PRIVATER EINTRITT',registerTitle:'Sagen Sie uns nur das Wichtigste.',registerText:'Nur Alter, Stadt und E-Mail. Das dauert etwa 30 Sekunden.',
     howTitle:'Vom ersten Blick zum echten Treffen.',privacyTitle:'Sie entscheiden, wer Sie sehen darf.',footerTag:'Weniger Profile. Mehr Chemie. Ein echtes Treffen.',
     discoveryLoading:'Geprüfte Profile werden geladen…',noDiscoveryProfiles:'Zurzeit sind keine geprüften Profile verfügbar.',openAccount:'Ich möchte sie kennenlernen',openAccountMale:'Ich möchte ihn kennenlernen'
   },
@@ -172,7 +172,7 @@ const processTranslations = {
     heroChoiceLabel:'З ким хочете познайомитися?',heroChoiceWoman:'Хочу познайомитися з жінкою',heroChoiceMan:'Хочу познайомитися з чоловіком',heroExample:'Приклад учасника DUONERA',
     registerFree:'Увійти до клубу',createProfile:'Хочу приєднатися до DUONERA',submit:'Хочу приєднатися до DUONERA',continue:'Продовжити',
     selectionLabel:'КОГО ВИ МОЖЕТЕ ЗУСТРІТИ',selectionTitle:'Спочатку людина. Потім пояснення.',selectionText:'Кілька відібраних анкет покажуть, чи виникає іскра. Контакти приховані, доки інтерес не стане взаємним.',selectionNote:'Приклади анкет пояснюють принцип. Реальні анкети показуємо лише за згодою.',
-    registerLabel:'ПРИВАТНИЙ ВСТУП',registerTitle:'Розкажіть лише найважливіше.',registerText:'Почніть за одну хвилину. Далі DUONERA допоможе створити приватну анкету.',
+    registerLabel:'ПРИВАТНИЙ ВСТУП',registerTitle:'Розкажіть лише найважливіше.',registerText:'Лише вік, місто та e-mail. Це займе близько 30 секунд.',
     howTitle:'Від першого погляду до справжньої зустрічі.',privacyTitle:'Ви вирішуєте, хто вас побачить.',footerTag:'Менше анкет. Більше хімії. Справжня зустріч.',
     discoveryLoading:'Завантажуємо схвалені анкети…',noDiscoveryProfiles:'Наразі немає доступних схвалених анкет.',openAccount:'Хочу познайомитися з нею',openAccountMale:'Хочу познайомитися з ним'
   },
@@ -204,7 +204,7 @@ const processTranslations = {
     heroChoiceLabel:'С кем хотите познакомиться?',heroChoiceWoman:'Хочу познакомиться с женщиной',heroChoiceMan:'Хочу познакомиться с мужчиной',heroExample:'Пример участника DUONERA',
     registerFree:'Войти в клуб',createProfile:'Хочу вступить в DUONERA',submit:'Хочу вступить в DUONERA',continue:'Продолжить',
     selectionLabel:'КОГО МОЖНО ВСТРЕТИТЬ',selectionTitle:'Сначала человек. Потом объяснения.',selectionText:'Несколько отобранных анкет покажут, возникает ли искра. Контакты скрыты, пока интерес не станет взаимным.',selectionNote:'Примеры анкет объясняют принцип. Настоящие анкеты показываем только с согласия.',
-    registerLabel:'ЗАКРЫТЫЙ ВХОД',registerTitle:'Расскажите только самое важное.',registerText:'Начните за одну минуту. Затем DUONERA поможет создать закрытую анкету.',
+    registerLabel:'ЗАКРЫТЫЙ ВХОД',registerTitle:'Расскажите только самое важное.',registerText:'Только возраст, город и e-mail. Это займёт около 30 секунд.',
     howTitle:'От первого взгляда до настоящей встречи.',privacyTitle:'Вы решаете, кто вас увидит.',footerTag:'Меньше анкет. Больше химии. Настоящая встреча.',
     discoveryLoading:'Загружаем одобренные анкеты…',noDiscoveryProfiles:'Сейчас нет доступных одобренных анкет.',openAccount:'Хочу познакомиться с ней',openAccountMale:'Хочу познакомиться с ним'
   }
@@ -382,6 +382,9 @@ if(shortRegistrationForm){
           method: 'short_registration',
           transport_type: 'beacon'
         });
+      }
+      if (typeof window.fbq === 'function') {
+        window.fbq('track', 'Lead', {content_name:'short_registration'});
       }
       clearTimeout(stillSavingTimer);
       submitButton.textContent = status.opening;
