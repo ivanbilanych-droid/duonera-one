@@ -342,11 +342,17 @@ function setLanguage(lang){
   localStorage.setItem('duonera-lang',lang);
   if(publicProfiles.length) renderPublicProfiles();
 }
-langButtons.forEach(btn => btn.addEventListener('click',()=>setLanguage(btn.dataset.lang)));
+langButtons.forEach(btn => btn.addEventListener('click',()=>{
+  const lang = btn.dataset.lang;
+  setLanguage(lang);
+  const url = new URL(location.href);
+  if(lang === 'cs') url.searchParams.delete('lang');
+  else url.searchParams.set('lang',lang);
+  history.replaceState({},document.title,`${url.pathname}${url.search}${url.hash}`);
+}));
 const languageAliases = {ua:'uk',uk:'uk',ru:'ru',de:'de',en:'en',cs:'cs',cz:'cs'};
 const requestedLanguage = languageAliases[new URLSearchParams(location.search).get('lang')?.toLowerCase()];
-const browserLanguage = languageAliases[(navigator.language || '').split('-')[0].toLowerCase()];
-setLanguage(requestedLanguage || localStorage.getItem('duonera-lang') || browserLanguage || 'cs');
+setLanguage(requestedLanguage || 'cs');
 
 document.getElementById('year').textContent = new Date().getFullYear();
 
