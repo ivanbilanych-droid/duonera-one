@@ -575,7 +575,8 @@ function updateDuoneraInstallButtons() {
   const standalone = duoneraIsStandalone();
   const lang = duoneraAppLanguage();
   duoneraInstallButtons.forEach(button => {
-    button.hidden = Boolean(standalone);
+    const isMenuButton = button.classList.contains('pwa-install-button');
+    button.hidden = Boolean(standalone && !isMenuButton);
     button.textContent = duoneraInstallLabels[lang] || duoneraInstallLabels.cs;
   });
   if (duoneraInstallBanner) {

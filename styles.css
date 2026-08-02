@@ -166,9 +166,11 @@ footer { padding: 42px 0 25px; border-top: 1px solid var(--line); background: #0
   .site-header > .header-actions > .lang-switch { display: none; }
   .mobile-menu { position: fixed; z-index: 49; inset: 70px 0 auto; display: grid; gap: 0; padding: 16px 24px 24px; transform: translateY(-120%); opacity: 0; pointer-events: none; background: rgba(8,7,6,.98); border-bottom: 1px solid var(--line); transition: .25s; }
   .mobile-menu.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
-  .mobile-menu > a:not(.btn), .pwa-install-button { padding: 13px 0; border: 0; border-bottom: 1px solid rgba(255,255,255,.08); color: var(--ivory); background: transparent; text-align: left; }
+  .mobile-menu > a:not(.btn) { padding: 13px 0; border: 0; border-bottom: 1px solid rgba(255,255,255,.08); color: var(--ivory); background: transparent; text-align: left; }
+  .pwa-install-button { display: block; width: 100%; min-height: 52px; margin: 16px 0 0; padding: 0 18px; border: 1px solid var(--gold-light); color: #171106; background: linear-gradient(135deg,var(--gold-light),var(--gold)); text-align: center; font-weight: 800; cursor: pointer; }
+  .pwa-install-button::before { content: '↓'; margin-right: 9px; font-size: 18px; }
   .mobile-languages { width: max-content; margin-bottom: 8px; }
-  .mobile-menu .btn { margin-top: 16px; }
+  .mobile-menu .btn { margin-top: 10px; }
   .hero-copy { width: min(640px, 61%); }
   .hero h1 { font-size: 58px; }
   .privacy-grid { grid-template-columns: 85px 1fr; }
