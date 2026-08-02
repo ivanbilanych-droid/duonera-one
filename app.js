@@ -328,8 +328,53 @@ const conversionTranslations = {
   }
 };
 
+const foundingTranslations = {
+  cs: {
+    registerFree:'Přidat svůj profil', heroKicker:'PRVNÍ OVĚŘENÁ SKUPINA DUONERA', heroConversionTitle:'Lidé, které stojí za to potkat.',
+    heroConversionLead:'Budujeme komunitu nezadaných lidí, kteří hledají vztah s budoucností. Přidejte svůj profil. Po kontrole sami rozhodnete, zda může být viditelný.',
+    heroImageCaption:'Ilustrační fotografie — nikoli členové DUONERA.', formKicker:'ZAKLÁDAJÍCÍ ČLENSTVÍ', formConversionTitle:'Přidejte se mezi první ověřené členy',
+    submitConversion:'Vytvořit profil zdarma', formConversionNote:'Bez platby. O zobrazení profilu rozhodujete vy.', peopleLabel:'OVĚŘENÍ LIDÉ',
+    peopleTitle:'Podívejte se, koho můžete v DUONERA potkat.', peopleText:'Zobrazujeme pouze schválené profily lidí, kteří s náhledem výslovně souhlasili. Kontaktní údaje zůstávají skryté.',
+    foundingLabel:'ZAKLÁDAJÍCÍ SKUPINA SE PRÁVĚ OTEVÍRÁ', foundingTitle:'První skutečné profily začínají právě u vás.',
+    foundingText:'Vyplňte vlastní profil a fotografie. Po kontrole rozhodnete, zda se váš náhled zobrazí ostatním. Příjmení, telefon ani e-mail nezveřejňujeme.', foundingCta:'Přidat svůj profil'
+  },
+  en: {
+    registerFree:'Add my profile', heroKicker:'FIRST VERIFIED DUONERA GROUP', heroConversionTitle:'People worth meeting.',
+    heroConversionLead:'We are building a community of single people looking for a relationship with a future. Add your profile. After review, you decide whether it may be shown.',
+    heroImageCaption:'Illustrative campaign photography — not DUONERA members.', formKicker:'FOUNDING MEMBERSHIP', formConversionTitle:'Join the first verified members',
+    submitConversion:'Create my profile free', formConversionNote:'No payment. You decide whether your profile is shown.', peopleLabel:'VERIFIED PEOPLE', peopleTitle:'See who you could meet in DUONERA.',
+    peopleText:'We show only approved profiles from people who expressly agreed to the preview. Contact details remain hidden.', foundingLabel:'THE FOUNDING GROUP IS NOW OPEN',
+    foundingTitle:'The first real profiles begin with you.', foundingText:'Complete your profile and add photos. After review, you decide whether the preview appears to others. We never publish your surname, phone or email.', foundingCta:'Add my profile'
+  },
+  de: {
+    registerFree:'Mein Profil hinzufügen', heroKicker:'ERSTE GEPRÜFTE DUONERA-GRUPPE', heroConversionTitle:'Menschen, die es wert sind, sie kennenzulernen.',
+    heroConversionLead:'Wir bauen eine Gemeinschaft alleinstehender Menschen auf, die eine Beziehung mit Zukunft suchen. Legen Sie Ihr Profil an. Nach der Prüfung entscheiden Sie selbst, ob es sichtbar sein darf.',
+    heroImageCaption:'Illustrative Kampagnenfotografie — keine DUONERA-Mitglieder.', formKicker:'GRÜNDUNGSMITGLIEDSCHAFT', formConversionTitle:'Werden Sie eines der ersten geprüften Mitglieder',
+    submitConversion:'Profil kostenlos erstellen', formConversionNote:'Keine Zahlung. Sie entscheiden über die Sichtbarkeit.', peopleLabel:'GEPRÜFTE MENSCHEN', peopleTitle:'Sehen Sie, wen Sie bei DUONERA treffen könnten.',
+    peopleText:'Wir zeigen nur geprüfte Profile von Menschen, die der Vorschau ausdrücklich zugestimmt haben. Kontaktdaten bleiben verborgen.', foundingLabel:'DIE GRÜNDUNGSGRUPPE IST JETZT OFFEN',
+    foundingTitle:'Die ersten echten Profile beginnen mit Ihnen.', foundingText:'Füllen Sie Ihr Profil aus und laden Sie Fotos hoch. Nach der Prüfung entscheiden Sie, ob Ihre Vorschau sichtbar wird. Nachname, Telefon und E-Mail veröffentlichen wir nie.', foundingCta:'Mein Profil hinzufügen'
+  },
+  uk: {
+    registerFree:'Додати свою анкету', heroKicker:'ПЕРША ПЕРЕВІРЕНА ГРУПА DUONERA', heroConversionTitle:'Люди, з якими варто познайомитися.',
+    heroConversionLead:'Ми створюємо спільноту самотніх людей, які шукають стосунків із майбутнім. Додайте анкету. Після перевірки ви самі вирішите, чи показувати її.',
+    heroImageCaption:'Ілюстративне фото кампанії — не учасники DUONERA.', formKicker:'ЧЛЕНСТВО ЗАСНОВНИКІВ', formConversionTitle:'Приєднайтеся до перших перевірених учасників',
+    submitConversion:'Створити анкету безкоштовно', formConversionNote:'Без оплати. Ви самі вирішуєте, чи показувати анкету.', peopleLabel:'ПЕРЕВІРЕНІ ЛЮДИ', peopleTitle:'Подивіться, кого можна зустріти в DUONERA.',
+    peopleText:'Ми показуємо лише схвалені анкети людей, які прямо погодилися на попередній перегляд. Контактні дані залишаються прихованими.', foundingLabel:'ГРУПА ЗАСНОВНИКІВ УЖЕ ВІДКРИТА',
+    foundingTitle:'Перші справжні анкети починаються з вас.', foundingText:'Заповніть анкету й додайте фотографії. Після перевірки ви вирішите, чи показувати її іншим. Прізвище, телефон та e-mail ми не публікуємо.', foundingCta:'Додати свою анкету'
+  },
+  ru: {
+    registerFree:'Добавить свою анкету', heroKicker:'ПЕРВАЯ ПРОВЕРЕННАЯ ГРУППА DUONERA', heroConversionTitle:'Люди, с которыми стоит познакомиться.',
+    heroConversionLead:'Мы создаём сообщество одиноких людей, которые ищут отношения с будущим. Добавьте анкету. После проверки вы сами решите, можно ли её показывать.',
+    heroImageCaption:'Иллюстративное фото кампании — не участники DUONERA.', formKicker:'ЧЛЕНСТВО ОСНОВАТЕЛЕЙ', formConversionTitle:'Присоединитесь к первым проверенным участникам',
+    submitConversion:'Создать анкету бесплатно', formConversionNote:'Без оплаты. Вы сами решаете, показывать ли анкету.', peopleLabel:'ПРОВЕРЕННЫЕ ЛЮДИ', peopleTitle:'Посмотрите, кого можно встретить в DUONERA.',
+    peopleText:'Мы показываем только одобренные анкеты людей, которые прямо согласились на предварительный показ. Контактные данные остаются скрытыми.', foundingLabel:'ГРУППА ОСНОВАТЕЛЕЙ УЖЕ ОТКРЫТА',
+    foundingTitle:'Первые настоящие анкеты начинаются с вас.', foundingText:'Заполните анкету и добавьте фотографии. После проверки вы решите, показывать ли её другим. Фамилию, телефон и e-mail мы не публикуем.', foundingCta:'Добавить свою анкету'
+  }
+};
+
 Object.entries(processTranslations).forEach(([language, values]) => Object.assign(translations[language], values));
 Object.entries(conversionTranslations).forEach(([language, values]) => Object.assign(translations[language], values));
+Object.entries(foundingTranslations).forEach(([language, values]) => Object.assign(translations[language], values));
 
 let publicProfiles = [];
 const fallback = translations.cs;
@@ -375,6 +420,7 @@ mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
 }));
 
 const publicProfileGrid = document.querySelector('#publicProfileGrid');
+const foundingState = document.querySelector('#foundingState');
 const DISCOVERY_BUCKET = 'duonera-discovery-photos';
 
 function encodedPublicPath(path){
@@ -392,12 +438,13 @@ function renderPublicProfiles(){
   publicProfileGrid.replaceChildren();
 
   if(!publicProfiles.length){
-    const state = document.createElement('div');
-    state.className = 'public-profile-state';
-    state.textContent = dict.noDiscoveryProfiles || fallback.noDiscoveryProfiles;
-    publicProfileGrid.appendChild(state);
+    publicProfileGrid.hidden = true;
+    if(foundingState) foundingState.hidden = false;
     return;
   }
+
+  publicProfileGrid.hidden = false;
+  if(foundingState) foundingState.hidden = true;
 
   publicProfiles.slice(0,6).forEach(profile=>{
     const card = document.createElement('article');
@@ -425,8 +472,11 @@ function renderPublicProfiles(){
     });
     const link = document.createElement('a');
     link.className = 'btn btn-gold';
-    link.href = 'ucet.html';
-    link.textContent = dict.openAccount || fallback.openAccount;
+    link.href = '#register';
+    link.textContent = dict.registerFree || fallback.registerFree;
+    link.addEventListener('click',()=>{
+      try{ localStorage.setItem('duonera-interest-profile',String(profile.id || '')); }catch(error){}
+    });
     body.append(title,location,about,list,link);
     card.append(photo,body);
     publicProfileGrid.appendChild(card);

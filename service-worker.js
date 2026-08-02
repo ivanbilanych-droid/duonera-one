@@ -1,17 +1,17 @@
-const CACHE_NAME = 'duonera-app-v15';
+const CACHE_NAME = 'duonera-app-v16';
 const CORE_FILES = [
   '/',
   '/index.html',
   '/manifest.webmanifest?v=2',
-  '/styles-light.css?v=3',
-  '/app.js?v=23',
+  '/styles-light.css?v=4',
+  '/app.js?v=24',
   '/assets/favicon.svg',
   '/assets/duonera-mark.svg',
   '/assets/duonera-avatar.png',
   '/assets/duonera-app-icon-180.png',
   '/assets/duonera-app-icon-192.png',
   '/assets/duonera-app-icon-512.png',
-  '/assets/duonera-people-hero-v1.webp',
+  '/assets/duonera-founding-people-v1.webp',
   '/assets/duonera-app-icon-maskable-512.png',
   '/ucet.html',
   '/ucet.css',

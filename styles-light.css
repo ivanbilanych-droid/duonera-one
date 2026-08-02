@@ -23,5 +23,45 @@ footer{padding:38px 0 22px;color:#5e534b;border-top:1px solid var(--line);backgr
 
 @media(min-width:761px) and (max-width:1050px){.desktop-nav,.account-link,.header-cta{display:none}.header-actions{margin-left:auto}.menu-toggle{display:block}.mobile-menu{display:grid;top:74px}.hero-layout{grid-template-columns:.92fr 1.08fr;gap:28px}.hero-visual{height:500px}.hero h1{font-size:58px}.form-fields{grid-template-columns:90px 1fr 1.15fr}.form-fields .btn{grid-column:1/-1}.product-demo-grid{grid-template-columns:1fr 370px;gap:40px}.privacy-grid{grid-template-columns:78px 1fr}.privacy-grid .btn{grid-column:2;justify-self:start}}
 
+/* Founding-member people showcase */
+.hero-visual img{object-position:center}
+.people-showcase{padding:38px 0 34px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#fffaf3}
+.people-heading{display:grid;gap:12px;margin-bottom:22px}
+.people-heading h2{max-width:690px;margin:0;color:#33251f;font:600 34px/.98 var(--serif);letter-spacing:-.035em}
+.people-heading>p{max-width:590px;margin:0;color:#74665e;font-size:12px;line-height:1.6}
+.public-profile-grid{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(270px,82vw);gap:14px;overflow-x:auto;padding:2px 1px 15px;scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:var(--gold2) transparent}
+.public-profile-grid[hidden],.founding-state[hidden]{display:none!important}
+.profile-card{overflow:hidden;scroll-snap-align:start;border:1px solid #dbc8b7;border-radius:22px;background:#fff;box-shadow:0 18px 45px rgba(77,43,28,.1)}
+.profile-photo{height:360px;background:#eadfd3 center/cover no-repeat}
+.profile-body{padding:18px}
+.profile-body h3{margin:0;color:#34251f;font:600 29px/1 var(--serif)}
+.profile-body .location{margin:7px 0 12px;color:var(--wine);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em}
+.public-profile-about{display:-webkit-box;min-height:46px;margin:0 0 13px;overflow:hidden;color:#6f625b;font-size:12px;line-height:1.55;-webkit-box-orient:vertical;-webkit-line-clamp:2}
+.profile-body ul{display:flex;flex-wrap:wrap;gap:6px;min-height:25px;margin:0 0 15px;padding:0;list-style:none}
+.profile-body li{padding:6px 9px;border-radius:999px;background:#f5ece3;color:#6a4d42;font-size:9px;font-weight:700}
+.profile-body .btn{width:100%}
+.founding-state{display:grid;gap:18px;padding:24px 20px;border:1px solid #d8c1aa;border-radius:24px;background:linear-gradient(135deg,#fff 0%,#f8eee3 100%);box-shadow:0 18px 50px rgba(77,43,28,.1)}
+.founding-index{display:grid;place-items:center;width:48px;height:48px;border:1px solid var(--gold2);border-radius:50%;color:var(--wine);font:600 16px/1 var(--serif)}
+.founding-state h3{margin:0 0 10px;color:#34251f;font:600 30px/1.02 var(--serif);letter-spacing:-.03em}
+.founding-state div>p:last-child{margin:0;color:#70635b;font-size:12px;line-height:1.62}
+.founding-state .btn{width:100%}
+.people-showcase+.register-wrap{margin-top:24px}
+
+@media(min-width:761px){
+  .hero-visual img{object-position:center}
+  .people-showcase{padding:72px 0 78px}
+  .people-heading{grid-template-columns:1.2fr .8fr;align-items:end;gap:60px;margin-bottom:35px}
+  .people-heading h2{font-size:54px}
+  .people-heading>p{font-size:14px}
+  .public-profile-grid{grid-auto-flow:initial;grid-template-columns:repeat(3,minmax(0,1fr));overflow:visible;padding:0}
+  .profile-photo{height:430px}
+  .founding-state{grid-template-columns:70px minmax(0,1fr) auto;align-items:center;gap:28px;padding:34px 38px}
+  .founding-index{width:62px;height:62px;font-size:20px}
+  .founding-state h3{font-size:42px}
+  .founding-state div>p:last-child{max-width:670px;font-size:14px}
+  .founding-state .btn{width:auto;white-space:nowrap}
+  .people-showcase+.register-wrap{margin-top:32px}
+}
+
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}
 @media(display-mode:standalone){.site-header{padding-top:env(safe-area-inset-top);height:calc(64px + env(safe-area-inset-top))}}
