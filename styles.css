@@ -156,8 +156,13 @@ footer { padding: 42px 0 25px; border-top: 1px solid var(--line); background: #0
   .shell { width: min(100% - 32px, 620px); }
   .site-header { height: 62px; padding-inline: 16px; }
   .brand img { width: 36px; height: 36px; }
-  .brand-name { font-size: 21px; }
-  .brand-sub { font-size: 6px; }
+  .site-header .brand-copy { display: none; }
+  .site-header > .header-actions > .lang-switch { display: flex; }
+  .site-header .header-actions { gap: 5px; }
+  .site-header .lang-switch { padding: 2px; }
+  .site-header .lang-switch button { width: 27px; height: 29px; font-size: 8px; }
+  .site-header .menu-toggle { width: 34px; padding-inline: 7px; }
+  .mobile-menu .mobile-languages { display: none; }
   .mobile-menu { top: 62px; }
   .hero { min-height: 0; padding-top: 62px; }
   .hero-image { inset: 62px 0 auto; height: 300px; background-position: 69% center; }
