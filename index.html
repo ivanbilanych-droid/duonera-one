@@ -9,6 +9,8 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="DUONERA">
+  <meta name="application-name" content="DUONERA">
+  <meta name="format-detection" content="telephone=no">
   <meta property="og:title" content="DUONERA — Private Dating Club">
   <meta property="og:description" content="Jedno skutečné setkání může změnit všechno.">
   <meta property="og:type" content="website">
@@ -16,7 +18,7 @@
   <meta property="og:image" content="https://duonera.cz/assets/hero-europe-couple-v3.webp">
   <link rel="manifest" href="manifest.webmanifest?v=1">
   <link rel="icon" href="assets/duonera-avatar.png" type="image/png">
-  <link rel="apple-touch-icon" href="assets/duonera-avatar.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/duonera-app-icon-180.png">
   <title>DUONERA — Private Dating Club</title>
   <script>
     window.duoneraLoadAnalytics = function () {
@@ -35,7 +37,7 @@
       if (localStorage.getItem('duoneraAnalyticsConsent') === 'granted') window.duoneraLoadAnalytics();
     } catch (e) {}
   </script>
-  <link rel="stylesheet" href="styles.css?v=28">
+  <link rel="stylesheet" href="styles.css?v=29">
 </head>
 <body>
   <header class="site-header" id="top">
@@ -192,8 +194,31 @@
     <div class="shell footer-bottom">© <span id="year"></span> DUONERA</div>
   </footer>
 
+  <aside class="app-install-banner" data-app-install-banner hidden aria-label="DUONERA aplikace">
+    <img src="assets/duonera-app-icon-192.png" alt="" width="50" height="50">
+    <div class="app-install-copy">
+      <strong data-i18n="appInstallTitle">DUONERA v telefonu</strong>
+      <span data-i18n="appInstallText">Rychlý přístup bez lišty prohlížeče</span>
+    </div>
+    <button class="app-install-action" type="button" data-pwa-install data-i18n="appInstallButton">Nainstalovat</button>
+    <button class="app-install-close" type="button" data-app-install-close aria-label="Zavřít">×</button>
+  </aside>
+
+  <div class="app-install-modal" data-app-install-modal hidden>
+    <button class="app-install-backdrop" type="button" data-app-install-modal-close aria-label="Zavřít"></button>
+    <section class="app-install-panel" role="dialog" aria-modal="true" aria-labelledby="appInstallHeading">
+      <button class="app-install-panel-close" type="button" data-app-install-modal-close aria-label="Zavřít">×</button>
+      <img src="assets/duonera-app-icon-192.png" alt="" width="72" height="72">
+      <p class="form-kicker">DUONERA APP</p>
+      <h2 id="appInstallHeading" data-i18n="appInstallHelpTitle">Přidejte DUONERA na plochu</h2>
+      <p data-i18n="appInstallHelpText">Aplikace se otevře přes celou obrazovku a bude vždy po ruce.</p>
+      <ol data-app-install-steps></ol>
+      <button class="btn btn-gold full" type="button" data-app-install-modal-close data-i18n="continue">Pokračovat</button>
+    </section>
+  </div>
+
   <div class="toast" role="status" aria-live="polite"></div>
-  <script type="module" src="app.js?v=18"></script>
+  <script type="module" src="app.js?v=19"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       var form = document.querySelector('.register-form');

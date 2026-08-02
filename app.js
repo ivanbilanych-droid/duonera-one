@@ -227,7 +227,9 @@ const conversionTranslations = {
     how3Title:'Potvrdíte vzájemný zájem', how3Text:'Kontakty se otevírají až po vzájemné volbě a DUONERA pomůže se setkáním.',
     privacyConversionLabel:'PRIVÁTNOST JE SOUČÁST LUXUSU', privacyConversionTitle:'Vy rozhodujete, kdo vás uvidí.',
     privacyConversionText:'E-mail, telefon, příjmení a přesné datum narození nezveřejňujeme. Profil se zobrazuje pouze v rámci soukromého výběru.',
-    footerConversionTag:'Jedno skutečné setkání může změnit všechno.'
+    footerConversionTag:'Jedno skutečné setkání může změnit všechno.',
+    appInstallTitle:'DUONERA v telefonu', appInstallText:'Rychlý přístup bez lišty prohlížeče', appInstallButton:'Nainstalovat',
+    appInstallHelpTitle:'Přidejte DUONERA na plochu', appInstallHelpText:'Aplikace se otevře přes celou obrazovku a bude vždy po ruce.'
   },
   en: {
     registerFree:'Start for free', heroKicker:'PRIVATE DATING FOR A SERIOUS RELATIONSHIP IN EUROPE',
@@ -245,7 +247,9 @@ const conversionTranslations = {
     how3Title:'Confirm mutual interest', how3Text:'Contact details open only after a mutual choice, and DUONERA helps with the meeting.',
     privacyConversionLabel:'PRIVACY IS PART OF LUXURY', privacyConversionTitle:'You decide who can see you.',
     privacyConversionText:'We never publish your email, phone, surname or exact date of birth. Your profile appears only within a private selection.',
-    footerConversionTag:'One real meeting can change everything.'
+    footerConversionTag:'One real meeting can change everything.',
+    appInstallTitle:'DUONERA on your phone', appInstallText:'Fast access without the browser bar', appInstallButton:'Install',
+    appInstallHelpTitle:'Add DUONERA to your Home Screen', appInstallHelpText:'The app opens full screen and stays within easy reach.'
   },
   de: {
     registerFree:'Kostenlos starten', heroKicker:'PRIVATE PARTNERSUCHE FÜR EINE ERNSTE BEZIEHUNG IN EUROPA',
@@ -263,7 +267,9 @@ const conversionTranslations = {
     how3Title:'Bestätigen Sie gegenseitiges Interesse', how3Text:'Kontaktdaten öffnen sich erst bei gegenseitiger Wahl. DUONERA hilft beim Treffen.',
     privacyConversionLabel:'PRIVATSPHÄRE GEHÖRT ZUM LUXUS', privacyConversionTitle:'Sie entscheiden, wer Sie sehen darf.',
     privacyConversionText:'E-Mail, Telefon, Nachname und genaues Geburtsdatum werden nicht veröffentlicht. Ihr Profil erscheint nur in einer privaten Auswahl.',
-    footerConversionTag:'Eine echte Begegnung kann alles verändern.'
+    footerConversionTag:'Eine echte Begegnung kann alles verändern.',
+    appInstallTitle:'DUONERA auf Ihrem Handy', appInstallText:'Schneller Zugriff ohne Browserleiste', appInstallButton:'Installieren',
+    appInstallHelpTitle:'DUONERA zum Startbildschirm hinzufügen', appInstallHelpText:'Die App öffnet sich im Vollbild und ist immer griffbereit.'
   },
   uk: {
     registerFree:'Почати безкоштовно', heroKicker:'ПРИВАТНІ ЗНАЙОМСТВА ДЛЯ СЕРЙОЗНИХ СТОСУНКІВ У ЄВРОПІ',
@@ -281,7 +287,9 @@ const conversionTranslations = {
     how3Title:'Підтвердьте взаємний інтерес', how3Text:'Контакти відкриваються лише після взаємного вибору, а DUONERA допомагає із зустріччю.',
     privacyConversionLabel:'ПРИВАТНІСТЬ — ЧАСТИНА РОЗКОШІ', privacyConversionTitle:'Ви вирішуєте, хто вас побачить.',
     privacyConversionText:'Ми не публікуємо e-mail, телефон, прізвище чи точну дату народження. Анкета з’являється лише у приватній добірці.',
-    footerConversionTag:'Одна справжня зустріч може змінити все.'
+    footerConversionTag:'Одна справжня зустріч може змінити все.',
+    appInstallTitle:'DUONERA у вашому телефоні', appInstallText:'Швидкий доступ без панелі браузера', appInstallButton:'Встановити',
+    appInstallHelpTitle:'Додайте DUONERA на головний екран', appInstallHelpText:'Застосунок відкриватиметься на весь екран і завжди буде поруч.'
   },
   ru: {
     registerFree:'Начать бесплатно', heroKicker:'ПРИВАТНЫЕ ЗНАКОМСТВА ДЛЯ СЕРЬЁЗНЫХ ОТНОШЕНИЙ В ЕВРОПЕ',
@@ -299,7 +307,9 @@ const conversionTranslations = {
     how3Title:'Подтвердите взаимный интерес', how3Text:'Контакты открываются только после взаимного выбора, а DUONERA помогает со встречей.',
     privacyConversionLabel:'ПРИВАТНОСТЬ — ЧАСТЬ РОСКОШИ', privacyConversionTitle:'Вы решаете, кто вас увидит.',
     privacyConversionText:'Мы не публикуем e-mail, телефон, фамилию и точную дату рождения. Анкета появляется только в приватной подборке.',
-    footerConversionTag:'Одна настоящая встреча может изменить всё.'
+    footerConversionTag:'Одна настоящая встреча может изменить всё.',
+    appInstallTitle:'DUONERA в телефоне', appInstallText:'Быстрый доступ без панели браузера', appInstallButton:'Установить',
+    appInstallHelpTitle:'Добавьте DUONERA на главный экран', appInstallHelpText:'Приложение откроется на весь экран и всегда будет под рукой.'
   }
 };
 
@@ -525,6 +535,9 @@ loadPublicProfiles();
 /* Installable DUONERA app */
 let duoneraInstallPrompt = null;
 const duoneraInstallButtons = [...document.querySelectorAll('[data-pwa-install]')];
+const duoneraInstallBanner = document.querySelector('[data-app-install-banner]');
+const duoneraInstallModal = document.querySelector('[data-app-install-modal]');
+const duoneraInstallSteps = document.querySelector('[data-app-install-steps]');
 const duoneraInstallLabels = {
   cs: 'Instalovat aplikaci',
   en: 'Install app',
@@ -533,32 +546,66 @@ const duoneraInstallLabels = {
   ru: 'Установить приложение'
 };
 
+const duoneraInstallInstructions = {
+  cs:{ios:['Otevřete stránku v Safari.','Klepněte dole na ikonu Sdílet.','Vyberte Přidat na plochu a potvrďte Přidat.'],android:['Otevřete nabídku prohlížeče ⋮.','Vyberte Nainstalovat aplikaci nebo Přidat na plochu.','Potvrďte instalaci DUONERA.']},
+  en:{ios:['Open this page in Safari.','Tap the Share icon at the bottom.','Choose Add to Home Screen and confirm Add.'],android:['Open the browser menu ⋮.','Choose Install app or Add to Home screen.','Confirm the DUONERA installation.']},
+  de:{ios:['Öffnen Sie diese Seite in Safari.','Tippen Sie unten auf das Teilen-Symbol.','Wählen Sie Zum Home-Bildschirm und bestätigen Sie Hinzufügen.'],android:['Öffnen Sie das Browsermenü ⋮.','Wählen Sie App installieren oder Zum Startbildschirm.','Bestätigen Sie die Installation von DUONERA.']},
+  uk:{ios:['Відкрийте цю сторінку в Safari.','Натисніть унизу значок Поділитися.','Виберіть На початковий екран і підтвердьте Додати.'],android:['Відкрийте меню браузера ⋮.','Виберіть Встановити застосунок або Додати на головний екран.','Підтвердьте встановлення DUONERA.']},
+  ru:{ios:['Откройте эту страницу в Safari.','Нажмите внизу значок Поделиться.','Выберите На экран «Домой» и подтвердите Добавить.'],android:['Откройте меню браузера ⋮.','Выберите Установить приложение или Добавить на главный экран.','Подтвердите установку DUONERA.']}
+};
+
+function duoneraAppLanguage(){
+  const value = localStorage.getItem('duonera-lang') || document.documentElement.lang || 'cs';
+  return value === 'ua' ? 'uk' : value;
+}
+
+function duoneraIsStandalone(){
+  return window.matchMedia('(display-mode: standalone)').matches || Boolean(window.navigator.standalone);
+}
+
+function duoneraInstallDismissed(){
+  try { return sessionStorage.getItem('duonera-install-dismissed') === 'true'; } catch (error) { return false; }
+}
+
+function duoneraAnalyticsChoiceMade(){
+  try { return Boolean(localStorage.getItem('duoneraAnalyticsConsent')); } catch (error) { return true; }
+}
+
 function updateDuoneraInstallButtons() {
-  const standalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
-  const lang = localStorage.getItem('duonera-public-language') || document.documentElement.lang || 'cs';
+  const standalone = duoneraIsStandalone();
+  const lang = duoneraAppLanguage();
   duoneraInstallButtons.forEach(button => {
     button.hidden = Boolean(standalone);
     button.textContent = duoneraInstallLabels[lang] || duoneraInstallLabels.cs;
   });
+  if (duoneraInstallBanner) {
+    duoneraInstallBanner.hidden = Boolean(standalone || duoneraInstallDismissed() || !duoneraAnalyticsChoiceMade());
+  }
 }
 
 function showInstallHelp() {
-  const lang = localStorage.getItem('duonera-public-language') || document.documentElement.lang || 'cs';
-  const messages = {
-    cs: /iPad|iPhone|iPod/.test(navigator.userAgent)
-      ? 'V Safari zvolte Sdílet a potom Přidat na plochu.'
-      : 'V nabídce prohlížeče zvolte Instalovat aplikaci nebo Přidat na plochu.',
-    en: 'Open the browser menu and choose Install app or Add to Home screen.',
-    de: 'Öffnen Sie das Browsermenü und wählen Sie App installieren oder Zum Startbildschirm.',
-    uk: 'У меню браузера виберіть Встановити застосунок або Додати на головний екран.',
-    ru: 'В меню браузера выберите Установить приложение или Добавить на главный экран.'
-  };
-  if (toast) {
-    toast.textContent = messages[lang] || messages.cs;
-    toast.classList.add('show');
-    clearTimeout(window.__toastTimer);
-    window.__toastTimer = setTimeout(() => toast.classList.remove('show'), 5200);
-  }
+  if (!duoneraInstallModal || !duoneraInstallSteps) return;
+  const lang = duoneraAppLanguage();
+  const platform = /iPad|iPhone|iPod/.test(navigator.userAgent) ? 'ios' : 'android';
+  const instructions = (duoneraInstallInstructions[lang] || duoneraInstallInstructions.cs)[platform];
+  duoneraInstallSteps.replaceChildren(...instructions.map((text, index) => {
+    const item = document.createElement('li');
+    const number = document.createElement('span');
+    number.textContent = String(index + 1);
+    const copy = document.createElement('strong');
+    copy.textContent = text;
+    item.append(number, copy);
+    return item;
+  }));
+  duoneraInstallModal.hidden = false;
+  document.body.classList.add('app-install-open');
+  if (typeof window.gtag === 'function') window.gtag('event', 'app_install_help', {platform});
+}
+
+function closeInstallHelp(){
+  if (!duoneraInstallModal) return;
+  duoneraInstallModal.hidden = true;
+  document.body.classList.remove('app-install-open');
 }
 
 window.addEventListener('beforeinstallprompt', event => {
@@ -582,13 +629,26 @@ duoneraInstallButtons.forEach(button => {
       return;
     }
     duoneraInstallPrompt.prompt();
-    await duoneraInstallPrompt.userChoice;
-    duoneraInstallPrompt = null;
+    const choice = await duoneraInstallPrompt.userChoice;
+    if (choice.outcome === 'accepted') duoneraInstallPrompt = null;
     updateDuoneraInstallButtons();
   });
 });
 
+document.querySelectorAll('[data-app-install-modal-close]').forEach(button => button.addEventListener('click', closeInstallHelp));
+document.querySelector('[data-app-install-close]')?.addEventListener('click', () => {
+  try { sessionStorage.setItem('duonera-install-dismissed', 'true'); } catch (error) {}
+  updateDuoneraInstallButtons();
+});
+
 document.querySelectorAll('[data-lang]').forEach(button => {
+  button.addEventListener('click', () => setTimeout(() => {
+    updateDuoneraInstallButtons();
+    if (duoneraInstallModal && !duoneraInstallModal.hidden) showInstallHelp();
+  }, 0));
+});
+
+document.querySelectorAll('#analyticsAccept, #analyticsDecline').forEach(button => {
   button.addEventListener('click', () => setTimeout(updateDuoneraInstallButtons, 0));
 });
 
