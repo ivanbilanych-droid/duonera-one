@@ -37,7 +37,7 @@
       if (localStorage.getItem('duoneraAnalyticsConsent') === 'granted') window.duoneraLoadAnalytics();
     } catch (e) {}
   </script>
-  <link rel="stylesheet" href="styles.css?v=29">
+  <link rel="stylesheet" href="styles.css?v=30">
 </head>
 <body>
   <header class="site-header" id="top">
@@ -258,8 +258,3 @@
       try { choice = localStorage.getItem('duoneraAnalyticsConsent'); } catch (e) {}
       if (!choice) banner.hidden = false;
       accept.addEventListener('click', function () { try { localStorage.setItem('duoneraAnalyticsConsent', 'granted'); } catch (e) {} banner.hidden = true; window.duoneraLoadAnalytics(); });
-      decline.addEventListener('click', function () { try { localStorage.setItem('duoneraAnalyticsConsent', 'denied'); } catch (e) {} banner.hidden = true; });
-    });
-  </script>
-</body>
-</html>
