@@ -210,9 +210,101 @@ const processTranslations = {
   }
 };
 
-Object.entries(processTranslations).forEach(([language, values]) => {
-  Object.assign(translations[language], values);
-});
+const conversionTranslations = {
+  cs: {
+    registerFree:'Začít zdarma', heroKicker:'SOUKROMÉ SEZNÁMENÍ PRO VÁŽNÝ VZTAH V EVROPĚ',
+    heroConversionTitle:'Jedno skutečné setkání může změnit všechno.',
+    heroConversionLead:'DUONERA spojuje lidi, kteří nehledají další chat, ale opravdový vztah. Bez nekonečného swipování. S respektem k vašemu soukromí.',
+    europeLine:'Česko · Polsko · Německo · Slovensko · celá Evropa', formKicker:'PRVNÍ KROK JE ZDARMA', formConversionTitle:'Začněte za 30 sekund',
+    submitConversion:'Začít soukromou registraci', formConversionNote:'Bez platby. Bez automatického předplatného. Kontakty nejsou veřejné.',
+    heroCaption:'Ne náhoda. Vzájemná volba.', trustStartTitle:'Začátek zdarma', trustStartText:'Bez karty a bez závazku',
+    trustPrivacyTitle:'Soukromý profil', trustPrivacyText:'Kontakty nezveřejňujeme', trustEuropeTitle:'Celá Evropa', trustEuropeText:'Nezáleží, kde právě žijete',
+    trustGoalTitle:'Skutečný cíl', trustGoalText:'Seznámení, ne nekonečný chat', manifestoLabel:'PRO NOVOU KAPITOLU ŽIVOTA',
+    manifestoTitle:'Ne další seznamka. Cesta ke skutečnému člověku.', manifestoText:'Život se mění: nové město, nová země, nový začátek. DUONERA je pro ty, kteří chtějí znovu cítit blízkost a potkat člověka se stejným záměrem.',
+    manifestoCta:'Udělat první krok →', howConversionTitle:'Tři kroky od registrace ke skutečnému setkání.',
+    how1Title:'Řeknete, koho hledáte', how1Text:'Krátká registrace nám dá základ. Podrobný profil doplníte až potom.',
+    how2Title:'Uvidíte vhodné lidi', how2Text:'Méně profilů, více pozornosti. Žádný nekonečný veřejný katalog.',
+    how3Title:'Potvrdíte vzájemný zájem', how3Text:'Kontakty se otevírají až po vzájemné volbě a DUONERA pomůže se setkáním.',
+    privacyConversionLabel:'PRIVÁTNOST JE SOUČÁST LUXUSU', privacyConversionTitle:'Vy rozhodujete, kdo vás uvidí.',
+    privacyConversionText:'E-mail, telefon, příjmení a přesné datum narození nezveřejňujeme. Profil se zobrazuje pouze v rámci soukromého výběru.',
+    footerConversionTag:'Jedno skutečné setkání může změnit všechno.'
+  },
+  en: {
+    registerFree:'Start for free', heroKicker:'PRIVATE DATING FOR A SERIOUS RELATIONSHIP IN EUROPE',
+    heroConversionTitle:'One real meeting can change everything.',
+    heroConversionLead:'DUONERA connects people who are not looking for another chat, but for a real relationship. No endless swiping. With respect for your privacy.',
+    europeLine:'Czechia · Poland · Germany · Slovakia · all of Europe', formKicker:'THE FIRST STEP IS FREE', formConversionTitle:'Start in 30 seconds',
+    submitConversion:'Start private registration', formConversionNote:'No payment. No automatic subscription. Contact details stay private.',
+    heroCaption:'Not chance. A mutual choice.', trustStartTitle:'Free to start', trustStartText:'No card and no commitment',
+    trustPrivacyTitle:'Private profile', trustPrivacyText:'Contact details stay hidden', trustEuropeTitle:'Across Europe', trustEuropeText:'Where you live does not matter',
+    trustGoalTitle:'A real goal', trustGoalText:'A meeting, not endless chat', manifestoLabel:'FOR A NEW CHAPTER',
+    manifestoTitle:'Not another dating app. A path to a real person.', manifestoText:'Life changes: a new city, a new country, a new beginning. DUONERA is for people ready to feel close again and meet someone with the same intention.',
+    manifestoCta:'Take the first step →', howConversionTitle:'Three steps from registration to a real meeting.',
+    how1Title:'Tell us who you are looking for', how1Text:'A short registration gives us the essentials. Complete your detailed profile afterwards.',
+    how2Title:'See suitable people', how2Text:'Fewer profiles, more attention. No endless public catalogue.',
+    how3Title:'Confirm mutual interest', how3Text:'Contact details open only after a mutual choice, and DUONERA helps with the meeting.',
+    privacyConversionLabel:'PRIVACY IS PART OF LUXURY', privacyConversionTitle:'You decide who can see you.',
+    privacyConversionText:'We never publish your email, phone, surname or exact date of birth. Your profile appears only within a private selection.',
+    footerConversionTag:'One real meeting can change everything.'
+  },
+  de: {
+    registerFree:'Kostenlos starten', heroKicker:'PRIVATE PARTNERSUCHE FÜR EINE ERNSTE BEZIEHUNG IN EUROPA',
+    heroConversionTitle:'Eine echte Begegnung kann alles verändern.',
+    heroConversionLead:'DUONERA verbindet Menschen, die keinen weiteren Chat, sondern eine echte Beziehung suchen. Kein endloses Wischen. Mit Respekt für Ihre Privatsphäre.',
+    europeLine:'Tschechien · Polen · Deutschland · Slowakei · ganz Europa', formKicker:'DER ERSTE SCHRITT IST KOSTENLOS', formConversionTitle:'Starten Sie in 30 Sekunden',
+    submitConversion:'Private Registrierung starten', formConversionNote:'Keine Zahlung. Kein automatisches Abo. Kontaktdaten bleiben privat.',
+    heroCaption:'Kein Zufall. Eine gemeinsame Wahl.', trustStartTitle:'Kostenlos starten', trustStartText:'Ohne Karte und Verpflichtung',
+    trustPrivacyTitle:'Privates Profil', trustPrivacyText:'Kontaktdaten bleiben verborgen', trustEuropeTitle:'Ganz Europa', trustEuropeText:'Ihr Wohnort spielt keine Rolle',
+    trustGoalTitle:'Ein echtes Ziel', trustGoalText:'Begegnung statt endlosem Chat', manifestoLabel:'FÜR EIN NEUES KAPITEL',
+    manifestoTitle:'Nicht noch eine Dating-App. Der Weg zu einem echten Menschen.', manifestoText:'Das Leben verändert sich: eine neue Stadt, ein neues Land, ein neuer Anfang. DUONERA ist für Menschen, die wieder Nähe spüren und jemanden mit derselben Absicht treffen möchten.',
+    manifestoCta:'Den ersten Schritt machen →', howConversionTitle:'Drei Schritte von der Registrierung zur echten Begegnung.',
+    how1Title:'Sagen Sie, wen Sie suchen', how1Text:'Die kurze Registrierung gibt uns die Basis. Ihr ausführliches Profil ergänzen Sie danach.',
+    how2Title:'Sehen Sie passende Menschen', how2Text:'Weniger Profile, mehr Aufmerksamkeit. Kein endloser öffentlicher Katalog.',
+    how3Title:'Bestätigen Sie gegenseitiges Interesse', how3Text:'Kontaktdaten öffnen sich erst bei gegenseitiger Wahl. DUONERA hilft beim Treffen.',
+    privacyConversionLabel:'PRIVATSPHÄRE GEHÖRT ZUM LUXUS', privacyConversionTitle:'Sie entscheiden, wer Sie sehen darf.',
+    privacyConversionText:'E-Mail, Telefon, Nachname und genaues Geburtsdatum werden nicht veröffentlicht. Ihr Profil erscheint nur in einer privaten Auswahl.',
+    footerConversionTag:'Eine echte Begegnung kann alles verändern.'
+  },
+  uk: {
+    registerFree:'Почати безкоштовно', heroKicker:'ПРИВАТНІ ЗНАЙОМСТВА ДЛЯ СЕРЙОЗНИХ СТОСУНКІВ У ЄВРОПІ',
+    heroConversionTitle:'Одна справжня зустріч може змінити все.',
+    heroConversionLead:'DUONERA об’єднує людей, які шукають не черговий чат, а справжні стосунки. Без нескінченного гортання. З повагою до вашої приватності.',
+    europeLine:'Чехія · Польща · Німеччина · Словаччина · вся Європа', formKicker:'ПЕРШИЙ КРОК БЕЗКОШТОВНИЙ', formConversionTitle:'Почніть за 30 секунд',
+    submitConversion:'Почати приватну реєстрацію', formConversionNote:'Без оплати. Без автоматичної підписки. Контакти не публікуються.',
+    heroCaption:'Не випадковість. Взаємний вибір.', trustStartTitle:'Початок безкоштовний', trustStartText:'Без картки та зобов’язань',
+    trustPrivacyTitle:'Приватна анкета', trustPrivacyText:'Контакти залишаються прихованими', trustEuropeTitle:'Уся Європа', trustEuropeText:'Неважливо, де ви зараз живете',
+    trustGoalTitle:'Справжня мета', trustGoalText:'Зустріч, а не нескінченний чат', manifestoLabel:'ДЛЯ НОВОГО РОЗДІЛУ ЖИТТЯ',
+    manifestoTitle:'Не ще один застосунок. Шлях до справжньої людини.', manifestoText:'Життя змінюється: нове місто, нова країна, новий початок. DUONERA — для тих, хто хоче знову відчути близькість і зустріти людину з таким самим наміром.',
+    manifestoCta:'Зробити перший крок →', howConversionTitle:'Три кроки від реєстрації до справжньої зустрічі.',
+    how1Title:'Розкажіть, кого шукаєте', how1Text:'Коротка реєстрація дає нам основу. Детальну анкету заповните пізніше.',
+    how2Title:'Побачте відповідних людей', how2Text:'Менше анкет, більше уваги. Жодного нескінченного публічного каталогу.',
+    how3Title:'Підтвердьте взаємний інтерес', how3Text:'Контакти відкриваються лише після взаємного вибору, а DUONERA допомагає із зустріччю.',
+    privacyConversionLabel:'ПРИВАТНІСТЬ — ЧАСТИНА РОЗКОШІ', privacyConversionTitle:'Ви вирішуєте, хто вас побачить.',
+    privacyConversionText:'Ми не публікуємо e-mail, телефон, прізвище чи точну дату народження. Анкета з’являється лише у приватній добірці.',
+    footerConversionTag:'Одна справжня зустріч може змінити все.'
+  },
+  ru: {
+    registerFree:'Начать бесплатно', heroKicker:'ПРИВАТНЫЕ ЗНАКОМСТВА ДЛЯ СЕРЬЁЗНЫХ ОТНОШЕНИЙ В ЕВРОПЕ',
+    heroConversionTitle:'Одна настоящая встреча может изменить всё.',
+    heroConversionLead:'DUONERA объединяет людей, которым нужен не очередной чат, а настоящие отношения. Без бесконечного листания. С уважением к вашей приватности.',
+    europeLine:'Чехия · Польша · Германия · Словакия · вся Европа', formKicker:'ПЕРВЫЙ ШАГ БЕСПЛАТНЫЙ', formConversionTitle:'Начните за 30 секунд',
+    submitConversion:'Начать приватную регистрацию', formConversionNote:'Без оплаты. Без автоматической подписки. Контакты не публикуются.',
+    heroCaption:'Не случайность. Взаимный выбор.', trustStartTitle:'Начало бесплатно', trustStartText:'Без карты и обязательств',
+    trustPrivacyTitle:'Приватная анкета', trustPrivacyText:'Контакты остаются скрытыми', trustEuropeTitle:'Вся Европа', trustEuropeText:'Неважно, где вы сейчас живёте',
+    trustGoalTitle:'Настоящая цель', trustGoalText:'Встреча, а не бесконечный чат', manifestoLabel:'ДЛЯ НОВОЙ ГЛАВЫ ЖИЗНИ',
+    manifestoTitle:'Не ещё одно приложение. Путь к настоящему человеку.', manifestoText:'Жизнь меняется: новый город, новая страна, новое начало. DUONERA — для тех, кто хочет снова почувствовать близость и встретить человека с теми же намерениями.',
+    manifestoCta:'Сделать первый шаг →', howConversionTitle:'Три шага от регистрации до настоящей встречи.',
+    how1Title:'Расскажите, кого ищете', how1Text:'Короткая регистрация даёт нам основу. Подробную анкету заполните позже.',
+    how2Title:'Увидьте подходящих людей', how2Text:'Меньше анкет, больше внимания. Никакого бесконечного публичного каталога.',
+    how3Title:'Подтвердите взаимный интерес', how3Text:'Контакты открываются только после взаимного выбора, а DUONERA помогает со встречей.',
+    privacyConversionLabel:'ПРИВАТНОСТЬ — ЧАСТЬ РОСКОШИ', privacyConversionTitle:'Вы решаете, кто вас увидит.',
+    privacyConversionText:'Мы не публикуем e-mail, телефон, фамилию и точную дату рождения. Анкета появляется только в приватной подборке.',
+    footerConversionTag:'Одна настоящая встреча может изменить всё.'
+  }
+};
+
+Object.entries(processTranslations).forEach(([language, values]) => Object.assign(translations[language], values));
+Object.entries(conversionTranslations).forEach(([language, values]) => Object.assign(translations[language], values));
 
 let publicProfiles = [];
 const fallback = translations.cs;
@@ -231,7 +323,10 @@ function setLanguage(lang){
   if(publicProfiles.length) renderPublicProfiles();
 }
 langButtons.forEach(btn => btn.addEventListener('click',()=>setLanguage(btn.dataset.lang)));
-setLanguage(localStorage.getItem('duonera-lang') || 'cs');
+const languageAliases = {ua:'uk',uk:'uk',ru:'ru',de:'de',en:'en',cs:'cs',cz:'cs'};
+const requestedLanguage = languageAliases[new URLSearchParams(location.search).get('lang')?.toLowerCase()];
+const browserLanguage = languageAliases[(navigator.language || '').split('-')[0].toLowerCase()];
+setLanguage(requestedLanguage || localStorage.getItem('duonera-lang') || browserLanguage || 'cs');
 
 document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -355,7 +450,18 @@ if(shortRegistrationForm){
     };
     const status = statusMessages[language] || statusMessages.cs;
 
+    const landingParams = new URLSearchParams(location.search);
+    const attribution = {
+      source: landingParams.get('utm_source') || 'direct',
+      medium: landingParams.get('utm_medium') || '',
+      campaign: landingParams.get('utm_campaign') || '',
+      content: landingParams.get('utm_content') || '',
+      landing_language: language,
+      landing_path: location.pathname,
+      referrer: document.referrer || ''
+    };
     const localData = Object.fromEntries(formData.entries());
+    localData._attribution = attribution;
     const payload = {
       id: leadId,
       gender: String(formData.get('Jsem') || '').trim(),
@@ -380,6 +486,9 @@ if(shortRegistrationForm){
       if (typeof window.gtag === 'function') {
         window.gtag('event', 'generate_lead', {
           method: 'short_registration',
+          campaign_source: attribution.source,
+          campaign_name: attribution.campaign,
+          landing_language: attribution.landing_language,
           transport_type: 'beacon'
         });
       }
