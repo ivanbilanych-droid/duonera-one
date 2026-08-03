@@ -1,19 +1,15 @@
-const CACHE_NAME = 'duonera-app-v21';
+const CACHE_NAME = 'duonera-app-v22';
 const CORE_FILES = [
   '/',
   '/index.html',
   '/manifest.webmanifest?v=2',
-  '/styles-studio.css?v=1',
-  '/app.js?v=26',
+  '/styles-origin.css?v=1',
+  '/origin.js?v=1',
   '/assets/favicon.svg',
-  '/assets/duonera-mark.svg',
   '/assets/duonera-avatar.png',
   '/assets/duonera-app-icon-180.png',
   '/assets/duonera-app-icon-192.png',
   '/assets/duonera-app-icon-512.png',
-  '/assets/profile-karolina-v2.webp',
-  '/assets/profile-david-v2.webp',
-  '/assets/profile-marina-v2.webp',
   '/assets/duonera-app-icon-maskable-512.png',
   '/ucet.html',
   '/ucet.css',
@@ -65,17 +61,14 @@ self.addEventListener('fetch', event => {
   }
 
   event.respondWith(
-    caches.match(request).then(cached => {
-      const network = fetch(request)
-        .then(response => {
-          if (response.ok) {
-            const copy = response.clone();
-            caches.open(CACHE_NAME).then(cache => cache.put(request, copy));
-          }
-          return response;
-        })
-        .catch(() => cached);
-      return cached || network;
-    })
+    fetch(request)
+      .then(response => {
+        if (response.ok) {
+          const copy = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(request, copy));
+        }
+        return response;
+      })
+      .catch(() => caches.match(request))
   );
 });
