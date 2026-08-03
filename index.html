@@ -37,7 +37,7 @@
       if (localStorage.getItem('duoneraAnalyticsConsent') === 'granted') window.duoneraLoadAnalytics();
     } catch (e) {}
   </script>
-  <link rel="stylesheet" href="styles-light.css?v=4">
+  <link rel="stylesheet" href="styles-light.css?v=5">
 </head>
 <body>
   <header class="site-header" id="top">
@@ -54,7 +54,6 @@
         <button type="button" class="active" data-lang="cs">CZ</button><button type="button" data-lang="en">EN</button><button type="button" data-lang="de">DE</button><button type="button" data-lang="uk">UA</button><button type="button" data-lang="ru">RU</button>
       </div>
       <a class="account-link" href="ucet.html" data-i18n="account">Můj účet</a>
-      <a class="btn btn-primary header-cta" href="#register" data-i18n="registerFree">Registrace zdarma</a>
       <button class="menu-toggle" type="button" aria-label="Otevřít menu" aria-expanded="false"><span></span><span></span><span></span></button>
     </div>
   </header>
@@ -83,21 +82,6 @@
         </figure>
       </div>
 
-      <section class="people-showcase" aria-labelledby="people-title">
-        <div class="shell">
-          <div class="people-heading">
-            <div><p class="section-label" data-i18n="peopleLabel">OVĚŘENÍ LIDÉ</p><h2 id="people-title" data-i18n="peopleTitle">Podívejte se, koho můžete v DUONERA potkat.</h2></div>
-            <p data-i18n="peopleText">Zobrazujeme pouze schválené profily lidí, kteří s náhledem výslovně souhlasili. Kontaktní údaje zůstávají skryté.</p>
-          </div>
-          <div class="public-profile-grid" id="publicProfileGrid" aria-live="polite"><div class="public-profile-state" data-i18n="discoveryLoading">Načítání schválených profilů…</div></div>
-          <div class="founding-state" id="foundingState" hidden>
-            <span class="founding-index">01</span>
-            <div><p class="section-label" data-i18n="foundingLabel">ZAKLÁDAJÍCÍ SKUPINA SE PRÁVĚ OTEVÍRÁ</p><h3 data-i18n="foundingTitle">První skutečné profily začínají právě u vás.</h3><p data-i18n="foundingText">Vyplňte vlastní profil a fotografie. Po kontrole rozhodnete, zda se váš náhled zobrazí ostatním. Příjmení, telefon ani e-mail nezveřejňujeme.</p></div>
-            <a class="btn btn-primary btn-large" href="#register" data-i18n="foundingCta">Přidat svůj profil</a>
-          </div>
-        </div>
-      </section>
-
       <div class="register-wrap">
         <form class="register-form" id="register" novalidate>
           <input type="text" name="_honey" class="honeypot" tabindex="-1" autocomplete="off">
@@ -120,6 +104,23 @@
           <p class="form-note" data-i18n="formConversionNote">Bez platby. O zobrazení profilu rozhodujete vy.</p>
         </form>
       </div>
+
+      <section class="people-showcase" aria-labelledby="people-title">
+        <div class="shell">
+          <div class="people-heading">
+            <div><p class="section-label" data-i18n="peopleLabel">OVĚŘENÍ LIDÉ</p><h2 id="people-title" data-i18n="peopleTitle">Podívejte se, koho můžete v DUONERA potkat.</h2></div>
+            <p data-i18n="peopleText">Zobrazujeme pouze schválené profily lidí, kteří s náhledem výslovně souhlasili. Kontaktní údaje zůstávají skryté.</p>
+          </div>
+          <div class="public-profile-grid" id="publicProfileGrid" aria-live="polite"><div class="public-profile-state" data-i18n="discoveryLoading">Načítání schválených profilů…</div></div>
+          <div class="founding-state" id="foundingState" hidden>
+            <div class="founding-portraits" role="img" aria-label="Ilustrační portréty kampaně DUONERA — nejde o členy">
+              <span></span><span></span><span></span><span></span>
+              <small data-i18n="heroImageCaption">Ilustrační fotografie — nikoli členové DUONERA.</small>
+            </div>
+            <div class="founding-copy"><p class="section-label" data-i18n="foundingLabel">ZAKLÁDAJÍCÍ SKUPINA SE PRÁVĚ OTEVÍRÁ</p><h3 data-i18n="foundingTitle">První skutečné profily začínají právě u vás.</h3><p data-i18n="foundingText">Vyplňte vlastní profil a fotografie. Po kontrole rozhodnete, zda se váš náhled zobrazí ostatním. Příjmení, telefon ani e-mail nezveřejňujeme.</p><a class="btn btn-primary btn-large" href="#register" data-i18n="foundingCta">Přidat svůj profil</a></div>
+          </div>
+        </div>
+      </section>
     </section>
 
     <section class="trust-band"><div class="shell trust-grid">
@@ -178,7 +179,11 @@
   </div><div class="shell footer-bottom">© <span id="year"></span> DUONERA</div></footer>
 
   <div class="toast" role="status" aria-live="polite"></div>
-  <script type="module" src="app.js?v=24"></script>
+  <nav class="mobile-action-bar" aria-label="Rychlé akce">
+    <a href="ucet.html" data-i18n="account">Můj účet</a>
+    <a class="btn btn-primary" href="#register" data-i18n="registerFree">Přidat svůj profil</a>
+  </nav>
+  <script type="module" src="app.js?v=25"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       var form = document.querySelector('.register-form');

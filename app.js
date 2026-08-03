@@ -421,6 +421,7 @@ mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
 
 const publicProfileGrid = document.querySelector('#publicProfileGrid');
 const foundingState = document.querySelector('#foundingState');
+const peopleHeading = document.querySelector('.people-heading');
 const DISCOVERY_BUCKET = 'duonera-discovery-photos';
 
 function encodedPublicPath(path){
@@ -440,11 +441,13 @@ function renderPublicProfiles(){
   if(!publicProfiles.length){
     publicProfileGrid.hidden = true;
     if(foundingState) foundingState.hidden = false;
+    if(peopleHeading) peopleHeading.hidden = true;
     return;
   }
 
   publicProfileGrid.hidden = false;
   if(foundingState) foundingState.hidden = true;
+  if(peopleHeading) peopleHeading.hidden = false;
 
   publicProfiles.slice(0,6).forEach(profile=>{
     const card = document.createElement('article');

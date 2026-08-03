@@ -65,3 +65,56 @@ footer{padding:38px 0 22px;color:#5e534b;border-top:1px solid var(--line);backgr
 
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}
 @media(display-mode:standalone){.site-header{padding-top:env(safe-area-inset-top);height:calc(64px + env(safe-area-inset-top))}}
+
+/* Product-first mobile experience */
+.people-heading[hidden]{display:none!important}
+.header-cta{display:none!important}
+.founding-state{overflow:hidden;padding:0;background:#fff}
+.founding-portraits{position:relative;display:grid;grid-template-columns:repeat(4,1fr);height:230px;overflow:hidden;background:#eadfd3}
+.founding-portraits>span{background-image:url('assets/duonera-founding-people-v1.webp');background-repeat:no-repeat;background-size:400% 100%;filter:saturate(.92) contrast(1.02)}
+.founding-portraits>span:nth-child(1){background-position:0 center}
+.founding-portraits>span:nth-child(2){background-position:33.333% center}
+.founding-portraits>span:nth-child(3){background-position:66.666% center}
+.founding-portraits>span:nth-child(4){background-position:100% center}
+.founding-portraits small{position:absolute;right:10px;bottom:9px;padding:6px 8px;color:#fff;border:1px solid rgba(255,255,255,.5);border-radius:8px;background:rgba(66,28,36,.72);font-size:7px;line-height:1.2;backdrop-filter:blur(8px)}
+.founding-copy{padding:23px 20px 20px}
+.founding-copy .section-label{margin-bottom:8px}
+.founding-copy>p:last-of-type{margin:0;color:#70635b;font-size:12px;line-height:1.62}
+.founding-copy .btn{width:100%;margin-top:17px}
+.mobile-action-bar{position:fixed;z-index:80;right:0;bottom:0;left:0;display:grid;grid-template-columns:.72fr 1.28fr;align-items:center;gap:8px;padding:9px 12px calc(9px + env(safe-area-inset-bottom));border-top:1px solid rgba(118,38,59,.12);background:rgba(255,250,241,.96);box-shadow:0 -14px 34px rgba(72,38,29,.12);backdrop-filter:blur(18px)}
+.mobile-action-bar>a:first-child{min-height:47px;display:grid;place-items:center;color:var(--wine);font-size:11px;font-weight:800}
+.mobile-action-bar .btn{min-height:47px;padding:0 16px;font-size:11px}
+
+@media(max-width:760px){
+  body{padding-bottom:76px}
+  .site-header{height:58px;padding-inline:10px}
+  .brand img{width:38px;height:38px}
+  .lang-switch button{width:28px;height:29px;font-size:8px}
+  .menu-toggle{width:33px;padding-inline:4px}
+  .mobile-menu{inset:58px 0 auto}
+  .hero-visual{height:clamp(270px,50vh,390px)}
+  .hero-visual figcaption{right:10px;bottom:10px;max-width:calc(100% - 20px);padding:7px 9px}
+  .hero-visual figcaption strong{font-size:11px}
+  .hero-copy{padding:24px 18px 20px}
+  .hero h1{font-size:clamp(39px,11vw,52px);line-height:.96}
+  .hero-lead{margin-top:13px;font-size:13px;line-height:1.55}
+  .europe-line{margin:13px 0 16px}
+  .hero-actions{grid-template-columns:1fr auto;align-items:center;gap:13px}
+  .hero-actions .btn{width:auto;padding-inline:20px}
+  .text-link{font-size:10px}
+  .hero-signature{margin-top:16px;padding-top:13px}
+  .register-wrap{width:calc(100% - 24px);margin:0 auto 24px}
+  .people-showcase{padding:28px 0 32px}
+  .founding-state{gap:0;border-radius:22px}
+  .founding-state h3{font-size:29px}
+}
+
+@media(min-width:761px){
+  body{padding-bottom:0}
+  .mobile-action-bar{display:none}
+  .founding-state{grid-template-columns:minmax(420px,.95fr) minmax(0,1.05fr);gap:0;align-items:stretch;padding:0}
+  .founding-portraits{height:auto;min-height:390px}
+  .founding-copy{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:48px}
+  .founding-copy>p:last-of-type{max-width:620px;font-size:14px}
+  .founding-copy .btn{width:auto;margin-top:24px}
+}
