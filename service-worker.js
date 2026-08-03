@@ -1,9 +1,9 @@
-const CACHE_NAME = 'duonera-app-v20';
+const CACHE_NAME = 'duonera-app-v21';
 const CORE_FILES = [
   '/',
   '/index.html',
   '/manifest.webmanifest?v=2',
-  '/styles-experience.css?v=1',
+  '/styles-studio.css?v=1',
   '/app.js?v=26',
   '/assets/favicon.svg',
   '/assets/duonera-mark.svg',
@@ -11,7 +11,6 @@ const CORE_FILES = [
   '/assets/duonera-app-icon-180.png',
   '/assets/duonera-app-icon-192.png',
   '/assets/duonera-app-icon-512.png',
-  '/assets/duonera-founding-people-v1.webp',
   '/assets/profile-karolina-v2.webp',
   '/assets/profile-david-v2.webp',
   '/assets/profile-marina-v2.webp',
@@ -45,7 +44,6 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   const request = event.request;
   if (request.method !== 'GET') return;
-
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
 
@@ -60,10 +58,7 @@ self.addEventListener('fetch', event => {
         .catch(async () => {
           return (await caches.match(request)) ||
             (await caches.match('/index.html')) ||
-            new Response('DUONERA je momentálně offline.', {
-              status: 503,
-              headers: { 'Content-Type': 'text/plain; charset=utf-8' }
-            });
+            new Response('DUONERA je momentálně offline.', { status:503, headers:{'Content-Type':'text/plain; charset=utf-8'} });
         })
     );
     return;
