@@ -4,15 +4,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="DUONERA — soukromé seznamování pro vážný vztah a skutečné setkání v Evropě.">
-  <meta name="theme-color" content="#210f16">
+  <meta name="theme-color" content="#f8f5ef">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="DUONERA">
   <meta name="application-name" content="DUONERA">
   <meta name="format-detection" content="telephone=no">
   <meta property="og:title" content="DUONERA — Private Dating Club">
-  <meta property="og:description" content="Budujeme komunitu nezadaných lidí, kteří hledají vztah s budoucností. Přidejte se k první ověřené skupině DUONERA.">
+  <meta property="og:description" content="Lidé, které stojí za to potkat. Soukromé seznámení bez nekonečného katalogu.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://duonera.cz">
   <meta property="og:image" content="https://duonera.cz/assets/profile-marina-v2.webp">
@@ -33,11 +33,9 @@
       ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-PR38YKQ9QF';
       document.head.appendChild(ga);
     };
-    try {
-      if (localStorage.getItem('duoneraAnalyticsConsent') === 'granted') window.duoneraLoadAnalytics();
-    } catch (e) {}
+    try { if (localStorage.getItem('duoneraAnalyticsConsent') === 'granted') window.duoneraLoadAnalytics(); } catch (e) {}
   </script>
-  <link rel="stylesheet" href="styles-experience.css?v=1">
+  <link rel="stylesheet" href="styles-studio.css?v=1">
 </head>
 <body>
   <header class="site-header" id="top">
@@ -64,20 +62,20 @@
     <a href="#how" data-i18n="navHow">Jak to funguje</a>
     <a href="#privacy" data-i18n="navSafety">Soukromí</a>
     <a href="ucet.html" data-i18n="account">Můj účet</a>
-    <a class="btn btn-gold" href="#register" data-i18n="registerFree">Přidat svůj profil</a>
+    <a class="btn btn-primary" href="#register" data-i18n="registerFree">Přidat svůj profil</a>
   </div>
 
   <main>
-    <section class="discovery" id="people" aria-labelledby="hero-title">
-      <div class="discovery-intro">
+    <section class="hero" id="people" aria-labelledby="hero-title">
+      <div class="hero-copy">
         <p class="eyebrow" data-i18n="heroKicker">PRVNÍ OVĚŘENÁ SKUPINA DUONERA</p>
         <h1 id="hero-title" data-i18n="heroConversionTitle">Lidé, které stojí za to potkat.</h1>
         <p class="hero-lead" data-i18n="heroConversionLead">Budujeme komunitu nezadaných lidí, kteří hledají vztah s budoucností. Přidejte svůj profil. Po kontrole sami rozhodnete, zda může být viditelný.</p>
-        <div class="intro-actions">
-          <a class="btn btn-gold" href="#register" data-i18n="registerFree">Přidat svůj profil</a>
-          <a class="quiet-link" href="#how" data-i18n="seeHow">Podívat se, jak to funguje</a>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#register" data-i18n="registerFree">Přidat svůj profil</a>
+          <a class="btn btn-secondary" href="#how" data-i18n="seeHow">Podívat se, jak to funguje</a>
         </div>
-        <div class="promise-line">
+        <div class="micro-proof">
           <span data-i18n="trustPrivacyTitle">Soukromý profil</span>
           <span data-i18n="trustGoalText">Seznámení, ne nekonečný chat</span>
           <span data-i18n="pointMutual">Vzájemná volba</span>
@@ -87,29 +85,20 @@
       <div class="people-stage">
         <div class="public-profile-grid" id="publicProfileGrid" aria-live="polite"><div class="public-profile-state" data-i18n="discoveryLoading">Načítání schválených profilů…</div></div>
         <div class="founding-state" id="foundingState" hidden>
-          <div class="editorial-track">
-            <article class="editorial-card">
-              <img src="assets/profile-karolina-v2.webp" alt="Ilustrační portrét ženy pro kampaň DUONERA" width="940" height="1536">
-              <span class="editorial-badge">DUONERA EDITORIAL</span>
-              <strong data-i18n="cardValue1">Vztah s budoucností</strong>
-            </article>
-            <article class="editorial-card">
-              <img src="assets/profile-david-v2.webp" alt="Ilustrační portrét muže pro kampaň DUONERA" width="940" height="1536">
-              <span class="editorial-badge">DUONERA EDITORIAL</span>
-              <strong data-i18n="cardValue2">Skutečné setkání</strong>
-            </article>
-            <article class="editorial-card">
-              <img src="assets/profile-marina-v2.webp" alt="Ilustrační portrét ženy pro kampaň DUONERA" width="940" height="1253">
-              <span class="editorial-badge">DUONERA EDITORIAL</span>
-              <strong data-i18n="cardValue3">Vzájemná volba</strong>
-            </article>
+          <div class="portrait-orbit" role="img" aria-label="Tváře kampaně DUONERA">
+            <figure class="portrait portrait-main"><img src="assets/profile-marina-v2.webp" alt="Ilustrační portrét ženy pro kampaň DUONERA" width="940" height="1253"></figure>
+            <figure class="portrait portrait-left"><img src="assets/profile-david-v2.webp" alt="Ilustrační portrét muže pro kampaň DUONERA" width="940" height="1536"></figure>
+            <figure class="portrait portrait-right"><img src="assets/profile-karolina-v2.webp" alt="Ilustrační portrét ženy pro kampaň DUONERA" width="940" height="1536"></figure>
+            <div class="portrait-note"><span data-i18n="cardValue1">Vztah s budoucností</span><small>DUONERA EDITORIAL</small></div>
           </div>
           <p class="campaign-note" data-i18n="campaignNote">Tváře kampaně — nejde o členy DUONERA. Skutečné schválené profily se zobrazí na tomto místě.</p>
         </div>
       </div>
     </section>
 
-    <section class="join-section" aria-labelledby="join-title">
+    <div class="ribbon" aria-hidden="true"><div class="ribbon-track"><span>Skuteční lidé</span><span>Soukromý výběr</span><span>Vztah s budoucností</span><span>Skutečné setkání</span><span>Skuteční lidé</span><span>Soukromý výběr</span><span>Vztah s budoucností</span><span>Skutečné setkání</span></div></div>
+
+    <section class="join" aria-labelledby="join-title">
       <div class="join-copy">
         <p class="section-label" data-i18n="formKicker">ZAKLÁDAJÍCÍ ČLENSTVÍ</p>
         <h2 id="join-title" data-i18n="formConversionTitle">Přidejte se mezi první ověřené členy</h2>
@@ -123,34 +112,28 @@
           <fieldset><legend data-i18n="formSeek">Hledám</legend><div class="quick-toggle" data-toggle-name="Hledám"><button type="button" data-toggle-value="Ženu" class="active" data-i18n="seekWoman">Ženu</button><button type="button" data-toggle-value="Muže" data-i18n="seekMan">Muže</button></div></fieldset>
         </div>
         <div class="form-fields">
-          <label class="age-field"><span data-i18n="formAge">Věk</span><input name="Věk" type="number" inputmode="numeric" min="18" max="90" required placeholder="45"></label>
+          <label><span data-i18n="formAge">Věk</span><input name="Věk" type="number" inputmode="numeric" min="18" max="90" required placeholder="45"></label>
           <label><span data-i18n="formCity">Město</span><input name="Město" type="text" autocomplete="address-level2" required placeholder="Praha"></label>
           <label><span data-i18n="formEmail">E-mail</span><input name="email" type="email" autocomplete="email" required placeholder="vas@email.cz"></label>
-          <button class="btn btn-gold btn-submit" type="submit" data-i18n="submitConversion">Vytvořit profil zdarma</button>
+          <button class="btn btn-primary btn-submit" type="submit" data-i18n="submitConversion">Vytvořit profil zdarma</button>
         </div>
         <label class="consent"><input type="checkbox" name="consent_privacy" value="true" required><span data-i18n="formConsent">Souhlasím se zpracováním údajů pro účely registrace a soukromého výběru DUONERA.</span></label>
       </form>
     </section>
 
-    <section class="principles">
-      <article><span>01</span><h3 data-i18n="trustPrivacyTitle">Soukromý profil</h3><p data-i18n="trustPrivacyText">Kontakty nezveřejňujeme</p></article>
-      <article><span>02</span><h3 data-i18n="trustGoalTitle">Skutečný cíl</h3><p data-i18n="trustGoalText">Seznámení, ne nekonečný chat</p></article>
-      <article><span>03</span><h3 data-i18n="pointMutual">Vzájemná volba</h3><p data-i18n="how3Text">Kontakty se otevírají až po vzájemné volbě a DUONERA pomůže se setkáním.</p></article>
-    </section>
-
     <section class="how" id="how">
       <div class="section-head"><p class="section-label" data-i18n="howLabel">JAK TO FUNGUJE</p><h2 data-i18n="howConversionTitle">Tři kroky od registrace ke skutečnému setkání.</h2></div>
       <div class="steps">
-        <article><span>01</span><div><h3 data-i18n="how1Title">Řeknete, koho hledáte</h3><p data-i18n="how1Text">Krátká registrace nám dá základ. Podrobný profil doplníte až potom.</p></div></article>
-        <article><span>02</span><div><h3 data-i18n="how2Title">Uvidíte vhodné lidi</h3><p data-i18n="how2Text">Méně profilů, více pozornosti. Žádný nekonečný veřejný katalog.</p></div></article>
-        <article><span>03</span><div><h3 data-i18n="how3Title">Potvrdíte vzájemný zájem</h3><p data-i18n="how3Text">Kontakty se otevírají až po vzájemné volbě a DUONERA pomůže se setkáním.</p></div></article>
+        <article><span>01</span><h3 data-i18n="how1Title">Řeknete, koho hledáte</h3><p data-i18n="how1Text">Krátká registrace nám dá základ. Podrobný profil doplníte až potom.</p></article>
+        <article><span>02</span><h3 data-i18n="how2Title">Uvidíte vhodné lidi</h3><p data-i18n="how2Text">Méně profilů, více pozornosti. Žádný nekonečný veřejný katalog.</p></article>
+        <article><span>03</span><h3 data-i18n="how3Title">Potvrdíte vzájemný zájem</h3><p data-i18n="how3Text">Kontakty se otevírají až po vzájemné volbě a DUONERA pomůže se setkáním.</p></article>
       </div>
     </section>
 
     <section class="privacy" id="privacy">
-      <img src="assets/duonera-avatar.png" alt="" width="96" height="96">
+      <div class="privacy-symbol"><img src="assets/duonera-avatar.png" alt="" width="96" height="96"></div>
       <div><p class="section-label" data-i18n="privacyConversionLabel">PRIVÁTNOST JE SOUČÁST LUXUSU</p><h2 data-i18n="privacyConversionTitle">Vy rozhodujete, kdo vás uvidí.</h2><p data-i18n="privacyConversionText">E-mail, telefon, příjmení a přesné datum narození nezveřejňujeme. Profil se zobrazuje pouze v rámci soukromého výběru.</p></div>
-      <a class="btn btn-gold" href="#register" data-i18n="registerFree">Přidat svůj profil</a>
+      <a class="btn btn-primary" href="#register" data-i18n="registerFree">Přidat svůj profil</a>
     </section>
   </main>
 
@@ -163,7 +146,7 @@
 
   <nav class="mobile-action-bar" aria-label="Rychlé akce">
     <a href="ucet.html" data-i18n="account">Můj účet</a>
-    <a class="btn btn-gold" href="#register" data-i18n="registerFree">Přidat svůj profil</a>
+    <a class="btn btn-primary" href="#register" data-i18n="registerFree">Přidat svůj profil</a>
   </nav>
   <div class="toast" role="status" aria-live="polite"></div>
   <script type="module" src="app.js?v=26"></script>
@@ -176,8 +159,7 @@
         if (input) input.value = value;
         form.querySelectorAll('[data-toggle-name="' + name + '"] [data-toggle-value]').forEach(function (button) { button.classList.toggle('active', button.getAttribute('data-toggle-value') === value); });
       }
-      form.querySelectorAll('[data-toggle-name] [data-toggle-value]').forEach(function (button) { button.addEventListener('click', function () { var group = button.closest('[data-toggle-name]'); setToggle(group.getAttribute('data-toggle-name'), button.getAttribute('data-toggle-value')); if (typeof window.gtag === 'function') window.gtag('event', 'registration_preference', {field: group.getAttribute('data-toggle-name')}); }); });
-      form.addEventListener('focusin', function () { if (form.dataset.started) return; form.dataset.started = 'true'; if (typeof window.gtag === 'function') window.gtag('event', 'begin_registration', {method:'people_first'}); });
+      form.querySelectorAll('[data-toggle-name] [data-toggle-value]').forEach(function (button) { button.addEventListener('click', function () { var group = button.closest('[data-toggle-name]'); setToggle(group.getAttribute('data-toggle-name'), button.getAttribute('data-toggle-value')); }); });
     });
   </script>
 
