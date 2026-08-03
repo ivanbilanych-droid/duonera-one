@@ -107,6 +107,7 @@ footer{padding:38px 0 22px;color:#5e534b;border-top:1px solid var(--line);backgr
   .people-showcase{padding:28px 0 32px}
   .founding-state{gap:0;border-radius:22px}
   .founding-state h3{font-size:29px}
+  .analytics-consent{bottom:calc(78px + env(safe-area-inset-bottom))}
 }
 
 @media(min-width:761px){
