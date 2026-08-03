@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f5eadc">
+  <meta name="robots" content="noindex,nofollow">
+  <title>DUONERA — nový vstup</title>
+  <link rel="preload" as="image" href="assets/duonera-encounter-v3.webp">
+  <link rel="stylesheet" href="prototype-onboarding-v3.css">
+</head>
+<body>
+  <main class="experience" aria-live="polite">
+    <section class="welcome-screen is-active" data-screen="welcome">
+      <header class="topbar">
+        <a class="wordmark" href="#" aria-label="DUONERA">DUONERA<span></span></a>
+        <nav class="top-actions" aria-label="Hlavní navigace">
+          <button class="language" type="button">CZ <span>⌄</span></button>
+          <a href="ucet.html">Přihlásit</a>
+        </nav>
+      </header>
+
+      <div class="poster">
+        <img src="assets/duonera-encounter-v3.webp" alt="Tři lidé v pražské ulici">
+        <div class="poster-field">
+          <span class="poster-kicker">SEZNAMKA PRO VÁŽNÝ VZTAH</span>
+          <h1>MÉNĚ<br>LIDÍ.</h1>
+        </div>
+        <div class="poster-band">VÍC DŮVODŮ SE POTKAT.</div>
+      </div>
+
+      <div class="welcome-copy">
+        <p>Neprohlížíte stovky profilů. Dostanete několik lidí, kteří vám skutečně dávají smysl.</p>
+        <ol class="meeting-route" aria-label="Jak DUONERA funguje">
+          <li><b>01</b><span>malý výběr</span></li>
+          <li><b>02</b><span>oba řeknete ano</span></li>
+          <li><b>03</b><span>skutečná schůzka</span></li>
+        </ol>
+      </div>
+
+      <div class="welcome-action">
+        <button class="primary-action" type="button" data-start>Chci se opravdu seznámit <span>→</span></button>
+        <small>Bez veřejného katalogu. Kontakty zůstávají soukromé.</small>
+      </div>
+    </section>
+
+    <section class="question-screen" data-screen="question" aria-hidden="true">
+      <header class="question-topbar">
+        <button type="button" class="back-button" data-back aria-label="Zpět">←</button>
+        <a class="wordmark" href="#" aria-label="DUONERA">DUONERA<span></span></a>
+        <span class="question-count">01 / 08</span>
+      </header>
+      <div class="question-progress"><span></span></div>
+      <div class="question-body">
+        <p class="question-kicker">ZAČNEME JEDNODUŠE</p>
+        <h2>Koho chcete<br>potkat?</h2>
+        <p class="question-note">Ukážeme vám jen několik vhodných lidí. Žádné swipování.</p>
+        <div class="answer-list">
+          <label><input type="radio" name="seeking" value="woman"><span>Ženu <i>→</i></span></label>
+          <label><input type="radio" name="seeking" value="man"><span>Muže <i>→</i></span></label>
+        </div>
+      </div>
+      <footer class="question-footer">
+        <span>Odpověď můžete později změnit.</span>
+        <button type="button" disabled data-next>Pokračovat</button>
+      </footer>
+    </section>
+  </main>
+  <script src="prototype-onboarding-v3.js"></script>
+</body>
+</html>
