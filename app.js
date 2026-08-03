@@ -336,7 +336,9 @@ const foundingTranslations = {
     submitConversion:'Vytvořit profil zdarma', formConversionNote:'Bez platby. O zobrazení profilu rozhodujete vy.', peopleLabel:'OVĚŘENÍ LIDÉ',
     peopleTitle:'Podívejte se, koho můžete v DUONERA potkat.', peopleText:'Zobrazujeme pouze schválené profily lidí, kteří s náhledem výslovně souhlasili. Kontaktní údaje zůstávají skryté.',
     foundingLabel:'ZAKLÁDAJÍCÍ SKUPINA SE PRÁVĚ OTEVÍRÁ', foundingTitle:'První skutečné profily začínají právě u vás.',
-    foundingText:'Vyplňte vlastní profil a fotografie. Po kontrole rozhodnete, zda se váš náhled zobrazí ostatním. Příjmení, telefon ani e-mail nezveřejňujeme.', foundingCta:'Přidat svůj profil'
+    foundingText:'Vyplňte vlastní profil a fotografie. Po kontrole rozhodnete, zda se váš náhled zobrazí ostatním. Příjmení, telefon ani e-mail nezveřejňujeme.', foundingCta:'Přidat svůj profil',
+    cardValue1:'Vztah s budoucností', cardValue2:'Skutečné setkání', cardValue3:'Vzájemná volba',
+    campaignNote:'Tváře kampaně — nejde o členy DUONERA. Skutečné schválené profily se zobrazí na tomto místě.'
   },
   en: {
     registerFree:'Add my profile', heroKicker:'FIRST VERIFIED DUONERA GROUP', heroConversionTitle:'People worth meeting.',
@@ -344,7 +346,9 @@ const foundingTranslations = {
     heroImageCaption:'Illustrative campaign photography — not DUONERA members.', formKicker:'FOUNDING MEMBERSHIP', formConversionTitle:'Join the first verified members',
     submitConversion:'Create my profile free', formConversionNote:'No payment. You decide whether your profile is shown.', peopleLabel:'VERIFIED PEOPLE', peopleTitle:'See who you could meet in DUONERA.',
     peopleText:'We show only approved profiles from people who expressly agreed to the preview. Contact details remain hidden.', foundingLabel:'THE FOUNDING GROUP IS NOW OPEN',
-    foundingTitle:'The first real profiles begin with you.', foundingText:'Complete your profile and add photos. After review, you decide whether the preview appears to others. We never publish your surname, phone or email.', foundingCta:'Add my profile'
+    foundingTitle:'The first real profiles begin with you.', foundingText:'Complete your profile and add photos. After review, you decide whether the preview appears to others. We never publish your surname, phone or email.', foundingCta:'Add my profile',
+    cardValue1:'A relationship with a future', cardValue2:'A real meeting', cardValue3:'Mutual choice',
+    campaignNote:'Campaign faces — not DUONERA members. Real approved profiles will appear here.'
   },
   de: {
     registerFree:'Mein Profil hinzufügen', heroKicker:'ERSTE GEPRÜFTE DUONERA-GRUPPE', heroConversionTitle:'Menschen, die es wert sind, sie kennenzulernen.',
@@ -352,7 +356,9 @@ const foundingTranslations = {
     heroImageCaption:'Illustrative Kampagnenfotografie — keine DUONERA-Mitglieder.', formKicker:'GRÜNDUNGSMITGLIEDSCHAFT', formConversionTitle:'Werden Sie eines der ersten geprüften Mitglieder',
     submitConversion:'Profil kostenlos erstellen', formConversionNote:'Keine Zahlung. Sie entscheiden über die Sichtbarkeit.', peopleLabel:'GEPRÜFTE MENSCHEN', peopleTitle:'Sehen Sie, wen Sie bei DUONERA treffen könnten.',
     peopleText:'Wir zeigen nur geprüfte Profile von Menschen, die der Vorschau ausdrücklich zugestimmt haben. Kontaktdaten bleiben verborgen.', foundingLabel:'DIE GRÜNDUNGSGRUPPE IST JETZT OFFEN',
-    foundingTitle:'Die ersten echten Profile beginnen mit Ihnen.', foundingText:'Füllen Sie Ihr Profil aus und laden Sie Fotos hoch. Nach der Prüfung entscheiden Sie, ob Ihre Vorschau sichtbar wird. Nachname, Telefon und E-Mail veröffentlichen wir nie.', foundingCta:'Mein Profil hinzufügen'
+    foundingTitle:'Die ersten echten Profile beginnen mit Ihnen.', foundingText:'Füllen Sie Ihr Profil aus und laden Sie Fotos hoch. Nach der Prüfung entscheiden Sie, ob Ihre Vorschau sichtbar wird. Nachname, Telefon und E-Mail veröffentlichen wir nie.', foundingCta:'Mein Profil hinzufügen',
+    cardValue1:'Eine Beziehung mit Zukunft', cardValue2:'Ein echtes Treffen', cardValue3:'Gegenseitige Wahl',
+    campaignNote:'Gesichter der Kampagne — keine DUONERA-Mitglieder. Echte geprüfte Profile erscheinen hier.'
   },
   uk: {
     registerFree:'Додати свою анкету', heroKicker:'ПЕРША ПЕРЕВІРЕНА ГРУПА DUONERA', heroConversionTitle:'Люди, з якими варто познайомитися.',
@@ -360,7 +366,9 @@ const foundingTranslations = {
     heroImageCaption:'Ілюстративне фото кампанії — не учасники DUONERA.', formKicker:'ЧЛЕНСТВО ЗАСНОВНИКІВ', formConversionTitle:'Приєднайтеся до перших перевірених учасників',
     submitConversion:'Створити анкету безкоштовно', formConversionNote:'Без оплати. Ви самі вирішуєте, чи показувати анкету.', peopleLabel:'ПЕРЕВІРЕНІ ЛЮДИ', peopleTitle:'Подивіться, кого можна зустріти в DUONERA.',
     peopleText:'Ми показуємо лише схвалені анкети людей, які прямо погодилися на попередній перегляд. Контактні дані залишаються прихованими.', foundingLabel:'ГРУПА ЗАСНОВНИКІВ УЖЕ ВІДКРИТА',
-    foundingTitle:'Перші справжні анкети починаються з вас.', foundingText:'Заповніть анкету й додайте фотографії. Після перевірки ви вирішите, чи показувати її іншим. Прізвище, телефон та e-mail ми не публікуємо.', foundingCta:'Додати свою анкету'
+    foundingTitle:'Перші справжні анкети починаються з вас.', foundingText:'Заповніть анкету й додайте фотографії. Після перевірки ви вирішите, чи показувати її іншим. Прізвище, телефон та e-mail ми не публікуємо.', foundingCta:'Додати свою анкету',
+    cardValue1:'Стосунки з майбутнім', cardValue2:'Справжня зустріч', cardValue3:'Взаємний вибір',
+    campaignNote:'Обличчя кампанії — не учасники DUONERA. Тут з’являться справжні схвалені анкети.'
   },
   ru: {
     registerFree:'Добавить свою анкету', heroKicker:'ПЕРВАЯ ПРОВЕРЕННАЯ ГРУППА DUONERA', heroConversionTitle:'Люди, с которыми стоит познакомиться.',
@@ -368,7 +376,9 @@ const foundingTranslations = {
     heroImageCaption:'Иллюстративное фото кампании — не участники DUONERA.', formKicker:'ЧЛЕНСТВО ОСНОВАТЕЛЕЙ', formConversionTitle:'Присоединитесь к первым проверенным участникам',
     submitConversion:'Создать анкету бесплатно', formConversionNote:'Без оплаты. Вы сами решаете, показывать ли анкету.', peopleLabel:'ПРОВЕРЕННЫЕ ЛЮДИ', peopleTitle:'Посмотрите, кого можно встретить в DUONERA.',
     peopleText:'Мы показываем только одобренные анкеты людей, которые прямо согласились на предварительный показ. Контактные данные остаются скрытыми.', foundingLabel:'ГРУППА ОСНОВАТЕЛЕЙ УЖЕ ОТКРЫТА',
-    foundingTitle:'Первые настоящие анкеты начинаются с вас.', foundingText:'Заполните анкету и добавьте фотографии. После проверки вы решите, показывать ли её другим. Фамилию, телефон и e-mail мы не публикуем.', foundingCta:'Добавить свою анкету'
+    foundingTitle:'Первые настоящие анкеты начинаются с вас.', foundingText:'Заполните анкету и добавьте фотографии. После проверки вы решите, показывать ли её другим. Фамилию, телефон и e-mail мы не публикуем.', foundingCta:'Добавить свою анкету',
+    cardValue1:'Отношения с будущим', cardValue2:'Настоящая встреча', cardValue3:'Взаимный выбор',
+    campaignNote:'Лица кампании — не участники DUONERA. Здесь появятся настоящие одобренные анкеты.'
   }
 };
 
