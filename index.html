@@ -3,158 +3,119 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="description" content="DUONERA — soukromé seznamování bez nekonečného výběru. Jeden člověk, kterého stojí za to potkat.">
-  <meta name="theme-color" content="#fffaf5">
+  <meta name="description" content="DUONERA — soukromé seznamování bez nekonečného katalogu.">
+  <meta name="theme-color" content="#fbf4ea">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="DUONERA">
-  <meta name="application-name" content="DUONERA">
-  <meta name="format-detection" content="telephone=no">
-  <meta property="og:title" content="DUONERA — One person worth meeting">
-  <meta property="og:description" content="Soukromý výběr lidí pro vážný vztah a skutečné setkání.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://duonera.cz">
+  <title>DUONERA — soukromý vstup</title>
   <link rel="manifest" href="manifest.webmanifest?v=2">
   <link rel="icon" href="assets/duonera-avatar.png" type="image/png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/duonera-app-icon-180.png">
-  <title>DUONERA — One person worth meeting</title>
-  <link rel="stylesheet" href="styles-origin.css?v=1">
+  <link rel="stylesheet" href="conversation.css?v=1">
 </head>
 <body>
-  <header class="site-header" id="top">
-    <a class="wordmark" href="#top" aria-label="DUONERA">
-      <span class="wordmark-pearl" aria-hidden="true"></span>
-      <span class="wordmark-copy"><strong>DUONERA</strong><small>PRIVATE DATING CLUB</small></span>
-    </a>
-    <nav class="desktop-nav" aria-label="Hlavní navigace">
-      <a href="#idea" data-copy="navIdea">Myšlenka</a>
-      <a href="#how" data-copy="navHow">Jak to funguje</a>
-      <a href="#privacy" data-copy="navPrivacy">Soukromí</a>
-    </nav>
-    <div class="header-actions">
-      <div class="lang-switch" aria-label="Jazyk">
-        <button type="button" class="active" data-lang="cs">CZ</button>
-        <button type="button" data-lang="en">EN</button>
-        <button type="button" data-lang="de">DE</button>
-        <button type="button" data-lang="uk">UA</button>
-        <button type="button" data-lang="ru">RU</button>
-      </div>
-      <a class="account-link" href="ucet.html" data-copy="account">Můj účet</a>
-      <button class="menu-toggle" type="button" aria-label="Otevřít menu" aria-expanded="false"><span></span><span></span><span></span></button>
-    </div>
-  </header>
-
-  <div class="mobile-menu" aria-hidden="true">
-    <a href="#idea" data-copy="navIdea">Myšlenka</a>
-    <a href="#how" data-copy="navHow">Jak to funguje</a>
-    <a href="#privacy" data-copy="navPrivacy">Soukromí</a>
-    <a href="ucet.html" data-copy="account">Můj účet</a>
-    <a class="btn btn-main" href="#register" data-copy="cta">Vytvořit soukromý profil</a>
-  </div>
-
-  <main>
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="hero-copy">
-        <p class="eyebrow" data-copy="eyebrow">SEZNÁMENÍ BEZ NEKONEČNÉHO VÝBĚRU</p>
-        <h1 id="hero-title" data-copy="title">Ne další seznamka. Jeden člověk, kterého stojí za to potkat.</h1>
-        <p class="hero-lead" data-copy="lead">DUONERA nevytváří veřejný katalog lidí. Vytvoří vám malý soukromý výběr podle toho, jak žijete, co hledáte a co je pro vás důležité.</p>
-        <div class="hero-actions">
-          <a class="btn btn-main" href="#register" data-copy="cta">Vytvořit soukromý profil</a>
-          <a class="btn btn-quiet" href="#how" data-copy="howCta">Jak to funguje</a>
+  <main class="app" data-step="0">
+    <header class="topbar">
+      <a class="brand" href="/">DUONERA</a>
+      <div class="top-actions">
+        <div class="languages" aria-label="Jazyk">
+          <button type="button" data-lang="cs">CZ</button>
+          <button type="button" data-lang="en">EN</button>
+          <button type="button" data-lang="de">DE</button>
+          <button type="button" data-lang="uk">UA</button>
+          <button type="button" data-lang="ru">RU</button>
         </div>
-        <div class="hero-points">
-          <span data-copy="p1">Profil není veřejný</span>
-          <span data-copy="p2">Žádné nekonečné swipování</span>
-          <span data-copy="p3">Cíl je skutečné setkání</span>
+        <a class="login" href="ucet.html" data-t="login">Můj účet</a>
+      </div>
+    </header>
+
+    <div class="progress" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+
+    <section class="flow" aria-live="polite">
+      <article class="screen active" data-screen="0">
+        <div class="panel">
+          <p class="kicker">PRIVATE DATING, REIMAGINED</p>
+          <h1>Neprohlížejte lidi.<br>Najděte důvod potkat jednoho.</h1>
+          <p class="lead">DUONERA nezačíná katalogem profilů. Začíná několika otázkami, které pomohou pochopit, koho opravdu chcete mít vedle sebe.</p>
+          <div class="signature" aria-hidden="true">
+            <span class="signature-word">YOU → SOMEONE</span>
+            <span class="signature-line"></span>
+            <span class="signature-node"></span><span class="signature-node"></span><span class="signature-node"></span><span class="signature-node"></span>
+            <span class="signature-small">méně možností · větší pozornost · skutečné setkání</span>
+          </div>
+          <button class="primary" type="button" data-next data-t="begin">Začít</button>
+          <p class="note" data-t="note">Bez platby. Bez veřejného profilu.</p>
         </div>
-      </div>
+      </article>
 
-      <div class="pearl-stage" aria-hidden="true">
-        <div class="pearl-universe">
-          <div class="orbit orbit-a"></div>
-          <div class="orbit orbit-b"></div>
-          <div class="orbit orbit-c"></div>
-          <div class="pearl-core"></div>
-          <span class="spark spark-one"></span>
-          <span class="spark spark-two"></span>
-          <span class="spark spark-three"></span>
-          <div class="pearl-card"><strong data-copy="pearl">Méně možností. Větší pozornost.</strong><small data-copy="pearlSmall">PRINCIP DUONERA</small></div>
+      <article class="screen" data-screen="1">
+        <div class="panel">
+          <p class="kicker">01 / INTENT</p>
+          <h2 data-t="q1">Co je pro vás teď nejdůležitější?</h2>
+          <div class="choices">
+            <button class="choice" type="button" data-value="future" data-t="a1">Najít vztah s budoucností</button>
+            <button class="choice" type="button" data-value="rhythm" data-t="a2">Potkat člověka se stejným životním rytmem</button>
+            <button class="choice" type="button" data-value="restart" data-t="a3">Začít znovu po velké životní změně</button>
+            <button class="choice" type="button" data-value="no-apps" data-t="a4">Přestat ztrácet čas v aplikacích</button>
+          </div>
+          <button class="continue" type="button" data-next data-intent-next disabled data-t="next">Pokračovat</button>
         </div>
-      </div>
-    </section>
+      </article>
 
-    <section class="signal" aria-label="Princip DUONERA">
-      <div><strong data-copy="one">1</strong><span data-copy="oneText">soukromý profil</span></div>
-      <div><strong data-copy="three">3</strong><span data-copy="threeText">pečlivé výběry</span></div>
-      <div><strong data-copy="meet">1</strong><span data-copy="meetText">vzájemná volba</span></div>
-    </section>
-
-    <section class="manifesto" id="idea">
-      <p class="section-label" data-copy="ideaLabel">JINÝ PRINCIP</p>
-      <h2 data-copy="ideaTitle">Internet vás učí vybírat stále dál. DUONERA vás vede k rozhodnutí.</h2>
-      <p data-copy="ideaText">Nechceme, abyste strávili večer prohlížením stovek profilů. Chceme vám ukázat několik lidí, vysvětlit, proč mohou dávat smysl, a otevřít kontakt pouze při vzájemném zájmu.</p>
-    </section>
-
-    <section class="how" id="how">
-      <div class="section-head">
-        <p class="section-label" data-copy="howLabel">TŘI KROKY</p>
-        <h2 data-copy="howTitle">Od soukromého profilu k opravdovému setkání.</h2>
-      </div>
-      <div class="steps">
-        <article data-step="01"><h3 data-copy="s1">Řeknete, kdo jste</h3><p data-copy="s1t">Ne jen věk a město. Zajímá nás váš rytmus života, hodnoty a představa o vztahu.</p></article>
-        <article data-step="02"><h3 data-copy="s2">Dostanete malý výběr</h3><p data-copy="s2t">Žádný veřejný katalog. Jen několik lidí, kteří odpovídají vašim důležitým podmínkám.</p></article>
-        <article data-step="03"><h3 data-copy="s3">Rozhodnutí musí být vzájemné</h3><p data-copy="s3t">Kontakt se otevře až tehdy, když si vyberete navzájem. Potom přichází skutečná schůzka.</p></article>
-      </div>
-    </section>
-
-    <section class="join" aria-labelledby="join-title">
-      <div class="join-copy">
-        <p class="section-label" data-copy="joinLabel">ZAČNĚTE BEZ PLATBY</p>
-        <h2 id="join-title" data-copy="joinTitle">První krok trvá méně než minutu.</h2>
-        <p data-copy="joinText">Vyplníte jen základ. Podrobný profil doplníte později a sami rozhodnete, zda pokračovat.</p>
-      </div>
-      <form class="register-form" id="register" novalidate>
-        <input type="text" name="_honey" class="honeypot" tabindex="-1" autocomplete="off">
-        <input type="hidden" name="Jsem" value="Muž">
-        <input type="hidden" name="Hledám" value="Ženu">
-        <div class="quick-switches">
-          <fieldset><legend data-copy="formIAm">Jsem</legend><div class="quick-toggle" data-toggle-name="Jsem"><button type="button" class="active" data-value="Muž" data-copy="man">Muž</button><button type="button" data-value="Žena" data-copy="woman">Žena</button></div></fieldset>
-          <fieldset><legend data-copy="formSeek">Hledám</legend><div class="quick-toggle" data-toggle-name="Hledám"><button type="button" class="active" data-value="Ženu" data-copy="seekWoman">Ženu</button><button type="button" data-value="Muže" data-copy="seekMan">Muže</button></div></fieldset>
+      <article class="screen" data-screen="2">
+        <div class="panel">
+          <p class="kicker">02 / PEOPLE</p>
+          <h2 data-t="q2">Koho hledáte?</h2>
+          <div class="dual">
+            <div><span class="question-label" data-t="iam">Jsem</span><div class="segment" data-name="gender"><button type="button" data-value="Muž" data-t="man">Muž</button><button type="button" data-value="Žena" data-t="woman">Žena</button></div></div>
+            <div><span class="question-label" data-t="seek">Hledám</span><div class="segment" data-name="looking_for"><button type="button" data-value="Ženu" data-t="woman">Ženu</button><button type="button" data-value="Muže" data-t="man">Muže</button></div></div>
+          </div>
+          <button class="continue" type="button" data-next data-gender-next disabled data-t="next">Pokračovat</button>
         </div>
-        <div class="form-fields">
-          <label><span data-copy="age">Věk</span><input name="Věk" type="number" inputmode="numeric" min="18" max="90" required placeholder="45"></label>
-          <label><span data-copy="city">Město</span><input name="Město" type="text" autocomplete="address-level2" required placeholder="Praha"></label>
-          <label><span data-copy="email">E-mail</span><input name="email" type="email" autocomplete="email" required placeholder="vas@email.cz"></label>
-          <button class="btn btn-submit" type="submit" data-copy="submit">Začít soukromě</button>
+      </article>
+
+      <article class="screen" data-screen="3">
+        <div class="panel">
+          <p class="kicker">03 / PLACE</p>
+          <h2 data-t="q3">Kde má začít vaše skutečné seznámení?</h2>
+          <div class="fields">
+            <label class="field"><span data-t="age">Věk</span><input name="age" type="number" inputmode="numeric" min="18" max="90" required placeholder="45"></label>
+            <label class="field"><span data-t="city">Město</span><input name="city" type="text" autocomplete="address-level2" required placeholder="Praha"></label>
+          </div>
+          <button class="continue" type="button" data-next data-location-next disabled data-t="next">Pokračovat</button>
         </div>
-        <label class="consent"><input type="checkbox" name="consent_privacy" value="true" required><span data-copy="consent">Souhlasím se zpracováním údajů pro registraci a soukromý výběr DUONERA.</span></label>
-      </form>
+      </article>
+
+      <article class="screen" data-screen="4">
+        <div class="panel">
+          <p class="kicker">04 / PRIVATE ENTRY</p>
+          <h2 data-t="q4">Kam vám můžeme poslat první soukromý výběr?</h2>
+          <form class="email-form">
+            <div class="fields">
+              <label class="field field-email"><span data-t="email">E-mail</span><input name="email" type="email" autocomplete="email" required placeholder="vas@email.cz"></label>
+            </div>
+            <label class="consent"><input name="consent" type="checkbox" required><span data-t="consent">Souhlasím se zpracováním údajů pro registraci a soukromý výběr DUONERA.</span></label>
+            <button class="primary" type="submit" data-t="submit">Vstoupit do DUONERA</button>
+          </form>
+        </div>
+      </article>
+
+      <article class="screen" data-screen="5">
+        <div class="panel">
+          <div class="final-mark" aria-hidden="true"></div>
+          <h2 data-t="done">Váš soukromý vstup je připraven.</h2>
+          <p class="lead" data-t="doneText">Teď vytvoříte svůj profil. Nebude veřejný a kontakt se otevře až při vzájemné volbě.</p>
+          <a class="final-link" href="ucet.html?mode=register" data-t="open">Pokračovat do profilu</a>
+        </div>
+      </article>
     </section>
 
-    <section class="privacy" id="privacy">
-      <div class="privacy-mark"><span>D</span></div>
-      <div>
-        <p class="section-label" data-copy="privacyLabel">SOUKROMÍ NENÍ DOPLNĚK</p>
-        <h2 data-copy="privacyTitle">Vaše údaje nejsou veřejné zboží.</h2>
-        <p data-copy="privacyText">Nezveřejňujeme e-mail, telefon, příjmení ani přesné datum narození. Profil se ukazuje pouze v soukromém výběru.</p>
-      </div>
-      <a class="btn btn-main" href="#register" data-copy="cta">Vytvořit soukromý profil</a>
-    </section>
+    <button class="back" type="button" hidden data-t="back">Zpět</button>
+    <span class="step-count"></span>
   </main>
-
-  <footer>
-    <a class="wordmark" href="#top"><span class="wordmark-pearl" aria-hidden="true"></span><span class="wordmark-copy"><strong>DUONERA</strong><small>PRIVATE DATING CLUB</small></span></a>
-    <p data-copy="footer">Jeden správný člověk je víc než tisíc profilů.</p>
-    <div><a href="privacy.html" data-copy="privacy">Ochrana soukromí</a><a href="terms.html" data-copy="terms">Podmínky služby</a><a href="mailto:info@duonera.cz">info@duonera.cz</a></div>
-    <small>© <span id="year"></span> DUONERA</small>
-  </footer>
-
-  <nav class="mobile-action-bar" aria-label="Rychlé akce">
-    <a href="ucet.html" data-copy="account">Můj účet</a>
-    <a class="btn btn-main" href="#register" data-copy="cta">Vytvořit soukromý profil</a>
-  </nav>
   <div class="toast" role="status" aria-live="polite"></div>
-  <script type="module" src="origin.js?v=1"></script>
+  <script type="module" src="conversation.js?v=1"></script>
 </body>
 </html>
