@@ -123,6 +123,30 @@
             background: var(--gold-dark);
             border-radius: 10px;
         }
+
+        .lang-btn {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: #a0a0a0;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            font-size: 11px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.3s ease;
+        }
+        .lang-btn:hover {
+            border-color: #d4af37;
+            color: #fff3cd;
+        }
+        .lang-btn.active {
+            border-color: #d4af37;
+            background: rgba(212, 175, 55, 0.2);
+            color: #fff3cd;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
     </style>
 </head>
 <body class="relative flex flex-col justify-between min-h-screen selection:bg-gold-main selection:text-black">
@@ -147,30 +171,23 @@
             <a href="#faq" class="hover:text-gold-light transition-colors" data-i18n="nav_faq">Časté Dotazy</a>
         </nav>
 
-        <!-- Action Buttons, Language Selector & Soundscape -->
+        <!-- Action Buttons, Visible Language Selector & Soundscape -->
         <div class="flex items-center gap-2.5 sm:gap-3">
             
-            <!-- Language Switcher Dropdown -->
-            <div class="relative inline-block text-left">
-                <button onclick="toggleLangDropdown()" id="langBtn" class="bg-black/60 border border-gold-main/40 hover:border-gold-main text-gold-light text-xs px-3 py-2 rounded-full flex items-center gap-1.5 transition-all">
-                    <span id="langCurrentFlag">🇨🇿</span>
-                    <span id="langCurrentLabel" class="font-bold text-[11px] uppercase">CS</span>
-                    <i class="fa-solid fa-chevron-down text-[9px] text-gold-main ml-0.5"></i>
+            <!-- Visible Multi-Language Bar -->
+            <div class="flex items-center gap-1 sm:gap-1.5 bg-black/60 p-1 rounded-full border border-gold-main/30">
+                <button onclick="setLanguage('cs')" id="lang-cs" class="lang-btn active" title="Čeština">
+                    <span>🇨🇿</span> <span class="hidden sm:inline uppercase">CS</span>
                 </button>
-                <div id="langDropdown" class="hidden absolute right-0 mt-2 w-36 glass-panel rounded-xl shadow-2xl z-50 py-1.5 border border-gold-main/40">
-                    <button onclick="setLanguage('cs')" class="w-full text-left px-3.5 py-1.5 text-xs text-gold-light hover:bg-gold-main/20 transition-colors flex items-center gap-2">
-                        <span>🇨🇿</span> <span class="font-medium">Čeština</span>
-                    </button>
-                    <button onclick="setLanguage('en')" class="w-full text-left px-3.5 py-1.5 text-xs text-gray-300 hover:bg-gold-main/20 transition-colors flex items-center gap-2">
-                        <span>🇬🇧</span> <span class="font-medium">English</span>
-                    </button>
-                    <button onclick="setLanguage('ru')" class="w-full text-left px-3.5 py-1.5 text-xs text-gray-300 hover:bg-gold-main/20 transition-colors flex items-center gap-2">
-                        <span>🇷🇺</span> <span class="font-medium">Русский</span>
-                    </button>
-                    <button onclick="setLanguage('ua')" class="w-full text-left px-3.5 py-1.5 text-xs text-gray-300 hover:bg-gold-main/20 transition-colors flex items-center gap-2">
-                        <span>🇺🇦</span> <span class="font-medium">Українська</span>
-                    </button>
-                </div>
+                <button onclick="setLanguage('en')" id="lang-en" class="lang-btn" title="English">
+                    <span>🇬🇧</span> <span class="hidden sm:inline uppercase">EN</span>
+                </button>
+                <button onclick="setLanguage('ru')" id="lang-ru" class="lang-btn" title="Русский">
+                    <span>🇷🇺</span> <span class="hidden sm:inline uppercase">RU</span>
+                </button>
+                <button onclick="setLanguage('ua')" id="lang-ua" class="lang-btn" title="Українська">
+                    <span>🇺🇦</span> <span class="hidden sm:inline uppercase">UA</span>
+                </button>
             </div>
 
             <!-- Soundscape Button -->
@@ -1151,19 +1168,14 @@
 
         let currentLang = 'cs';
 
-        function toggleLangDropdown() {
-            playChime(500);
-            document.getElementById('langDropdown').classList.toggle('hidden');
-        }
-
         function setLanguage(lang) {
             playChime(600);
             currentLang = lang;
-            document.getElementById('langDropdown').classList.add('hidden');
 
-            const flags = { cs: '🇨🇿', en: '🇬🇧', ru: '🇷🇺', ua: '🇺🇦' };
-            document.getElementById('langCurrentFlag').innerText = flags[lang];
-            document.getElementById('langCurrentLabel').innerText = lang.toUpperCase();
+            // Toggle active state for visible buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            const activeBtn = document.getElementById(`lang-${lang}`);
+            if (activeBtn) activeBtn.classList.add('active');
 
             const dict = translations[lang];
             if (!dict) return;
