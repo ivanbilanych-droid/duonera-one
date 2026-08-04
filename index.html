@@ -8,12 +8,11 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;900&family=Montserrat:wght@200;300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Montserrat:wght@200;300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -84,7 +83,7 @@
 
         /* Glassmorphism Dark Luxury Panels */
         .glass-panel {
-            background: rgba(12, 12, 18, 0.85);
+            background: rgba(12, 12, 18, 0.88);
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
             border: 1px solid var(--border-gold);
@@ -128,10 +127,7 @@
 </head>
 <body class="relative flex flex-col justify-between min-h-screen selection:bg-gold-main selection:text-black">
 
-    <!-- Ambient Gold Dust Canvas -->
     <canvas id="bgCanvas"></canvas>
-
-    <!-- Toast Notifications Container -->
     <div id="toastContainer" class="fixed top-6 right-6 z-50 flex flex-col gap-3 pointer-events-none"></div>
 
     <header class="relative z-40 max-w-7xl mx-auto w-full px-6 py-6 flex justify-between items-center border-b border-gold-dark/20 backdrop-blur-md bg-black/40">
@@ -143,68 +139,106 @@
         </a>
 
         <!-- Desktop Navigation Links -->
-        <nav class="hidden md:flex items-center gap-8 text-xs font-semibold tracking-[0.2em] text-gray-400 uppercase">
-            <a href="#pro-koho" class="hover:text-gold-light transition-colors">Pro koho tvoříme</a>
-            <a href="#jak-to-funguje" class="hover:text-gold-light transition-colors">Jak to funguje</a>
-            <a href="#soukromi" class="hover:text-gold-light transition-colors">Garantované Soukromí</a>
-            <a href="#clenstvi" class="hover:text-gold-light transition-colors">Členství</a>
+        <nav class="hidden lg:flex items-center gap-6 text-xs font-semibold tracking-[0.15em] text-gray-400 uppercase">
+            <a href="#kalkulacka" class="hover:text-gold-light transition-colors" data-i18n="nav_calc">Test Shody</a>
+            <a href="#jak-to-funguje" class="hover:text-gold-light transition-colors" data-i18n="nav_how">Jak to funguje</a>
+            <a href="#lokace" class="hover:text-gold-light transition-colors" data-i18n="nav_venues">Concierge Místa</a>
+            <a href="#clenstvi" class="hover:text-gold-light transition-colors" data-i18n="nav_pricing">Členství</a>
+            <a href="#faq" class="hover:text-gold-light transition-colors" data-i18n="nav_faq">Časté Dotazy</a>
         </nav>
 
-        <!-- Action Buttons -->
-        <div class="flex items-center gap-3">
-            <a href="ucet.html" class="hidden sm:inline-block text-xs font-semibold text-gray-300 hover:text-gold-main px-4 py-2 uppercase tracking-widest transition-colors">
+        <!-- Action Buttons, Language Selector & Soundscape -->
+        <div class="flex items-center gap-2.5 sm:gap-3">
+            
+            <!-- Language Switcher Dropdown -->
+            <div class="relative inline-block text-left">
+                <button onclick="toggleLangDropdown()" id="langBtn" class="bg-black/60 border border-gold-main/40 hover:border-gold-main text-gold-light text-xs px-3 py-2 rounded-full flex items-center gap-1.5 transition-all">
+                    <span id="langCurrentFlag">🇨🇿</span>
+                    <span id="langCurrentLabel" class="font-bold text-[11px] uppercase">CS</span>
+                    <i class="fa-solid fa-chevron-down text-[9px] text-gold-main ml-0.5"></i>
+                </button>
+                <div id="langDropdown" class="hidden absolute right-0 mt-2 w-36 glass-panel rounded-xl shadow-2xl z-50 py-1.5 border border-gold-main/40">
+                    <button onclick="setLanguage('cs')" class="w-full text-left px-3.5 py-1.5 text-xs text-gold-light hover:bg-gold-main/20 transition-colors flex items-center gap-2">
+                        <span>🇨🇿</span> <span class="font-medium">Čeština</span>
+                    </button>
+                    <button onclick="setLanguage('en')" class="w-full text-left px-3.5 py-1.5 text-xs text-gray-300 hover:bg-gold-main/20 transition-colors flex items-center gap-2">
+                        <span>🇬🇧</span> <span class="font-medium">English</span>
+                    </button>
+                    <button onclick="setLanguage('ru')" class="w-full text-left px-3.5 py-1.5 text-xs text-gray-300 hover:bg-gold-main/20 transition-colors flex items-center gap-2">
+                        <span>🇷🇺</span> <span class="font-medium">Русский</span>
+                    </button>
+                    <button onclick="setLanguage('ua')" class="w-full text-left px-3.5 py-1.5 text-xs text-gray-300 hover:bg-gold-main/20 transition-colors flex items-center gap-2">
+                        <span>🇺🇦</span> <span class="font-medium">Українська</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Soundscape Button -->
+            <button onclick="toggleSoundscape()" id="soundscapeBtn" title="Soundscape" class="bg-black/50 border border-gold-main/30 text-gold-main hover:bg-gold-main hover:text-black text-xs px-3 py-2 rounded-full flex items-center gap-2 transition-all">
+                <i class="fa-solid fa-music text-xs"></i>
+                <span id="soundscapeLabel" class="hidden xl:inline uppercase text-[9px] tracking-widest font-semibold">Soundscape: OFF</span>
+            </button>
+
+            <!-- Account Link -->
+            <a href="ucet.html" class="hidden sm:inline-block text-xs font-semibold text-gray-300 hover:text-gold-main px-2.5 py-2 uppercase tracking-widest transition-colors" data-i18n="nav_account">
                 Klientský Účet
             </a>
             
-            <button onclick="openVettingModal()" class="bg-gradient-to-r from-gold-light via-gold-main to-gold-dark text-black font-semibold text-xs tracking-[0.2em] uppercase px-6 py-3 rounded-full shadow-lg hover:shadow-[0_0_25px_rgba(212,175,55,0.5)] transition-all transform hover:-translate-y-0.5">
+            <!-- Main CTA Button -->
+            <button onclick="openVettingModal()" class="bg-gradient-to-r from-gold-light via-gold-main to-gold-dark text-black font-semibold text-xs tracking-[0.15em] uppercase px-4 py-2.5 sm:px-6 sm:py-3 rounded-full shadow-lg hover:shadow-[0_0_25px_rgba(212,175,55,0.5)] transition-all transform hover:-translate-y-0.5" data-i18n="btn_hero_apply">
                 Chci se seznámit
             </button>
         </div>
     </header>
 
-    <section class="relative z-10 pt-16 pb-20 md:pt-24 md:pb-28 overflow-hidden">
+    <section class="relative z-10 pt-12 pb-16 md:pt-20 md:pb-24 overflow-hidden">
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                 
                 <!-- Hero Left Column -->
                 <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
                     
-                    <div class="inline-flex items-center gap-2 text-[11px] tracking-[0.3em] text-gold-main uppercase bg-gold-main/10 border border-gold-main/30 px-4 py-2 rounded-full">
-                        <i class="fa-solid fa-shield-halved text-[10px]"></i> 100% Diskrétní seznamování pro náročné • Chapter Praha
+                    <div class="inline-flex flex-wrap items-center justify-center lg:justify-start gap-3 text-[11px] tracking-[0.2em] text-gold-main uppercase">
+                        <span class="bg-gold-main/10 border border-gold-main/30 px-3.5 py-1.5 rounded-full flex items-center gap-2" data-i18n="hero_badge_discrete">
+                            <i class="fa-solid fa-shield-halved text-[10px]"></i> 100% Diskrétní seznamování pro náročné
+                        </span>
+                        <span class="bg-emerald-950/40 border border-emerald-500/30 text-emerald-400 px-3.5 py-1.5 rounded-full font-mono font-bold" data-i18n="hero_badge_capacity">
+                            Chapter Praha: 87/100 Míst Zabráno
+                        </span>
                     </div>
 
-                    <h1 class="font-serif text-4xl sm:text-6xl lg:text-7xl gold-text-gradient font-bold tracking-widest leading-[1.1]">
+                    <h1 class="font-serif text-4xl sm:text-6xl lg:text-7xl gold-text-gradient font-bold tracking-widest leading-[1.1]" data-i18n="hero_title">
                         NESTAČÍ VÁM KVALITA BĚŽNÝCH SEZNAMOK?
                     </h1>
 
-                    <p class="font-garamond italic text-xl sm:text-2xl text-gray-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed border-l-2 border-gold-main/40 pl-4 py-1">
+                    <p class="font-garamond italic text-xl sm:text-2xl text-gray-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed border-l-2 border-gold-main/40 pl-4 py-1" data-i18n="hero_quote">
                         „DUONERA šetří váš drahocenný čas. Propojujeme úspěšné muže a inspirativní ženy bez nekonečného swipování, bez veřejných profilů a s organizací prvního rande na klíč.“
                     </p>
 
                     <!-- Key Benefits Highlights -->
-                    <div class="grid grid-cols-3 gap-3 sm:gap-4 p-4 bg-black/60 rounded-2xl border border-gold-main/20 text-left">
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 p-4 bg-black/60 rounded-2xl border border-gold-main/20 text-left">
                         <div class="p-3 bg-white/5 rounded-xl border border-white/5">
-                            <span class="text-[10px] font-bold text-gold-main uppercase tracking-widest block">1. Úspora Času</span>
-                            <span class="font-serif text-xs sm:text-sm text-gold-light font-semibold">Žádné zbytečné psaní</span>
+                            <span class="text-[10px] font-bold text-gold-main uppercase tracking-widest block mb-1" data-i18n="benefit1_title"><i class="fa-solid fa-clock mr-1"></i> Úspora Času</span>
+                            <span class="font-serif text-xs sm:text-sm text-gold-light font-semibold" data-i18n="benefit1_desc">Žádné zbytečné psaní</span>
                         </div>
                         <div class="p-3 bg-white/5 rounded-xl border border-white/5">
-                            <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-widest block">2. Absolutní Diskrétnost</span>
-                            <span class="font-serif text-xs sm:text-sm text-gray-200 font-semibold">Neveřejné profily & NDA</span>
+                            <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-widest block mb-1" data-i18n="benefit2_title"><i class="fa-solid fa-user-lock mr-1"></i> Absolutní Diskrétnost</span>
+                            <span class="font-serif text-xs sm:text-sm text-gray-200 font-semibold" data-i18n="benefit2_desc">Neveřejné profily & NDA</span>
                         </div>
                         <div class="p-3 bg-white/5 rounded-xl border border-white/5">
-                            <span class="text-[10px] font-bold text-gold-light uppercase tracking-widest block">3. Reálné Rande</span>
-                            <span class="font-serif text-xs sm:text-sm text-gold-light font-semibold">Concierge rezervace</span>
+                            <span class="text-[10px] font-bold text-gold-light uppercase tracking-widest block mb-1" data-i18n="benefit3_title"><i class="fa-solid fa-champagne-glasses mr-1"></i> Reálné Rande</span>
+                            <span class="font-serif text-xs sm:text-sm text-gold-light font-semibold" data-i18n="benefit3_desc">Concierge rezervace</span>
                         </div>
                     </div>
 
                     <!-- Call To Action Buttons -->
                     <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center pt-2">
                         <button onclick="openVettingModal()" class="w-full sm:w-auto bg-gradient-to-r from-gold-light via-gold-main to-gold-dark text-black font-semibold text-xs tracking-[0.25em] uppercase px-10 py-5 rounded-full shadow-2xl hover:shadow-[0_0_40px_rgba(212,175,55,0.6)] transition-all transform hover:-translate-y-1 flex justify-center items-center gap-3">
-                            <span>Požádat o prověření profilu</span>
+                            <span data-i18n="btn_hero_cta">Požádat o prověření profilu</span>
                             <i class="fa-solid fa-arrow-right"></i>
                         </button>
                         
-                        <a href="aurum_portal.html" class="w-full sm:w-auto text-center px-8 py-5 rounded-full border border-gold-main/40 text-gold-light text-xs font-semibold tracking-widest uppercase hover:bg-gold-main/10 transition-all">
+                        <a href="aurum_portal.html" class="w-full sm:w-auto text-center px-8 py-5 rounded-full border border-gold-main/40 text-gold-light text-xs font-semibold tracking-widest uppercase hover:bg-gold-main/10 transition-all" data-i18n="btn_hero_demo">
                             Vyzkoušet Sanctuary (Demo)
                         </a>
                     </div>
@@ -214,30 +248,87 @@
                 <!-- Hero Right: Interactive Syndicate Puck Showcase -->
                 <div class="lg:col-span-5 relative">
                     <div class="relative mx-auto max-w-md lg:max-w-none text-center">
-                        
-                        <!-- 3D Hardware Token Card Box -->
                         <div class="glass-panel p-8 rounded-3xl gold-border-glow relative overflow-hidden">
                             <div class="w-48 h-48 rounded-full border-2 border-gold-main/80 mx-auto mb-6 flex justify-center items-center bg-black/80 puck-pulse relative group cursor-pointer" onclick="openVettingModal()">
                                 <div class="absolute inset-0 rounded-full bg-gold-main/10 blur-xl group-hover:bg-gold-main/30 transition-all duration-500"></div>
                                 <i class="fa-solid fa-key text-5xl text-gold-main group-hover:scale-110 transition-transform"></i>
                             </div>
 
-                            <h3 class="font-serif text-2xl text-gold-light tracking-widest uppercase mb-1">Klubový HW Klíč</h3>
-                            <p class="text-[11px] text-gray-400 tracking-widest uppercase mb-4">Garantovaný přístup do uzavřené sítě</p>
+                            <h3 class="font-serif text-2xl text-gold-light tracking-widest uppercase mb-1" data-i18n="puck_card_title">Klubový HW Klíč</h3>
+                            <p class="text-[11px] text-gray-400 tracking-widest uppercase mb-4" data-i18n="puck_card_subtitle">Garantovaný přístup do uzavřené sítě</p>
                             
                             <div class="bg-black/60 border border-white/10 p-4 rounded-2xl text-left space-y-2 text-xs font-mono">
                                 <div class="flex justify-between">
-                                    <span class="text-gray-500">Ověření člena:</span>
-                                    <span class="text-emerald-400 font-bold">Privátní verifikace</span>
+                                    <span class="text-gray-500" data-i18n="puck_verification_label">Ověření člena:</span>
+                                    <span class="text-emerald-400 font-bold" data-i18n="puck_verification_val">Privátní verifikace</span>
                                 </div>
                                 <div class="flex justify-between">
-                                    <span class="text-gray-500">Dostupnost v Praze:</span>
-                                    <span class="text-gold-main font-bold uppercase">Aktivní příjem žádostí</span>
+                                    <span class="text-gray-500" data-i18n="puck_capacity_label">Kapacita Chapteru:</span>
+                                    <span class="text-gold-main font-bold uppercase" data-i18n="puck_capacity_val">87% Obsazeno</span>
                                 </div>
                             </div>
                         </div>
-
                     </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="kalkulacka" class="relative z-10 py-16 bg-black/40 border-t border-gold-dark/20">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="glass-panel p-8 sm:p-10 rounded-3xl border-gold-main/30 gold-border-glow">
+                
+                <div class="text-center mb-8 space-y-2">
+                    <span class="text-[10px] font-semibold uppercase tracking-[0.3em] text-gold-main bg-gold-main/10 px-4 py-1.5 rounded-full border border-gold-main/30" data-i18n="calc_tag">
+                        Interaktivní Test
+                    </span>
+                    <h2 class="font-serif text-2xl sm:text-4xl gold-text-gradient font-bold tracking-widest" data-i18n="calc_title">
+                        SPOČÍTAT VAŠI SHODU V DUONERA
+                    </h2>
+                    <p class="text-xs sm:text-sm text-gray-400" data-i18n="calc_desc">Zjistěte procento kompatibility s aktivními členy v Praze na základě vašich preferencí.</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+                    <div>
+                        <label class="block text-[10px] uppercase font-bold text-gray-400 tracking-widest mb-2" data-i18n="calc_opt1_label">1. Váš životní styl</label>
+                        <select id="calcStyle" onchange="calculateMatchScore()" class="w-full bg-black/70 border border-gold-main/30 rounded-xl p-3 text-xs text-white outline-none focus:border-gold-main">
+                            <option value="94" data-i18n="calc_opt1_1">Vytížený podnikatel / manažer</option>
+                            <option value="91" data-i18n="calc_opt1_2">Architektura / Umění / Design</option>
+                            <option value="88" data-i18n="calc_opt1_3">Investice & Finanční trhy</option>
+                            <option value="96" data-i18n="calc_opt1_4">Aktivní cestování & Gastronomie</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-[10px] uppercase font-bold text-gray-400 tracking-widest mb-2" data-i18n="calc_opt2_label">2. Časová dostupnost</label>
+                        <select id="calcTime" onchange="calculateMatchScore()" class="w-full bg-black/70 border border-gold-main/30 rounded-xl p-3 text-xs text-white outline-none focus:border-gold-main">
+                            <option value="98" data-i18n="calc_opt2_1">1-2 kvalitní schůzky měsíčně</option>
+                            <option value="92" data-i18n="calc_opt2_2">Víkendové pracovní přestávky</option>
+                            <option value="95" data-i18n="calc_opt2_3">Spontánní večeře po práci</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-[10px] uppercase font-bold text-gray-400 tracking-widest mb-2" data-i18n="calc_opt3_label">3. Očekávání od Rande</label>
+                        <select id="calcGoal" onchange="calculateMatchScore()" class="w-full bg-black/70 border border-gold-main/30 rounded-xl p-3 text-xs text-white outline-none focus:border-gold-main">
+                            <option value="97" data-i18n="calc_opt3_1">Vážný vztah na úrovni</option>
+                            <option value="93" data-i18n="calc_opt3_2">Inspirativní společnost & Vztah</option>
+                            <option value="90" data-i18n="calc_opt3_3">Společné koníčky & Cestování</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Match Score Result Box -->
+                <div class="bg-black/60 border border-gold-main/40 p-6 rounded-2xl flex flex-col sm:flex-row justify-between items-center gap-4">
+                    <div class="text-center sm:text-left">
+                        <span class="text-[10px] text-gray-400 uppercase tracking-widest block mb-1" data-i18n="calc_res_label">Odhadovaná shoda s pražskou komunitou:</span>
+                        <div class="font-serif text-3xl sm:text-4xl text-gold-main font-bold" id="matchScoreDisplay">97% Vynikající Shoda</div>
+                    </div>
+
+                    <button onclick="openVettingModal()" class="bg-gold-main hover:bg-gold-light text-black font-semibold text-xs tracking-[0.2em] uppercase px-8 py-4 rounded-full transition-all shadow-lg whitespace-nowrap" data-i18n="btn_calc_apply">
+                        Požádat o Prověření
+                    </button>
                 </div>
 
             </div>
@@ -248,13 +339,13 @@
         <div class="max-w-7xl mx-auto px-6">
             
             <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
-                <span class="text-xs font-semibold uppercase tracking-[0.3em] text-gold-main bg-gold-main/10 px-4 py-1.5 rounded-full border border-gold-main/30">
+                <span class="text-xs font-semibold uppercase tracking-[0.3em] text-gold-main bg-gold-main/10 px-4 py-1.5 rounded-full border border-gold-main/30" data-i18n="steps_tag">
                     Osvědčený Postup
                 </span>
-                <h2 class="font-serif text-3xl sm:text-5xl gold-text-gradient font-bold tracking-widest">
+                <h2 class="font-serif text-3xl sm:text-5xl gold-text-gradient font-bold tracking-widest" data-i18n="steps_title">
                     3 KROKY K REÁLNÉMU SEZNÁMENÍ
                 </h2>
-                <p class="text-gray-400 text-sm sm:text-base leading-relaxed">
+                <p class="text-gray-400 text-sm sm:text-base leading-relaxed" data-i18n="steps_subtitle">
                     Běžné aplikace vás nutí trávit hodiny u displeje. V DUONERA se soustředíme výhradně na osobní setkání na prémiové úrovni.
                 </p>
             </div>
@@ -266,8 +357,8 @@
                     <div class="w-14 h-14 rounded-2xl bg-gold-main/10 border border-gold-main/40 text-gold-main flex items-center justify-center text-2xl mb-6 font-serif font-bold">
                         1
                     </div>
-                    <h3 class="font-serif text-xl text-gold-light mb-3">Diskrétní Prověření</h3>
-                    <p class="text-gray-400 text-xs leading-relaxed">
+                    <h3 class="font-serif text-xl text-gold-light mb-3" data-i18n="step1_title">Diskrétní Prověření</h3>
+                    <p class="text-gray-400 text-xs leading-relaxed" data-i18n="step1_desc">
                         Vyplníte krátký osobní dotazník a podepíšete dohodu o mlčenlivosti. Váš profil zůstává skrytý před veřejností.
                     </p>
                 </div>
@@ -277,8 +368,8 @@
                     <div class="w-14 h-14 rounded-2xl bg-gold-main/10 border border-gold-main/40 text-gold-main flex items-center justify-center text-2xl mb-6 font-serif font-bold">
                         2
                     </div>
-                    <h3 class="font-serif text-xl text-gold-light mb-3">Výběr Na Míru</h3>
-                    <p class="text-gray-400 text-xs leading-relaxed">
+                    <h3 class="font-serif text-xl text-gold-light mb-3" data-i18n="step2_title">Výběr Na Míru</h3>
+                    <p class="text-gray-400 text-xs leading-relaxed" data-i18n="step2_desc">
                         Naše kurátorská služba vám každý měsíc doporučí 3–5 osobností s vysokou shodou životních hodnot a zájmů.
                     </p>
                 </div>
@@ -288,8 +379,8 @@
                     <div class="w-14 h-14 rounded-2xl bg-gold-main/10 border border-gold-main/40 text-gold-main flex items-center justify-center text-2xl mb-6 font-serif font-bold">
                         3
                     </div>
-                    <h3 class="font-serif text-xl text-gold-light mb-3">Rande Bez Starostí</h3>
-                    <p class="text-gray-400 text-xs leading-relaxed">
+                    <h3 class="font-serif text-xl text-gold-light mb-3" data-i18n="step3_title">Rande Bez Starostí</h3>
+                    <p class="text-gray-400 text-xs leading-relaxed" data-i18n="step3_desc">
                         Osobní Concierge vyřeší rezervaci stolu v prémiové kavárně či restauraci. Vy se jen dostavíte na setkání.
                     </p>
                 </div>
@@ -298,17 +389,84 @@
         </div>
     </section>
 
-    <section id="clenstvi" class="relative z-10 py-20">
+    <section id="lokace" class="relative z-10 py-20 bg-black/30">
         <div class="max-w-7xl mx-auto px-6">
             
             <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
-                <span class="text-xs font-semibold uppercase tracking-[0.3em] text-gold-main">Jasná a Transparentní Pravidla</span>
-                <h2 class="font-serif text-3xl sm:text-5xl gold-text-gradient font-bold tracking-widest">
+                <span class="text-xs font-semibold uppercase tracking-[0.3em] text-gold-main" data-i18n="venues_tag">Atmosféra Prvního Setkání</span>
+                <h2 class="font-serif text-3xl sm:text-5xl gold-text-gradient font-bold tracking-widest" data-i18n="venues_title">
+                    PARTNERSKÉ CONCIERGE LOKACE
+                </h2>
+                <p class="text-gray-400 text-sm sm:text-base" data-i18n="venues_subtitle">
+                    Náš tým pro vás zajišťuje VIP stoly a optimální soukromí v předních podnicích.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Venue 1 -->
+                <div class="glass-panel rounded-3xl overflow-hidden border-gold-main/20 gold-border-glow">
+                    <div class="h-48 bg-cover bg-center relative" style="background-image: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600');">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
+                        <span class="absolute bottom-3 left-4 text-xs font-serif text-gold-light font-bold uppercase tracking-wider">Michelin Fine Dining</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-serif text-xl text-gold-light font-bold mb-2">Restaurace Field • Praha</h3>
+                        <p class="text-gray-400 text-xs leading-relaxed mb-4" data-i18n="venue1_desc">Degustační zážitek pro dvojice s garantovaným VIP stolem a párováním vína.</p>
+                        <span class="text-[10px] text-gold-main font-mono uppercase tracking-widest" data-i18n="venue_key"><i class="fa-solid fa-utensils mr-1"></i> Rezervace na klíč přes Concierge</span>
+                    </div>
+                </div>
+
+                <!-- Venue 2 -->
+                <div class="glass-panel rounded-3xl overflow-hidden border-gold-main/20 gold-border-glow">
+                    <div class="h-48 bg-cover bg-center relative" style="background-image: url('https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=600');">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
+                        <span class="absolute bottom-3 left-4 text-xs font-serif text-gold-light font-bold uppercase tracking-wider">Kultura & Lóže</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-serif text-xl text-gold-light font-bold mb-2">Státní Opera • VIP Lóže</h3>
+                        <p class="text-gray-400 text-xs leading-relaxed mb-4" data-i18n="venue2_desc">Privátní vstup na operní představení s cateringem v soukromém salonku.</p>
+                        <span class="text-[10px] text-gold-main font-mono uppercase tracking-widest" data-i18n="venue_key"><i class="fa-solid fa-masks-theater mr-1"></i> Rezervace na klíč přes Concierge</span>
+                    </div>
+                </div>
+
+                <!-- Venue 3 -->
+                <div class="glass-panel rounded-3xl overflow-hidden border-gold-main/20 gold-border-glow">
+                    <div class="h-48 bg-cover bg-center relative" style="background-image: url('https://images.unsplash.com/photo-1578474846511-04ba529f0b88?w=600');">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
+                        <span class="absolute bottom-3 left-4 text-xs font-serif text-gold-light font-bold uppercase tracking-wider">Komorní Atmosféra</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-serif text-xl text-gold-light font-bold mb-2">Augustine Hotel Bar</h3>
+                        <p class="text-gray-400 text-xs leading-relaxed mb-4" data-i18n="venue3_desc">Klidné prostředí historického kláštera ideální pro neformální první kávu.</p>
+                        <span class="text-[10px] text-gold-main font-mono uppercase tracking-widest" data-i18n="venue_key"><i class="fa-solid fa-mug-hot mr-1"></i> Rezervace na klíč přes Concierge</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="clenstvi" class="relative z-10 py-20 border-t border-gold-dark/20">
+        <div class="max-w-7xl mx-auto px-6">
+            
+            <div class="text-center max-w-3xl mx-auto mb-12 space-y-4">
+                <span class="text-xs font-semibold uppercase tracking-[0.3em] text-gold-main" data-i18n="pricing_tag">Jasná a Transparentní Pravidla</span>
+                <h2 class="font-serif text-3xl sm:text-5xl gold-text-gradient font-bold tracking-widest" data-i18n="pricing_title">
                     CENOTVORBA A ČLENSTVÍ
                 </h2>
-                <p class="text-gray-400 text-sm sm:text-base">
+                <p class="text-gray-400 text-sm sm:text-base" data-i18n="pricing_subtitle">
                     Investice do kvalitního seznamování, která odfiltruje spammery a zaručí vysokou úroveň partnerů.
                 </p>
+
+                <!-- Billing Switcher -->
+                <div class="pt-4 flex justify-center items-center gap-4 text-xs">
+                    <span id="labelMonthly" class="text-gold-main font-bold uppercase tracking-wider" data-i18n="billing_monthly">Měsíční Platba</span>
+                    <button onclick="toggleBillingPeriod()" id="billingToggleBtn" class="w-14 h-7 bg-black/80 border border-gold-main/50 rounded-full p-1 flex items-center transition-all">
+                        <div id="billingToggleCircle" class="w-5 h-5 rounded-full bg-gold-main transition-transform"></div>
+                    </button>
+                    <span id="labelAnnual" class="text-gray-400 uppercase tracking-wider" data-i18n="billing_annual">Roční (Ušetříte 20%)</span>
+                </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -316,41 +474,41 @@
                 <!-- Tier 1: DUONERA Member (490 Kč/mo) -->
                 <div class="glass-panel p-8 rounded-3xl border-white/10 flex flex-col justify-between">
                     <div>
-                        <span class="text-[10px] text-gray-500 uppercase tracking-widest block mb-1">Základní Členství</span>
+                        <span class="text-[10px] text-gray-500 uppercase tracking-widest block mb-1" data-i18n="tier1_tag">Základní Členství</span>
                         <h3 class="font-serif text-2xl text-gold-light font-bold mb-2">DUONERA Member</h3>
-                        <div class="font-serif text-3xl text-gold-main font-bold mb-1">490 Kč <span class="text-xs font-sans text-gray-400 font-normal">/ měsíc</span></div>
+                        <div class="font-serif text-3xl text-gold-main font-bold mb-1" id="priceTier1">490 Kč <span class="text-xs font-sans text-gray-400 font-normal">/ měsíc</span></div>
                         <span class="text-[10px] text-gray-500 uppercase block mb-6">(cca 20 € / měsíc)</span>
                         
                         <ul class="text-xs text-gray-300 space-y-3 mb-8 border-t border-white/5 pt-6">
-                            <li><i class="fa-solid fa-check text-gold-main mr-2"></i> Přístup k lokálnímu Chapteru (Praha)</li>
-                            <li><i class="fa-solid fa-check text-gold-main mr-2"></i> Ověření profilu bez veřejného dohledání</li>
-                            <li><i class="fa-solid fa-check text-gold-main mr-2"></i> Digitální matchmaker a doporučení</li>
+                            <li><i class="fa-solid fa-check text-gold-main mr-2"></i> <span data-i18n="tier1_f1">Přístup k lokálnímu Chapteru (Praha)</span></li>
+                            <li><i class="fa-solid fa-check text-gold-main mr-2"></i> <span data-i18n="tier1_f2">Ověření profilu bez veřejného dohledání</span></li>
+                            <li><i class="fa-solid fa-check text-gold-main mr-2"></i> <span data-i18n="tier1_f3">Digitální matchmaker a doporučení</span></li>
                         </ul>
                     </div>
                     
-                    <button onclick="openVettingModal()" class="w-full bg-white/5 border border-white/10 hover:border-gold-main text-gray-300 text-xs py-4 rounded-full uppercase tracking-widest font-semibold transition-all">
+                    <button onclick="openVettingModal()" class="w-full bg-white/5 border border-white/10 hover:border-gold-main text-gray-300 text-xs py-4 rounded-full uppercase tracking-widest font-semibold transition-all" data-i18n="btn_tier_apply">
                         Požádat o Prověření
                     </button>
                 </div>
 
                 <!-- Tier 2: DUONERA Black (1,490 Kč/mo) -->
                 <div class="glass-panel p-8 rounded-3xl border-gold-main shadow-[0_0_40px_rgba(212,175,55,0.25)] flex flex-col justify-between relative">
-                    <span class="absolute -top-3 right-8 bg-gold-main text-black text-[9px] font-bold tracking-widest uppercase px-3 py-1 rounded-full">Nejoblíbenější</span>
+                    <span class="absolute -top-3 right-8 bg-gold-main text-black text-[9px] font-bold tracking-widest uppercase px-3 py-1 rounded-full" data-i18n="popular_badge">Nejoblíbenější</span>
                     <div>
-                        <span class="text-[10px] text-gold-main uppercase tracking-widest block mb-1">Doporučeno pro aktivní</span>
+                        <span class="text-[10px] text-gold-main uppercase tracking-widest block mb-1" data-i18n="tier2_tag">Doporučeno pro aktivní</span>
                         <h3 class="font-serif text-2xl text-gold-light font-bold mb-2">DUONERA Black</h3>
-                        <div class="font-serif text-3xl text-gold-main font-bold mb-1">1 490 Kč <span class="text-xs font-sans text-gray-400 font-normal">/ měsíc</span></div>
+                        <div class="font-serif text-3xl text-gold-main font-bold mb-1" id="priceTier2">1 490 Kč <span class="text-xs font-sans text-gray-400 font-normal">/ měsíc</span></div>
                         <span class="text-[10px] text-gold-main uppercase block mb-6">(cca 60 € / měsíc)</span>
                         
                         <ul class="text-xs text-gray-300 space-y-3 mb-8 border-t border-white/5 pt-6">
-                            <li><i class="fa-solid fa-check text-gold-main mr-2"></i> Fyzický klubový HW klíč v luxusní krabičce</li>
-                            <li><i class="fa-solid fa-check text-gold-main mr-2"></i> Přístup ke všem městským Chapterům</li>
-                            <li><i class="fa-solid fa-check text-gold-main mr-2"></i> Osobní Concierge pro rezervaci stolu</li>
-                            <li><i class="fa-solid fa-check text-gold-main mr-2"></i> 2 Pozvánky pro přátele ročně</li>
+                            <li><i class="fa-solid fa-check text-gold-main mr-2"></i> <span data-i18n="tier2_f1">Fyzický klubový HW klíč v luxusní krabičce</span></li>
+                            <li><i class="fa-solid fa-check text-gold-main mr-2"></i> <span data-i18n="tier2_f2">Přístup ke všem městským Chapterům</span></li>
+                            <li><i class="fa-solid fa-check text-gold-main mr-2"></i> <span data-i18n="tier2_f3">Osobní Concierge pro rezervaci stolu</span></li>
+                            <li><i class="fa-solid fa-check text-gold-main mr-2"></i> <span data-i18n="tier2_f4">2 Pozvánky pro přátele ročně</span></li>
                         </ul>
                     </div>
                     
-                    <button onclick="openVettingModal()" class="w-full bg-gold-main text-black font-semibold text-xs py-4 rounded-full uppercase tracking-widest hover:bg-gold-light transition-all shadow-lg">
+                    <button onclick="openVettingModal()" class="w-full bg-gold-main text-black font-semibold text-xs py-4 rounded-full uppercase tracking-widest hover:bg-gold-light transition-all shadow-lg" data-i18n="btn_tier_apply">
                         Požádat o Prověření
                     </button>
                 </div>
@@ -358,19 +516,19 @@
                 <!-- Tier 3: DUONERA VIP Concierge (3,990 Kč/mo) -->
                 <div class="glass-panel p-8 rounded-3xl border-white/10 flex flex-col justify-between">
                     <div>
-                        <span class="text-[10px] text-gray-500 uppercase tracking-widest block mb-1">Ultraprivátní</span>
+                        <span class="text-[10px] text-gray-500 uppercase tracking-widest block mb-1" data-i18n="tier3_tag">Ultraprivátní</span>
                         <h3 class="font-serif text-2xl text-gold-light font-bold mb-2">DUONERA VIP</h3>
-                        <div class="font-serif text-3xl text-gold-main font-bold mb-1">3 990 Kč <span class="text-xs font-sans text-gray-400 font-normal">/ měsíc</span></div>
+                        <div class="font-serif text-3xl text-gold-main font-bold mb-1" id="priceTier3">3 990 Kč <span class="text-xs font-sans text-gray-400 font-normal">/ měsíc</span></div>
                         <span class="text-[10px] text-gold-main uppercase block mb-6">(cca 160 € / měsíc)</span>
                         
                         <ul class="text-xs text-gray-300 space-y-3 mb-8 border-t border-white/5 pt-6">
-                            <li><i class="fa-solid fa-check text-gold-main mr-2"></i> Garance schůzek na klíč každý měsíc</li>
-                            <li><i class="fa-solid fa-check text-gold-main mr-2"></i> Co-Aviation & Yacht Syndicate</li>
-                            <li><i class="fa-solid fa-check text-gold-main mr-2"></i> Vstupy na komorní VIP akce a večery</li>
+                            <li><i class="fa-solid fa-check text-gold-main mr-2"></i> <span data-i18n="tier3_f1">Garance schůzek na klíč každý měsíc</span></li>
+                            <li><i class="fa-solid fa-check text-gold-main mr-2"></i> <span data-i18n="tier3_f2">Co-Aviation & Yacht Syndicate</span></li>
+                            <li><i class="fa-solid fa-check text-gold-main mr-2"></i> <span data-i18n="tier3_f3">Vstupy na komorní VIP akce a večery</span></li>
                         </ul>
                     </div>
                     
-                    <button onclick="openVettingModal()" class="w-full bg-gradient-to-r from-gold-light to-gold-dark text-black font-semibold text-xs py-4 rounded-full uppercase tracking-widest hover:shadow-[0_0_25px_rgba(212,175,55,0.4)] transition-all">
+                    <button onclick="openVettingModal()" class="w-full bg-gradient-to-r from-gold-light to-gold-dark text-black font-semibold text-xs py-4 rounded-full uppercase tracking-widest hover:shadow-[0_0_25px_rgba(212,175,55,0.4)] transition-all" data-i18n="btn_tier_apply">
                         Požádat o Prověření
                     </button>
                 </div>
@@ -379,7 +537,56 @@
         </div>
     </section>
 
-    <!-- Modal Vetting Form Body -->
+    <section id="faq" class="relative z-10 py-20 bg-black/40 border-t border-gold-dark/20">
+        <div class="max-w-4xl mx-auto px-6">
+            
+            <div class="text-center mb-12 space-y-3">
+                <span class="text-xs font-semibold uppercase tracking-[0.3em] text-gold-main" data-i18n="faq_tag">Odpovědi Na Vaše Otázky</span>
+                <h2 class="font-serif text-3xl sm:text-4xl gold-text-gradient font-bold tracking-widest" data-i18n="faq_title">
+                    ČASTO KLADENÉ DOTAZY
+                </h2>
+            </div>
+
+            <div class="space-y-4">
+                
+                <!-- FAQ item 1 -->
+                <div class="glass-panel rounded-2xl border-white/10 overflow-hidden">
+                    <button onclick="toggleFaq(1)" class="w-full p-5 text-left font-serif text-sm text-gold-light font-semibold flex justify-between items-center hover:bg-white/5 transition-colors">
+                        <span data-i18n="faq1_q">Jak je zaručeno, že se moje fotky neobjeví veřejně?</span>
+                        <i id="faqIcon1" class="fa-solid fa-chevron-down text-gold-main text-xs transition-transform"></i>
+                    </button>
+                    <div id="faqContent1" class="hidden p-5 pt-0 text-xs text-gray-300 leading-relaxed border-t border-white/5" data-i18n="faq1_a">
+                        Váš profil není veřejný ani volně prohledatelný na internetu. Vaši prezentaci vidí výhradně osobně kurátorovaní členové s vysokou shodou. Každý člen navíc podepisuje dohodu o mlčenlivosti (NDA) se sankcemi za pořízení snímků obrazovky.
+                    </div>
+                </div>
+
+                <!-- FAQ item 2 -->
+                <div class="glass-panel rounded-2xl border-white/10 overflow-hidden">
+                    <button onclick="toggleFaq(2)" class="w-full p-5 text-left font-serif text-sm text-gold-light font-semibold flex justify-between items-center hover:bg-white/5 transition-colors">
+                        <span data-i18n="faq2_q">Co se stane po odeslání dotazníku k prověření?</span>
+                        <i id="faqIcon2" class="fa-solid fa-chevron-down text-gold-main text-xs transition-transform"></i>
+                    </button>
+                    <div id="faqContent2" class="hidden p-5 pt-0 text-xs text-gray-300 leading-relaxed border-t border-white/5" data-i18n="faq2_a">
+                        Do 24 hodin vás diskrétně kontaktuje člen našeho kurátorského týmu pro krátké ověření totožnosti. Po schválení obdržíte přístup do klientského portálu Sanctuary a případně váš fyzický klubový klíč.
+                    </div>
+                </div>
+
+                <!-- FAQ item 3 -->
+                <div class="glass-panel rounded-2xl border-white/10 overflow-hidden">
+                    <button onclick="toggleFaq(3)" class="w-full p-5 text-left font-serif text-sm text-gold-light font-semibold flex justify-between items-center hover:bg-white/5 transition-colors">
+                        <span data-i18n="faq3_q">Jak funguje rezervace rande přes osobního Concierge?</span>
+                        <i id="faqIcon3" class="fa-solid fa-chevron-down text-gold-main text-xs transition-transform"></i>
+                    </button>
+                    <div id="faqContent3" class="hidden p-5 pt-0 text-xs text-gray-300 leading-relaxed border-t border-white/5" data-i18n="faq3_a">
+                        Jakmile proběhne oboustranná shoda, váš Concierge navrhne optimální čas a prémiovou lokaci (restaurace, kavárna, opera) a zajistí rezervaci stolu na vaše jméno. Nemusíte řešit složité domlouvání.
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
     <div id="vettingModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-xl flex justify-center items-center opacity-0 hidden transition-opacity duration-300 p-4">
         <div class="glass-panel max-w-xl w-full p-8 rounded-3xl border-gold-main/40 relative">
             
@@ -389,7 +596,7 @@
 
             <div class="mb-6">
                 <span id="wizardStepTag" class="text-[10px] text-gold-main uppercase tracking-[0.25em]">Krok 1 ze 3</span>
-                <h3 id="wizardTitle" class="font-serif text-2xl text-gold-light font-bold">Osobní Dotazník Zájemce</h3>
+                <h3 id="wizardTitle" class="font-serif text-2xl text-gold-light font-bold" data-i18n="wiz_step1_title">Osobní Dotazník Zájemce</h3>
             </div>
 
             <form id="wizardForm" onsubmit="handleWizardSubmit(event)">
@@ -398,13 +605,13 @@
                 <div id="step1Content" class="space-y-4">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Jméno a Titul</label>
-                            <input type="text" id="wizardName" required placeholder="např. Ing. Viktor Sterling" class="w-full bg-black/60 border border-gold-main/30 rounded-xl p-3 text-xs text-white outline-none focus:border-gold-main">
+                            <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5" data-i18n="wiz_name_label">Jméno a Titul</label>
+                            <input type="text" id="wizardName" required placeholder="Ing. Viktor Sterling" class="w-full bg-black/60 border border-gold-main/30 rounded-xl p-3 text-xs text-white outline-none focus:border-gold-main">
                         </div>
                         <div>
-                            <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Preferovaný Chapter</label>
+                            <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5" data-i18n="wiz_chapter_label">Preferovaný Chapter</label>
                             <select id="wizardChapter" class="w-full bg-black/60 border border-gold-main/30 rounded-xl p-3 text-xs text-white outline-none focus:border-gold-main">
-                                <option>Chapter Praha (Kapacita: Otevřena)</option>
+                                <option>Chapter Praha (Kapacita: 87/100)</option>
                                 <option>Chapter London (Kapacita: Otevřena)</option>
                                 <option>Chapter Monaco (Waitlist)</option>
                             </select>
@@ -412,12 +619,12 @@
                     </div>
 
                     <div>
-                        <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Oblast Působení / Zájmů</label>
-                        <input type="text" id="wizardField" required placeholder="např. Architektura / Investice / Gastronomie" class="w-full bg-black/60 border border-gold-main/30 rounded-xl p-3 text-xs text-white outline-none focus:border-gold-main">
+                        <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5" data-i18n="wiz_field_label">Oblast Působení / Zájmů</label>
+                        <input type="text" id="wizardField" required placeholder="Architektura / Investice / Gastronomie" class="w-full bg-black/60 border border-gold-main/30 rounded-xl p-3 text-xs text-white outline-none focus:border-gold-main">
                     </div>
 
                     <div>
-                        <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Očekávání od Seznámení</label>
+                        <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5" data-i18n="wiz_vision_label">Očekávání od Seznámení</label>
                         <textarea id="wizardVision" rows="3" required placeholder="Popište Vaši představu o ideálním rande a trávení volného času..." class="w-full bg-black/60 border border-gold-main/30 rounded-xl p-3 text-xs text-white outline-none focus:border-gold-main"></textarea>
                     </div>
                 </div>
@@ -425,15 +632,15 @@
                 <!-- STEP 2: DIGITAL NDA CANVAS SIGNATURE -->
                 <div id="step2Content" class="space-y-4 hidden">
                     <div class="bg-black/80 border border-gold-dark/30 rounded-xl p-4 text-[11px] text-gray-300 font-garamond italic leading-relaxed h-36 overflow-y-auto mb-3">
-                        <p class="mb-2"><strong>Článek 1 (Absolutní Diskrétnost):</strong> Zájemce se zavazuje zachovávat přísné mlčení o identitách, fotografiích a komunikaci probíhající v rámci společenství DUONERA.</p>
-                        <p><strong>Článek 2 (Zákaz Snímků Obrazovky):</strong> Pořizování snímků obrazovky nebo šíření údajů s třetími stranami zakládá okamžité odebrání členství bez náhrady.</p>
+                        <p class="mb-2"><strong data-i18n="nda_art1_title">Článek 1 (Absolutní Diskrétnost):</strong> <span data-i18n="nda_art1_body">Zájemce se zavazuje zachovávat přísné mlčení o identitách, fotografiích a komunikaci probíhající v rámci společenství DUONERA.</span></p>
+                        <p><strong data-i18n="nda_art2_title">Článek 2 (Zákaz Snímků Obrazovky):</strong> <span data-i18n="nda_art2_body">Pořizování snímků obrazovky nebo šíření údajů s třetími stranami zakládá okamžité odebrání členství bez náhrady.</span></p>
                     </div>
 
                     <div>
-                        <label class="block text-[10px] uppercase tracking-widest text-gold-main mb-1.5">Podepište elektronicky myší nebo dotykem prstu</label>
+                        <label class="block text-[10px] uppercase tracking-widest text-gold-main mb-1.5" data-i18n="wiz_sign_label">Podepište elektronicky myší nebo dotykem prstu</label>
                         <div class="relative bg-black border border-gold-main/40 rounded-xl overflow-hidden">
                             <canvas id="signaturePad" width="550" height="130" class="w-full cursor-crosshair"></canvas>
-                            <button type="button" onclick="clearSignature()" class="absolute bottom-2 right-2 text-[9px] bg-white/10 text-gray-300 px-2.5 py-1 rounded hover:bg-white/20">Vymazat Podpis</button>
+                            <button type="button" onclick="clearSignature()" class="absolute bottom-2 right-2 text-[9px] bg-white/10 text-gray-300 px-2.5 py-1 rounded hover:bg-white/20" data-i18n="btn_clear_sig">Vymazat Podpis</button>
                         </div>
                     </div>
                 </div>
@@ -443,12 +650,12 @@
                     <div class="w-20 h-20 rounded-full border-2 border-gold-main mx-auto flex items-center justify-center bg-gold-main/10 shadow-[0_0_40px_rgba(212,175,55,0.4)] animate-pulse">
                         <i class="fa-solid fa-check text-3xl text-gold-main"></i>
                     </div>
-                    <h4 class="font-serif text-2xl text-gold-light font-bold">ŽÁDOST PŘIJATA K PROVĚŘENÍ</h4>
-                    <p class="text-xs text-gray-300 leading-relaxed font-garamond italic text-base">
+                    <h4 class="font-serif text-2xl text-gold-light font-bold" data-i18n="wiz_success_title">ŽÁDOST PŘIJATA K PROVĚŘENÍ</h4>
+                    <p class="text-xs text-gray-300 leading-relaxed font-garamond italic text-base" data-i18n="wiz_success_desc">
                         „Vaše žádost byla úspěšně doručena kurátorům DUONERA. Do 24 hodin vás budeme kontaktovat s potvrzením verifikace.“
                     </p>
                     <div class="pt-4">
-                        <a href="aurum_portal.html" class="inline-block bg-gradient-to-r from-gold-light via-gold-main to-gold-dark text-black font-semibold text-xs tracking-[0.2em] uppercase px-8 py-3.5 rounded-full hover:shadow-[0_0_25px_rgba(212,175,55,0.6)] transition-all">
+                        <a href="aurum_portal.html" class="inline-block bg-gradient-to-r from-gold-light via-gold-main to-gold-dark text-black font-semibold text-xs tracking-[0.2em] uppercase px-8 py-3.5 rounded-full hover:shadow-[0_0_25px_rgba(212,175,55,0.6)] transition-all" data-i18n="btn_enter_portal">
                             Vstoupit do Portálu (Demo) <i class="fa-solid fa-arrow-right ml-1"></i>
                         </a>
                     </div>
@@ -456,11 +663,11 @@
 
                 <!-- Buttons Navigation -->
                 <div class="mt-6 pt-4 border-t border-white/10 flex justify-between items-center" id="wizardControls">
-                    <button type="button" onclick="prevWizardStep()" id="wizardBackBtn" class="text-xs text-gray-400 hover:text-white uppercase tracking-wider invisible">
+                    <button type="button" onclick="prevWizardStep()" id="wizardBackBtn" class="text-xs text-gray-400 hover:text-white uppercase tracking-wider invisible" data-i18n="btn_back">
                         Zpět
                     </button>
                     <button type="submit" id="wizardNextBtn" class="bg-gold-main hover:bg-gold-light text-black font-semibold text-xs uppercase tracking-[0.2em] px-8 py-3 rounded-full transition-all">
-                        Pokračovat k NDA <i class="fa-solid fa-chevron-right ml-1"></i>
+                        <span id="nextBtnText" data-i18n="btn_next_nda">Pokračovat k NDA</span> <i class="fa-solid fa-chevron-right ml-1"></i>
                     </button>
                 </div>
 
@@ -469,19 +676,497 @@
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="relative z-10 max-w-7xl mx-auto w-full px-6 py-8 border-t border-gold-dark/10 flex flex-wrap justify-between items-center text-[10px] text-gray-500 tracking-widest uppercase">
+    <footer class="relative z-10 max-w-7xl mx-auto w-full px-6 py-8 border-t border-gold-dark/10 flex flex-wrap justify-between items-center text-[10px] text-gray-500 tracking-widest uppercase gap-4">
         <div>© 2026 DUONERA Private Syndicate • Geneva • Prague • Monaco</div>
         <div class="flex gap-6">
-            <a href="aurum_portal.html" class="hover:text-gold-main transition-colors">Sanctuary Portal</a>
-            <a href="ucet.html" class="hover:text-gold-main transition-colors">Klientský Účet</a>
-            <span>Diskrétní Seznamování</span>
+            <a href="aurum_portal.html" class="hover:text-gold-main transition-colors" data-i18n="foot_portal">Sanctuary Portal</a>
+            <a href="ucet.html" class="hover:text-gold-main transition-colors" data-i18n="foot_account">Klientský Účet</a>
+            <span data-i18n="foot_discrete">Diskrétní Seznamování</span>
         </div>
     </footer>
 
     <script>
-        /* 1. Audio Synthesizer Feedback */
+        /* Multi-Language i18n Translations Dictionary */
+        const translations = {
+            cs: {
+                nav_calc: "Test Shody",
+                nav_how: "Jak to funguje",
+                nav_venues: "Concierge Místa",
+                nav_pricing: "Členství",
+                nav_faq: "Časté Dotazy",
+                nav_account: "Klientský Účet",
+                btn_hero_apply: "Chci se seznámit",
+                hero_badge_discrete: "<i class='fa-solid fa-shield-halved text-[10px]'></i> 100% Diskrétní seznamování pro náročné",
+                hero_badge_capacity: "Chapter Praha: 87/100 Míst Zabráno",
+                hero_title: "NESTAČÍ VÁM KVALITA BĚŽNÝCH SEZNAMOK?",
+                hero_quote: "„DUONERA šetří váš drahocenný čas. Propojujeme úspěšné muže a inspirativní ženy bez nekonečného swipování, bez veřejných profilů a s organizací prvního rande na klíč.“",
+                benefit1_title: "<i class='fa-solid fa-clock mr-1'></i> Úspora Času",
+                benefit1_desc: "Žádné zbytečné psaní",
+                benefit2_title: "<i class='fa-solid fa-user-lock mr-1'></i> Absolutní Diskrétnost",
+                benefit2_desc: "Neveřejné profily & NDA",
+                benefit3_title: "<i class='fa-solid fa-champagne-glasses mr-1'></i> Reálné Rande",
+                benefit3_desc: "Concierge rezervace",
+                btn_hero_cta: "Požádat o prověření profilu",
+                btn_hero_demo: "Vyzkoušet Sanctuary (Demo)",
+                puck_card_title: "Klubový HW Klíč",
+                puck_card_subtitle: "Garantovaný přístup do uzavřené sítě",
+                puck_verification_label: "Ověření člena:",
+                puck_verification_val: "Privátní verifikace",
+                puck_capacity_label: "Kapacita Chapteru:",
+                puck_capacity_val: "87% Obsazeno",
+                calc_tag: "Interaktivní Test",
+                calc_title: "SPOČÍTAT VAŠI SHODU V DUONERA",
+                calc_desc: "Zjistěte procento kompatibility s aktivními členy v Praze na základě vašich preferencí.",
+                calc_opt1_label: "1. Váš životní styl",
+                calc_opt1_1: "Vytížený podnikatel / manažer",
+                calc_opt1_2: "Architektura / Umění / Design",
+                calc_opt1_3: "Investice & Finanční trhy",
+                calc_opt1_4: "Aktivní cestování & Gastronomie",
+                calc_opt2_label: "2. Časová dostupnost",
+                calc_opt2_1: "1-2 kvalitní schůzky měsíčně",
+                calc_opt2_2: "Víkendové pracovní přestávky",
+                calc_opt2_3: "Spontánní večeře po práci",
+                calc_opt3_label: "3. Očekávání od Rande",
+                calc_opt3_1: "Vážný vztah na úrovni",
+                calc_opt3_2: "Inspirativní společnost & Vztah",
+                calc_opt3_3: "Společné koníčky & Cestování",
+                calc_res_label: "Odhadovaná shoda s pražskou komunitou:",
+                calc_res_val: "97% Vynikající Shoda",
+                btn_calc_apply: "Požádat o Prověření",
+                steps_tag: "Osvědčený Postup",
+                steps_title: "3 KROKY K REÁLNÉMU SEZNÁMENÍ",
+                steps_subtitle: "Běžné aplikace vás nutí trávit hodiny u displeje. V DUONERA se soustředíme výhradně na osobní setkání na prémiové úrovni.",
+                step1_title: "Diskrétní Prověření",
+                step1_desc: "Vyplníte krátký osobní dotazník a podepíšete dohodu o mlčenlivosti. Váš profil zůstává skrytý před veřejností.",
+                step2_title: "Výběr Na Míru",
+                step2_desc: "Naše kurátorská služba vám každý měsíc doporučí 3–5 osobností s vysokou shodou životních hodnot a zájmů.",
+                step3_title: "Rande Bez Starostí",
+                step3_desc: "Osobní Concierge vyřeší rezervaci stolu v prémiové kavárně či restauraci. Vy se jen dostavíte na setkání.",
+                venues_tag: "Atmosféra Prvního Setkání",
+                venues_title: "PARTNERSKÉ CONCIERGE LOKACE",
+                venues_subtitle: "Náš tým pro vás zajišťuje VIP stoly a optimální soukromí v předních podnicích.",
+                venue1_desc: "Degustační zážitek pro dvojice s garantovaným VIP stolem a párováním vína.",
+                venue2_desc: "Privátní vstup na operní představení s cateringem v soukromém salonku.",
+                venue3_desc: "Klidné prostředí historického kláštera ideální pro neformální první kávu.",
+                venue_key: "<i class='fa-solid fa-utensils mr-1'></i> Rezervace na klíč přes Concierge",
+                pricing_tag: "Jasná a Transparentní Pravidla",
+                pricing_title: "CENOTVORBA A ČLENSTVÍ",
+                pricing_subtitle: "Investice do kvalitního seznamování, která odfiltruje spammery a zaručí vysokou úroveň partnerů.",
+                billing_monthly: "Měsíční Platba",
+                billing_annual: "Roční (Ušetříte 20%)",
+                tier1_tag: "Základní Členství",
+                tier1_f1: "Přístup k lokálnímu Chapteru (Praha)",
+                tier1_f2: "Ověření profilu bez veřejného dohledání",
+                tier1_f3: "Digitální matchmaker a doporučení",
+                tier2_tag: "Doporučeno pro aktivní",
+                popular_badge: "Nejoblíbenější",
+                tier2_f1: "Fyzický klubový HW klíč v luxusní krabičce",
+                tier2_f2: "Přístup ke všem městským Chapterům",
+                tier2_f3: "Osobní Concierge pro rezervaci stolu",
+                tier2_f4: "2 Pozvánky pro přátele ročně",
+                tier3_tag: "Ultraprivátní",
+                tier3_f1: "Garance schůzek na klíč každý měsíc",
+                tier3_f2: "Co-Aviation & Yacht Syndicate",
+                tier3_f3: "Vstupy na komorní VIP akce a večery",
+                btn_tier_apply: "Požádat o Prověření",
+                faq_tag: "Odpovědi Na Vaše Otázky",
+                faq_title: "ČASTO KLADENÉ DOTAZY",
+                faq1_q: "Jak je zaručeno, že se moje fotky neobjeví veřejně?",
+                faq1_a: "Váš profil není veřejný ani volně prohledatelný na internetu. Vaši prezentaci vidí výhradně osobně kurátorovaní členové s vysokou shodou. Každý člen navíc podepisuje dohodu o mlčenlivosti (NDA) se sankcemi za pořízení snímků obrazovky.",
+                faq2_q: "Co se stane po odeslání dotazníku k prověření?",
+                faq2_a: "Do 24 hodin vás diskrétně kontaktuje člen našeho kurátorského týmu pro krátké ověření totožnosti. Po schválení obdržíte přístup do klientského portálu Sanctuary a případně váš fyzický klubový klíč.",
+                faq3_q: "Jak funguje rezervace rande přes osobního Concierge?",
+                faq3_a: "Jakmile proběhne oboustranná shoda, váš Concierge navrhne optimální čas a prémiovou lokaci (restaurace, kavárna, opera) a zajistí rezervaci stolu na vaše jméno. Nemusíte řešit složité domlouvání.",
+                wiz_step1_title: "Osobní Dotazník Zájemce",
+                wiz_name_label: "Jméno a Titul",
+                wiz_chapter_label: "Preferovaný Chapter",
+                wiz_field_label: "Oblast Působení / Zájmů",
+                wiz_vision_label: "Očekávání od Seznámení",
+                nda_art1_title: "Článek 1 (Absolutní Diskrétnost):",
+                nda_art1_body: "Zájemce se zavazuje zachovávat přísné mlčení o identitách, fotografiích a komunikaci probíhající v rámci společenství DUONERA.",
+                nda_art2_title: "Článek 2 (Zákaz Snímků Obrazovky):",
+                nda_art2_body: "Pořizování snímků obrazovky nebo šíření údajů s třetími stranami zakládá okamžité odebrání členství bez náhrady.",
+                wiz_sign_label: "Podepište elektronicky myší nebo dotykem prstu",
+                btn_clear_sig: "Vymazat Podpis",
+                wiz_success_title: "ŽÁDOST PŘIJATA K PROVĚŘENÍ",
+                wiz_success_desc: "„Vaše žádost byla úspěšně doručena kurátorům DUONERA. Do 24 hodin vás budeme kontaktovat s potvrzením verifikace.“",
+                btn_enter_portal: "Vstoupit do Portálu (Demo) <i class='fa-solid fa-arrow-right ml-1'></i>",
+                btn_back: "Zpět",
+                btn_next_nda: "Pokračovat k NDA",
+                btn_submit_nda: "Podepsat a Odeslat Kurátorům",
+                foot_portal: "Sanctuary Portal",
+                foot_account: "Klientský Účet",
+                foot_discrete: "Diskrétní Seznamování"
+            },
+            en: {
+                nav_calc: "Match Test",
+                nav_how: "How it works",
+                nav_venues: "Concierge Venues",
+                nav_pricing: "Membership",
+                nav_faq: "FAQ",
+                nav_account: "Client Account",
+                btn_hero_apply: "Apply for Access",
+                hero_badge_discrete: "<i class='fa-solid fa-shield-halved text-[10px]'></i> 100% Discrete Matchmaking for Demanding Individuals",
+                hero_badge_capacity: "Prague Chapter: 87/100 Seats Claimed",
+                hero_title: "DISCERNING DATING FOR EXCEPTIONAL INDIVIDUALS",
+                hero_quote: "“DUONERA saves your precious time. Connecting successful men and inspiring women without endless swiping, public profiles, and with turn-key date arrangements.”",
+                benefit1_title: "<i class='fa-solid fa-clock mr-1'></i> Time Savings",
+                benefit1_desc: "No wasteful chatting",
+                benefit2_title: "<i class='fa-solid fa-user-lock mr-1'></i> Utmost Privacy",
+                benefit2_desc: "Private profiles & NDA",
+                benefit3_title: "<i class='fa-solid fa-champagne-glasses mr-1'></i> Real Dates",
+                benefit3_desc: "Concierge booking",
+                btn_hero_cta: "Request Profile Vetting",
+                btn_hero_demo: "Try Sanctuary (Demo)",
+                puck_card_title: "Club Hardware Key",
+                puck_card_subtitle: "Guaranteed closed-network access",
+                puck_verification_label: "Member Verification:",
+                puck_verification_val: "Private Verification",
+                puck_capacity_label: "Chapter Capacity:",
+                puck_capacity_val: "87% Occupied",
+                calc_tag: "Interactive Quiz",
+                calc_title: "CALCULATE YOUR DUONERA MATCH",
+                calc_desc: "Discover your compatibility percentage with active Prague members based on your preferences.",
+                calc_opt1_label: "1. Your Lifestyle",
+                calc_opt1_1: "Busy Entrepreneur / Executive",
+                calc_opt1_2: "Architecture / Fine Art / Design",
+                calc_opt1_3: "Investments & Financial Markets",
+                calc_opt1_4: "Active Travel & Fine Dining",
+                calc_opt2_label: "2. Availability",
+                calc_opt2_1: "1-2 quality dates per month",
+                calc_opt2_2: "Weekend getaway breaks",
+                calc_opt2_3: "Spontaneous dinners after work",
+                calc_opt3_label: "3. Relationship Goals",
+                calc_opt3_1: "Serious high-tier relationship",
+                calc_opt3_2: "Inspiring companionship & connection",
+                calc_opt3_3: "Shared hobbies & luxury travel",
+                calc_res_label: "Estimated compatibility with Prague community:",
+                calc_res_val: "97% Outstanding Match",
+                btn_calc_apply: "Request Profile Vetting",
+                steps_tag: "Proven Methodology",
+                steps_title: "3 STEPS TO REAL ENGAGEMENT",
+                steps_subtitle: "Standard dating apps force endless screen time. DUONERA focuses exclusively on premier face-to-face encounters.",
+                step1_title: "Discrete Vetting",
+                step1_desc: "Complete a concise questionnaire and sign a Non-Disclosure Agreement. Your profile remains unlisted to the public.",
+                step2_title: "Curated Selection",
+                step2_desc: "Our curation service introduces 3–5 highly compatible individuals each month matching your life values.",
+                step3_title: "Seamless Rendezvous",
+                step3_desc: "Your dedicated Concierge books a private table at a fine restaurant or lounge. You simply arrive.",
+                venues_tag: "Atmosphere of First Encounters",
+                venues_title: "PARTNER CONCIERGE LOCATIONS",
+                venues_subtitle: "Our team secures VIP tables and optimal privacy at world-class establishments.",
+                venue1_desc: "Fine tasting experience for couples with guaranteed VIP tables and wine pairing.",
+                venue2_desc: "Private entry to opera performances with catering in a secluded private booth.",
+                venue3_desc: "Serene historic monastery setting ideal for an informal premier coffee.",
+                venue_key: "<i class='fa-solid fa-utensils mr-1'></i> Turnkey Concierge Booking",
+                pricing_tag: "Clear & Transparent Terms",
+                pricing_title: "MEMBERSHIP INVESTMENT",
+                pricing_subtitle: "An investment in quality matchmaking that filters spammers and guarantees high-caliber partners.",
+                billing_monthly: "Monthly Billing",
+                billing_annual: "Annual (Save 20%)",
+                tier1_tag: "Basic Membership",
+                tier1_f1: "Local Chapter Access (Prague)",
+                tier1_f2: "Private profile verification",
+                tier1_f3: "Digital matchmaker curation",
+                tier2_tag: "Recommended for Active",
+                popular_badge: "Most Popular",
+                tier2_f1: "Physical HW Key in luxury box",
+                tier2_f2: "Access to all global Chapters",
+                tier2_f3: "Personal Concierge booking service",
+                tier2_f4: "2 Guest invitations per year",
+                tier3_tag: "Ultra-Private",
+                tier3_f1: "Guaranteed turnkey dates every month",
+                tier3_f2: "Co-Aviation & Yacht Syndicate",
+                tier3_f3: "Access to private VIP Galas",
+                btn_tier_apply: "Apply for Vetting",
+                faq_tag: "Your Questions Answered",
+                faq_title: "FREQUENTLY ASKED QUESTIONS",
+                faq1_q: "How do you guarantee my photos won't appear publicly?",
+                faq1_a: "Your profile is never public or search-engine indexable. Only personally vetted members with high compatibility can view your introduction. Furthermore, every member signs a legally binding NDA.",
+                faq2_q: "What happens after submitting my vetting request?",
+                faq2_a: "Within 24 hours, a curator discreetly reaches out for identity confirmation. Upon approval, you receive access to the Sanctuary portal and your hardware key.",
+                faq3_q: "How does booking dates through Personal Concierge work?",
+                faq3_a: "Once mutual match alignment occurs, your Concierge proposes an optimal time and venue (restaurant, opera) and reserves a table under your name.",
+                wiz_step1_title: "Personal Applicant Questionnaire",
+                wiz_name_label: "Full Name & Title",
+                wiz_chapter_label: "Preferred Chapter",
+                wiz_field_label: "Field of Work / Interests",
+                wiz_vision_label: "Dating Expectations",
+                nda_art1_title: "Article 1 (Absolute Privacy):",
+                nda_art1_body: "Applicant agrees to strict confidentiality regarding all identities, photos, and messages inside DUONERA.",
+                nda_art2_title: "Article 2 (No Screenshots):",
+                nda_art2_body: "Capturing screenshots or sharing network data with third parties invokes immediate revocation of membership.",
+                wiz_sign_label: "Sign digitally via mouse or touch input",
+                btn_clear_sig: "Clear Signature",
+                wiz_success_title: "APPLICATION RECEIVED FOR VETTING",
+                wiz_success_desc: "“Your application and signed NDA have been securely delivered to DUONERA curators. We will reach out within 24 hours.”",
+                btn_enter_portal: "Enter Sanctuary Portal (Demo) <i class='fa-solid fa-arrow-right ml-1'></i>",
+                btn_back: "Back",
+                btn_next_nda: "Proceed to NDA",
+                btn_submit_nda: "Sign & Submit to Curators",
+                foot_portal: "Sanctuary Portal",
+                foot_account: "Client Account",
+                foot_discrete: "Discrete Matchmaking"
+            },
+            ru: {
+                nav_calc: "Тест совпадения",
+                nav_how: "Как это работает",
+                nav_venues: "Локации Concierge",
+                nav_pricing: "Членство",
+                nav_faq: "Частые вопросы",
+                nav_account: "Личный кабинет",
+                btn_hero_apply: "Подать заявку",
+                hero_badge_discrete: "<i class='fa-solid fa-shield-halved text-[10px]'></i> 100% Конфиденциальные знакомства премиум-класса",
+                hero_badge_capacity: "Chapter Прага: 87/100 Мест занято",
+                hero_title: "ИЩЕТЕ НАСТОЯЩЕЕ КАЧЕСТВО И ДИСКРЕТНОСТЬ?",
+                hero_quote: "«DUONERA бережет ваше время. Мы объединяем успешных мужчин и вдохновляющих женщин без бесконечного свипинга, без публичных профилей и с организацией свиданий под ключ.»",
+                benefit1_title: "<i class='fa-solid fa-clock mr-1'></i> Экономия времени",
+                benefit1_desc: "Без бесполезных переписок",
+                benefit2_title: "<i class='fa-solid fa-user-lock mr-1'></i> Абсолютная дискретность",
+                benefit2_desc: "Закрытые профили и NDA",
+                benefit3_title: "<i class='fa-solid fa-champagne-glasses mr-1'></i> Реальные свидания",
+                benefit3_desc: "Бронирование Concierge",
+                btn_hero_cta: "Запросить проверку профиля",
+                btn_hero_demo: "Попробовать Sanctuary (Демо)",
+                puck_card_title: "Клубный HW Ключ",
+                puck_card_subtitle: "Гарантированный доступ в закрытую сеть",
+                puck_verification_label: "Верификация:",
+                puck_verification_val: "Приватная верификация",
+                puck_capacity_label: "Заполненность:",
+                puck_capacity_val: "87% Занято",
+                calc_tag: "Интерактивный Тест",
+                calc_title: "РАССЧИТАТЬ СОВПАДЕНИЕ В DUONERA",
+                calc_desc: "Узнайте процент совместимости с активными участниками в Праге на основе ваших предпочтений.",
+                calc_opt1_label: "1. Ваш образ жизни",
+                calc_opt1_1: "Занятой предприниматель / топ-менеджер",
+                calc_opt1_2: "Архитектура / Искусство / Дизайн",
+                calc_opt1_3: "Инвестиции и финансовые рынки",
+                calc_opt1_4: "Путешествия и гастрономия",
+                calc_opt2_label: "2. Доступность времени",
+                calc_opt2_1: "1-2 качественные встречи в месяц",
+                calc_opt2_2: "Уикенд-перерывы в работе",
+                calc_opt2_3: "Спонтанные ужины после работы",
+                calc_opt3_label: "3. Ожидания от встреч",
+                calc_opt3_1: "Серьезные отношения высокого уровня",
+                calc_opt3_2: "Вдохновляющее общение и связь",
+                calc_opt3_3: "Общие хобби и путешествия",
+                calc_res_label: "Расчетная совместимость с сообществом Праги:",
+                calc_res_val: "97% Отличное совпадение",
+                btn_calc_apply: "Запросить Проверку",
+                steps_tag: "Проверенный Порядок",
+                steps_title: "3 ШАГА К РЕАЛЬНОМУ ЗНАКОМСТВУ",
+                steps_subtitle: "Обычные приложения заставляют тратить часы у экрана. В DUONERA мы фокусируемся исключительно на личных встречах высшего уровня.",
+                step1_title: "Конфиденциальная проверка",
+                step1_desc: "Вы заполняете анкуту и подписываете соглашение о неразглашении (NDA). Ваш профиль скрыт от публики.",
+                step2_title: "Персональный подбор",
+                step2_desc: "Наша кураторская служба ежемесячно рекомендует 3–5 кандидатов с высоким совпадением жизненных ценностей.",
+                step3_title: "Свидание без хлопот",
+                step3_desc: "Личный Concierge организует бронирование столика в премиальном ресторане или кафе. Вы просто приходите.",
+                venues_tag: "Атмосфера Первой Встречи",
+                venues_title: "ПАРТНЕРСКИЕ ЛОКАЦИИ CONCIERGE",
+                venues_subtitle: "Наша команда бронирует VIP-столы и обеспечивает максимальное приватити в лучших заведениях.",
+                venue1_desc: "Дегустационный ужин для двоих с гарантированным VIP-столиком и подбором вин.",
+                venue2_desc: "Приватный посещение оперы с обслуживанием в отдельной ложе.",
+                venue3_desc: "Спокойная атмосфера исторического монастыря, идеальная для первой кофе-встречи.",
+                venue_key: "<i class='fa-solid fa-utensils mr-1'></i> Бронирование под ключ через Concierge",
+                pricing_tag: "Прозрачные Условия",
+                pricing_title: "СТОИМОСТЬ ЧЛЕНСТВА",
+                pricing_subtitle: "Инвестиция в качественные знакомства, которая отсеивает спам и гарантирует высокий уровень партнеров.",
+                billing_monthly: "Ежемесячная оплата",
+                billing_annual: "Годовая (Скидка 20%)",
+                tier1_tag: "Базовое Членство",
+                tier1_f1: "Доступ к локальному Chapter (Прага)",
+                tier1_f2: "Проверка профиля без публичного доступа",
+                tier1_f3: "Цифровой подбор пар и рекомендации",
+                tier2_tag: "Рекомендуем для активных",
+                popular_badge: "Самый популярный",
+                tier2_f1: "Физический клубный HW ключ в подарочной боксе",
+                tier2_f2: "Доступ ко всем международным Chapter",
+                tier2_f3: "Персональный Concierge для бронирования",
+                tier2_f4: "2 Приглашения для друзей в год",
+                tier3_tag: "Ультра-Приватный",
+                tier3_f1: "Гарантия свиданий под ключ каждый месяц",
+                tier3_f2: "Co-Aviation & Yacht Syndicate",
+                tier3_f3: "Приглашения на закрытые VIP-мероприятия",
+                btn_tier_apply: "Подать заявку на проверку",
+                faq_tag: "Ответы На Ваши Вопросы",
+                faq_title: "ЧАСТО ЗАДАВАЕМЫЕ ВОПРОСЫ",
+                faq1_q: "Как гарантируется, что мои фото не попадут в сеть?",
+                faq1_a: "Ваш профиль не является публичным. Его видят исключительно лично проверенные участники с высоким совпадением. Каждый член подписывает соглашение NDA.",
+                faq2_q: "Что происходит после отправки анкеты?",
+                faq2_a: "В течение 24 часов куратор свяжется с вами для короткого подтверждения личности. После одобрения вы получите доступ к порталу Sanctuary.",
+                faq3_q: "Как работает бронирование через Concierge?",
+                faq3_a: "При взаимном совпадении Concierge предложит удобное время, забронирует столик в премиальном ресторане и пришлет детали.",
+                wiz_step1_title: "Личная Анкета Кандидата",
+                wiz_name_label: "Имя и Титул",
+                wiz_chapter_label: "Предпочитаемый Chapter",
+                wiz_field_label: "Сфера деятельности / Интересы",
+                wiz_vision_label: "Ожидания от знакомства",
+                nda_art1_title: "Статья 1 (Абсолютная конфиденциальность):",
+                nda_art1_body: "Кандидат обязуется сохранять строгую тайну обо всех личностях, фото и сообщениях в сообществе DUONERA.",
+                nda_art2_title: "Статья 2 (Запрет скриншотов):",
+                nda_art2_body: "Создание скриншотов или передача данных третьим лицам ведет к немедленному аннулированию членства.",
+                wiz_sign_label: "Подпишите электронно мышью или пальцем",
+                btn_clear_sig: "Очистить подпись",
+                wiz_success_title: "ЗАЯВКА ПРИНЯТА НА ПРОВЕРКУ",
+                wiz_success_desc: "«Ваша заявка и подписанное NDA успешно доставлены кураторам DUONERA. Мы свяжемся с вами в течение 24 часов.»",
+                btn_enter_portal: "Войти в Портал (Демо) <i class='fa-solid fa-arrow-right ml-1'></i>",
+                btn_back: "Назад",
+                btn_next_nda: "Перейти к NDA",
+                btn_submit_nda: "Подписать и отправить",
+                foot_portal: "Sanctuary Portal",
+                foot_account: "Личный кабинет",
+                foot_discrete: "Конфиденциальные Знакомства"
+            },
+            ua: {
+                nav_calc: "Тест сумісності",
+                nav_how: "Як це працює",
+                nav_venues: "Локації Concierge",
+                nav_pricing: "Членство",
+                nav_faq: "Часті питання",
+                nav_account: "Особистий кабінет",
+                btn_hero_apply: "Подати заявку",
+                hero_badge_discrete: "<i class='fa-solid fa-shield-halved text-[10px]'></i> 100% Дискретні знайомства преміум-класу",
+                hero_badge_capacity: "Chapter Прага: 87/100 Місць зайнято",
+                hero_title: "ШУКАЄТЕ СПРАВЖНЮ ЯКІСТЬ ТА ДИСКРЕТНІСТЬ?",
+                hero_quote: "«DUONERA береже ваш цінний час. Ми поєднуємо успішних чоловіків та натхненних жінок без нескінченного гортання, без публічних профілів та з організацією побачень під ключ.»",
+                benefit1_title: "<i class='fa-solid fa-clock mr-1'></i> Економія часу",
+                benefit1_desc: "Без марного листування",
+                benefit2_title: "<i class='fa-solid fa-user-lock mr-1'></i> Абсолютна приватність",
+                benefit2_desc: "Закриті профілі та NDA",
+                benefit3_title: "<i class='fa-solid fa-champagne-glasses mr-1'></i> Реальні побачення",
+                benefit3_desc: "Бронювання Concierge",
+                btn_hero_cta: "Подати запит на перевірку",
+                btn_hero_demo: "Спробувати Sanctuary (Демо)",
+                puck_card_title: "Клубний HW Ключ",
+                puck_card_subtitle: "Гарантований доступ у закриту мережу",
+                puck_verification_label: "Верифікація:",
+                puck_verification_val: "Приватна верифікація",
+                puck_capacity_label: "Заповненість:",
+                puck_capacity_val: "87% Зайнято",
+                calc_tag: "Інтерактивний Тест",
+                calc_title: "РОЗРАХУВАТИ СУМІСНІСТЬ У DUONERA",
+                calc_desc: "Дізнайтеся відсоток сумісності з активними учасниками у Празі на основі ваших вподобань.",
+                calc_opt1_label: "1. Ваш способ життя",
+                calc_opt1_1: "Зайнятий підприємець / топ-менеджер",
+                calc_opt1_2: "Архітектура / Мистецтво / Дизайн",
+                calc_opt1_3: "Інвестиції та фінансові ринки",
+                calc_opt1_4: "Подорожі та гастрономія",
+                calc_opt2_label: "2. Доступність часу",
+                calc_opt2_1: "1-2 якісні зустрічі на місяць",
+                calc_opt2_2: "Уїк-енд перерви у роботі",
+                calc_opt2_3: "Спонтанні вечері після роботи",
+                calc_opt3_label: "3. Очікування від зустрічей",
+                calc_opt3_1: "Серйозні стосунки високого рівня",
+                calc_opt3_2: "Натхненне спілкування та зв'язок",
+                calc_opt3_3: "Спільні хобі та подорожі",
+                calc_res_label: "Розрахована сумісність із спільнотою Праги:",
+                calc_res_val: "97% Чудова сумісність",
+                btn_calc_apply: "Подати Запит",
+                steps_tag: "Перевірений Порядок",
+                steps_title: "3 КРОКИ ДО РЕАЛЬНОГО ЗНАЙОМСТВА",
+                steps_subtitle: "Звичайні додатки змушують витрачати години біля екрана. У DUONERA ми фокусуємося виключно на особистих зустрічах найвищого рівня.",
+                step1_title: "Дискретна перевірка",
+                step1_desc: "Ви заповнюєте анкету та підписуєте угоду про нерозголошення (NDA). Ваш профіль прихований від публіки.",
+                step2_title: "Персональний підбір",
+                step2_desc: "Наша кураторська служба щомісяця рекомендує 3–5 кандидатів із високим збігом життєвих цінностей.",
+                step3_title: "Побачення без турбот",
+                step3_desc: "Особистий Concierge організує бронювання столика в преміальному ресторані чи кафе. Ви просто приходите.",
+                venues_tag: "Атмосфера Першої Зустрічі",
+                venues_title: "ПАРТНЕРСЬКІ ЛОКАЦІЇ CONCIERGE",
+                venues_subtitle: "Наша команда бронює VIP-столи та забезпечує максимальну приватність у найкращих закладах.",
+                venue1_desc: "Дегустаційна вечеря для двох із гарантованим VIP-столиком та підбором вин.",
+                venue2_desc: "Приватний візит до опери з обслуговуванням у окремій ложі.",
+                venue3_desc: "Спокійна атмосфера історичного монастиря, ідеальна для першої кава-зустрічі.",
+                venue_key: "<i class='fa-solid fa-utensils mr-1'></i> Бронювання під ключ через Concierge",
+                pricing_tag: "Прозорі Умови",
+                pricing_title: "ВАРТІСТЬ ЧЛЕНСТВА",
+                pricing_subtitle: "Інвестиція у якісні знайомства, яка відсіює спам та гарантує високий рівень партнерів.",
+                billing_monthly: "Щомісячна оплата",
+                billing_annual: "Річна (Знижка 20%)",
+                tier1_tag: "Базове Членство",
+                tier1_f1: "Доступ до локального Chapter (Прага)",
+                tier1_f2: "Перевірка профілю без публічного доступу",
+                tier1_f3: "Цифровий підбір пар та рекомендації",
+                tier2_tag: "Рекомендовано для активних",
+                popular_badge: "Найпопулярніший",
+                tier2_f1: "Фізичний клубний HW ключ у подарунковому боксі",
+                tier2_f2: "Доступ до всіх міжнародних Chapter",
+                tier2_f3: "Персональний Concierge для бронювання",
+                tier2_f4: "2 Запрошення для друзів на рік",
+                tier3_tag: "Ультра-Приватний",
+                tier3_f1: "Гарантія побачень під ключ щомісяця",
+                tier3_f2: "Co-Aviation & Yacht Syndicate",
+                tier3_f3: "Запрошення на закриті VIP-заходи",
+                btn_tier_apply: "Подати заявку на перевірку",
+                faq_tag: "Відповіді На Ваші Запитання",
+                faq_title: "ЧАСТО ЗАДАВАНІ ПИТАННЯ",
+                faq1_q: "Як гарантується, що мої фото не потраплять в мережу?",
+                faq1_a: "Ваш профіль не є публічним. Його бачать виключно особисто перевірені учасники з високим збігом. Кожен член підписує угоду NDA.",
+                faq2_q: "Що відбувається після надсилання анкети?",
+                faq2_a: "Протягом 24 годин куратор зв'яжеться з вами для короткого підтвердження особи. Після схвалення ви отримаєте доступ до порталу Sanctuary.",
+                faq3_q: "Як працює бронювання через Concierge?",
+                faq3_a: "При взаємному збігу Concierge запропонує зручний час, забронює столик у преміальному ресторані та надішле деталі.",
+                wiz_step1_title: "Особиста Анкета Кандидата",
+                wiz_name_label: "Ім'я та Титул",
+                wiz_chapter_label: "Бажаний Chapter",
+                wiz_field_label: "Сфера діяльності / Інтереси",
+                wiz_vision_label: "Очікування від знайомства",
+                nda_art1_title: "Стаття 1 (Абсолютна конфіденційність):",
+                nda_art1_body: "Кандидат зобов'язується зберігати сувору таємницю про всі особистості, фото та повідомлення у DUONERA.",
+                nda_art2_title: "Стаття 2 (Заборона скріншотів):",
+                nda_art2_body: "Створення скріншотів або передача даних третім особам веде до негайного анулювання членства.",
+                wiz_sign_label: "Підпишіть електронно мишею або пальцем",
+                btn_clear_sig: "Очистити підпис",
+                wiz_success_title: "ЗАЯВКУ ПРИЙНЯТО НА ПЕРЕВІРКУ",
+                wiz_success_desc: "«Ваша заявка та підписане NDA успішно доставлені кураторам DUONERA. Ми зв'яжемося з вами протягом 24 годин.»",
+                btn_enter_portal: "Увійти в Портал (Демо) <i class='fa-solid fa-arrow-right ml-1'></i>",
+                btn_back: "Назад",
+                btn_next_nda: "Перейти до NDA",
+                btn_submit_nda: "Підписати та надіслати",
+                foot_portal: "Sanctuary Portal",
+                foot_account: "Особистий кабінет",
+                foot_discrete: "Дискретні Знайомства"
+            }
+        };
+
+        let currentLang = 'cs';
+
+        function toggleLangDropdown() {
+            playChime(500);
+            document.getElementById('langDropdown').classList.toggle('hidden');
+        }
+
+        function setLanguage(lang) {
+            playChime(600);
+            currentLang = lang;
+            document.getElementById('langDropdown').classList.add('hidden');
+
+            const flags = { cs: '🇨🇿', en: '🇬🇧', ru: '🇷🇺', ua: '🇺🇦' };
+            document.getElementById('langCurrentFlag').innerText = flags[lang];
+            document.getElementById('langCurrentLabel').innerText = lang.toUpperCase();
+
+            const dict = translations[lang];
+            if (!dict) return;
+
+            // Translate all elements with data-i18n attribute
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key]) {
+                    el.innerHTML = dict[key];
+                }
+            });
+
+            // Update calculator match display text format
+            calculateMatchScore();
+            showToast(`Language changed to ${lang.toUpperCase()}`);
+        }
+
+        /* 1. Audio Synthesizer Feedback & Soundscape Generator */
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        let soundscapeActive = false;
+        let ambientOsc = null;
+
         function playChime(freq = 523.25) {
             if (audioCtx.state === 'suspended') audioCtx.resume();
             const osc = audioCtx.createOscillator();
@@ -496,6 +1181,39 @@
             gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
             osc.start(now);
             osc.stop(now + 0.4);
+        }
+
+        function toggleSoundscape() {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const label = document.getElementById('soundscapeLabel');
+            const btn = document.getElementById('soundscapeBtn');
+
+            if (!soundscapeActive) {
+                soundscapeActive = true;
+                label.innerText = "Soundscape: ON";
+                btn.classList.add('bg-gold-main', 'text-black');
+
+                const osc1 = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc1.type = 'sine';
+                osc1.frequency.setValueAtTime(146.83, audioCtx.currentTime); // D3
+                gain.gain.setValueAtTime(0.001, audioCtx.currentTime);
+                gain.gain.linearRampToValueAtTime(0.02, audioCtx.currentTime + 1.5);
+                osc1.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc1.start();
+                ambientOsc = { osc1, gain };
+                showToast("Atmosférické podbarvení zapnuto");
+            } else {
+                soundscapeActive = false;
+                label.innerText = "Soundscape: OFF";
+                btn.classList.remove('bg-gold-main', 'text-black');
+                if (ambientOsc) {
+                    ambientOsc.gain.gain.linearRampToValueAtTime(0.0001, audioCtx.currentTime + 1);
+                    setTimeout(() => ambientOsc.osc1.stop(), 1000);
+                }
+                showToast("Soundscape vypnut");
+            }
         }
 
         /* 2. Toast Notifications */
@@ -544,7 +1262,63 @@
         }
         animateCanvas();
 
-        /* 4. Wizard Vetting Modal Logic */
+        /* 4. Interactive Match Score Calculator */
+        function calculateMatchScore() {
+            playChime(650);
+            const val1 = parseInt(document.getElementById('calcStyle').value);
+            const val2 = parseInt(document.getElementById('calcTime').value);
+            const val3 = parseInt(document.getElementById('calcGoal').value);
+            
+            const avg = Math.round((val1 + val2 + val3) / 3);
+            const labels = {
+                cs: `${avg}% Vynikající Shoda`,
+                en: `${avg}% Outstanding Match`,
+                ru: `${avg}% Отличное совпадение`,
+                ua: `${avg}% Чудова сумісність`
+            };
+            document.getElementById('matchScoreDisplay').innerText = labels[currentLang] || `${avg}% Vynikající Shoda`;
+        }
+
+        /* 5. Billing Period Switcher (Monthly / Annual) */
+        let isAnnual = false;
+        function toggleBillingPeriod() {
+            playChime(700);
+            isAnnual = !isAnnual;
+            const circle = document.getElementById('billingToggleCircle');
+            const p1 = document.getElementById('priceTier1');
+            const p2 = document.getElementById('priceTier2');
+            const p3 = document.getElementById('priceTier3');
+
+            if (isAnnual) {
+                circle.classList.add('translate-x-7');
+                p1.innerHTML = '390 Kč <span class="text-xs font-sans text-gray-400 font-normal">/ měsíc (ročně)</span>';
+                p2.innerHTML = '1 190 Kč <span class="text-xs font-sans text-gray-400 font-normal">/ měsíc (ročně)</span>';
+                p3.innerHTML = '3 190 Kč <span class="text-xs font-sans text-gray-400 font-normal">/ měsíc (ročně)</span>';
+                showToast("Aktivována 20% roční sleva");
+            } else {
+                circle.classList.remove('translate-x-7');
+                p1.innerHTML = '490 Kč <span class="text-xs font-sans text-gray-400 font-normal">/ měsíc</span>';
+                p2.innerHTML = '1 490 Kč <span class="text-xs font-sans text-gray-400 font-normal">/ měsíc</span>';
+                p3.innerHTML = '3 990 Kč <span class="text-xs font-sans text-gray-400 font-normal">/ měsíc</span>';
+            }
+        }
+
+        /* 6. FAQ Accordion Toggle */
+        function toggleFaq(id) {
+            playChime(550);
+            const content = document.getElementById(`faqContent${id}`);
+            const icon = document.getElementById(`faqIcon${id}`);
+            
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.classList.add('rotate-180');
+            } else {
+                content.classList.add('hidden');
+                icon.classList.remove('rotate-180');
+            }
+        }
+
+        /* 7. Wizard Vetting Modal Logic */
         let currentStep = 1;
 
         function openVettingModal() {
@@ -567,21 +1341,22 @@
             const title = document.getElementById('wizardTitle');
             const backBtn = document.getElementById('wizardBackBtn');
             const nextBtn = document.getElementById('wizardNextBtn');
+            const dict = translations[currentLang];
 
             document.getElementById('step1Content').classList.add('hidden');
             document.getElementById('step2Content').classList.add('hidden');
             document.getElementById('step3Content').classList.add('hidden');
 
             if (currentStep === 1) {
-                title.innerText = "Osobní Dotazník Zájemce";
+                title.innerText = dict.wiz_step1_title;
                 document.getElementById('step1Content').classList.remove('hidden');
                 backBtn.classList.add('invisible');
-                nextBtn.innerHTML = 'Pokračovat k NDA <i class="fa-solid fa-chevron-right ml-1"></i>';
+                nextBtn.innerHTML = `${dict.btn_next_nda} <i class="fa-solid fa-chevron-right ml-1"></i>`;
             } else if (currentStep === 2) {
                 title.innerText = "Dohoda o Mlčenlivosti (NDA)";
                 document.getElementById('step2Content').classList.remove('hidden');
                 backBtn.classList.remove('invisible');
-                nextBtn.innerHTML = 'Podepsat a Odeslat Kurátorům <i class="fa-solid fa-check ml-1"></i>';
+                nextBtn.innerHTML = `${dict.btn_submit_nda} <i class="fa-solid fa-check ml-1"></i>`;
                 initSignaturePad();
             } else if (currentStep === 3) {
                 title.innerText = "Prověřovací Proces Zahájen";
@@ -610,7 +1385,7 @@
             }
         }
 
-        /* 5. Signature Pad Canvas */
+        /* 8. Signature Pad Canvas */
         let sigCanvas, sigCtx, isDrawing = false;
         function initSignaturePad() {
             sigCanvas = document.getElementById('signaturePad');
