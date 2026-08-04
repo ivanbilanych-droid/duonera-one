@@ -1,35 +1,26 @@
 <!DOCTYPE html>
-<html lang="cs" class="scroll-smooth">
+<html lang="cs">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DUONERA Private Syndicate — Ultraprivátní společenství a digitální sanctuary</title>
+    <title>DUONERA Private Syndicate — Concept Presentation</title>
 
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;900&family=Montserrat:wght@200;300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-
-    <!-- Font Awesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Montserrat:wght@200;300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
                         gold: {
-                            light: '#fff3cd',
+                            light: '#fffef0',
                             main: '#d4af37',
                             dark: '#8c701b',
                             deep: '#57420f'
-                        },
-                        sanctuary: {
-                            bg: '#040406',
-                            card: 'rgba(18, 18, 24, 0.88)',
-                            panel: 'rgba(12, 12, 16, 0.95)'
                         }
                     },
                     fontFamily: {
@@ -45,12 +36,12 @@
     <style>
         :root {
             --bg-deep: #040406;
-            --gold-light: #fff3cd;
+            --gold-light: #fffef0;
             --gold-main: #d4af37;
             --gold-dark: #8c701b;
-            --gold-gradient: linear-gradient(135deg, #fffef0 0%, #d4af37 45%, #997a15 80%, #57420f 100%);
-            --gold-glow: rgba(212, 175, 55, 0.35);
-            --border-gold: rgba(212, 175, 55, 0.25);
+            --gold-gradient: linear-gradient(135deg, #fffef0 0%, #d4af37 50%, #8c701b 100%);
+            --border-gold: rgba(212, 175, 55, 0.3);
+            --gold-glow: rgba(212, 175, 55, 0.25);
         }
 
         * {
@@ -59,36 +50,32 @@
         }
 
         body {
-            background-color: var(--bg-deep);
+            background-color: #020203;
             color: #f8fafc;
             font-family: 'Montserrat', sans-serif;
             min-height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             overflow-x: hidden;
         }
 
-        ::selection {
-            background-color: #d4af37;
-            color: #040406;
-        }
-
-        /* Ambient Gold Particles Canvas Background */
-        #bgCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        /* Glassmorphism Dark Luxury Panels */
-        .glass-panel {
-            background: rgba(12, 12, 18, 0.85);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
+        /* Slide Presentation Frame (16:9 Aspect Ratio Container) */
+        .presentation-frame {
+            width: 100%;
+            max-width: 1280px;
+            height: 720px;
+            background: linear-gradient(135deg, #07070b 0%, #0d0d14 50%, #040406 100%);
             border: 1px solid var(--border-gold);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(212, 175, 55, 0.05);
+            border-radius: 16px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), inset 0 0 60px rgba(212, 175, 55, 0.05);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .gold-text-gradient {
@@ -97,28 +84,48 @@
             -webkit-text-fill-color: transparent;
         }
 
-        .gold-border-glow {
-            transition: all 0.4s ease;
-        }
-        .gold-border-glow:hover {
-            border-color: var(--gold-main);
-            box-shadow: 0 0 35px var(--gold-glow);
-        }
-
-        .puck-pulse {
-            animation: puckGlow 3.5s infinite alternate ease-in-out;
+        .glass-card {
+            background: rgba(18, 18, 26, 0.82);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            border-radius: 12px;
         }
 
-        @keyframes puckGlow {
-            0% { box-shadow: 0 0 25px rgba(212, 175, 55, 0.2), inset 0 0 15px rgba(212, 175, 55, 0.2); }
-            100% { box-shadow: 0 0 60px rgba(212, 175, 55, 0.5), inset 0 0 35px rgba(212, 175, 55, 0.6); }
+        /* Slide Transition Animations */
+        .slide {
+            position: absolute;
+            inset: 0;
+            padding: 50px 60px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: scale(0.97) translateY(10px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1) translateY(0);
+            z-index: 10;
+        }
+
+        /* Ambient Dust Particle Overlay */
+        #bgCanvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Custom Scrollbars */
         ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: rgba(4, 4, 6, 0.95);
+            width: 4px;
         }
         ::-webkit-scrollbar-thumb {
             background: var(--gold-dark);
@@ -126,362 +133,472 @@
         }
     </style>
 </head>
-<body class="relative flex flex-col justify-between min-h-screen selection:bg-gold-main selection:text-black">
+<body>
 
-    <!-- Ambient Gold Dust Canvas -->
-    <canvas id="bgCanvas"></canvas>
+    <div class="presentation-frame my-6" id="deckContainer">
+        
+        <!-- Ambient Gold Dust Canvas -->
+        <canvas id="bgCanvas"></canvas>
 
-    <!-- Toast Notifications Container -->
-    <div id="toastContainer" class="fixed top-6 right-6 z-50 flex flex-col gap-3 pointer-events-none"></div>
+        <!-- Top Status Bar -->
+        <header class="relative z-20 flex justify-between items-center px-10 pt-8 text-xs uppercase tracking-[0.25em] text-gray-400">
+            <div class="flex items-center gap-3">
+                <span class="w-2 h-2 rounded-full bg-gold-main animate-ping"></span>
+                <span class="font-serif font-bold text-gold-main text-base tracking-widest">DUONERA</span>
+                <span class="text-[10px] text-gray-500 font-mono">/ PRIVATE SYNDICATE</span>
+            </div>
 
-    <header class="relative z-40 max-w-7xl mx-auto w-full px-6 py-6 flex justify-between items-center border-b border-gold-dark/20 backdrop-blur-md bg-black/40">
-        <a href="#" class="flex items-center gap-3 group">
-            <span class="w-3 h-3 rounded-full bg-gold-main animate-ping"></span>
-            <span class="font-serif text-2xl md:text-3xl tracking-[0.25em] gold-text-gradient font-bold group-hover:brightness-125 transition-all">
-                DUONERA
-            </span>
-        </a>
+            <div class="flex items-center gap-6">
+                <span class="text-gold-light/80 text-[10px] bg-gold-main/10 border border-gold-main/30 px-3 py-1 rounded-full">
+                    Invitation Only Concept
+                </span>
+                <button onclick="toggleFullscreen()" title="Celá obrazovka" class="hover:text-gold-main transition-colors">
+                    <i class="fa-solid fa-expand text-sm"></i>
+                </button>
+            </div>
+        </header>
 
-        <!-- Desktop Navigation Links -->
-        <nav class="hidden md:flex items-center gap-8 text-xs font-semibold tracking-[0.2em] text-gray-400 uppercase">
-            <a href="#filosofie" class="hover:text-gold-light transition-colors">Filosofie</a>
-            <a href="#hardwarovy-puk" class="hover:text-gold-light transition-colors">Syndicate Puck</a>
-            <a href="#chaptery" class="hover:text-gold-light transition-colors">Chaptery</a>
-            <a href="#clenstvi" class="hover:text-gold-light transition-colors">Členství</a>
-        </nav>
-
-        <!-- Action Buttons -->
-        <div class="flex items-center gap-3">
-            <a href="ucet.html" class="hidden sm:inline-block text-xs font-semibold text-gray-300 hover:text-gold-main px-4 py-2 uppercase tracking-widest transition-colors">
-                Klientský Účet
-            </a>
+        <!-- SLIDE CONTENT AREA -->
+        <main class="relative z-10 flex-grow relative overflow-hidden">
             
-            <button onclick="openVettingModal()" class="bg-gradient-to-r from-gold-light via-gold-main to-gold-dark text-black font-semibold text-xs tracking-[0.2em] uppercase px-6 py-3 rounded-full shadow-lg hover:shadow-[0_0_25px_rgba(212,175,55,0.5)] transition-all transform hover:-translate-y-0.5">
-                Vstupní Prověření
-            </button>
-        </div>
-    </header>
-
-    <section class="relative z-10 pt-16 pb-20 md:pt-28 md:pb-32 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                
-                <!-- Hero Left Column -->
-                <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
-                    
-                    <div class="inline-flex items-center gap-2 text-[11px] tracking-[0.3em] text-gold-main uppercase bg-gold-main/10 border border-gold-main/30 px-4 py-2 rounded-full">
-                        <i class="fa-solid fa-crown text-[10px]"></i> By Board Recommendation Only • Chapter Praha 100/100
+            <!-- SLIDE 1: COVER TITLE -->
+            <section class="slide active" id="slide-1">
+                <div class="text-center max-w-3xl mx-auto space-y-6">
+                    <div class="inline-flex items-center gap-2 text-xs tracking-[0.3em] text-gold-main uppercase bg-gold-main/10 border border-gold-main/30 px-5 py-2 rounded-full">
+                        <i class="fa-solid fa-crown text-[10px]"></i> Ultra-Private Digital Sanctuary
                     </div>
 
-                    <h1 class="font-serif text-4xl sm:text-6xl lg:text-7xl gold-text-gradient font-bold tracking-widest leading-[1.1]">
-                        NEJVYZRÁLEJŠÍ SPOLEČENSTVÍ SVĚTA
+                    <h1 class="font-serif text-6xl md:text-7xl font-bold tracking-[0.15em] gold-text-gradient leading-tight">
+                        DUONERA
                     </h1>
 
-                    <p class="font-garamond italic text-xl sm:text-2xl text-gray-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed border-l-2 border-gold-main/40 pl-4 py-1">
-                        „DUONERA není masová seznamka. Je to ultraprivátní sanctuary pro 100 prověřených osobností v každé metropoli, spojená fyzickým hardwarovým klíčem a garantovanou diskrétností.“
+                    <p class="font-garamond italic text-2xl text-gray-300 leading-relaxed max-w-2xl mx-auto border-y border-gold-main/20 py-4">
+                        „Společenství pro 100 prověřených osobností v každé metropoli, spojená fyzickým klíčem a garancí diskrétnosti.“
                     </p>
 
-                    <!-- Key Pillars Highlights -->
-                    <div class="grid grid-cols-3 gap-3 sm:gap-4 p-4 bg-black/60 rounded-2xl border border-gold-main/20 text-left">
-                        <div class="p-3 bg-white/5 rounded-xl border border-white/5">
-                            <span class="text-[10px] font-bold text-gold-main uppercase tracking-widest block">1. Limit</span>
-                            <span class="font-serif text-sm text-gold-light font-semibold">100 Členů / Město</span>
+                    <div class="pt-4 text-xs tracking-widest text-gray-400 uppercase font-mono flex justify-center gap-8">
+                        <span>Geneva</span> • <span>Prague</span> • <span>Monaco</span> • <span>London</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 2: MANIFESTO & THE PROBLEM -->
+            <section class="slide" id="slide-2">
+                <div class="max-w-5xl mx-auto w-full">
+                    <span class="text-xs text-gold-main uppercase tracking-[0.3em] block mb-2">Filosofie &amp; Vize</span>
+                    <h2 class="font-serif text-3xl md:text-4xl gold-text-gradient font-bold tracking-wider mb-8">PROČ TRADIČNÍ SEZNAMKY SELHÁVAJÍ?</h2>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="glass-card p-8 space-y-4 border-red-500/20">
+                            <div class="flex items-center gap-3 text-red-400 font-serif text-lg">
+                                <i class="fa-solid fa-circle-xmark"></i> Běžné Masové Aplikace
+                            </div>
+                            <ul class="text-xs text-gray-400 space-y-3 leading-relaxed">
+                                <li>• Nekonečné swipování a povrchní rozhodování během 0,5 sekundy.</li>
+                                <li>• Ztráta soukromí, veřejně dohledatelné fotky a riziko snímků obrazovky.</li>
+                                <li>• Stovky zpráv bez reálného osobního setkání (Swipe Fatigue).</li>
+                            </ul>
                         </div>
-                        <div class="p-3 bg-white/5 rounded-xl border border-white/5">
-                            <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-widest block">2. Bezpečnost</span>
-                            <span class="font-serif text-sm text-gray-200 font-semibold">HW Syndicate Puck</span>
+
+                        <div class="glass-card p-8 space-y-4 border-gold-main/40">
+                            <div class="flex items-center gap-3 text-gold-main font-serif text-lg">
+                                <i class="fa-solid fa-gem"></i> DUONERA Sanctuary
+                            </div>
+                            <ul class="text-xs text-gray-200 space-y-3 leading-relaxed">
+                                <li>• Striktní limit 100 členů na metropoli pro zachování nejvyšší kvality.</li>
+                                <li>• Zero Digital Footprint – šifrování, garance NDA a nemožnost fotit profil.</li>
+                                <li>• Osobní 24/7 Concierge organizuje schůzky přímo bez dopisování.</li>
+                            </ul>
                         </div>
-                        <div class="p-3 bg-white/5 rounded-xl border border-white/5">
-                            <span class="text-[10px] font-bold text-gold-light uppercase tracking-widest block">3. Servis</span>
-                            <span class="font-serif text-sm text-gold-light font-semibold">24/7 Concierge</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 3: CONCEPT PILLARS -->
+            <section class="slide" id="slide-3">
+                <div class="max-w-5xl mx-auto w-full">
+                    <span class="text-xs text-gold-main uppercase tracking-[0.3em] block mb-2">Případová Studie</span>
+                    <h2 class="font-serif text-3xl md:text-4xl gold-text-gradient font-bold tracking-wider mb-8">PILÍŘE EKO SYSTÉMU</h2>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="glass-card p-6 text-center space-y-3">
+                            <div class="w-12 h-12 rounded-2xl bg-gold-main/10 border border-gold-main/40 text-gold-main flex justify-center items-center mx-auto text-xl">
+                                <i class="fa-solid fa-key"></i>
+                            </div>
+                            <h3 class="font-serif text-base text-gold-light font-bold">1. Hardware Puck</h3>
+                            <p class="text-[11px] text-gray-400 leading-relaxed">
+                                Ručně vyřezávaný jantar se zlatým NFC čipem. Přístup na web je vázán na fyzické přiložení Puku.
+                            </p>
+                        </div>
+
+                        <div class="glass-card p-6 text-center space-y-3">
+                            <div class="w-12 h-12 rounded-2xl bg-gold-main/10 border border-gold-main/40 text-gold-main flex justify-center items-center mx-auto text-xl">
+                                <i class="fa-solid fa-user-tie"></i>
+                            </div>
+                            <h3 class="font-serif text-base text-gold-light font-bold">2. Personal Concierge</h3>
+                            <p class="text-[11px] text-gray-400 leading-relaxed">
+                                Lord Harrison koordinuje termíny, VIP stolky v Michelin restauracích i charterové lety.
+                            </p>
+                        </div>
+
+                        <div class="glass-card p-6 text-center space-y-3">
+                            <div class="w-12 h-12 rounded-2xl bg-gold-main/10 border border-gold-main/40 text-gold-main flex justify-center items-center mx-auto text-xl">
+                                <i class="fa-solid fa-shield-cat"></i>
+                            </div>
+                            <h3 class="font-serif text-base text-gold-light font-bold">3. Zero Footprint</h3>
+                            <p class="text-[11px] text-gray-400 leading-relaxed">
+                                Všechny konverzace se do 1 hodiny automaticky smažou. Každý člen podepisuje právní NDA.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 4: THE HARDWARE PUCK -->
+            <section class="slide" id="slide-4">
+                <div class="max-w-5xl mx-auto w-full grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                    <div class="md:col-span-7 space-y-6">
+                        <span class="text-xs text-gold-main uppercase tracking-[0.3em] block">Fyzický Klíč k Webové Síti</span>
+                        <h2 class="font-serif text-3xl md:text-4xl gold-text-gradient font-bold tracking-wider">HARDWAROVÝ SYNDICATE PUCK</h2>
+                        <p class="font-garamond italic text-lg text-gray-300 leading-relaxed border-l-2 border-gold-main/50 pl-4">
+                            „Spojení hmatatelného luxusu a špičkové kryptografie. Klíč obdrží schválený člen v uzamčeném pozlaceném boxu.“
+                        </p>
+                        <div class="space-y-2 text-xs font-mono text-gray-400">
+                            <div class="flex justify-between border-b border-white/5 pb-1">
+                                <span>Materiál:</span> <span class="text-gold-light">Přírodní Jantar &amp; 24k Zlato</span>
+                            </div>
+                            <div class="flex justify-between border-b border-white/5 pb-1">
+                                <span>Autentizace:</span> <span class="text-emerald-400">NFC Encrypted &amp; Biometrics</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Unikátní ID:</span> <span class="text-gold-main">0x8892A...PRG100</span>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Call To Action Buttons -->
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center pt-4">
-                        <button onclick="openVettingModal()" class="w-full sm:w-auto bg-gradient-to-r from-gold-light via-gold-main to-gold-dark text-black font-semibold text-xs tracking-[0.25em] uppercase px-10 py-5 rounded-full shadow-2xl hover:shadow-[0_0_40px_rgba(212,175,55,0.6)] transition-all transform hover:-translate-y-1 flex justify-center items-center gap-3">
-                            <span>Požádat o Prověření Profilu</span>
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </button>
-                        
-                        <a href="aurum_portal.html" class="w-full sm:w-auto text-center px-8 py-5 rounded-full border border-gold-main/40 text-gold-light text-xs font-semibold tracking-widest uppercase hover:bg-gold-main/10 transition-all">
+                    <div class="md:col-span-5 flex justify-center">
+                        <div class="w-56 h-56 rounded-full border-2 border-gold-main/80 flex flex-col justify-center items-center bg-black/80 shadow-[0_0_50px_rgba(212,175,55,0.3)] relative group">
+                            <i class="fa-solid fa-gem text-5xl text-gold-main mb-2 animate-pulse"></i>
+                            <span class="font-serif text-xs text-gold-light uppercase tracking-widest">DUONERA Puck</span>
+                            <span class="text-[9px] text-gray-500 font-mono mt-1">#001 Prague</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 5: THE SANCTUARY WEB APPLICATION -->
+            <section class="slide" id="slide-5">
+                <div class="max-w-5xl mx-auto w-full">
+                    <span class="text-xs text-gold-main uppercase tracking-[0.3em] block mb-2">Webová Aplikace Sanctuary</span>
+                    <h2 class="font-serif text-3xl gold-text-gradient font-bold tracking-wider mb-6">PREMIOVÉ FUNKCE APLIKACE</h2>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
+                        <div class="glass-card p-6 space-y-2">
+                            <div class="text-gold-main font-serif text-sm font-semibold flex items-center gap-2">
+                                <i class="fa-solid fa-plane"></i> Aviation &amp; Yacht Syndicate
+                            </div>
+                            <p class="text-gray-400 leading-relaxed">
+                                Propojení členů při sdílení soukromých letů (Gulfstream Fleet) do St. Moritz, Monaka či na Mykonos.
+                            </p>
+                        </div>
+
+                        <div class="glass-card p-6 space-y-2">
+                            <div class="text-gold-main font-serif text-sm font-semibold flex items-center gap-2">
+                                <i class="fa-solid fa-stamp"></i> Rendezvous Zlatá Pečeť
+                            </div>
+                            <p class="text-gray-400 leading-relaxed">
+                                Vytvoření oficiální fyzické či digitální pozvánky na rande orazítkované voskovou pečetí Syndicate.
+                            </p>
+                        </div>
+
+                        <div class="glass-card p-6 space-y-2">
+                            <div class="text-gold-main font-serif text-sm font-semibold flex items-center gap-2">
+                                <i class="fa-solid fa-calendar-star"></i> Private Gatherings
+                            </div>
+                            <p class="text-gray-400 leading-relaxed">
+                                Vstupenky na komorní VIP akce, degustační večery u Svatého Vítu a Gala aukce v Badrutt's Palace.
+                            </p>
+                        </div>
+
+                        <div class="glass-card p-6 space-y-2">
+                            <div class="text-gold-main font-serif text-sm font-semibold flex items-center gap-2">
+                                <i class="fa-solid fa-eye-slash"></i> Panic / Stealth Režim [ESC]
+                            </div>
+                            <p class="text-gray-400 leading-relaxed">
+                                Stiskem klávesy ESC se obrazovka okamžitě změní na fiktivní terminál s kurzy akcií.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 6: PRICING TIERS -->
+            <section class="slide" id="slide-6">
+                <div class="max-w-5xl mx-auto w-full">
+                    <span class="text-xs text-gold-main uppercase tracking-[0.3em] block mb-2">Strategie Cenotvorby</span>
+                    <h2 class="font-serif text-3xl gold-text-gradient font-bold tracking-wider mb-6">REÁLNÉ A DOSTUPNÉ ČLENSTVÍ</h2>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="glass-card p-6 border-white/10 flex flex-col justify-between">
+                            <div>
+                                <span class="text-[10px] text-gray-500 uppercase block mb-1">Dostupný Tarif</span>
+                                <h3 class="font-serif text-lg text-gold-light font-bold">DUONERA Member</h3>
+                                <div class="font-serif text-2xl text-gold-main my-2">490 Kč <span class="text-xs text-gray-400 font-sans">/ měs.</span></div>
+                                <p class="text-[11px] text-gray-400 leading-relaxed">Přístup k lokálnímu Chapteru Praha, ověření profilu bez veřejného dohledání.</p>
+                            </div>
+                        </div>
+
+                        <div class="glass-card p-6 border-gold-main shadow-[0_0_30px_rgba(212,175,55,0.2)] flex flex-col justify-between relative">
+                            <span class="absolute -top-2.5 right-4 bg-gold-main text-black text-[8px] font-bold tracking-widest uppercase px-2.5 py-0.5 rounded-full">Nejoblíbenější</span>
+                            <div>
+                                <span class="text-[10px] text-gold-main uppercase block mb-1">Doporučeno</span>
+                                <h3 class="font-serif text-lg text-gold-light font-bold">DUONERA Black</h3>
+                                <div class="font-serif text-2xl text-gold-main my-2">1 490 Kč <span class="text-xs text-gray-400 font-sans">/ měs.</span></div>
+                                <p class="text-[11px] text-gray-300 leading-relaxed">Fyzický HW Syndicate Puck v ceně, osobní Concierge Lord Harrison a pozvánky.</p>
+                            </div>
+                        </div>
+
+                        <div class="glass-card p-6 border-white/10 flex flex-col justify-between">
+                            <div>
+                                <span class="text-[10px] text-gray-500 uppercase block mb-1">Ultraprivátní</span>
+                                <h3 class="font-serif text-lg text-gold-light font-bold">DUONERA VIP</h3>
+                                <div class="font-serif text-2xl text-gold-main my-2">3 990 Kč <span class="text-xs text-gray-400 font-sans">/ měs.</span></div>
+                                <p class="text-[11px] text-gray-400 leading-relaxed">Garance koordinace schůzek, Co-Aviation Syndicate a vstupy na VIP Gala.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 7: MARKET COMPARISON MATRIX -->
+            <section class="slide" id="slide-7">
+                <div class="max-w-5xl mx-auto w-full">
+                    <span class="text-xs text-gold-main uppercase tracking-[0.3em] block mb-2">Tržní Pozice</span>
+                    <h2 class="font-serif text-3xl gold-text-gradient font-bold tracking-wider mb-6">SROVNÁNÍ S KONKURENCÍ</h2>
+
+                    <div class="glass-card overflow-hidden">
+                        <table class="w-full text-left text-xs">
+                            <thead class="bg-black/60 border-b border-gold-main/20 text-gold-main font-serif">
+                                <tr>
+                                    <th class="p-4">Parametr</th>
+                                    <th class="p-4">Tinder / Badoo</th>
+                                    <th class="p-4">Raya / HingeX</th>
+                                    <th class="p-4 text-gold-light bg-gold-main/10">DUONERA Syndicate</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-white/5 text-gray-300">
+                                <tr>
+                                    <td class="p-4 font-semibold text-gray-400">Vstupní Ověření</td>
+                                    <td class="p-4 text-red-400">Žádné (SMS)</td>
+                                    <td class="p-4">Insta follower úroveň</td>
+                                    <td class="p-4 text-emerald-400 font-semibold bg-gold-main/5">HW Puck + NDA + Board</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4 font-semibold text-gray-400">Diskrétnost</td>
+                                    <td class="p-4 text-red-400">Veřejný profil</td>
+                                    <td class="p-4">Částečná (Omezení fotek)</td>
+                                    <td class="p-4 text-emerald-400 font-semibold bg-gold-main/5">Zero Footprint + Auto-Delete</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4 font-semibold text-gray-400">Organizování Rande</td>
+                                    <td class="p-4">Sami uživatelé</td>
+                                    <td class="p-4">Sami uživatelé</td>
+                                    <td class="p-4 text-gold-main font-semibold bg-gold-main/5">24/7 Osobní Concierge</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4 font-semibold text-gray-400">Kapacitní Limit</td>
+                                    <td class="p-4 text-gray-500">Neomezeno</td>
+                                    <td class="p-4 text-gray-500">Desítky tisíc</td>
+                                    <td class="p-4 text-gold-light font-semibold bg-gold-main/5">Striktně 100 / Město</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 8: EXPANSION ROADMAP -->
+            <section class="slide" id="slide-8">
+                <div class="max-w-5xl mx-auto w-full">
+                    <span class="text-xs text-gold-main uppercase tracking-[0.3em] block mb-2">Harmonogram Expanze</span>
+                    <h2 class="font-serif text-3xl gold-text-gradient font-bold tracking-wider mb-8">PLÁN ROZVOJE 2026</h2>
+
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs">
+                        <div class="glass-card p-5 border-gold-main/40 space-y-2">
+                            <span class="text-[10px] text-gold-main font-mono uppercase">Q1 2026</span>
+                            <h4 class="font-serif text-gold-light font-semibold">Alpha Launch</h4>
+                            <p class="text-gray-400 text-[11px]">Vyrobení první šarže 100 jantarových Puků pro Chapter Praha.</p>
+                        </div>
+
+                        <div class="glass-card p-5 border-white/10 space-y-2">
+                            <span class="text-[10px] text-gray-500 font-mono uppercase">Q2 2026</span>
+                            <h4 class="font-serif text-gold-light font-semibold">Web Sanctuary</h4>
+                            <p class="text-gray-400 text-[11px]">Spuštění digitálního portálu a napojení Concierge Lorda Harrisona.</p>
+                        </div>
+
+                        <div class="glass-card p-5 border-white/10 space-y-2">
+                            <span class="text-[10px] text-gray-500 font-mono uppercase">Q3 2026</span>
+                            <h4 class="font-serif text-gold-light font-semibold">Chapter London</h4>
+                            <p class="text-gray-400 text-[11px]">Otevření druhého Chapteru v Londýně s kapacitou 100/100 členů.</p>
+                        </div>
+
+                        <div class="glass-card p-5 border-white/10 space-y-2">
+                            <span class="text-[10px] text-gray-500 font-mono uppercase">Q4 2026</span>
+                            <h4 class="font-serif text-gold-light font-semibold">Monaco &amp; Aviation</h4>
+                            <p class="text-gray-400 text-[11px]">Aktivace Co-Aviation modulu pro sdílené lety po Středomoří.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 9: FINANCIAL PROJECTION -->
+            <section class="slide" id="slide-9">
+                <div class="max-w-5xl mx-auto w-full space-y-6">
+                    <span class="text-xs text-gold-main uppercase tracking-[0.3em] block">Finanční Výhled</span>
+                    <h2 class="font-serif text-3xl gold-text-gradient font-bold tracking-wider">JEDNOTKOVÁ EKONOMIKA</h2>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                        <div class="glass-card p-6 space-y-2">
+                            <div class="font-serif text-4xl text-gold-main font-bold">100</div>
+                            <div class="text-xs text-gray-300 font-semibold uppercase tracking-wider">Členů na 1 Město</div>
+                            <p class="text-[10px] text-gray-500">Striktně řízená kapacita zaručuje vysokou retenci.</p>
+                        </div>
+
+                        <div class="glass-card p-6 space-y-2">
+                            <div class="font-serif text-4xl text-emerald-400 font-bold">92%</div>
+                            <div class="text-xs text-gray-300 font-semibold uppercase tracking-wider">Měsíční Retence</div>
+                            <p class="text-[10px] text-gray-500">Díky hardwarovému klíči a zapojení komunity.</p>
+                        </div>
+
+                        <div class="glass-card p-6 space-y-2">
+                            <div class="font-serif text-4xl text-gold-light font-bold">12%</div>
+                            <div class="text-xs text-gray-300 font-semibold uppercase tracking-wider">Concierge Provize</div>
+                            <p class="text-[10px] text-gray-500">Provize z partnerství s Michelin gastro a VIP chartery.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 10: READY ARTIFACTS SHOWCASE -->
+            <section class="slide" id="slide-10">
+                <div class="max-w-5xl mx-auto w-full">
+                    <span class="text-xs text-gold-main uppercase tracking-[0.3em] block mb-2">Připravené Součásti Webového Propojení</span>
+                    <h2 class="font-serif text-3xl gold-text-gradient font-bold tracking-wider mb-6">DOKONČENÉ MODULY SÍTĚ</h2>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
+                        <a href="index.html" target="_blank" class="glass-card p-6 hover:border-gold-main transition-all block space-y-3">
+                            <i class="fa-solid fa-house text-gold-main text-2xl"></i>
+                            <h3 class="font-serif text-gold-light font-semibold text-sm">1. Landing Sanctuary</h3>
+                            <p class="text-gray-400 leading-relaxed">Hlavní prezentace s 3krokovým průvodcem a NDA podpisy na plátně.</p>
+                            <span class="text-gold-main text-[10px] tracking-widest uppercase block">Otevřít Web <i class="fa-solid fa-arrow-right ml-1"></i></span>
+                        </a>
+
+                        <a href="aurum_portal.html" target="_blank" class="glass-card p-6 hover:border-gold-main transition-all block space-y-3">
+                            <i class="fa-solid fa-key text-gold-main text-2xl"></i>
+                            <h3 class="font-serif text-gold-light font-semibold text-sm">2. Sanctuary Portal</h3>
+                            <p class="text-gray-400 leading-relaxed">Interaktivní 3D Puk v Three.js, VIP lounge soundscape a chat.</p>
+                            <span class="text-gold-main text-[10px] tracking-widest uppercase block">Otevřít Portál <i class="fa-solid fa-arrow-right ml-1"></i></span>
+                        </a>
+
+                        <a href="ucet.html" target="_blank" class="glass-card p-6 hover:border-gold-main transition-all block space-y-3">
+                            <i class="fa-solid fa-user-gear text-gold-main text-2xl"></i>
+                            <h3 class="font-serif text-gold-light font-semibold text-sm">3. Klientský Účet</h3>
+                            <p class="text-gray-400 leading-relaxed">Správa členských úrovní, správa pozvánek a zrušení klíče.</p>
+                            <span class="text-gold-main text-[10px] tracking-widest uppercase block">Otevřít Účet <i class="fa-solid fa-arrow-right ml-1"></i></span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 11: USER SATISFACTION STATS -->
+            <section class="slide" id="slide-11">
+                <div class="max-w-5xl mx-auto w-full text-center space-y-6">
+                    <span class="text-xs text-gold-main uppercase tracking-[0.3em] block">Spokojenost Uživatelů</span>
+                    <h2 class="font-serif text-4xl gold-text-gradient font-bold tracking-wider">HODNOCENÍ NÁROČNÉ KLIENTELY</h2>
+
+                    <div class="space-y-4 max-w-2xl mx-auto text-xs text-left">
+                        <div>
+                            <div class="flex justify-between text-gold-light mb-1">
+                                <span>DUONERA Sanctuary (Osobní Concierge)</span> <span class="text-gold-main font-bold">96%</span>
+                            </div>
+                            <div class="w-full h-3 bg-black/60 rounded-full overflow-hidden border border-gold-main/30">
+                                <div class="h-full bg-gradient-to-r from-gold-dark via-gold-main to-gold-light w-[96%]"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-gray-400 mb-1">
+                                <span>Tradiční Privátní Kluby</span> <span>68%</span>
+                            </div>
+                            <div class="w-full h-3 bg-black/60 rounded-full overflow-hidden border border-white/10">
+                                <div class="h-full bg-gray-600 w-[68%]"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-gray-500 mb-1">
+                                <span>Předplacené Elite Aplikace</span> <span>42%</span>
+                            </div>
+                            <div class="w-full h-3 bg-black/60 rounded-full overflow-hidden border border-white/5">
+                                <div class="h-full bg-gray-800 w-[42%]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 12: CALL TO ACTION -->
+            <section class="slide" id="slide-12">
+                <div class="text-center max-w-3xl mx-auto space-y-6">
+                    <div class="w-20 h-20 rounded-full border-2 border-gold-main mx-auto flex justify-center items-center bg-gold-main/10 shadow-[0_0_40px_rgba(212,175,55,0.4)] animate-pulse">
+                        <i class="fa-solid fa-crown text-3xl text-gold-main"></i>
+                    </div>
+
+                    <span class="text-xs text-gold-main tracking-[0.3em] uppercase block">By Board Recommendation Only</span>
+                    <h2 class="font-serif text-5xl gold-text-gradient font-bold tracking-widest">VSTUPTE DO SYNDIKÁTU</h2>
+
+                    <p class="font-garamond italic text-xl text-gray-300 leading-relaxed max-w-xl mx-auto">
+                        „Žádost o prověření profilu a zaslání osobního hardwarového Klíče.“
+                    </p>
+
+                    <div class="pt-4 flex flex-col sm:flex-row gap-4 justify-center items-center">
+                        <a href="index.html" class="bg-gradient-to-r from-gold-light via-gold-main to-gold-dark text-black font-semibold text-xs tracking-[0.25em] uppercase px-10 py-4 rounded-full shadow-2xl hover:shadow-[0_0_30px_rgba(212,175,55,0.6)] transition-all">
+                            Požádat o Prověření
+                        </a>
+                        <a href="aurum_portal.html" class="text-gold-light border border-gold-main/40 hover:bg-gold-main/10 text-xs tracking-widest uppercase px-8 py-4 rounded-full transition-all">
                             Vstoupit do Sanctuary (Demo)
                         </a>
                     </div>
-
                 </div>
+            </section>
 
-                <!-- Hero Right: Interactive Syndicate Puck Showcase -->
-                <div class="lg:col-span-5 relative">
-                    <div class="relative mx-auto max-w-md lg:max-w-none text-center">
-                        
-                        <!-- 3D Hardware Token Card Box -->
-                        <div class="glass-panel p-8 rounded-3xl gold-border-glow relative overflow-hidden">
-                            <div class="w-48 h-48 rounded-full border-2 border-gold-main/80 mx-auto mb-6 flex justify-center items-center bg-black/80 puck-pulse relative group cursor-pointer" onclick="openVettingModal()">
-                                <div class="absolute inset-0 rounded-full bg-gold-main/10 blur-xl group-hover:bg-gold-main/30 transition-all duration-500"></div>
-                                <i class="fa-solid fa-gem text-5xl text-gold-main group-hover:scale-110 transition-transform"></i>
-                            </div>
+        </main>
 
-                            <h3 class="font-serif text-2xl text-gold-light tracking-widest uppercase mb-1">Syndicate Puck</h3>
-                            <p class="text-[11px] text-gray-400 tracking-widest uppercase mb-4">Ručně vyřezávaný jantar se zlatým gravírováním</p>
-                            
-                            <div class="bg-black/60 border border-white/10 p-4 rounded-2xl text-left space-y-2 text-xs font-mono">
-                                <div class="flex justify-between">
-                                    <span class="text-gray-500">Kryptografický Token:</span>
-                                    <span class="text-emerald-400 font-bold">0x8892...A109</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-gray-500">Status Ověření:</span>
-                                    <span class="text-gold-main font-bold uppercase">Active Hardware Key</span>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <section id="filosofie" class="relative z-10 py-24 bg-black/50 border-y border-gold-dark/20">
-        <div class="max-w-7xl mx-auto px-6">
-            
-            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
-                <span class="text-xs font-semibold uppercase tracking-[0.3em] text-gold-main bg-gold-main/10 px-4 py-1.5 rounded-full border border-gold-main/30">
-                    Nekompromisní Pravidla
-                </span>
-                <h2 class="font-serif text-3xl sm:text-5xl gold-text-gradient font-bold tracking-widest">
-                    PROČ DUONERA NAHRAZUJE BĚŽNÉ SEZNAMKY?
-                </h2>
-                <p class="text-gray-400 text-sm sm:text-base leading-relaxed">
-                    Tradiční aplikace vás chtějí udržet u obrazovky nekonečným swipováním. DUONERA vytváří uzavřený prostor s maximální úctou k vašemu času a společenskému postavení.
-                </p>
+        <!-- Bottom Controls Bar -->
+        <footer class="relative z-20 flex justify-between items-center px-10 pb-8 border-t border-gold-dark/20 pt-4 text-xs text-gray-400">
+            <div class="font-mono text-[11px] text-gold-main/80">
+                SLIDE <span id="currentSlideNum" class="text-gold-light font-bold">01</span> / <span id="totalSlidesNum">12</span>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                
-                <!-- Feature 1 -->
-                <div class="glass-panel p-8 rounded-3xl border-gold-main/20 gold-border-glow">
-                    <div class="w-14 h-14 rounded-2xl bg-gold-main/10 border border-gold-main/40 text-gold-main flex items-center justify-center text-2xl mb-6">
-                        <i class="fa-solid fa-shield-cat"></i>
-                    </div>
-                    <h3 class="font-serif text-xl text-gold-light mb-3">1. Zero Digital Footprint</h3>
-                    <p class="text-gray-400 text-xs leading-relaxed">
-                        Žádné veřejné profily na internetu ani sledovací algoritmy. Veškeré konverzace podléhají automatickému mazání a přísné dohodě o mlčenlivosti (NDA).
-                    </p>
-                </div>
-
-                <!-- Feature 2 -->
-                <div class="glass-panel p-8 rounded-3xl border-gold-main/20 gold-border-glow">
-                    <div class="w-14 h-14 rounded-2xl bg-gold-main/10 border border-gold-main/40 text-gold-main flex items-center justify-center text-2xl mb-6">
-                        <i class="fa-solid fa-key"></i>
-                    </div>
-                    <h3 class="font-serif text-xl text-gold-light mb-3">2. Hardwarový syndicate puck</h3>
-                    <p class="text-gray-400 text-xs leading-relaxed">
-                        Přístup do portálu Sanctuary je vázán na fyzické přiložení pozlaceného Puku s biometrickým ověřením. Bez klíče je web nedostupný.
-                    </p>
-                </div>
-
-                <!-- Feature 3 -->
-                <div class="glass-panel p-8 rounded-3xl border-gold-main/20 gold-border-glow">
-                    <div class="w-14 h-14 rounded-2xl bg-gold-main/10 border border-gold-main/40 text-gold-main flex items-center justify-center text-2xl mb-6">
-                        <i class="fa-solid fa-user-tie"></i>
-                    </div>
-                    <h3 class="font-serif text-xl text-gold-light mb-3">3. 24/7 Personal Concierge</h3>
-                    <p class="text-gray-400 text-xs leading-relaxed">
-                        Zapomeňte na zdlouhavé dopisování. Váš osobní manažer Lord Harrison rezervuje VIP stolky v Michelin restauracích i soukromé lety.
-                    </p>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <section id="clenstvi" class="relative z-10 py-24">
-        <div class="max-w-7xl mx-auto px-6">
-            
-            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
-                <span class="text-xs font-semibold uppercase tracking-[0.3em] text-gold-main">Struktura Úrovní Členství</span>
-                <h2 class="font-serif text-3xl sm:text-5xl gold-text-gradient font-bold tracking-widest">
-                    CENOTVORBA A EXKLUZIVITA
-                </h2>
-                <p class="text-gray-400 text-sm sm:text-base">
-                    Vyberte si úroveň členství. Vstup podléhá schválení profilu a podepsání NDA.
-                </p>
+            <!-- Navigation Buttons -->
+            <div class="flex items-center gap-3">
+                <button onclick="prevSlide()" id="prevBtn" class="w-10 h-10 rounded-full glass-card border-gold-main/30 text-gold-main hover:bg-gold-main hover:text-black transition-all flex justify-center items-center">
+                    <i class="fa-solid fa-chevron-left text-xs"></i>
+                </button>
+                <button onclick="nextSlide()" id="nextBtn" class="w-10 h-10 rounded-full glass-card border-gold-main/30 text-gold-main hover:bg-gold-main hover:text-black transition-all flex justify-center items-center">
+                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                </button>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                
-                <!-- Tier 1: DUONERA Standard (490 Kč/mo) -->
-                <div class="glass-panel p-8 rounded-3xl border-white/10 flex flex-col justify-between">
-                    <div>
-                        <span class="text-[10px] text-gray-500 uppercase tracking-widest block mb-1">Dostupné členství</span>
-                        <h3 class="font-serif text-2xl text-gold-light font-bold mb-2">DUONERA Member</h3>
-                        <div class="font-serif text-3xl text-gold-main font-bold mb-1">490 Kč <span class="text-xs font-sans text-gray-400 font-normal">/ měsíc</span></div>
-                        <span class="text-[10px] text-gray-500 uppercase block mb-6">(cca 19 € / měsíc)</span>
-                        
-                        <ul class="text-xs text-gray-300 space-y-3 mb-8 border-t border-white/5 pt-6">
-                            <li><i class="fa-solid fa-check text-gold-main mr-2"></i> Přístup k lokálnímu Chapteru (Praha)</li>
-                            <li><i class="fa-solid fa-check text-gold-main mr-2"></i> Ověření profilu bez veřejného dohledání</li>
-                            <li><i class="fa-solid fa-check text-gold-main mr-2"></i> Základní digitální Concierge</li>
-                        </ul>
-                    </div>
-                    
-                    <button onclick="openVettingModal()" class="w-full bg-white/5 border border-white/10 hover:border-gold-main text-gray-300 text-xs py-4 rounded-full uppercase tracking-widest font-semibold transition-all">
-                        Požádat o Prověření
-                    </button>
-                </div>
-
-                <!-- Tier 2: DUONERA Black (1,490 Kč/mo) -->
-                <div class="glass-panel p-8 rounded-3xl border-gold-main shadow-[0_0_40px_rgba(212,175,55,0.25)] flex flex-col justify-between relative">
-                    <span class="absolute -top-3 right-8 bg-gold-main text-black text-[9px] font-bold tracking-widest uppercase px-3 py-1 rounded-full">Nejoblíbenější</span>
-                    <div>
-                        <span class="text-[10px] text-gold-main uppercase tracking-widest block mb-1">Doporučeno pro aktivní</span>
-                        <h3 class="font-serif text-2xl text-gold-light font-bold mb-2">DUONERA Black</h3>
-                        <div class="font-serif text-3xl text-gold-main font-bold mb-1">1 490 Kč <span class="text-xs font-sans text-gray-400 font-normal">/ měsíc</span></div>
-                        <span class="text-[10px] text-gold-main uppercase block mb-6">(cca 59 € / měsíc)</span>
-                        
-                        <ul class="text-xs text-gray-300 space-y-3 mb-8 border-t border-white/5 pt-6">
-                            <li><i class="fa-solid fa-check text-gold-main mr-2"></i> Fyzický HW Syndicate Puck v ceně</li>
-                            <li><i class="fa-solid fa-check text-gold-main mr-2"></i> Přístup ke všem městským Chapterům</li>
-                            <li><i class="fa-solid fa-check text-gold-main mr-2"></i> Osobní Concierge Lord Harrison</li>
-                            <li><i class="fa-solid fa-check text-gold-main mr-2"></i> 2 Pozvánky pro přátele ročně</li>
-                        </ul>
-                    </div>
-                    
-                    <button onclick="openVettingModal()" class="w-full bg-gold-main text-black font-semibold text-xs py-4 rounded-full uppercase tracking-widest hover:bg-gold-light transition-all shadow-lg">
-                        Požádat o Prověření
-                    </button>
-                </div>
-
-                <!-- Tier 3: DUONERA VIP Concierge (3,990 Kč/mo) -->
-                <div class="glass-panel p-8 rounded-3xl border-white/10 flex flex-col justify-between">
-                    <div>
-                        <span class="text-[10px] text-gray-500 uppercase tracking-widest block mb-1">Ultraprivátní</span>
-                        <h3 class="font-serif text-2xl text-gold-light font-bold mb-2">DUONERA VIP</h3>
-                        <div class="font-serif text-3xl text-gold-main font-bold mb-1">3 990 Kč <span class="text-xs font-sans text-gray-400 font-normal">/ měsíc</span></div>
-                        <span class="text-[10px] text-gray-500 uppercase block mb-6">(cca 159 € / měsíc)</span>
-                        
-                        <ul class="text-xs text-gray-300 space-y-3 mb-8 border-t border-white/5 pt-6">
-                            <li><i class="fa-solid fa-check text-gold-main mr-2"></i> Garance osobní koordinace schůzek</li>
-                            <li><i class="fa-solid fa-check text-gold-main mr-2"></i> Co-Aviation & Yacht Syndicate</li>
-                            <li><i class="fa-solid fa-check text-gold-main mr-2"></i> Vstupy na komorní VIP akce a Gala</li>
-                        </ul>
-                    </div>
-                    
-                    <button onclick="openVettingModal()" class="w-full bg-gradient-to-r from-gold-light to-gold-dark text-black font-semibold text-xs py-4 rounded-full uppercase tracking-widest hover:shadow-[0_0_25px_rgba(212,175,55,0.4)] transition-all">
-                        Požádat o Prověření
-                    </button>
-                </div>
-
+            <div class="text-[10px] text-gray-500 tracking-widest uppercase hidden sm:block">
+                Použijte šipky na klávesnici <i class="fa-solid fa-keyboard ml-1"></i>
             </div>
-        </div>
-    </section>
+        </footer>
 
-    <!-- Modal Form Body -->
-    <div id="vettingModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-xl flex justify-center items-center opacity-0 hidden transition-opacity duration-300 p-4">
-        <div class="glass-panel max-w-xl w-full p-8 rounded-3xl border-gold-main/40 relative">
-            
-            <button onclick="closeVettingModal()" class="absolute top-6 right-6 text-gray-400 hover:text-gold-main text-lg transition-colors">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-
-            <div class="mb-6">
-                <span id="wizardStepTag" class="text-[10px] text-gold-main uppercase tracking-[0.25em]">Krok 1 ze 3</span>
-                <h3 id="wizardTitle" class="font-serif text-2xl text-gold-light font-bold">Osobní Dotazník Zájemce</h3>
-            </div>
-
-            <form id="wizardForm" onsubmit="handleWizardSubmit(event)">
-                
-                <!-- STEP 1: PERSONAL INFO -->
-                <div id="step1Content" class="space-y-4">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Jméno a Titul</label>
-                            <input type="text" id="wizardName" required placeholder="např. Ing. Viktor Sterling" class="w-full bg-black/60 border border-gold-main/30 rounded-xl p-3 text-xs text-white outline-none focus:border-gold-main">
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Preferovaný Chapter</label>
-                            <select id="wizardChapter" class="w-full bg-black/60 border border-gold-main/30 rounded-xl p-3 text-xs text-white outline-none focus:border-gold-main">
-                                <option>Chapter Praha (Kapacita: 100/100)</option>
-                                <option>Chapter London (Kapacita: 100/100)</option>
-                                <option>Chapter Monaco (Kapacita: 75/100)</option>
-                                <option>Chapter Tokyo (Waitlist)</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Oblast Působení / Investic</label>
-                        <input type="text" id="wizardField" required placeholder="např. Venture Capital / Sběratelství Umění" class="w-full bg-black/60 border border-gold-main/30 rounded-xl p-3 text-xs text-white outline-none focus:border-gold-main">
-                    </div>
-
-                    <div>
-                        <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Vize Ideálního Setkání a Životního Stylu</label>
-                        <textarea id="wizardVision" rows="3" required placeholder="Popište Vaše představy o trávení volného času a očekávání od členství..." class="w-full bg-black/60 border border-gold-main/30 rounded-xl p-3 text-xs text-white outline-none focus:border-gold-main"></textarea>
-                    </div>
-                </div>
-
-                <!-- STEP 2: DIGITAL NDA CANVAS SIGNATURE -->
-                <div id="step2Content" class="space-y-4 hidden">
-                    <div class="bg-black/80 border border-gold-dark/30 rounded-xl p-4 text-[11px] text-gray-300 font-garamond italic leading-relaxed h-36 overflow-y-auto mb-3">
-                        <p class="mb-2"><strong>Článek 1 (Absolutní Diskrétnost):</strong> Žadatel se zavazuje zachovávat přísné mlčení o všech identitách a komunikaci probíhající v rámci sítě DUONERA Sanctuary.</p>
-                        <p><strong>Článek 2 (Zákaz Digitálních Otisků):</strong> Pořizování snímků obrazovky nebo sdílení dat zakládá okamžité odebrání Syndicate Puku bez náhrady.</p>
-                    </div>
-
-                    <div>
-                        <label class="block text-[10px] uppercase tracking-widest text-gold-main mb-1.5">Podepište elektronicky myší nebo dotykem prstu</label>
-                        <div class="relative bg-black border border-gold-main/40 rounded-xl overflow-hidden">
-                            <canvas id="signaturePad" width="550" height="130" class="w-full cursor-crosshair"></canvas>
-                            <button type="button" onclick="clearSignature()" class="absolute bottom-2 right-2 text-[9px] bg-white/10 text-gray-300 px-2.5 py-1 rounded hover:bg-white/20">Vymazat Podpis</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- STEP 3: CONFIRMATION & PUCK DISPATCH -->
-                <div id="step3Content" class="space-y-4 hidden text-center py-6">
-                    <div class="w-20 h-20 rounded-full border-2 border-gold-main mx-auto flex items-center justify-center bg-gold-main/10 shadow-[0_0_40px_rgba(212,175,55,0.4)] animate-pulse">
-                        <i class="fa-solid fa-gem text-3xl text-gold-main"></i>
-                    </div>
-                    <h4 class="font-serif text-2xl text-gold-light font-bold">ŽÁDOST DORMUČENA BOARDU</h4>
-                    <p class="text-xs text-gray-300 leading-relaxed font-garamond italic text-base">
-                        „Vaše žádost a elektronicky podepsaná NDA byly úspěšně odeslány. Po schválení Vám bude osobně doručen pozlacený box s Vaším Syndicate Pukem.“
-                    </p>
-                    <div class="pt-4">
-                        <a href="aurum_portal.html" class="inline-block bg-gradient-to-r from-gold-light via-gold-main to-gold-dark text-black font-semibold text-xs tracking-[0.2em] uppercase px-8 py-3.5 rounded-full hover:shadow-[0_0_25px_rgba(212,175,55,0.6)] transition-all">
-                            Vstoupit do Portálu Sanctuary <i class="fa-solid fa-arrow-right ml-1"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Buttons Navigation -->
-                <div class="mt-6 pt-4 border-t border-white/10 flex justify-between items-center" id="wizardControls">
-                    <button type="button" onclick="prevWizardStep()" id="wizardBackBtn" class="text-xs text-gray-400 hover:text-white uppercase tracking-wider invisible">
-                        Zpět
-                    </button>
-                    <button type="submit" id="wizardNextBtn" class="bg-gold-main hover:bg-gold-light text-black font-semibold text-xs uppercase tracking-[0.2em] px-8 py-3 rounded-full transition-all">
-                        Pokračovat k NDA <i class="fa-solid fa-chevron-right ml-1"></i>
-                    </button>
-                </div>
-
-            </form>
-
-        </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="relative z-10 max-w-7xl mx-auto w-full px-6 py-8 border-t border-gold-dark/10 flex flex-wrap justify-between items-center text-[10px] text-gray-500 tracking-widest uppercase">
-        <div>© 2026 DUONERA Private Syndicate • Geneva • Prague • Monaco</div>
-        <div class="flex gap-6">
-            <a href="aurum_portal.html" class="hover:text-gold-main transition-colors">Digital Sanctuary</a>
-            <a href="ucet.html" class="hover:text-gold-main transition-colors">Klientský Účet</a>
-            <span>Zero-Knowledge Protocol</span>
-        </div>
-    </footer>
-
     <script>
-        /* 1. Audio Synthesizer Feedback */
+        /* 1. AUDIO SYNTHESIZER FOR SLIDE TRANSITIONS */
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         function playChime(freq = 523.25) {
             if (audioCtx.state === 'suspended') audioCtx.resume();
@@ -493,35 +610,77 @@
             osc.type = 'sine';
             osc.frequency.setValueAtTime(freq, now);
             gain.gain.setValueAtTime(0.01, now);
-            gain.gain.linearRampToValueAtTime(0.1, now + 0.05);
-            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+            gain.gain.linearRampToValueAtTime(0.08, now + 0.05);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
             osc.start(now);
-            osc.stop(now + 0.4);
+            osc.stop(now + 0.35);
         }
 
-        /* 2. Toast Notifications */
-        function showToast(msg) {
-            const container = document.getElementById('toastContainer');
-            const toast = document.createElement('div');
-            toast.className = "glass-panel text-xs text-gold-light px-4 py-3 rounded-xl border-gold-main/40 shadow-2xl flex items-center gap-3 transition-all duration-300 transform translate-x-10 opacity-0 pointer-events-auto";
-            toast.innerHTML = `<i class="fa-solid fa-crown text-gold-main"></i> <span>${msg}</span>`;
-            container.appendChild(toast);
-            setTimeout(() => toast.classList.remove('translate-x-10', 'opacity-0'), 10);
-            setTimeout(() => {
-                toast.classList.add('opacity-0', 'translate-x-10');
-                setTimeout(() => toast.remove(), 300);
-            }, 3500);
+        /* 2. SLIDE NAVIGATION LOGIC */
+        let currentSlide = 1;
+        const totalSlides = 12;
+
+        document.getElementById('totalSlidesNum').innerText = totalSlides < 10 ? '0' + totalSlides : totalSlides;
+
+        function updateSlideUI() {
+            document.querySelectorAll('.slide').forEach((s, idx) => {
+                if (idx + 1 === currentSlide) {
+                    s.classList.add('active');
+                } else {
+                    s.classList.remove('active');
+                }
+            });
+
+            document.getElementById('currentSlideNum').innerText = currentSlide < 10 ? '0' + currentSlide : currentSlide;
         }
 
-        /* 3. Ambient Gold Particles Canvas */
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                playChime(600 + currentSlide * 30);
+                updateSlideUI();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 1) {
+                currentSlide--;
+                playChime(500 + currentSlide * 30);
+                updateSlideUI();
+            }
+        }
+
+        /* Keyboard Controls */
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            }
+        });
+
+        function toggleFullscreen() {
+            const frame = document.getElementById('deckContainer');
+            if (!document.fullscreenElement) {
+                frame.requestFullscreen().catch(err => console.log(err));
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        /* 3. AMBIENT PARTICLES CANVAS */
         const canvas = document.getElementById('bgCanvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
-        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+
+        function resizeCanvas() {
+            canvas.width = canvas.parentElement.clientWidth;
+            canvas.height = canvas.parentElement.clientHeight;
+        }
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        for (let i = 0; i < 50; i++) {
+        for (let i = 0; i < 45; i++) {
             particles.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
@@ -544,105 +703,6 @@
             requestAnimationFrame(animateCanvas);
         }
         animateCanvas();
-
-        /* 4. Wizard Vetting Modal Logic */
-        let currentStep = 1;
-
-        function openVettingModal() {
-            playChime(600);
-            currentStep = 1;
-            updateWizardUI();
-            const modal = document.getElementById('vettingModal');
-            modal.classList.remove('hidden');
-            setTimeout(() => modal.classList.remove('opacity-0'), 10);
-        }
-
-        function closeVettingModal() {
-            const modal = document.getElementById('vettingModal');
-            modal.classList.add('opacity-0');
-            setTimeout(() => modal.classList.add('hidden'), 300);
-        }
-
-        function updateWizardUI() {
-            document.getElementById('wizardStepTag').innerText = `Krok ${currentStep} ze 3`;
-            const title = document.getElementById('wizardTitle');
-            const backBtn = document.getElementById('wizardBackBtn');
-            const nextBtn = document.getElementById('wizardNextBtn');
-
-            document.getElementById('step1Content').classList.add('hidden');
-            document.getElementById('step2Content').classList.add('hidden');
-            document.getElementById('step3Content').classList.add('hidden');
-
-            if (currentStep === 1) {
-                title.innerText = "Osobní Dotazník Zájemce";
-                document.getElementById('step1Content').classList.remove('hidden');
-                backBtn.classList.add('invisible');
-                nextBtn.innerHTML = 'Pokračovat k NDA <i class="fa-solid fa-chevron-right ml-1"></i>';
-            } else if (currentStep === 2) {
-                title.innerText = "Dohoda o Mlčenlivosti (NDA)";
-                document.getElementById('step2Content').classList.remove('hidden');
-                backBtn.classList.remove('invisible');
-                nextBtn.innerHTML = 'Podepsat a Odeslat Boardu <i class="fa-solid fa-check ml-1"></i>';
-                initSignaturePad();
-            } else if (currentStep === 3) {
-                title.innerText = "Prověřovací Proces Zahájen";
-                document.getElementById('step3Content').classList.remove('hidden');
-                document.getElementById('wizardControls').classList.add('hidden');
-            }
-        }
-
-        function prevWizardStep() {
-            if (currentStep > 1) {
-                currentStep--;
-                updateWizardUI();
-            }
-        }
-
-        function handleWizardSubmit(e) {
-            e.preventDefault();
-            playChime(750);
-            if (currentStep < 2) {
-                currentStep++;
-                updateWizardUI();
-            } else if (currentStep === 2) {
-                currentStep = 3;
-                updateWizardUI();
-                showToast("Žádost a NDA byly bezpečně doručeny Boardu.");
-            }
-        }
-
-        /* 5. Signature Pad Canvas */
-        let sigCanvas, sigCtx, isDrawing = false;
-        function initSignaturePad() {
-            sigCanvas = document.getElementById('signaturePad');
-            sigCtx = sigCanvas.getContext('2d');
-            sigCtx.strokeStyle = '#d4af37';
-            sigCtx.lineWidth = 2.5;
-            sigCtx.lineCap = 'round';
-
-            sigCanvas.onmousedown = (e) => { isDrawing = true; sigCtx.beginPath(); sigCtx.moveTo(e.offsetX, e.offsetY); };
-            sigCanvas.onmousemove = (e) => { if (isDrawing) { sigCtx.lineTo(e.offsetX, e.offsetY); sigCtx.stroke(); } };
-            sigCanvas.onmouseup = () => isDrawing = false;
-
-            sigCanvas.ontouchstart = (e) => {
-                isDrawing = true;
-                const rect = sigCanvas.getBoundingClientRect();
-                sigCtx.beginPath();
-                sigCtx.moveTo(e.touches[0].clientX - rect.left, e.touches[0].clientY - rect.top);
-            };
-            sigCanvas.ontouchmove = (e) => {
-                if (isDrawing) {
-                    const rect = sigCanvas.getBoundingClientRect();
-                    sigCtx.lineTo(e.touches[0].clientX - rect.left, e.touches[0].clientY - rect.top);
-                    sigCtx.stroke();
-                }
-            };
-            sigCanvas.ontouchend = () => isDrawing = false;
-        }
-
-        function clearSignature() {
-            if (sigCtx) sigCtx.clearRect(0, 0, sigCanvas.width, sigCanvas.height);
-        }
     </script>
 </body>
 </html>
