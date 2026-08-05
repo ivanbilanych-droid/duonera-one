@@ -1,118 +1,165 @@
-<!doctype html>
-<html lang="cs">
+<!DOCTYPE html>
+<html lang="cs" class="scroll-smooth">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#f7f3eb">
-  <meta name="description" content="DUONERA — soukromé seznamování pro vážný vztah ve vašem městě a po celé Evropě.">
-  <title>DUONERA — někdo nablízku, něco skutečného</title>
-  <link rel="canonical" href="https://duonera.cz/">
-  <link rel="manifest" href="/manifest.webmanifest?v=3">
-  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="/assets/duonera-app-icon-180.png">
-  <link rel="stylesheet" href="/duonera-europe.css?v=20260805a">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DUONERA — Private Syndicate</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        lux: {
+                            bg: '#050608',
+                            card: '#0e1017',
+                            gold: '#d4af37',
+                            goldLight: '#f3e5ab'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050608;
+            color: #f8fafc;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .gold-gradient {
+            background: linear-gradient(135deg, #ffffff 0%, #f3e5ab 40%, #d4af37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gold-btn-lux {
+            background: linear-gradient(135deg, #f3e5ab 0%, #d4af37 100%);
+            color: #050608;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.2);
+        }
+        .gold-btn-lux:active {
+            transform: scale(0.98);
+        }
+
+        .lux-card {
+            background: rgba(14, 16, 23, 0.85);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
+        }
+
+        .lang-pill {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+            padding: 6px 14px;
+            border-radius: 9999px;
+            font-size: 11px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .lang-pill.active {
+            background: #d4af37;
+            color: #050608;
+            border-color: #d4af37;
+            font-weight: 700;
+        }
+
+        ::-webkit-scrollbar { width: 3px; }
+        ::-webkit-scrollbar-track { background: #050608; }
+        ::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 1.5px; }
+    </style>
 </head>
-<body>
-  <main class="site-shell">
-    <section class="hero" aria-label="DUONERA — private dating across Europe">
-      <div class="hero-photo" aria-hidden="true"></div>
-      <div class="hero-shade" aria-hidden="true"></div>
+<body class="min-h-screen flex flex-col justify-between selection:bg-amber-500 selection:text-black">
 
-      <header class="topbar">
-        <a class="brand" href="/" aria-label="DUONERA">
-          <span class="brand-mark">D</span><span>DUONERA</span>
+    <header class="sticky top-0 z-50 w-full px-5 py-5 flex justify-between items-center bg-[#050608]/90 backdrop-blur-xl border-b border-white/5">
+        <a href="#" class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-200 to-amber-600 flex items-center justify-center text-black font-serif font-bold text-lg shadow-lg shadow-amber-500/20">
+                D
+            </div>
+            <div class="flex flex-col">
+                <span class="font-serif text-lg tracking-[0.25em] font-bold text-white leading-tight">DUONERA</span>
+                <span class="text-[7px] tracking-[0.3em] text-amber-400 uppercase">Private Syndicate</span>
+            </div>
         </a>
-        <button class="language-button" type="button" aria-label="Změnit jazyk" aria-expanded="false">CS</button>
-        <div class="language-menu" hidden>
-          <button type="button" data-lang="cs">CZ</button>
-          <button type="button" data-lang="de">DE</button>
-          <button type="button" data-lang="pl">PL</button>
-          <button type="button" data-lang="sk">SK</button>
-          <button type="button" data-lang="en">EN</button>
-        </div>
-      </header>
 
-      <div class="photo-note"><span class="location-pin">⌖</span><span><b data-city>Praha</b> · <span data-i18n="photoArea">a okolí</span></span></div>
-    </section>
-
-    <section class="invitation">
-      <div class="eyebrow"><span class="eyebrow-line"></span><span data-i18n="eyebrow">VÁŽNÉ SEZNÁMENÍ NAPŘÍČ EVROPOU</span></div>
-      <h1><span data-i18n="titleOne">Někdo nablízku.</span><br><em data-i18n="titleTwo">Něco skutečného.</em></h1>
-      <p class="lead" data-i18n="lead">Soukromě propojujeme lidi, kteří hledají vážný vztah — ve vašem městě a po celé Evropě.</p>
-
-      <div class="proof" aria-label="Výhody DUONERA">
-        <div><strong>3–5</strong><span data-i18n="nearLabel">lidí poblíž</span></div><i></i>
-        <div><strong>100%</strong><span data-i18n="privateLabel">soukromý profil</span></div><i></i>
-        <div><strong>2</strong><span data-i18n="mutualLabel">vzájemné ano</span></div>
-      </div>
-
-      <button class="primary-cta open-registration" type="button">
-        <span data-i18n="cta">Ukázat lidi poblíž</span><span class="cta-arrow" aria-hidden="true">↗</span>
-      </button>
-      <p class="microcopy" data-i18n="micro">Zdarma · bez veřejného profilu · přibližně 1 minuta</p>
-    </section>
-
-    <section class="next-section" aria-label="Jak DUONERA funguje">
-      <span>01 · <span data-i18n="step">Začínáme u vás</span></span>
-      <h2 data-i18n="section">Nejdřív vaše město. Potom celá Evropa.</h2>
-      <p data-i18n="sectionText">Vy určíte vzdálenost. DUONERA vybere jen lidi, se kterými má setkání smysl.</p>
-      <div class="europe-line">ČESKO · DEUTSCHLAND · POLSKA · SLOVENSKO · EUROPE</div>
-    </section>
-  </main>
-
-  <div class="modal-layer" id="registrationModal" role="dialog" aria-modal="true" aria-labelledby="joinTitle" hidden>
-    <button class="modal-backdrop close-registration" type="button" aria-label="Zavřít"></button>
-    <section class="join-sheet">
-      <div class="sheet-handle"></div>
-      <div class="sheet-head">
-        <div><span data-i18n="entry">VÁŠ SOUKROMÝ VSTUP</span><h2 id="joinTitle" data-i18n="question">Koho chcete potkat?</h2></div>
-        <button class="close-registration close-circle" type="button" aria-label="Zavřít">×</button>
-      </div>
-
-      <form class="register-form" novalidate>
-        <div class="form-step" data-step="1">
-          <div class="quick-field" data-toggle-name="Jsem">
-            <label data-i18n="iAm">Jsem</label>
-            <div class="choice-row">
-              <button class="active" type="button" data-value="Žena" data-i18n="woman">Žena</button>
-              <button type="button" data-value="Muž" data-i18n="man">Muž</button>
+        <div class="flex items-center gap-2.5">
+            <div class="flex items-center gap-1 bg-white/5 p-1 rounded-full border border-white/10">
+                <button onclick="setLanguage('cs')" id="lang-cs" class="lang-pill active">CS</button>
+                <button onclick="setLanguage('en')" id="lang-en" class="lang-pill">EN</button>
+                <button onclick="setLanguage('ru')" id="lang-ru" class="lang-pill">RU</button>
             </div>
-            <input type="hidden" name="Jsem" value="Žena">
-          </div>
+        </div>
+    </header>
 
-          <div class="quick-field" data-toggle-name="Hledám">
-            <label data-i18n="looking">Hledám</label>
-            <div class="choice-row">
-              <button type="button" data-value="Žena" data-i18n="womanAcc">Ženu</button>
-              <button class="active" type="button" data-value="Muž" data-i18n="manAcc">Muže</button>
+    <main class="flex-grow px-5 py-8 max-w-lg mx-auto w-full flex flex-col justify-center items-center text-center">
+        
+        <div class="inline-flex items-center gap-2 text-[10px] font-semibold tracking-[0.25em] uppercase text-amber-300 bg-amber-500/10 px-4 py-2 rounded-full border border-amber-500/20 mb-8">
+            <i class="fa-solid fa-key text-amber-400"></i>
+            <span>Закрытый клуб • Доступ по мандату</span>
+        </div>
+
+        <h1 class="font-serif text-4xl sm:text-5xl font-bold tracking-tight gold-gradient mb-6 leading-[1.15]">
+            Конфиденциальный подбор пар для успешных
+        </h1>
+
+        <p class="text-xs sm:text-sm text-slate-400 mb-10 max-w-md leading-relaxed">
+            Никаких публичных каталогов и случайных контактов. Персональный куратор подбирает окружение строго под ваши языковые и географические параметры.
+        </p>
+
+        <div class="lux-card rounded-3xl p-6 w-full text-left mb-6 relative overflow-hidden">
+            <div class="absolute -right-12 -bottom-12 w-36 h-36 bg-amber-500/10 rounded-full blur-2xl pointer-events-none"></div>
+
+            <div class="flex items-center justify-between mb-4 pb-4 border-b border-white/10">
+                <span class="text-xs font-bold text-amber-300 uppercase tracking-widest">Статус: Открыт набор</span>
+                <span class="text-[10px] text-emerald-400 font-mono bg-emerald-950/80 px-2.5 py-1 rounded-full border border-emerald-500/30">● Свободно 4 места</span>
             </div>
-            <input type="hidden" name="Hledám" value="Muž">
-          </div>
 
-          <div class="field-grid">
-            <label><span data-i18n="age">Věk</span><input name="Věk" inputmode="numeric" type="number" min="18" max="99" placeholder="38" required></label>
-            <label><span data-i18n="city">Město</span><input name="Město" data-city-input value="Praha" autocomplete="address-level2" required></label>
-          </div>
+            <div class="space-y-3 mb-6">
+                <div class="flex items-center gap-3 text-xs text-slate-300">
+                    <i class="fa-solid fa-shield-halved text-amber-400 w-5"></i>
+                    <span>Строгая верификация личности (KYC)</span>
+                </div>
+                <div class="flex items-center gap-3 text-xs text-slate-300">
+                    <i class="fa-solid fa-location-crosshairs text-amber-400 w-5"></i>
+                    <span>Локальный поиск (Praha, Berlin, Zürich, Dubai)</span>
+                </div>
+                <div class="flex items-center gap-3 text-xs text-slate-300">
+                    <i class="fa-solid fa-comments text-amber-400 w-5"></i>
+                    <span>Коммуникация на вашем родном языке</span>
+                </div>
+            </div>
 
-          <button class="primary-cta next-form-step" type="button"><span data-i18n="continue">Pokračovat</span><span class="cta-arrow">→</span></button>
+            <button onclick="openVettingModal()" class="w-full gold-btn-lux py-4 rounded-2xl text-xs uppercase tracking-[0.25em] flex items-center justify-center gap-3 shadow-xl">
+                <span>Пройти верификацию</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
         </div>
 
-        <div class="form-step" data-step="2" hidden>
-          <button class="form-back" type="button">← <span data-i18n="back">Zpět</span></button>
-          <label class="email-field"><span data-i18n="email">E-mail</span><input name="email" type="email" autocomplete="email" placeholder="vas@email.cz" required></label>
-          <label class="consent-field">
-            <input type="checkbox" name="consent_privacy" value="true" required>
-            <span><span data-i18n="consent">Souhlasím se zpracováním údajů pro registraci a soukromý výběr DUONERA.</span> <a href="/privacy.html" data-i18n="privacyLink">Ochrana soukromí</a></span>
-          </label>
-          <input class="honey" type="text" name="_honey" tabindex="-1" autocomplete="off">
-          <button class="primary-cta submit-registration" type="submit"><span data-i18n="submit">Vytvořit soukromý profil</span><span class="cta-arrow">✓</span></button>
-          <p class="microcopy" data-i18n="privacy">Vaše údaje nejsou veřejné.</p>
-        </div>
-      </form>
-    </section>
-  </div>
+        <p class="text-[10px] text-slate-500 tracking-wider uppercase">
+            Конфиденциальность данных гарантирована протоколом синдиката
+        </p>
+    </main>
 
-  <div class="toast" role="status" aria-live="polite"></div>
-  <script type="module" src="/duonera-europe.js?v=20260805a"></script>
+    <footer class="py-5 px-5 text-center text-[10px] text-slate-600 border-t border-white/5">
+        © 2026 DUONERA Private Syndicate. Všechna práva vyhrazena.
+    </footer>
 </body>
 </html>
