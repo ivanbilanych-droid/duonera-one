@@ -7,7 +7,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -16,15 +16,15 @@
             theme: {
                 extend: {
                     colors: {
-                        duonera: {
-                            bg: '#f8fafc',
-                            card: '#ffffff',
-                            primary: '#0f172a',
-                            accent: '#3b82f6',
-                            gold: '#f59e0b'
+                        app: {
+                            bg: '#0a0b0e',
+                            surface: '#141721',
+                            gold: '#d4af37',
+                            goldLight: '#f3e5ab'
                         }
                     },
                     fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
                         sans: ['Plus Jakarta Sans', 'sans-serif']
                     }
                 }
@@ -34,221 +34,168 @@
 
     <style>
         body {
-            background-color: #f8fafc;
-            color: #0f172a;
+            background-color: #0a0b0e;
+            color: #f8fafc;
             font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        .profile-card {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 24px;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
-        }
-        .profile-card:hover {
-            border-color: #3b82f6;
-            transform: translateY(-6px);
-            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.12);
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #ffffff 0%, #f3e5ab 50%, #d4af37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .btn-primary-custom {
-            background-color: #0f172a;
-            color: #ffffff;
+        .gold-btn {
+            background: linear-gradient(135deg, #f3e5ab 0%, #d4af37 100%);
+            color: #0a0b0e;
             font-weight: 700;
-            transition: all 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.25);
         }
-        .btn-primary-custom:hover {
-            background-color: #1e293b;
-            transform: scale(1.02);
-            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.2);
+        .gold-btn:active {
+            transform: scale(0.97);
         }
 
-        .lang-pill {
-            background: #f1f5f9;
-            border: 1px solid #e2e8f0;
-            color: #64748b;
-            padding: 6px 14px;
+        .glass-card {
+            background: rgba(20, 23, 33, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .lang-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+            padding: 6px 12px;
             border-radius: 9999px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
-            transition: all 0.2s ease;
+            transition: all 0.2s;
         }
-        .lang-pill:hover {
-            color: #0f172a;
-            border-color: #cbd5e1;
-        }
-        .lang-pill.active {
-            background: #0f172a;
-            color: #ffffff;
-            border-color: #0f172a;
+        .lang-btn.active {
+            background: #d4af37;
+            color: #0a0b0e;
+            border-color: #d4af37;
+            font-weight: 700;
         }
 
-        details summary::-webkit-details-marker { display:none; }
+        /* Custom smooth scrollbar */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #0a0b0e; }
+        ::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 2px; }
     </style>
 </head>
-<body class="relative min-h-screen flex flex-col justify-between">
+<body class="min-h-screen flex flex-col justify-between selection:bg-amber-500 selection:text-black">
 
-    <!-- Header -->
-    <header class="relative z-40 max-w-7xl mx-auto w-full px-6 py-6 flex justify-between items-center bg-white/80 backdrop-blur-md border-b border-slate-100 sticky top-0">
-        <a href="#" class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-2xl bg-slate-900 flex items-center justify-center text-white font-extrabold text-xl shadow-md">
+    <!-- Mobile-Optimized Header -->
+    <header class="sticky top-0 z-50 w-full px-4 sm:px-6 py-4 flex justify-between items-center bg-[#0a0b0e]/90 backdrop-blur-xl border-b border-white/5">
+        <a href="#" class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-200 to-amber-600 flex items-center justify-center text-black font-bold text-base shadow-lg shadow-amber-500/20">
                 D
             </div>
-            <span class="text-2xl font-extrabold tracking-tight text-slate-900">DUONERA</span>
+            <span class="font-serif text-xl tracking-[0.2em] font-bold text-white">DUONERA</span>
         </a>
 
-        <div class="flex items-center gap-4">
-            <div class="hidden sm:flex items-center gap-1.5 bg-slate-100 p-1 rounded-full border border-slate-200">
-                <button onclick="setLanguage('cs')" id="lang-cs" class="lang-pill active">CS</button>
-                <button onclick="setLanguage('de')" id="lang-de" class="lang-pill">DE</button>
-                <button onclick="setLanguage('en')" id="lang-en" class="lang-pill">EN</button>
-                <button onclick="setLanguage('ru')" id="lang-ru" class="lang-pill">RU</button>
-                <button onclick="setLanguage('ua')" id="lang-ua" class="lang-pill">UA</button>
+        <!-- Language Selector & CTA -->
+        <div class="flex items-center gap-2 sm:gap-3">
+            <div class="flex items-center gap-1 bg-white/5 p-1 rounded-full border border-white/10">
+                <button onclick="setLanguage('cs')" id="lang-cs" class="lang-btn active">CS</button>
+                <button onclick="setLanguage('en')" id="lang-en" class="lang-btn">EN</button>
+                <button onclick="setLanguage('ru')" id="lang-ru" class="lang-btn">RU</button>
             </div>
 
-            <button onclick="openVettingModal()" class="btn-primary-custom text-xs uppercase tracking-wider px-6 py-3.5 rounded-full">
-                Vstup do klubu
+            <button onclick="openVettingModal()" class="gold-btn text-[11px] uppercase tracking-wider px-4 sm:px-5 py-2.5 rounded-full">
+                Vstup
             </button>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="relative z-10 pt-12 pb-24 lg:pt-20 lg:pb-32">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                
-                <!-- Left Title Content -->
-                <div class="lg:col-span-7 space-y-8">
-                    <div class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-4 py-2 rounded-full border border-blue-100" data-i18n="hero_tag">
-                        <i class="fa-solid fa-shield-check"></i> Закрытый клуб знакомств нового уровня
-                    </div>
+    <!-- App-Style Hero Section (Mobile First) -->
+    <main class="flex-grow px-4 sm:px-6 py-6 max-w-xl mx-auto w-full flex flex-col justify-center">
+        
+        <!-- Status Badge -->
+        <div class="self-start inline-flex items-center gap-2 text-[11px] font-semibold tracking-wider text-amber-300 bg-amber-500/10 px-3.5 py-1.5 rounded-full border border-amber-500/20 mb-6">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span data-i18n="badge">Закрытый синдикат • 100% Верификация</span>
+        </div>
 
-                    <h1 class="text-5xl sm:text-7xl font-extrabold tracking-tight text-slate-900 leading-tight" data-i18n="hero_title">
-                        Найдите своего человека без лишних слов
-                    </h1>
+        <!-- Main Headline -->
+        <h1 class="font-serif text-4xl sm:text-5xl font-bold tracking-tight text-white mb-4 leading-[1.15]" data-i18n="title">
+            Приватный клуб для избранных знакомств
+        </h1>
 
-                    <p class="text-lg sm:text-xl text-slate-600 max-w-xl leading-relaxed" data-i18n="hero_subtitle">
-                        Эксклюзивное пространство для успешных людей. Проверенные анкеты, абсолютная конфиденциальность и умный подбор по локации и языкам.
-                    </p>
+        <p class="text-sm sm:text-base text-slate-400 mb-8 leading-relaxed" data-i18n="subtitle">
+            Никаких публичных анкет и бесконечного свайпинга. Только конфиденциальный подбор пары по вашему языку и локации.
+        </p>
 
-                    <div class="pt-2 flex flex-col sm:flex-row gap-4">
-                        <button onclick="openVettingModal()" class="btn-primary-custom text-sm tracking-wider uppercase px-9 py-4 rounded-full flex items-center justify-center gap-3 shadow-xl">
-                            <span data-i18n="btn_hero_cta">Создать профиль</span>
-                            <i class="fa-solid fa-arrow-right text-xs"></i>
-                        </button>
-                    </div>
+        <!-- Interactive Preview Card (Tinder/Bumble vibe tailored for Luxury) -->
+        <div class="glass-card rounded-3xl p-5 mb-8 relative overflow-hidden group">
+            <div class="absolute -right-10 -top-10 w-40 h-40 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="flex items-center gap-4 mb-4">
+                <div class="w-14 h-14 rounded-2xl overflow-hidden border border-amber-500/40 relative flex-shrink-0">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" class="w-full h-full object-cover">
                 </div>
-
-                <!-- Right Featured Profile Card -->
-                <div class="lg:col-span-5 flex justify-center">
-                    <div class="profile-card p-6 w-full max-w-md relative overflow-hidden">
-                        <div class="absolute top-4 right-4 z-20 bg-slate-900/80 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold text-emerald-400">
-                            ● Онлайн
-                        </div>
-
-                        <div class="h-80 rounded-2xl overflow-hidden relative mb-5 bg-slate-100 flex items-center justify-center text-slate-400">
-                            <div class="text-center p-6">
-                                <i class="fa-solid fa-user-shield text-5xl mb-2 text-slate-300"></i>
-                                <p class="text-xs font-semibold">Приватная анкета участника</p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <h3 class="text-xl font-bold text-slate-900">Elena, 26</h3>
-                                <p class="text-xs text-slate-500 mt-0.5">📍 Берлин • 🚗 15 км</p>
-                            </div>
-                            <button onclick="openVettingModal()" class="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition-colors shadow-lg">
-                                <i class="fa-solid fa-heart text-lg"></i>
-                            </button>
-                        </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <h3 class="font-serif text-lg font-bold text-white">Elena M.</h3>
+                        <span class="bg-amber-500/20 text-amber-300 text-[10px] font-bold px-2 py-0.5 rounded-full">VIP</span>
                     </div>
+                    <p class="text-xs text-slate-400">📍 Берлин • 🚗 15 км от вас</p>
+                    <p class="text-xs text-amber-300/90 font-medium mt-1">🗣 IT, EN, DE</p>
                 </div>
+            </div>
 
+            <div class="pt-3 border-t border-white/10 flex justify-between items-center text-xs text-slate-300">
+                <span class="text-emerald-400 font-medium flex items-center gap-1.5">
+                    <i class="fa-solid fa-circle-check"></i> Профиль верифицирован
+                </span>
+                <button onclick="openVettingModal()" class="text-amber-400 font-bold hover:underline">
+                    Связаться <i class="fa-solid fa-arrow-right ml-1"></i>
+                </button>
             </div>
         </div>
-    </section>
 
-    <!-- Profiles Grid Section -->
-    <section class="py-20 bg-slate-100/70 border-t border-slate-200 relative z-10">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center max-w-2xl mx-auto mb-16">
-                <span class="text-xs font-bold uppercase tracking-widest text-blue-600" data-i18n="sec_sub">Сообщество</span>
-                <h2 class="text-3xl sm:text-5xl font-extrabold text-slate-900 mt-2" data-i18n="sec_title">Выбирайте пару рядом с вами</h2>
-            </div>
+        <!-- Big Action CTA Button -->
+        <button onclick="openVettingModal()" class="w-full gold-btn py-4 rounded-2xl text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-3 shadow-2xl mb-4">
+            <span data-i18n="cta_main">Подать заявку на участие</span>
+            <i class="fa-solid fa-arrow-right"></i>
+        </button>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Card 1 -->
-                <div onclick="openVettingModal()" class="profile-card p-4 cursor-pointer group">
-                    <div class="h-64 rounded-2xl overflow-hidden relative mb-4 bg-slate-200 flex items-center justify-center text-slate-400">
-                        <i class="fa-solid fa-user text-4xl text-slate-300"></i>
-                        <span class="absolute top-3 right-3 bg-emerald-500 text-white text-[9px] font-bold px-2.5 py-1 rounded-full uppercase">Активна</span>
-                    </div>
-                    <h3 class="text-lg font-bold text-slate-900">Elena M., 26</h3>
-                    <p class="text-xs text-slate-500 mt-0.5">📍 Берлин, Германия</p>
-                    <p class="text-xs font-semibold text-blue-600 mt-2">🗣 IT, EN, DE</p>
+        <p class="text-center text-[11px] text-slate-500" data-i18n="secure_note">
+            🔒 Вход строго по приглашениям или после прохождения проверки
+        </p>
+    </main>
+
+    <!-- Mobile-Optimized Modal Registration Form -->
+    <div id="vettingModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-xl flex items-end sm:items-center justify-center opacity-0 hidden transition-opacity duration-300 p-0 sm:p-4">
+        <div class="glass-card w-full max-w-lg p-6 sm:p-8 rounded-t-[32px] sm:rounded-3xl border-t sm:border border-amber-500/30 relative max-h-[90vh] overflow-y-auto">
+            
+            <!-- Close bar / button -->
+            <div class="flex justify-between items-center mb-6">
+                <div>
+                    <span class="text-[10px] text-amber-400 font-bold uppercase tracking-widest">Secure Protocol</span>
+                    <h3 class="font-serif text-xl text-white font-bold" data-i18n="modal_title">Анкета кандидата</h3>
                 </div>
-
-                <!-- Card 2 -->
-                <div onclick="openVettingModal()" class="profile-card p-4 cursor-pointer group">
-                    <div class="h-64 rounded-2xl overflow-hidden relative mb-4 bg-slate-200 flex items-center justify-center text-slate-400">
-                        <i class="fa-solid fa-user text-4xl text-slate-300"></i>
-                        <span class="absolute top-3 right-3 bg-amber-500 text-white text-[9px] font-bold px-2.5 py-1 rounded-full uppercase">VIP</span>
-                    </div>
-                    <h3 class="text-lg font-bold text-slate-900">Alexander K., 38</h3>
-                    <p class="text-xs text-slate-500 mt-0.5">📍 Прага, Чехия</p>
-                    <p class="text-xs font-semibold text-blue-600 mt-2">🗣 CS, EN, DE</p>
-                </div>
-
-                <!-- Card 3 -->
-                <div onclick="openVettingModal()" class="profile-card p-4 cursor-pointer group">
-                    <div class="h-64 rounded-2xl overflow-hidden relative mb-4 bg-slate-200 flex items-center justify-center text-slate-400">
-                        <i class="fa-solid fa-user text-4xl text-slate-300"></i>
-                        <span class="absolute top-3 right-3 bg-emerald-500 text-white text-[9px] font-bold px-2.5 py-1 rounded-full uppercase">Активна</span>
-                    </div>
-                    <h3 class="text-lg font-bold text-slate-900">Victoria S., 29</h3>
-                    <p class="text-xs text-slate-500 mt-0.5">📍 Милан, Италия</p>
-                    <p class="text-xs font-semibold text-blue-600 mt-2">🗣 IT, EN, RU</p>
-                </div>
-
-                <!-- Card 4 -->
-                <div onclick="openVettingModal()" class="profile-card p-4 cursor-pointer group">
-                    <div class="h-64 rounded-2xl overflow-hidden relative mb-4 bg-slate-200 flex items-center justify-center text-slate-400">
-                        <i class="fa-solid fa-user text-4xl text-slate-300"></i>
-                        <span class="absolute top-3 right-3 bg-amber-500 text-white text-[9px] font-bold px-2.5 py-1 rounded-full uppercase">VIP</span>
-                    </div>
-                    <h3 class="text-lg font-bold text-slate-900">Maximilian H., 42</h3>
-                    <p class="text-xs text-slate-500 mt-0.5">📍 Цюрих, Швейцария</p>
-                    <p class="text-xs font-semibold text-blue-600 mt-2">🗣 DE, EN, FR</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Modal Form -->
-    <div id="vettingModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-md flex justify-center items-center opacity-0 hidden transition-opacity duration-300 p-4">
-        <div class="bg-white max-w-xl w-full p-8 relative rounded-3xl border border-slate-200 shadow-2xl">
-            <button onclick="closeVettingModal()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-900 text-xl">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-
-            <div class="mb-6 text-center space-y-1">
-                <span class="text-xs text-blue-600 font-bold uppercase tracking-wider">Регистрация в клубе</span>
-                <h3 class="text-2xl text-slate-900 font-extrabold">Заполните данные профиля</h3>
+                <button onclick="closeVettingModal()" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
             </div>
 
             <form onsubmit="handleFormSubmit(event)" class="space-y-4">
                 <div>
-                    <label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Имя и титул</label>
-                    <input type="text" id="inputName" required placeholder="например: Ing. Viktor Sterling" class="w-full bg-slate-50 border border-slate-300 rounded-2xl p-4 text-xs text-slate-900 outline-none focus:border-blue-600">
+                    <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5" data-i18n="lbl_name">Имя и титул</label>
+                    <input type="text" id="inputName" required placeholder="например: Ing. Viktor Sterling" class="w-full bg-[#0a0b0e] border border-white/10 rounded-2xl p-4 text-xs text-white outline-none focus:border-amber-400 transition-colors">
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Родной язык</label>
-                        <select id="inputNativeLang" class="w-full bg-slate-50 border border-slate-300 rounded-2xl p-4 text-xs text-slate-900 outline-none focus:border-blue-600">
+                        <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5" data-i18n="lbl_native">Родной язык</label>
+                        <select id="inputNativeLang" class="w-full bg-[#0a0b0e] border border-white/10 rounded-2xl p-4 text-xs text-white outline-none focus:border-amber-400 transition-colors">
                             <option value="Čeština">🇨🇿 Čeština</option>
                             <option value="Deutsch">🇩🇪 Deutsch</option>
                             <option value="English">🇬🇧 English</option>
@@ -258,40 +205,34 @@
                         </select>
                     </div>
                     <div>
-                        <label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Доп. языки</label>
-                        <input type="text" id="inputAddLangs" placeholder="например: EN, DE" class="w-full bg-slate-50 border border-slate-300 rounded-2xl p-4 text-xs text-slate-900 outline-none focus:border-blue-600">
+                        <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5" data-i18n="lbl_add">Доп. языки</label>
+                        <input type="text" id="inputAddLangs" placeholder="например: EN, DE" class="w-full bg-[#0a0b0e] border border-white/10 rounded-2xl p-4 text-xs text-white outline-none focus:border-amber-400 transition-colors">
                     </div>
                 </div>
 
                 <div>
-                    <div class="flex justify-between items-center mb-1">
-                        <label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider">Город и страна</label>
-                        <button type="button" onclick="detectGPS()" class="text-[10px] text-blue-600 hover:underline">Определить GPS</button>
+                    <div class="flex justify-between items-center mb-1.5">
+                        <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider" data-i18n="lbl_loc">Город и страна</label>
+                        <button type="button" onclick="detectGPS()" class="text-[10px] text-amber-400 hover:underline">📍 Определить GPS</button>
                     </div>
-                    <input type="text" id="inputLocation" required placeholder="Praha, Česko" class="w-full bg-slate-50 border border-slate-300 rounded-2xl p-4 text-xs text-slate-900 outline-none focus:border-blue-600">
+                    <input type="text" id="inputLocation" required placeholder="Praha, Česko" class="w-full bg-[#0a0b0e] border border-white/10 rounded-2xl p-4 text-xs text-white outline-none focus:border-amber-400 transition-colors">
                 </div>
 
                 <div>
-                    <label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Контакт (Telegram / Телефон)</label>
-                    <input type="text" id="inputContact" required placeholder="@username или телефон" class="w-full bg-slate-50 border border-slate-300 rounded-2xl p-4 text-xs text-slate-900 outline-none focus:border-blue-600">
+                    <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5" data-i18n="lbl_contact">Контакт (Telegram / Телефон)</label>
+                    <input type="text" id="inputContact" required placeholder="@username или +420..." class="w-full bg-[#0a0b0e] border border-white/10 rounded-2xl p-4 text-xs text-white outline-none focus:border-amber-400 transition-colors">
                 </div>
 
-                <button type="submit" id="submitBtn" class="w-full mt-4 py-4 btn-primary-custom uppercase tracking-widest rounded-2xl shadow-xl">
-                    Отправить заявку
+                <button type="submit" id="submitBtn" class="w-full mt-2 gold-btn py-4 rounded-2xl uppercase tracking-[0.2em] text-xs shadow-xl">
+                    <span data-i18n="btn_submit">Отправить заявку в клуб</span>
                 </button>
             </form>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="border-t border-slate-200 py-8 bg-white">
-        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center text-xs text-slate-500">
-            <div>© 2026 DUONERA Private Syndicate. Všechna práva vyhrazena.</div>
-            <div class="flex gap-6">
-                <a href="#" class="hover:text-slate-900">Конфиденциальность</a>
-                <a href="#" class="hover:text-slate-900">Условия</a>
-            </div>
-        </div>
+    <!-- Minimalist Footer -->
+    <footer class="py-6 px-6 text-center text-[11px] text-slate-600 border-t border-white/5">
+        © 2026 DUONERA Private Syndicate. Všechna práva vyhrazena.
     </footer>
 
     <script>
@@ -300,44 +241,51 @@
 
         const translations = {
             cs: {
-                hero_tag: "Закрытый клуб знакомств нового уровня",
-                hero_title: "Найдите своего человека без лишних слов",
-                hero_subtitle: "Эксклюзивное пространство для успешных людей. Проверенные анкеты, абсолютная конфиденциальность и умный подбор по локации и языкам.",
-                btn_hero_cta: "Создать профиль",
-                sec_sub: "Сообщество", sec_title: "Выбирайте пару рядом с вами"
-            },
-            de: {
-                hero_tag: "Exklusiver Dating-Club der neuen Generation",
-                hero_title: "Finden Sie Ihren Partner ohne Umwege",
-                hero_subtitle: "Exklusiver Raum für erfolgreiche Menschen. Verifizierte Profile, absolute Vertraulichkeit und intelligente Suche.",
-                btn_hero_cta: "Profil erstellen",
-                sec_sub: "Community", sec_title: "Finden Sie Matches in Ihrer Nähe"
+                badge: "Закрытый синдикат • 100% Верификация",
+                title: "Приватный клуб для избранных знакомств",
+                subtitle: "Никаких публичных анкет и бесконечного свайпинга. Только конфиденциальный подбор пары по вашему языку и локации.",
+                cta_main: "Подать заявку на участие",
+                secure_note: "🔒 Вход строго по приглашениям или после прохождения проверки",
+                modal_title: "Анкета кандидата",
+                lbl_name: "Имя и титул",
+                lbl_native: "Родной язык",
+                lbl_add: "Доп. языки",
+                lbl_loc: "Город и страна",
+                lbl_contact: "Контакт (Telegram / Телефон)",
+                btn_submit: "Отправить заявку в клуб"
             },
             en: {
-                hero_tag: "Next-gen Private Dating Club",
-                hero_title: "Find Your Match Without Compromise",
-                hero_subtitle: "An exclusive space for successful individuals. Verified profiles, absolute privacy, and smart location/language matching.",
-                btn_hero_cta: "Create Profile",
-                sec_sub: "Community", sec_title: "Choose matches near you"
+                badge: "Private Syndicate • 100% Verified",
+                title: "Exclusive Club for Elite Connections",
+                subtitle: "No public profiles or endless swiping. Confidential matching based strictly on your language and location.",
+                cta_main: "Apply for Membership",
+                secure_note: "🔒 Access strictly by invitation or vetting approval",
+                modal_title: "Candidate Profile",
+                lbl_name: "Name & Title",
+                lbl_native: "Native Language",
+                lbl_add: "Other Languages",
+                lbl_loc: "City & Country",
+                lbl_contact: "Contact (Telegram / Phone)",
+                btn_submit: "Submit Application"
             },
             ru: {
-                hero_tag: "Закрытый клуб знакомств нового уровня",
-                hero_title: "Найдите своего человека без лишних слов",
-                hero_subtitle: "Эксклюзивное пространство для успешных людей. Проверенные анкеты, абсолютная конфиденциальность и умный подбор по локации и языкам.",
-                btn_hero_cta: "Создать профиль",
-                sec_sub: "Сообщество", sec_title: "Выбирайте пару рядом с вами"
-            },
-            ua: {
-                hero_tag: "Закритий клуб знайомств нового рівня",
-                hero_title: "Знайдіть свою людину без зайвих слів",
-                hero_subtitle: "Ексклюзивний простір для успішних людей. Перевірені анкети, абсолютна конфіденційність та розумний підбір за локацією та мовами.",
-                btn_hero_cta: "Створити профіль",
-                sec_sub: "Спільнота", sec_title: "Обирайте пару поруч з вами"
+                badge: "Закрытый синдикат • 100% Верификация",
+                title: "Приватный клуб для избранных знакомств",
+                subtitle: "Никаких публичных анкет и бесконечного свайпинга. Только конфиденциальный подбор пары по вашему языку и локации.",
+                cta_main: "Подать заявку на участие",
+                secure_note: "🔒 Вход строго по приглашениям или после прохождения проверки",
+                modal_title: "Анкета кандидата",
+                lbl_name: "Имя и титул",
+                lbl_native: "Родной язык",
+                lbl_add: "Доп. языки",
+                lbl_loc: "Город и страна",
+                lbl_contact: "Контакт (Telegram / Телефон)",
+                btn_submit: "Отправить заявку в клуб"
             }
         };
 
         function setLanguage(lang) {
-            document.querySelectorAll('.lang-pill').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
             const btn = document.getElementById(`lang-${lang}`);
             if (btn) btn.classList.add('active');
             const dict = translations[lang];
@@ -370,7 +318,7 @@
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
             btn.disabled = true;
-            btn.innerText = 'ОТПРАВКА...';
+            btn.innerHTML = 'ОТПРАВКА...';
 
             const name = document.getElementById('inputName').value;
             const nativeLang = document.getElementById('inputNativeLang').value;
@@ -386,7 +334,7 @@
                          `📱 <b>Контакт:</b> ${contact}`;
 
             try {
-                const res = await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+                const res = href = await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -407,7 +355,7 @@
                 alert('Ошибка соединения.');
             } finally {
                 btn.disabled = false;
-                btn.innerText = 'ОТПРАВИТЬ ЗАЯВКУ';
+                btn.innerHTML = 'Отправить заявку в клуб';
             }
         }
     </script>
