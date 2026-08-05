@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f4f0e8">
+  <meta name="robots" content="noindex, nofollow">
+  <title>DUONERA — krátká registrace</title>
+  <link rel="stylesheet" href="quick-register-v1.css">
+  <style>@media(min-width:700px){body{display:block;padding:0}.prototype-shell{margin:0;width:390px;min-height:844px;box-shadow:none}}</style>
+</head>
+<body>
+  <div class="prototype-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="DUONERA">DUONERA<span aria-hidden="true"></span></a>
+      <nav aria-label="Navigace">
+        <button class="language" type="button" aria-label="Zvolit jazyk">CZ⌄</button>
+        <a href="#">Přihlásit</a>
+      </nav>
+    </header>
+    <main>
+      <section class="intro" aria-labelledby="page-title">
+        <p class="eyebrow"><i aria-hidden="true"></i> Vážné seznámení bez swipování</p>
+        <h1 id="page-title">Začněme tím<br>podstatným.</h1>
+        <p class="lead">Pět údajů. Profil doplníte, až budete chtít.</p>
+        <ol class="path" aria-label="Jak DUONERA funguje">
+          <li><b>1</b><span>Malý výběr</span></li>
+          <li><b>2</b><span>Vzájemné ano</span></li>
+          <li><b>3</b><span>Skutečná schůzka</span></li>
+        </ol>
+      </section>
+      <form class="quick-form" novalidate>
+        <div class="field-row">
+          <label class="field"><span>Křestní jméno</span><input name="first_name" type="text" autocomplete="given-name" placeholder="Jana" required></label>
+          <label class="field field-age"><span>Věk</span><input name="age" type="number" inputmode="numeric" min="18" max="90" placeholder="38" required></label>
+        </div>
+        <label class="field"><span>Město</span><input name="city" type="text" autocomplete="address-level2" placeholder="Praha" required></label>
+        <fieldset class="seeking">
+          <legend>Koho hledáte?</legend>
+          <div>
+            <label><input type="radio" name="looking_for" value="Ženu" required><span>Ženu</span></label>
+            <label><input type="radio" name="looking_for" value="Muže"><span>Muže</span></label>
+          </div>
+        </fieldset>
+        <label class="field"><span>E-mail</span><input name="email" type="email" autocomplete="email" placeholder="vas@email.cz" required></label>
+        <label class="consent"><input name="consent" type="checkbox" required><span>Souhlasím se zpracováním údajů pro registraci a soukromý výběr.</span></label>
+        <button class="submit" type="submit"><span>Přidat se k DUONERA</span><b aria-hidden="true">→</b></button>
+        <p class="privacy">Bez platby · Bez veřejného profilu</p>
+      </form>
+      <section class="success" hidden aria-live="polite">
+        <span class="success-mark" aria-hidden="true">✓</span>
+        <p class="eyebrow">Registrace je uložená</p>
+        <h2>Děkujeme,<br><span data-success-name></span>.</h2>
+        <p>Ozveme se, až pro vás bude připravený první soukromý výběr.</p>
+      </section>
+    </main>
+  </div>
+  <script src="quick-register-v1.js" defer></script>
+</body>
+</html>
