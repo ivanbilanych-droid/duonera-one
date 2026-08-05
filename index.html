@@ -16,10 +16,13 @@
             theme: {
                 extend: {
                     colors: {
-                        editorial: {
-                            bg: '#08080a',
-                            card: '#121216',
-                            accent: '#fef3c7'
+                        luxury: {
+                            bg: '#05070a',
+                            card: '#0e1219',
+                            gold: '#fef08a',
+                            goldMain: '#d4af37',
+                            goldDark: '#997a15',
+                            border: 'rgba(212, 175, 55, 0.3)'
                         }
                     },
                     fontFamily: {
@@ -33,57 +36,80 @@
 
     <style>
         body {
-            background-color: #08080a;
-            color: #f3f4f6;
+            background-color: #05070a;
+            color: #f8fafc;
             font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: hidden;
         }
 
-        .hero-banner-bg {
+        .royal-hero-bg {
             position: absolute;
             inset: 0;
-            background-image: linear-gradient(to right, rgba(8, 8, 10, 0.95) 20%, rgba(8, 8, 10, 0.6) 60%, rgba(8, 8, 10, 0.95) 100%), 
+            background-image: radial-gradient(circle at 70% 30%, rgba(212, 175, 55, 0.12) 0%, transparent 60%),
+                              linear-gradient(to bottom, rgba(5, 7, 10, 0.85) 0%, rgba(5, 7, 10, 0.95) 100%),
                               url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-position: center;
             z-index: 0;
         }
 
-        .editorial-card {
-            background: rgba(18, 18, 22, 0.85);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #ffffff 0%, #fef08a 30%, #d4af37 70%, #997a15 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gold-button-gradient {
+            background: linear-gradient(135deg, #fef08a 0%, #d4af37 50%, #b8860b 100%);
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .editorial-card:hover {
-            border-color: #d97706;
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+        .gold-button-gradient:hover {
+            filter: brightness(1.15);
+            box-shadow: 0 0 35px rgba(212, 175, 55, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .glass-card-royal {
+            background: rgba(14, 18, 25, 0.85);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+        }
+        .glass-card-royal:hover {
+            border-color: rgba(212, 175, 55, 0.6);
+            transform: translateY(-5px);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.95), 0 0 30px rgba(212, 175, 55, 0.2);
         }
 
         .avatar-blur {
-            filter: blur(10px);
+            filter: blur(12px);
             transition: filter 0.5s ease;
         }
-        .editorial-card:hover .avatar-blur {
+        .glass-card-royal:hover .avatar-blur {
             filter: blur(4px);
         }
 
-        .lang-pill {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .lang-pill-royal {
+            background: rgba(5, 7, 10, 0.8);
+            border: 1px solid rgba(212, 175, 55, 0.3);
             color: #9ca3af;
-            padding: 5px 12px;
+            padding: 6px 14px;
             border-radius: 9999px;
             font-size: 11px;
             font-weight: 600;
             transition: all 0.3s ease;
         }
-        .lang-pill.active {
-            background: #fef3c7;
-            color: #000;
-            border-color: #fef3c7;
-            font-weight: 700;
+        .lang-pill-royal:hover {
+            border-color: #d4af37;
+            color: #fff;
+        }
+        .lang-pill-royal.active {
+            background: rgba(212, 175, 55, 0.2);
+            border-color: #d4af37;
+            color: #fef08a;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
         }
 
         details summary::-webkit-details-marker { display:none; }
@@ -91,96 +117,104 @@
 </head>
 <body class="relative min-h-screen flex flex-col justify-between">
 
-    <!-- Header Navigation -->
-    <header class="relative z-40 max-w-7xl mx-auto w-full px-6 py-8 flex justify-between items-center border-b border-white/10">
-        <a href="#" class="flex items-center gap-3">
-            <span class="font-serif text-3xl font-bold tracking-widest text-white">DUONERA</span>
-            <span class="hidden sm:inline text-[9px] uppercase tracking-[0.3em] text-amber-400/80 border-l border-white/20 pl-3">Private Syndicate</span>
+    <!-- Header -->
+    <header class="relative z-40 max-w-7xl mx-auto w-full px-6 py-6 flex justify-between items-center border-b border-yellow-500/20 bg-black/50 backdrop-blur-2xl">
+        <a href="#" class="flex items-center gap-3.5 group">
+            <div class="w-11 h-11 rounded-full border border-yellow-500/60 flex items-center justify-center bg-black shadow-[0_0_20px_rgba(212,175,55,0.3)]">
+                <i class="fa-solid fa-crown text-yellow-400 text-base"></i>
+            </div>
+            <div class="flex flex-col">
+                <span class="font-serif text-2xl tracking-[0.25em] gold-gradient-text font-bold leading-none">DUONERA</span>
+                <span class="text-[8px] tracking-[0.35em] text-yellow-500/80 uppercase font-semibold mt-1">Private Syndicate</span>
+            </div>
         </a>
 
         <!-- Languages & CTA -->
         <div class="flex items-center gap-4">
-            <div class="flex items-center gap-1.5 bg-black/40 p-1 rounded-full border border-white/10 backdrop-blur-md">
-                <button onclick="setLanguage('cs')" id="lang-cs" class="lang-pill active">🇨🇿 CS</button>
-                <button onclick="setLanguage('de')" id="lang-de" class="lang-pill">🇩🇪 DE</button>
-                <button onclick="setLanguage('en')" id="lang-en" class="lang-pill">🇬🇧 EN</button>
-                <button onclick="setLanguage('ru')" id="lang-ru" class="lang-pill">🇷🇺 RU</button>
-                <button onclick="setLanguage('ua')" id="lang-ua" class="lang-pill">🇺🇦 UA</button>
+            <div class="flex items-center gap-1.5 bg-black/70 p-1 rounded-full border border-yellow-500/30">
+                <button onclick="setLanguage('cs')" id="lang-cs" class="lang-pill-royal active">🇨🇿 CS</button>
+                <button onclick="setLanguage('de')" id="lang-de" class="lang-pill-royal">🇩🇪 DE</button>
+                <button onclick="setLanguage('en')" id="lang-en" class="lang-pill-royal">🇬🇧 EN</button>
+                <button onclick="setLanguage('ru')" id="lang-ru" class="lang-pill-royal">🇷🇺 RU</button>
+                <button onclick="setLanguage('ua')" id="lang-ua" class="lang-pill-royal">🇺🇦 UA</button>
             </div>
 
-            <button onclick="openVettingModal()" class="bg-amber-400 hover:bg-amber-300 text-black font-bold text-xs uppercase tracking-widest px-7 py-3.5 rounded-full transition-all transform hover:scale-105 shadow-xl">
+            <button onclick="openVettingModal()" class="gold-button-gradient text-black font-bold text-xs uppercase tracking-widest px-7 py-3.5 rounded-full shadow-lg">
                 Vstup do klubu
             </button>
         </div>
     </header>
 
-    <!-- Editorial Hero Section -->
-    <section class="relative z-10 pt-16 pb-24 lg:pt-24 lg:pb-32">
-        <div class="hero-banner-bg"></div>
+    <!-- Royal Hero Section -->
+    <section class="relative z-10 pt-16 pb-28 lg:pt-24 lg:pb-36">
+        <div class="royal-hero-bg"></div>
 
         <div class="max-w-7xl mx-auto px-6 relative z-10">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                 
-                <!-- Left Title Content -->
+                <!-- Left Content -->
                 <div class="lg:col-span-7 space-y-8">
-                    <div class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.25em] text-amber-300 bg-amber-950/40 border border-amber-500/30 px-4 py-2 rounded-full backdrop-blur-md" data-i18n="hero_tag">
-                        <i class="fa-solid fa-crown text-amber-400"></i> Exkluzivní Matchmaking Pro Náročné
+                    <div class="inline-flex items-center gap-2.5 text-xs font-bold uppercase tracking-[0.3em] text-yellow-300 bg-yellow-950/50 border border-yellow-500/40 px-5 py-2.5 rounded-full backdrop-blur-md shadow-[0_0_20px_rgba(212,175,55,0.2)]" data-i18n="hero_tag">
+                        <i class="fa-solid fa-shield-halved text-yellow-400"></i> Закрытый Клуб • 100% Верифицированные Профили
                     </div>
 
-                    <h1 class="font-serif text-5xl sm:text-7xl font-bold tracking-tight text-white leading-[1.05]" data-i18n="hero_title">
-                        Umění Privátního Seznamování
+                    <h1 class="font-serif text-5xl sm:text-7xl font-bold tracking-tight gold-gradient-text leading-[1.05]" data-i18n="hero_title">
+                        Знакомства Высокого Класса Без Публичных Анкет
                     </h1>
 
-                    <p class="font-serif italic text-xl sm:text-2xl text-gray-300 max-w-xl leading-relaxed" data-i18n="hero_subtitle">
-                        «Bez veřejných profilů. Bez бесконечного свайпинга. Особный подбор пар с учётом локации и языков общения.»
+                    <p class="font-serif italic text-xl sm:text-2xl text-gray-300 max-w-xl leading-relaxed border-l-2 border-yellow-500/50 pl-5 py-1" data-i18n="hero_subtitle">
+                        «Мы соединяем успешных мужчин и вдохновляющих женщин. Выбирайте кандидатов по языку и локации.»
                     </p>
 
-                    <div class="pt-4 flex flex-col sm:flex-row gap-4">
-                        <button onclick="openVettingModal()" class="bg-amber-400 hover:bg-amber-300 text-black font-bold text-xs tracking-[0.2em] uppercase px-10 py-5 rounded-full transition-all shadow-2xl flex items-center justify-center gap-3">
-                            <span data-i18n="btn_hero_cta">Požádat o prověření profilu</span>
+                    <div class="pt-4 flex flex-col sm:flex-row gap-5">
+                        <button onclick="openVettingModal()" class="gold-button-gradient text-black font-bold text-xs tracking-[0.25em] uppercase px-10 py-5 rounded-full shadow-2xl flex items-center justify-center gap-3">
+                            <span data-i18n="btn_hero_cta">Поžádat o prověření profilu</span>
                             <i class="fa-solid fa-arrow-right text-xs"></i>
                         </button>
                     </div>
                 </div>
 
-                <!-- Right Side Live Cards Preview -->
+                <!-- Right Live Feed Card -->
                 <div class="lg:col-span-5">
-                    <div class="editorial-card p-6 rounded-3xl space-y-4">
-                        <div class="flex justify-between items-center border-b border-white/10 pb-4">
-                            <span class="text-xs font-bold uppercase tracking-widest text-amber-300">Sanctuary Live Stream</span>
-                            <span class="text-[10px] text-gray-400 font-mono">100% VERIFIED</span>
+                    <div class="glass-card-royal p-7 rounded-3xl space-y-5">
+                        <div class="flex justify-between items-center border-b border-yellow-500/20 pb-4">
+                            <div class="flex items-center gap-2.5">
+                                <div class="w-3 h-3 rounded-full bg-emerald-400 animate-ping"></div>
+                                <span class="text-xs font-bold uppercase tracking-widest text-yellow-300">Sanctuary Live Feed</span>
+                            </div>
+                            <span class="text-[10px] text-gray-400 font-mono bg-black/50 px-2.5 py-1 rounded-full border border-yellow-500/20">ID: VIP-2026</span>
                         </div>
 
-                        <div class="space-y-3">
-                            <div class="p-4 bg-black/40 rounded-2xl border border-white/5 flex items-center justify-between">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-12 h-12 rounded-full overflow-hidden relative border border-amber-400/40">
-                                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" class="w-full h-full object-cover avatar-blur">
+                        <div class="space-y-3.5">
+                            <div class="p-4 bg-black/60 rounded-2xl border border-white/5 flex items-center justify-between">
+                                <div class="flex items-center gap-3.5">
+                                    <div class="w-12 h-12 rounded-full overflow-hidden relative border border-yellow-500/40 p-0.5">
+                                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" class="w-full h-full object-cover rounded-full avatar-blur">
                                     </div>
                                     <div>
-                                        <div class="text-sm font-serif font-bold text-white">Elena, 26</div>
+                                        <div class="text-sm font-serif font-bold text-white">Elena M., 26</div>
                                         <div class="text-xs text-gray-400">📍 Berlin • 🚗 15 km</div>
                                     </div>
                                 </div>
-                                <span class="text-[10px] font-bold text-amber-300 bg-amber-950/60 border border-amber-500/40 px-2.5 py-1 rounded-full">99% Match</span>
+                                <span class="text-[10px] font-bold text-yellow-300 bg-yellow-950/80 border border-yellow-500/40 px-2.5 py-1 rounded-full">99% Match</span>
                             </div>
 
-                            <div class="p-4 bg-black/40 rounded-2xl border border-white/5 flex items-center justify-between">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-12 h-12 rounded-full overflow-hidden relative border border-amber-400/40">
-                                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80" class="w-full h-full object-cover avatar-blur">
+                            <div class="p-4 bg-black/60 rounded-2xl border border-white/5 flex items-center justify-between">
+                                <div class="flex items-center gap-3.5">
+                                    <div class="w-12 h-12 rounded-full overflow-hidden relative border border-yellow-500/40 p-0.5">
+                                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80" class="w-full h-full object-cover rounded-full avatar-blur">
                                     </div>
                                     <div>
-                                        <div class="text-sm font-serif font-bold text-white">Alexander, 38</div>
+                                        <div class="text-sm font-serif font-bold text-white">Alexander K., 38</div>
                                         <div class="text-xs text-gray-400">📍 Praha • ✈️ Dubai, NYC</div>
                                     </div>
                                 </div>
-                                <span class="text-[10px] font-bold text-amber-300 bg-amber-950/60 border border-amber-500/40 px-2.5 py-1 rounded-full">96% Match</span>
+                                <span class="text-[10px] font-bold text-yellow-300 bg-yellow-950/80 border border-yellow-500/40 px-2.5 py-1 rounded-full">96% Match</span>
                             </div>
                         </div>
 
-                        <button onclick="openVettingModal()" class="w-full py-4 bg-white/5 hover:bg-white/10 text-xs font-bold uppercase tracking-widest text-amber-200 border border-amber-400/30 rounded-xl transition-all text-center">
-                            Otevřít privátní katalog
+                        <button onclick="openVettingModal()" class="w-full py-4 bg-black/80 hover:bg-yellow-500 hover:text-black text-xs font-bold uppercase tracking-widest text-yellow-200 border border-yellow-500/40 rounded-2xl transition-all text-center flex justify-center items-center gap-2">
+                            <i class="fa-solid fa-key"></i> Otevřít privátní katalog
                         </button>
                     </div>
                 </div>
@@ -189,68 +223,68 @@
         </div>
     </section>
 
-    <!-- Candidates Showcase -->
-    <section class="py-20 bg-black/60 border-t border-white/10 relative z-10">
+    <!-- Showcase Grid -->
+    <section class="py-24 bg-black/80 border-t border-yellow-500/20 relative z-10">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center max-w-2xl mx-auto mb-16">
-                <span class="text-xs font-bold uppercase tracking-[0.25em] text-amber-400">Klubová Витрина</span>
-                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-white mt-2">Выбирайте пару по языкам и гео-локации</h2>
+                <span class="text-xs font-bold uppercase tracking-[0.3em] text-yellow-400" data-i18n="sec_sub">Klubová Витрина</span>
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-white mt-2" data-i18n="sec_title">Выбирайте пару по языкам и гео-локации</h2>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <!-- Card 1 -->
-                <div onclick="openVettingModal()" class="editorial-card rounded-3xl overflow-hidden cursor-pointer group">
+                <div onclick="openVettingModal()" class="glass-card-royal rounded-3xl overflow-hidden cursor-pointer group">
                     <div class="h-80 relative overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover avatar-blur group-hover:scale-105 transition-transform duration-700">
                         <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
-                        <span class="absolute top-4 right-4 bg-emerald-950/80 border border-emerald-500 text-emerald-300 text-[9px] font-bold px-3 py-1 rounded-full uppercase">● В сети</span>
+                        <span class="absolute top-4 right-4 bg-emerald-950/90 border border-emerald-500 text-emerald-300 text-[9px] font-bold px-3 py-1 rounded-full uppercase">● В сети</span>
                     </div>
                     <div class="p-6 space-y-2">
-                        <h3 class="font-serif text-xl font-bold text-white">Elena M., 26</h3>
+                        <h3 class="font-serif text-xl font-bold text-yellow-100">Elena M., 26</h3>
                         <p class="text-xs text-gray-400">📍 Германия, Берлин • 🚗 15 км</p>
-                        <p class="text-xs text-amber-200/80 font-medium">🗣 🇮🇹 IT, 🇬🇧 EN, 🇩🇪 DE</p>
+                        <p class="text-xs text-yellow-400/90 font-medium">🗣 🇮🇹 IT, 🇬🇧 EN, 🇩🇪 DE</p>
                     </div>
                 </div>
 
                 <!-- Card 2 -->
-                <div onclick="openVettingModal()" class="editorial-card rounded-3xl overflow-hidden cursor-pointer group">
+                <div onclick="openVettingModal()" class="glass-card-royal rounded-3xl overflow-hidden cursor-pointer group">
                     <div class="h-80 relative overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover avatar-blur group-hover:scale-105 transition-transform duration-700">
                         <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
-                        <span class="absolute top-4 right-4 bg-amber-950/80 border border-amber-500 text-amber-300 text-[9px] font-bold px-3 py-1 rounded-full uppercase">VIP Status</span>
+                        <span class="absolute top-4 right-4 bg-yellow-950/90 border border-yellow-500 text-yellow-300 text-[9px] font-bold px-3 py-1 rounded-full uppercase">VIP Status</span>
                     </div>
                     <div class="p-6 space-y-2">
-                        <h3 class="font-serif text-xl font-bold text-white">Alexander K., 38</h3>
+                        <h3 class="font-serif text-xl font-bold text-yellow-100">Alexander K., 38</h3>
                         <p class="text-xs text-gray-400">📍 Чехия, Прага • ✈️ Рейсы: Дубай</p>
-                        <p class="text-xs text-amber-200/80 font-medium">🗣 🇨🇿 CS, 🇬🇧 EN, 🇩🇪 DE</p>
+                        <p class="text-xs text-yellow-400/90 font-medium">🗣 🇨🇿 CS, 🇬🇧 EN, 🇩🇪 DE</p>
                     </div>
                 </div>
 
                 <!-- Card 3 -->
-                <div onclick="openVettingModal()" class="editorial-card rounded-3xl overflow-hidden cursor-pointer group">
+                <div onclick="openVettingModal()" class="glass-card-royal rounded-3xl overflow-hidden cursor-pointer group">
                     <div class="h-80 relative overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover avatar-blur group-hover:scale-105 transition-transform duration-700">
                         <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
-                        <span class="absolute top-4 right-4 bg-emerald-950/80 border border-emerald-500 text-emerald-300 text-[9px] font-bold px-3 py-1 rounded-full uppercase">● В сети</span>
+                        <span class="absolute top-4 right-4 bg-emerald-950/90 border border-emerald-500 text-emerald-300 text-[9px] font-bold px-3 py-1 rounded-full uppercase">● В сети</span>
                     </div>
                     <div class="p-6 space-y-2">
-                        <h3 class="font-serif text-xl font-bold text-white">Victoria S., 29</h3>
+                        <h3 class="font-serif text-xl font-bold text-yellow-100">Victoria S., 29</h3>
                         <p class="text-xs text-gray-400">📍 Италия, Милан • 🚗 8 км</p>
-                        <p class="text-xs text-amber-200/80 font-medium">🗣 🇮🇹 IT, 🇬🇧 EN, 🇷🇺 RU</p>
+                        <p class="text-xs text-yellow-400/90 font-medium">🗣 🇮🇹 IT, 🇬🇧 EN, 🇷🇺 RU</p>
                     </div>
                 </div>
 
                 <!-- Card 4 -->
-                <div onclick="openVettingModal()" class="editorial-card rounded-3xl overflow-hidden cursor-pointer group">
+                <div onclick="openVettingModal()" class="glass-card-royal rounded-3xl overflow-hidden cursor-pointer group">
                     <div class="h-80 relative overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover avatar-blur group-hover:scale-105 transition-transform duration-700">
                         <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
-                        <span class="absolute top-4 right-4 bg-amber-950/80 border border-amber-500 text-amber-300 text-[9px] font-bold px-3 py-1 rounded-full uppercase">VIP Status</span>
+                        <span class="absolute top-4 right-4 bg-yellow-950/90 border border-yellow-500 text-yellow-300 text-[9px] font-bold px-3 py-1 rounded-full uppercase">VIP Status</span>
                     </div>
                     <div class="p-6 space-y-2">
-                        <h3 class="font-serif text-xl font-bold text-white">Maximilian H., 42</h3>
+                        <h3 class="font-serif text-xl font-bold text-yellow-100">Maximilian H., 42</h3>
                         <p class="text-xs text-gray-400">📍 Швейцария, Цюрих • ✈️ Монако</p>
-                        <p class="text-xs text-amber-200/80 font-medium">🗣 🇩🇪 DE, 🇬🇧 EN, 🇫🇷 FR</p>
+                        <p class="text-xs text-yellow-400/90 font-medium">🗣 🇩🇪 DE, 🇬🇧 EN, 🇫🇷 FR</p>
                     </div>
                 </div>
             </div>
@@ -259,26 +293,26 @@
 
     <!-- Modal Registration Form -->
     <div id="vettingModal" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-2xl flex justify-center items-center opacity-0 hidden transition-opacity duration-300 p-4">
-        <div class="editorial-card max-w-xl w-full p-8 rounded-3xl border-amber-500/40 relative">
-            <button onclick="closeVettingModal()" class="absolute top-6 right-6 text-gray-400 hover:text-amber-400 text-2xl">
+        <div class="glass-card-royal max-w-xl w-full p-8 rounded-3xl border-yellow-500/50 relative">
+            <button onclick="closeVettingModal()" class="absolute top-6 right-6 text-gray-400 hover:text-yellow-400 text-2xl">
                 <i class="fa-solid fa-xmark"></i>
             </button>
 
             <div class="mb-6 text-center space-y-1">
-                <span class="text-xs text-amber-400 font-bold uppercase tracking-widest">Registrační Protokol</span>
+                <span class="text-xs text-yellow-400 font-bold uppercase tracking-widest">Registrační Protokol</span>
                 <h3 class="font-serif text-2xl text-white font-bold">Žádost o prověření profilu</h3>
             </div>
 
             <form onsubmit="handleFormSubmit(event)" class="space-y-4">
                 <div>
                     <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Jméno a Titul</label>
-                    <input type="text" id="inputName" required placeholder="например: Ing. Viktor Sterling" class="w-full bg-black/80 border border-white/10 rounded-xl p-3.5 text-xs text-white outline-none focus:border-amber-400">
+                    <input type="text" id="inputName" required placeholder="например: Ing. Viktor Sterling" class="w-full bg-black/80 border border-yellow-500/30 rounded-xl p-3.5 text-xs text-white outline-none focus:border-yellow-400">
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Rodný jazyk</label>
-                        <select id="inputNativeLang" class="w-full bg-black/80 border border-white/10 rounded-xl p-3.5 text-xs text-white outline-none focus:border-amber-400">
+                        <select id="inputNativeLang" class="w-full bg-black/80 border border-yellow-500/30 rounded-xl p-3.5 text-xs text-white outline-none focus:border-yellow-400">
                             <option value="Čeština">🇨🇿 Čeština</option>
                             <option value="Deutsch">🇩🇪 Deutsch</option>
                             <option value="English">🇬🇧 English</option>
@@ -289,16 +323,16 @@
                     </div>
                     <div>
                         <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Další jazyky</label>
-                        <input type="text" id="inputAddLangs" placeholder="например: EN (Fluent), DE" class="w-full bg-black/80 border border-white/10 rounded-xl p-3.5 text-xs text-white outline-none focus:border-amber-400">
+                        <input type="text" id="inputAddLangs" placeholder="например: EN (Fluent), DE" class="w-full bg-black/80 border border-yellow-500/30 rounded-xl p-3.5 text-xs text-white outline-none focus:border-yellow-400">
                     </div>
                 </div>
 
                 <div>
                     <div class="flex justify-between items-center mb-1">
                         <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest">Místo pobytu (Město a Země)</label>
-                        <button type="button" onclick="detectGPS()" class="text-[9px] text-amber-400 hover:underline">Určit GPS</button>
+                        <button type="button" onclick="detectGPS()" class="text-[9px] text-yellow-400 hover:underline">Určit GPS</button>
                     </div>
-                    <input type="text" id="inputLocation" required list="globalCities" placeholder="Zadejte jakékoliv město (Berlin, Praha, New York...)" class="w-full bg-black/80 border border-white/10 rounded-xl p-3.5 text-xs text-white outline-none focus:border-amber-400">
+                    <input type="text" id="inputLocation" required list="globalCities" placeholder="Zadejte jakékoliv město (Berlin, Praha, New York...)" class="w-full bg-black/80 border border-yellow-500/30 rounded-xl p-3.5 text-xs text-white outline-none focus:border-yellow-400">
                     <datalist id="globalCities">
                         <option value="Praha, Česko"></option>
                         <option value="Berlin, Německo"></option>
@@ -311,10 +345,10 @@
 
                 <div>
                     <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Kontakt (Telegram / WhatsApp / Telefon)</label>
-                    <input type="text" id="inputContact" required placeholder="@username nebo +420..." class="w-full bg-black/80 border border-white/10 rounded-xl p-3.5 text-xs text-white outline-none focus:border-amber-400">
+                    <input type="text" id="inputContact" required placeholder="@username nebo +420..." class="w-full bg-black/80 border border-yellow-500/30 rounded-xl p-3.5 text-xs text-white outline-none focus:border-yellow-400">
                 </div>
 
-                <button type="submit" id="submitBtn" class="w-full mt-4 py-4 bg-amber-400 hover:bg-amber-300 text-black font-bold text-xs uppercase tracking-[0.2em] rounded-full shadow-xl transition-all">
+                <button type="submit" id="submitBtn" class="w-full mt-4 py-4 gold-button-gradient text-black font-bold text-xs uppercase tracking-[0.2em] rounded-full shadow-2xl">
                     Odeslat k prověření
                 </button>
             </form>
@@ -322,12 +356,12 @@
     </div>
 
     <!-- Footer -->
-    <footer class="border-t border-white/10 py-8 bg-black">
+    <footer class="border-t border-yellow-500/20 py-8 bg-black">
         <div class="max-w-7xl mx-auto px-6 flex justify-between items-center text-xs text-gray-500">
             <div>© 2026 DUONERA Private Syndicate. Všechna práva vyhrazena.</div>
             <div class="flex gap-6">
-                <a href="#" class="hover:text-amber-400">Ochrana soukromí</a>
-                <a href="#" class="hover:text-amber-400">NDA</a>
+                <a href="#" class="hover:text-yellow-400">Ochrana soukromí</a>
+                <a href="#" class="hover:text-yellow-400">NDA</a>
             </div>
         </div>
     </footer>
@@ -338,34 +372,44 @@
 
         const translations = {
             cs: {
-                hero_tag: "Exkluzivní Matchmaking Pro Náročné", hero_title: "Umění Privátního Seznamování",
-                hero_subtitle: "«Bez veřejných profilů. Bez бесконечного свайпинга. Особный подбор пар с учётом локации и языков общения.»",
-                btn_hero_cta: "Požádat o prověření profilu"
+                hero_tag: "Privátní Syndikát • 100% Verifikované Profily",
+                hero_title: "Seznamování Vysoké Třídy Bez Veřejných Anket",
+                hero_subtitle: "«Propojujeme úspěšné muže a inspirativní ženy. Vyberte si kandidáta podle jazyka a lokality.»",
+                btn_hero_cta: "Požádat o prověření profilu",
+                sec_sub: "Klubová Витрина", sec_title: "Выбирайте пару по языкам и гео-локации"
             },
             de: {
-                hero_tag: "Exklusives Matchmaking für Anspruchsvolle", hero_title: "Die Kunst des privaten Matchmakings",
-                hero_subtitle: "„Keine öffentlichen Profile. Kein endloses Wischen. Individuelle Auswahl nach Standort und Sprachen.“",
-                btn_hero_cta: "Profilprüfung anfordern"
+                hero_tag: "Privates Syndikat • 100% Verifizierte Profile",
+                hero_title: "High-End-Matchmaking Ohne Öffentliche Profile",
+                hero_subtitle: "„Wir verbinden erfolgreiche Männer und inspirierende Frauen. Wählen Sie Kandidaten nach Sprache und Standort.“",
+                btn_hero_cta: "Profilprüfung anfordern",
+                sec_sub: "Klub-Showroom", sec_title: "Wählen Sie nach Sprache und Standort"
             },
             en: {
-                hero_tag: "Exclusive Matchmaking for Demanding Individuals", hero_title: "The Art of Private Matchmaking",
-                hero_subtitle: "“No public profiles. No endless swiping. Personal matchmaking based on location and languages.”",
-                btn_hero_cta: "Request Profile Vetting"
+                hero_tag: "Private Syndicate • 100% Verified Profiles",
+                hero_title: "High-End Dating Without Public Profiles",
+                hero_subtitle: "“Connecting successful men and inspiring women. Match candidates by language and location.”",
+                btn_hero_cta: "Request Profile Vetting",
+                sec_sub: "Club Showcase", sec_title: "Choose by Language & Location"
             },
             ru: {
-                hero_tag: "Эксклюзивный Матчмейкинг Премиум-Класса", hero_title: "Искусство Закрытых Знакомств",
-                hero_subtitle: "«Без публичных профилей. Без бесконечного свайпинга. Персональный подбор пар с учетом локации и языков.»",
-                btn_hero_cta: "Запросить проверку профиля"
+                hero_tag: "Закрытый Клуб • 100% Верифицированные Профили",
+                hero_title: "Знакомства Высокого Класса Без Публичных Анкет",
+                hero_subtitle: "«Мы соединяем успешных мужчин и вдохновляющих женщин. Выбирайте кандидатов по языку и локации.»",
+                btn_hero_cta: "Запросить проверку профиля",
+                sec_sub: "Витрина Клуба", sec_title: "Выбирайте пару по языкам и гео-локации"
             },
             ua: {
-                hero_tag: "Ексклюзивний Матчмейкінг Преміум-Класу", hero_title: "Мистецтво Закритих Знайомств",
-                hero_subtitle: "«Без публічних профілів. Без нескінченного свайпінгу. Персональний підбір пар з урахуванням локації та мов.»",
-                btn_hero_cta: "Подати запит на перевірку"
+                hero_tag: "Закритий Клуб • 100% Верифіковані Профілі",
+                hero_title: "Знайомства Високого Класу Без Публічних Анкет",
+                hero_subtitle: "«Ми поєднуємо успішних чоловіків та натхненних жінок. Обирайте кандидатів за мовою та локацією.»",
+                btn_hero_cta: "Подати запит на перевірку",
+                sec_sub: "Вітрина Клубу", sec_title: "Обирайте пару за мовами та гео-локацією"
             }
         };
 
         function setLanguage(lang) {
-            document.querySelectorAll('.lang-pill').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.lang-pill-royal').forEach(b => b.classList.remove('active'));
             const btn = document.getElementById(`lang-${lang}`);
             if (btn) btn.classList.add('active');
             const dict = translations[lang];
