@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DUONERA Private Syndicate — Privátní seznamovací společenství</title>
+    <title>DUONERA — Privátní Seznamovací Syndikát</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Montserrat:wght@200;300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Montserrat:wght@200;300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -20,15 +20,10 @@
                 extend: {
                     colors: {
                         gold: {
-                            light: '#fff3cd',
+                            light: '#fef08a',
                             main: '#d4af37',
-                            dark: '#8c701b',
-                            deep: '#57420f'
-                        },
-                        sanctuary: {
-                            bg: '#040406',
-                            card: 'rgba(18, 18, 24, 0.88)',
-                            panel: 'rgba(12, 12, 16, 0.95)'
+                            dark: '#997a15',
+                            deep: '#423207'
                         }
                     },
                     fontFamily: {
@@ -43,49 +38,25 @@
 
     <style>
         :root {
-            --bg-deep: #040406;
-            --gold-light: #fff3cd;
-            --gold-main: #d4af37;
-            --gold-dark: #8c701b;
-            --gold-gradient: linear-gradient(135deg, #fffef0 0%, #d4af37 45%, #997a15 80%, #57420f 100%);
-            --gold-glow: rgba(212, 175, 55, 0.35);
+            --bg-deep: #030305;
+            --gold-gradient: linear-gradient(135deg, #fffbeb 0%, #fef08a 20%, #d4af37 55%, #997a15 85%, #423207 100%);
+            --gold-glow: rgba(212, 175, 55, 0.4);
             --border-gold: rgba(212, 175, 55, 0.25);
-        }
-
-        * {
-            box-sizing: border-box;
-            user-select: none;
         }
 
         body {
             background-color: var(--bg-deep);
             color: #f8fafc;
             font-family: 'Montserrat', sans-serif;
-            min-height: 100vh;
             overflow-x: hidden;
-        }
-
-        ::selection {
-            background-color: #d4af37;
-            color: #040406;
         }
 
         #bgCanvas {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
             z-index: 0;
             pointer-events: none;
-        }
-
-        .glass-panel {
-            background: rgba(12, 12, 18, 0.88);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid var(--border-gold);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(212, 175, 55, 0.05);
         }
 
         .gold-text-gradient {
@@ -94,64 +65,66 @@
             -webkit-text-fill-color: transparent;
         }
 
-        .gold-border-glow {
-            transition: all 0.4s ease;
-        }
-        .gold-border-glow:hover {
-            border-color: var(--gold-main);
-            box-shadow: 0 0 35px var(--gold-glow);
-        }
-
-        .puck-pulse {
-            animation: puckGlow 3.5s infinite alternate ease-in-out;
+        .glass-card {
+            background: rgba(12, 12, 18, 0.75);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid var(--border-gold);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
 
-        @keyframes puckGlow {
-            0% { box-shadow: 0 0 25px rgba(212, 175, 55, 0.2), inset 0 0 15px rgba(212, 175, 55, 0.2); }
-            100% { box-shadow: 0 0 60px rgba(212, 175, 55, 0.5), inset 0 0 35px rgba(212, 175, 55, 0.6); }
+        .hero-glow-bg {
+            position: absolute;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.12) 0%, rgba(0, 0, 0, 0) 70%);
+            top: 10%; left: 50%;
+            transform: translateX(-50%);
+            pointer-events: none;
+            z-index: 1;
         }
-
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: rgba(4, 4, 6, 0.95); }
-        ::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 10px; }
 
         .lang-btn {
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.7);
             border: 1px solid rgba(212, 175, 55, 0.3);
-            color: #a0a0a0;
+            color: #9ca3af;
             padding: 4px 10px;
             border-radius: 9999px;
             font-size: 11px;
             font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
             transition: all 0.3s ease;
         }
-        .lang-btn:hover { border-color: #d4af37; color: #fff3cd; }
+        .lang-btn:hover { border-color: #d4af37; color: #fff; }
         .lang-btn.active {
             border-color: #d4af37;
-            background: rgba(212, 175, 55, 0.2);
-            color: #fff3cd;
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+            background: rgba(212, 175, 55, 0.25);
+            color: #fef08a;
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
         }
     </style>
 </head>
-<body class="relative flex flex-col justify-between min-h-screen selection:bg-gold-main selection:text-black">
+<body class="relative min-h-screen flex flex-col justify-between">
 
+    <!-- Ambient Animated Canvas -->
     <canvas id="bgCanvas"></canvas>
+    <div class="hero-glow-bg"></div>
     <div id="toastContainer" class="fixed top-6 right-6 z-50 flex flex-col gap-3 pointer-events-none"></div>
 
-    <header class="relative z-40 max-w-7xl mx-auto w-full px-6 py-6 flex justify-between items-center border-b border-gold-dark/20 backdrop-blur-md bg-black/40">
-        <a href="#" class="flex items-center gap-3 group">
-            <span class="w-3 h-3 rounded-full bg-gold-main animate-ping"></span>
-            <span class="font-serif text-2xl md:text-3xl tracking-[0.25em] gold-text-gradient font-bold group-hover:brightness-125 transition-all">
-                DUONERA
-            </span>
+    <!-- Header Navigation -->
+    <header class="relative z-40 max-w-7xl mx-auto w-full px-6 py-6 flex justify-between items-center border-b border-gold-main/20 backdrop-blur-md bg-black/40">
+        
+        <!-- Luxury Brand Logo -->
+        <a href="#" class="flex items-center gap-3.5 group">
+            <div class="w-10 h-10 rounded-full border border-gold-main/60 flex items-center justify-center bg-black/80 shadow-[0_0_15px_rgba(212,175,55,0.3)] group-hover:border-gold-main transition-all">
+                <i class="fa-solid fa-crown text-gold-main text-sm group-hover:scale-110 transition-transform"></i>
+            </div>
+            <div class="flex flex-col">
+                <span class="font-serif text-2xl tracking-[0.3em] gold-text-gradient font-bold leading-none">DUONERA</span>
+                <span class="text-[8px] tracking-[0.4em] text-gray-400 uppercase font-semibold mt-1">Private Syndicate</span>
+            </div>
         </a>
 
-        <!-- Navigation Links -->
-        <nav class="hidden lg:flex items-center gap-6 text-xs font-semibold tracking-[0.15em] text-gray-400 uppercase">
+        <!-- Menu Links -->
+        <nav class="hidden lg:flex items-center gap-8 text-[11px] font-semibold tracking-[0.2em] text-gray-400 uppercase">
             <a href="#kalkulacka" class="hover:text-gold-light transition-colors" data-i18n="nav_calc">Test Shody</a>
             <a href="#jak-to-funguje" class="hover:text-gold-light transition-colors" data-i18n="nav_how">Jak to funguje</a>
             <a href="#lokace" class="hover:text-gold-light transition-colors" data-i18n="nav_venues">Concierge Místa</a>
@@ -159,100 +132,133 @@
             <a href="#faq" class="hover:text-gold-light transition-colors" data-i18n="nav_faq">Časté Dotazy</a>
         </nav>
 
-        <!-- Multi-Language Selector & CTA -->
-        <div class="flex items-center gap-2.5 sm:gap-3">
-            <div class="flex items-center gap-1 sm:gap-1.5 bg-black/60 p-1 rounded-full border border-gold-main/30">
-                <button onclick="setLanguage('cs')" id="lang-cs" class="lang-btn" title="Čeština">
-                    <span>🇨🇿</span> <span class="hidden sm:inline uppercase">CS</span>
-                </button>
-                <button onclick="setLanguage('de')" id="lang-de" class="lang-btn" title="Deutsch">
-                    <span>🇩🇪</span> <span class="hidden sm:inline uppercase">DE</span>
-                </button>
-                <button onclick="setLanguage('en')" id="lang-en" class="lang-btn" title="English">
-                    <span>🇬🇧</span> <span class="hidden sm:inline uppercase">EN</span>
-                </button>
-                <button onclick="setLanguage('ru')" id="lang-ru" class="lang-btn" title="Русский">
-                    <span>🇷🇺</span> <span class="hidden sm:inline uppercase">RU</span>
-                </button>
-                <button onclick="setLanguage('ua')" id="lang-ua" class="lang-btn" title="Українська">
-                    <span>🇺🇦</span> <span class="hidden sm:inline uppercase">UA</span>
-                </button>
+        <!-- Languages & CTA -->
+        <div class="flex items-center gap-3">
+            <div class="flex items-center gap-1 bg-black/80 p-1 rounded-full border border-gold-main/30">
+                <button onclick="setLanguage('cs')" id="lang-cs" class="lang-btn">🇨🇿 CS</button>
+                <button onclick="setLanguage('de')" id="lang-de" class="lang-btn">🇩🇪 DE</button>
+                <button onclick="setLanguage('en')" id="lang-en" class="lang-btn">🇬🇧 EN</button>
+                <button onclick="setLanguage('ru')" id="lang-ru" class="lang-btn">🇷🇺 RU</button>
+                <button onclick="setLanguage('ua')" id="lang-ua" class="lang-btn">🇺🇦 UA</button>
             </div>
 
-            <button onclick="openVettingModal()" class="bg-gradient-to-r from-gold-light via-gold-main to-gold-dark text-black font-semibold text-xs tracking-[0.15em] uppercase px-4 py-2.5 sm:px-6 sm:py-3 rounded-full shadow-lg hover:shadow-[0_0_25px_rgba(212,175,55,0.5)] transition-all transform hover:-translate-y-0.5" data-i18n="btn_hero_apply">
-                Chci se seznámit
+            <button onclick="openVettingModal()" class="bg-gradient-to-r from-gold-light via-gold-main to-gold-dark text-black font-semibold text-xs tracking-[0.15em] uppercase px-5 py-2.5 rounded-full shadow-lg hover:shadow-[0_0_25px_rgba(212,175,55,0.6)] transition-all transform hover:-translate-y-0.5" data-i18n="btn_hero_apply">
+                Vstup do klubu
             </button>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="relative z-10 pt-12 pb-16 md:pt-20 md:pb-24 overflow-hidden">
+    <!-- Main Hero Section -->
+    <section class="relative z-10 pt-12 pb-20 lg:pt-20 lg:pb-32">
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Column Text -->
                 <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
+                    
                     <div class="inline-flex flex-wrap items-center justify-center lg:justify-start gap-3 text-[11px] tracking-[0.2em] text-gold-main uppercase">
-                        <span class="bg-gold-main/10 border border-gold-main/30 px-3.5 py-1.5 rounded-full flex items-center gap-2" data-i18n="hero_badge_discrete">
-                            <i class="fa-solid fa-shield-halved text-[10px]"></i> 100% Diskrétní seznamování pro náročné
+                        <span class="bg-gold-main/10 border border-gold-main/40 px-4 py-1.5 rounded-full flex items-center gap-2 backdrop-blur-md" data-i18n="hero_badge_discrete">
+                            <i class="fa-solid fa-shield-halved text-gold-main"></i> 100% Diskrétní seznamování pro náročné
                         </span>
-                        <span class="bg-emerald-950/40 border border-emerald-500/30 text-emerald-400 px-3.5 py-1.5 rounded-full font-mono font-bold" data-i18n="hero_badge_status">
-                            Status: Přijímáme nové členy
+                        <span class="bg-emerald-950/60 border border-emerald-500/40 text-emerald-400 px-4 py-1.5 rounded-full font-mono font-bold" data-i18n="hero_badge_status">
+                            ● Status: Přijímáme nové členy
                         </span>
                     </div>
 
-                    <h1 class="font-serif text-4xl sm:text-6xl lg:text-7xl gold-text-gradient font-bold tracking-widest leading-[1.1]" data-i18n="hero_title">
+                    <h1 class="font-serif text-4xl sm:text-6xl lg:text-7xl gold-text-gradient font-extrabold tracking-wide leading-[1.1]" data-i18n="hero_title">
                         NESTAČÍ VÁM KVALITA BĚŽNÝCH SEZNAMOK?
                     </h1>
 
-                    <p class="font-garamond italic text-xl sm:text-2xl text-gray-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed border-l-2 border-gold-main/40 pl-4 py-1" data-i18n="hero_quote">
+                    <p class="font-garamond italic text-xl sm:text-2xl text-gray-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed border-l-2 border-gold-main/50 pl-5 py-1" data-i18n="hero_quote">
                         „DUONERA šetří váš drahocenný čas. Propojujeme úspěšné muže a inspirativní ženy bez nekonečného swipování, bez veřejných profilů a s organizací prvního rande na klíč.“
                     </p>
 
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center pt-2">
-                        <button onclick="openVettingModal()" class="w-full sm:w-auto bg-gradient-to-r from-gold-light via-gold-main to-gold-dark text-black font-semibold text-xs tracking-[0.25em] uppercase px-10 py-5 rounded-full shadow-2xl hover:shadow-[0_0_40px_rgba(212,175,55,0.6)] transition-all transform hover:-translate-y-1 flex justify-center items-center gap-3">
+                    <div class="flex flex-col sm:flex-row gap-5 justify-center lg:justify-start items-center pt-4">
+                        <button onclick="openVettingModal()" class="w-full sm:w-auto bg-gradient-to-r from-gold-light via-gold-main to-gold-dark text-black font-bold text-xs tracking-[0.25em] uppercase px-10 py-5 rounded-full shadow-[0_0_35px_rgba(212,175,55,0.4)] hover:shadow-[0_0_50px_rgba(212,175,55,0.7)] transition-all transform hover:-translate-y-1 flex justify-center items-center gap-3">
                             <span data-i18n="btn_hero_cta">Požádat o prověření profilu</span>
                             <i class="fa-solid fa-arrow-right"></i>
                         </button>
                     </div>
                 </div>
 
+                <!-- Right Column Rich Interactive Card -->
                 <div class="lg:col-span-5 relative">
-                    <div class="glass-panel p-8 rounded-3xl gold-border-glow relative overflow-hidden text-center">
-                        <div class="w-48 h-48 rounded-full border-2 border-gold-main/80 mx-auto mb-6 flex justify-center items-center bg-black/80 puck-pulse cursor-pointer" onclick="openVettingModal()">
-                            <i class="fa-solid fa-key text-5xl text-gold-main"></i>
+                    <div class="glass-card p-8 rounded-3xl border border-gold-main/40 relative overflow-hidden group hover:border-gold-main transition-all duration-500">
+                        
+                        <div class="flex justify-between items-center mb-6 pb-4 border-b border-gold-main/20">
+                            <div class="flex items-center gap-3">
+                                <div class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></div>
+                                <span class="text-[10px] font-bold tracking-[0.2em] text-gold-light uppercase">Sanctuary Live Match</span>
+                            </div>
+                            <span class="text-[10px] text-gray-400 font-mono">ID: 884-VIP</span>
                         </div>
-                        <h3 class="font-serif text-2xl text-gold-light tracking-widest uppercase mb-1" data-i18n="puck_card_title">Klubový HW Klíč</h3>
-                        <p class="text-[11px] text-gray-400 tracking-widest uppercase" data-i18n="puck_card_subtitle">Garantovaný přístup do uzavřené sítě</p>
+
+                        <!-- Card Previews -->
+                        <div class="space-y-4 mb-6">
+                            <div class="p-3.5 bg-black/60 rounded-2xl border border-white/5 flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-gold-dark to-gold-light p-0.5">
+                                        <div class="w-full h-full rounded-full bg-black flex items-center justify-center">
+                                            <i class="fa-solid fa-user-lock text-gold-main text-xs"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs font-bold text-white">Elena M. <span class="text-[10px] text-gold-main font-normal">(27 let)</span></div>
+                                        <div class="text-[10px] text-gray-400">📍 Praha, Česko • 🇮🇹 EN, IT, RU</div>
+                                    </div>
+                                </div>
+                                <span class="text-[9px] bg-gold-main/20 border border-gold-main/40 text-gold-light px-2 py-1 rounded-full font-bold">98% Shoda</span>
+                            </div>
+
+                            <div class="p-3.5 bg-black/60 rounded-2xl border border-white/5 flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-gold-dark to-gold-light p-0.5">
+                                        <div class="w-full h-full rounded-full bg-black flex items-center justify-center">
+                                            <i class="fa-solid fa-user-lock text-gold-main text-xs"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs font-bold text-white">Alexander K. <span class="text-[10px] text-gold-main font-normal">(39 let)</span></div>
+                                        <div class="text-[10px] text-gray-400">📍 Mnichov, Německo • 🇩🇪 DE, EN</div>
+                                    </div>
+                                </div>
+                                <span class="text-[9px] bg-gold-main/20 border border-gold-main/40 text-gold-light px-2 py-1 rounded-full font-bold">95% Shoda</span>
+                            </div>
+                        </div>
+
+                        <button onclick="openVettingModal()" class="w-full py-3.5 bg-black/80 border border-gold-main/40 rounded-xl text-xs font-bold text-gold-light uppercase tracking-widest hover:bg-gold-main hover:text-black transition-all flex justify-center items-center gap-2">
+                            <i class="fa-solid fa-key"></i> <span data-i18n="puck_card_title">Otevrít Privátní Katalóg</span>
+                        </button>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <!-- Modal Vetting Form -->
-    <div id="vettingModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-xl flex justify-center items-center opacity-0 hidden transition-opacity duration-300 p-4">
-        <div class="glass-panel max-w-2xl w-full p-8 rounded-3xl border-gold-main/40 relative max-h-[90vh] overflow-y-auto">
+    <!-- Modal Form (Hidden) -->
+    <div id="vettingModal" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-2xl flex justify-center items-center opacity-0 hidden transition-opacity duration-300 p-4">
+        <div class="glass-card max-w-2xl w-full p-8 rounded-3xl border-gold-main/50 relative max-h-[90vh] overflow-y-auto">
             
-            <button onclick="closeVettingModal()" class="absolute top-6 right-6 text-gray-400 hover:text-gold-main text-lg transition-colors">
+            <button onclick="closeVettingModal()" class="absolute top-6 right-6 text-gray-400 hover:text-gold-main text-xl transition-colors">
                 <i class="fa-solid fa-xmark"></i>
             </button>
 
             <div class="mb-6">
-                <span id="wizardStepTag" class="text-[10px] text-gold-main uppercase tracking-[0.25em]">Krok 1 ze 3</span>
-                <h3 id="wizardTitle" class="font-serif text-2xl text-gold-light font-bold" data-i18n="wiz_step1_title">Osobní Dotazník Zájemce</h3>
+                <span class="text-[10px] text-gold-main uppercase tracking-[0.25em] font-bold">Registrační Protokol</span>
+                <h3 class="font-serif text-2xl text-gold-light font-bold" data-i18n="wiz_step1_title">Osobní Dotazník Zájemce</h3>
             </div>
 
             <form id="wizardForm" onsubmit="handleWizardSubmit(event)">
-                
-                <!-- STEP 1: PERSONAL & GEO & LANGUAGES -->
-                <div id="step1Content" class="space-y-4">
+                <div class="space-y-4">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5" data-i18n="wiz_name_label">Jméno a Titul</label>
-                            <input type="text" id="wizardName" required placeholder="Ing. Viktor Sterling" class="w-full bg-black/60 border border-gold-main/30 rounded-xl p-3 text-xs text-white outline-none focus:border-gold-main">
+                            <input type="text" id="wizardName" required placeholder="Ing. Viktor Sterling" class="w-full bg-black/80 border border-gold-main/30 rounded-xl p-3 text-xs text-white outline-none focus:border-gold-main">
                         </div>
                         <div>
-                            <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5" data-i18n="wiz_native_lang_label">Родной язык / Rodný jazyk</label>
-                            <select id="wizardNativeLang" class="w-full bg-black/60 border border-gold-main/30 rounded-xl p-3 text-xs text-white outline-none focus:border-gold-main">
+                            <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5" data-i18n="wiz_native_lang_label">Rodný jazyk</label>
+                            <select id="wizardNativeLang" class="w-full bg-black/80 border border-gold-main/30 rounded-xl p-3 text-xs text-white outline-none focus:border-gold-main">
                                 <option value="cs">Čeština</option>
                                 <option value="de">Deutsch</option>
                                 <option value="en">English</option>
@@ -263,25 +269,24 @@
                         </div>
                     </div>
 
-                    <!-- Languages Spoken -->
                     <div>
-                        <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5" data-i18n="wiz_add_langs_label">Дополнительные языки общения</label>
-                        <input type="text" id="wizardAddLangs" placeholder="например: Английский (Fluent), Немецкий (Conversational)" class="w-full bg-black/60 border border-gold-main/30 rounded-xl p-3 text-xs text-white outline-none focus:border-gold-main">
+                        <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5" data-i18n="wiz_add_langs_label">Další jazyky komunikace</label>
+                        <input type="text" id="wizardAddLangs" placeholder="например: Английский (Fluent), Немецкий (Conversational)" class="w-full bg-black/80 border border-gold-main/30 rounded-xl p-3 text-xs text-white outline-none focus:border-gold-main">
                     </div>
 
-                    <!-- Location Cascade Dropdowns -->
-                    <div class="p-4 bg-black/40 rounded-2xl border border-gold-main/20 space-y-3">
+                    <!-- Geo Cascade Selection -->
+                    <div class="p-4 bg-black/60 rounded-2xl border border-gold-main/30 space-y-3">
                         <div class="flex justify-between items-center">
-                            <span class="text-[10px] font-bold text-gold-main uppercase tracking-widest" data-i18n="wiz_geo_title">Локация проживания (Дом)</span>
-                            <button type="button" onclick="detectGPS()" class="text-[9px] bg-gold-main/20 border border-gold-main/40 text-gold-light px-2.5 py-1 rounded-full hover:bg-gold-main hover:text-black transition-all">
-                                <i class="fa-solid fa-location-crosshairs mr-1"></i> <span data-i18n="btn_detect_gps">Определить GPS</span>
+                            <span class="text-[10px] font-bold text-gold-main uppercase tracking-widest" data-i18n="wiz_geo_title">Místo pobytu (Domov)</span>
+                            <button type="button" onclick="detectGPS()" class="text-[9px] bg-gold-main/20 border border-gold-main/40 text-gold-light px-3 py-1 rounded-full hover:bg-gold-main hover:text-black transition-all">
+                                <i class="fa-solid fa-location-crosshairs mr-1"></i> <span data-i18n="btn_detect_gps">Určit GPS</span>
                             </button>
                         </div>
 
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                             <div>
-                                <label class="block text-[9px] text-gray-400 uppercase mb-1" data-i18n="lbl_country">Страна</label>
-                                <select id="wizardCountry" onchange="onCountryChange()" class="w-full bg-black/80 border border-gold-main/30 rounded-xl p-2.5 text-xs text-white outline-none focus:border-gold-main">
+                                <label class="block text-[9px] text-gray-400 uppercase mb-1" data-i18n="lbl_country">Země</label>
+                                <select id="wizardCountry" onchange="onCountryChange()" class="w-full bg-black border border-gold-main/30 rounded-xl p-2.5 text-xs text-white outline-none focus:border-gold-main">
                                     <option value="cz">🇨🇿 Чехия</option>
                                     <option value="de">🇩🇪 Германия</option>
                                     <option value="sk">🇸🇰 Словакия</option>
@@ -292,90 +297,84 @@
                             </div>
 
                             <div>
-                                <label class="block text-[9px] text-gray-400 uppercase mb-1" data-i18n="lbl_region">Область / Край</label>
-                                <select id="wizardRegion" onchange="onRegionChange()" class="w-full bg-black/80 border border-gold-main/30 rounded-xl p-2.5 text-xs text-white outline-none focus:border-gold-main"></select>
+                                <label class="block text-[9px] text-gray-400 uppercase mb-1" data-i18n="lbl_region">Kraj / Region</label>
+                                <select id="wizardRegion" onchange="onRegionChange()" class="w-full bg-black border border-gold-main/30 rounded-xl p-2.5 text-xs text-white outline-none focus:border-gold-main"></select>
                             </div>
 
                             <div>
-                                <label class="block text-[9px] text-gray-400 uppercase mb-1" data-i18n="lbl_city">Город</label>
-                                <select id="wizardCity" class="w-full bg-black/80 border border-gold-main/30 rounded-xl p-2.5 text-xs text-white outline-none focus:border-gold-main"></select>
+                                <label class="block text-[9px] text-gray-400 uppercase mb-1" data-i18n="lbl_city">Město</label>
+                                <select id="wizardCity" class="w-full bg-black border border-gold-main/30 rounded-xl p-2.5 text-xs text-white outline-none focus:border-gold-main"></select>
                             </div>
                         </div>
                     </div>
 
                     <div>
-                        <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5" data-i18n="wiz_travel_label">Частые маршруты / Перелеты (опционально)</label>
-                        <input type="text" id="wizardTravel" placeholder="например: Милан, Дубай, Нью-Йорк" class="w-full bg-black/60 border border-gold-main/30 rounded-xl p-3 text-xs text-white outline-none focus:border-gold-main">
-                    </div>
-                </div>
-
-                <!-- STEP 2: NDA SIGNATURE -->
-                <div id="step2Content" class="space-y-4 hidden">
-                    <div class="bg-black/80 border border-gold-dark/30 rounded-xl p-4 text-[11px] text-gray-300 font-garamond italic leading-relaxed h-36 overflow-y-auto">
-                        <p class="mb-2"><strong>Článek 1 (Absolutní Diskrétnost):</strong> Zájemce se zavazuje zachovávat přísné mlčení o identitách a komunikaci v рамках DUONERA.</p>
-                        <p><strong>Článek 2 (Zákaz Snímků Obrazovky):</strong> Pořizování snímků obrazovky zakládá okamžité odebrání členství.</p>
+                        <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5" data-i18n="wiz_travel_label">Časté cesty / letenky</label>
+                        <input type="text" id="wizardTravel" placeholder="например: Милан, Дубай, Нью-Йорк" class="w-full bg-black/80 border border-gold-main/30 rounded-xl p-3 text-xs text-white outline-none focus:border-gold-main">
                     </div>
 
-                    <div>
-                        <label class="block text-[10px] uppercase tracking-widest text-gold-main mb-1.5">Podepište elektronicky myší nebo dotykem prstu</label>
-                        <div class="relative bg-black border border-gold-main/40 rounded-xl overflow-hidden">
-                            <canvas id="signaturePad" width="550" height="120" class="w-full cursor-crosshair"></canvas>
-                            <button type="button" onclick="clearSignature()" class="absolute bottom-2 right-2 text-[9px] bg-white/10 text-gray-300 px-2.5 py-1 rounded hover:bg-white/20">Vymazat Podpis</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- STEP 3: SUCCESS -->
-                <div id="step3Content" class="space-y-4 hidden text-center py-6">
-                    <div class="w-20 h-20 rounded-full border-2 border-gold-main mx-auto flex items-center justify-center bg-gold-main/10 shadow-[0_0_40px_rgba(212,175,55,0.4)] animate-pulse">
-                        <i class="fa-solid fa-check text-3xl text-gold-main"></i>
-                    </div>
-                    <h4 class="font-serif text-2xl text-gold-light font-bold">ŽÁDOST PŘIJATA K PROVEREENÍ</h4>
-                    <p class="text-xs text-gray-300 leading-relaxed font-garamond italic">„Vaše žádost была успешно получена кураторами DUONERA.“</p>
-                </div>
-
-                <!-- Controls -->
-                <div class="mt-6 pt-4 border-t border-white/10 flex justify-between items-center" id="wizardControls">
-                    <button type="button" onclick="prevWizardStep()" id="wizardBackBtn" class="text-xs text-gray-400 hover:text-white uppercase tracking-wider invisible">Zpět</button>
-                    <button type="submit" id="wizardNextBtn" class="bg-gold-main hover:bg-gold-light text-black font-semibold text-xs uppercase tracking-[0.2em] px-8 py-3 rounded-full transition-all">
-                        <span id="nextBtnText">Pokračovat k NDA</span> <i class="fa-solid fa-chevron-right ml-1"></i>
+                    <button type="submit" class="w-full mt-4 py-4 bg-gradient-to-r from-gold-light via-gold-main to-gold-dark text-black font-bold text-xs uppercase tracking-[0.2em] rounded-full shadow-lg hover:shadow-[0_0_30px_rgba(212,175,55,0.6)] transition-all">
+                        Odeslat k prověření
                     </button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- Script Section -->
+    <!-- Background Canvas & Language Engine -->
     <script>
-        /* 1. Geo Cascade Data Base */
-        const geoData = {
-            cz: {
-                "Hlavní město Praha": ["Praha"],
-                "Středočeský kraj": ["Kladno", "Mladá Boleslav", "Příbram"],
-                "Jihomoravský kraj": ["Brno", "Znojmo"],
-                "Plzeňský kraj": ["Plzeň"],
-                "Ústecký kraj": ["Ústí nad Labem", "Teplice", "Kadaň"]
-            },
-            de: {
-                "Bayern": ["München", "Nürnberg"],
-                "Berlin": ["Berlin"],
-                "Sachsen": ["Dresden", "Leipzig"]
-            },
-            sk: {
-                "Bratislavský kraj": ["Bratislava"],
-                "Košický kraj": ["Košice"]
-            },
-            ch: {
-                "Zürich": ["Zürich"],
-                "Genève": ["Genève"]
-            },
-            it: {
-                "Lombardia": ["Milano"],
-                "Lazio": ["Roma"]
-            },
-            mc: {
-                "Monaco": ["Monte-Carlo"]
+        /* Ambient Particles Canvas */
+        const canvas = document.getElementById('bgCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 1.8 + 0.2;
+                this.speedY = Math.random() * -0.4 - 0.1;
+                this.opacity = Math.random() * 0.5 + 0.2;
             }
+            update() {
+                this.y += this.speedY;
+                if (this.y < 0) {
+                    this.y = canvas.height;
+                    this.x = Math.random() * canvas.width;
+                }
+            }
+            draw() {
+                ctx.fillStyle = `rgba(212, 175, 55, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 70; i++) particles.push(new Particle());
+
+        function animateCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animateCanvas);
+        }
+        animateCanvas();
+
+        /* Geo Data Cascade */
+        const geoData = {
+            cz: { "Hlavní město Praha": ["Praha"], "Středočeský kraj": ["Kladno", "Mladá Boleslav", "Příbram"], "Jihomoravský kraj": ["Brno", "Znojmo"], "Plzeňský kraj": ["Plzeň"] },
+            de: { "Bayern": ["München", "Nürnberg"], "Berlin": ["Berlin"], "Sachsen": ["Dresden", "Leipzig"] },
+            sk: { "Bratislavský kraj": ["Bratislava"], "Košický kraj": ["Košice"] },
+            ch: { "Zürich": ["Zürich"], "Genève": ["Genève"] },
+            it: { "Lombardia": ["Milano"], "Lazio": ["Roma"] },
+            mc: { "Monaco": ["Monte-Carlo"] }
         };
 
         function onCountryChange() {
@@ -404,108 +403,63 @@
             });
         }
 
-        function detectGPS() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(() => {
-                    showToast("GPS координаты успешно зафиксированы");
-                }, () => {
-                    showToast("GPS недоступен, выберите вручную");
-                });
-            }
-        }
-
-        /* 2. Translations Dictionary including DE */
+        /* Multilingual Engine */
         const translations = {
             cs: {
                 nav_calc: "Test Shody", nav_how: "Jak to funguje", nav_venues: "Concierge Místa", nav_pricing: "Členství", nav_faq: "Časté Dotazy",
-                btn_hero_apply: "Chci se seznámit", hero_badge_discrete: "100% Diskrétní seznamování pro náročné", hero_badge_status: "Status: Přijímáme nové členy",
-                hero_title: "NESTAČÍ VÁM KVALITA BĚŽNÝCH SEZNAMOK?", hero_quote: "„DUONERA šetří váš drahocenný čas...“", btn_hero_cta: "Požádat o prověření profilu",
-                puck_card_title: "Klubový HW Klíč", puck_card_subtitle: "Garantovaný přístup do uzavřené sítě", wiz_step1_title: "Osobní Dotazník Zájemce",
+                btn_hero_apply: "Vstup do klubu", hero_badge_discrete: "100% Diskrétní seznamování pro náročné", hero_badge_status: "● Status: Přijímáme nové členy",
+                hero_title: "NESTAČÍ VÁM KVALITA BĚŽNÝCH SEZNAMOK?", hero_quote: "„DUONERA šetří váš drahocenný čas. Propojujeme úspěšné muže a inspirativní ženy bez nekonečného swipování, bez veřejných profilů a s organizací prvního rande na klíč.“",
+                btn_hero_cta: "Požádat o prověření profilu", puck_card_title: "Otevrít Privátní Katalóg", wiz_step1_title: "Osobní Dotazník Zájemce",
                 wiz_name_label: "Jméno a Titul", wiz_native_lang_label: "Rodný jazyk", wiz_add_langs_label: "Další jazyky komunikace",
-                wiz_geo_title: "Místo pobytu (Domov)", wiz_travel_label: "Časté cesty / letenky", btn_detect_gps: "Určit GPS",
-                lbl_country: "Země", lbl_region: "Kraj / Region", lbl_city: "Město"
+                wiz_geo_title: "Místo pobytu (Domov)", wiz_travel_label: "Časté cesty / letenky", btn_detect_gps: "Určit GPS", lbl_country: "Země", lbl_region: "Kraj / Region", lbl_city: "Město"
             },
             de: {
                 nav_calc: "Passungstest", nav_how: "Wie es funktioniert", nav_venues: "Concierge-Orte", nav_pricing: "Mitgliedschaft", nav_faq: "FAQ",
-                btn_hero_apply: "Jetzt bewerben", hero_badge_discrete: "100% Diskretes Matchmaking für Anspruchsvolle", hero_badge_status: "Status: Neue Mitglieder willkommen",
-                hero_title: "SUCHEN SIE ECHTE QUALITÄT UND DISKRETION?", hero_quote: "„DUONERA spart Ihre wertvolle Zeit...“", btn_hero_cta: "Profilprüfung anfordern",
-                puck_card_title: "Club HW-Schlüssel", puck_card_subtitle: "Garantierter Zugang zum geschlossenen Netzwerk", wiz_step1_title: "Persönlicher Fragebogen",
+                btn_hero_apply: "Beitreten", hero_badge_discrete: "100% Diskretes Matchmaking für Anspruchsvolle", hero_badge_status: "● Status: Neue Mitglieder willkommen",
+                hero_title: "SUCHEN SIE ECHTE QUALITÄT UND DISKRETION?", hero_quote: "„DUONERA spart Ihre wertvolle Zeit. Wir verbinden erfolgreiche Männer und inspirierende Frauen ohne endloses Wischen und ohne öffentliche Profile.“",
+                btn_hero_cta: "Profilprüfung anfordern", puck_card_title: "Katalog Öffnen", wiz_step1_title: "Persönlicher Fragebogen",
                 wiz_name_label: "Name und Titel", wiz_native_lang_label: "Muttersprache", wiz_add_langs_label: "Weitere Sprachen",
-                wiz_geo_title: "Wohnort (Hauptwohnsitz)", wiz_travel_label: "Häufige Reiseziele", btn_detect_gps: "GPS bestimmen",
-                lbl_country: "Land", lbl_region: "Region", lbl_city: "Stadt"
+                wiz_geo_title: "Wohnort (Hauptwohnsitz)", wiz_travel_label: "Häufige Reiseziele", btn_detect_gps: "GPS bestimmen", lbl_country: "Land", lbl_region: "Region", lbl_city: "Stadt"
             },
             en: {
                 nav_calc: "Match Test", nav_how: "How it works", nav_venues: "Concierge Venues", nav_pricing: "Membership", nav_faq: "FAQ",
-                btn_hero_apply: "Apply Access", hero_badge_discrete: "100% Discrete Matchmaking for Demanding Individuals", hero_badge_status: "Status: Accepting New Members",
-                hero_title: "DISCERNING DATING FOR EXCEPTIONAL INDIVIDUALS", hero_quote: "“DUONERA saves your precious time...”", btn_hero_cta: "Request Profile Vetting",
-                puck_card_title: "Club Hardware Key", puck_card_subtitle: "Guaranteed closed-network access", wiz_step1_title: "Applicant Questionnaire",
+                btn_hero_apply: "Join Club", hero_badge_discrete: "100% Discrete Matchmaking for Demanding Individuals", hero_badge_status: "● Status: Accepting New Members",
+                hero_title: "DISCERNING DATING FOR EXCEPTIONAL INDIVIDUALS", hero_quote: "“DUONERA saves your precious time. We connect successful men and inspiring women without endless swiping, without public profiles.”",
+                btn_hero_cta: "Request Profile Vetting", puck_card_title: "Open Private Catalog", wiz_step1_title: "Applicant Questionnaire",
                 wiz_name_label: "Full Name & Title", wiz_native_lang_label: "Native Language", wiz_add_langs_label: "Additional Languages",
-                wiz_geo_title: "Home Location", wiz_travel_label: "Frequent Travel Routes", btn_detect_gps: "Detect GPS",
-                lbl_country: "Country", lbl_region: "Region", lbl_city: "City"
+                wiz_geo_title: "Home Location", wiz_travel_label: "Frequent Travel Routes", btn_detect_gps: "Detect GPS", lbl_country: "Country", lbl_region: "Region", lbl_city: "City"
             },
             ru: {
                 nav_calc: "Тест совпадения", nav_how: "Как это работает", nav_venues: "Локации Concierge", nav_pricing: "Членство", nav_faq: "Частые вопросы",
-                btn_hero_apply: "Подать заявку", hero_badge_discrete: "100% Конфиденциальные знакомства премиум-класса", hero_badge_status: "Статус: Открыт прием заявок",
-                hero_title: "ИЩЕТЕ НАСТОЯЩЕЕ КАЧЕСТВО И ДИСКРЕТНОСТЬ?", hero_quote: "«DUONERA бережет ваше время...»", btn_hero_cta: "Запросить проверку профиля",
-                puck_card_title: "Клубный HW Ключ", puck_card_subtitle: "Гарантированный доступ в закрытую сеть", wiz_step1_title: "Анкета кандидата",
+                btn_hero_apply: "Вступить в клуб", hero_badge_discrete: "100% Конфиденциальные знакомства премиум-класса", hero_badge_status: "● Статус: Открыт прием заявок",
+                hero_title: "ИЩЕТЕ НАСТОЯЩЕЕ КАЧЕСТВО И ДИСКРЕТНОСТЬ?", hero_quote: "«DUONERA бережет ваше время. Мы соединяем успешных мужчин и вдохновляющих женщин без бесконечного свайпинга и без публичных профилей.»",
+                btn_hero_cta: "Запросить проверку профиля", puck_card_title: "Открыть Закрытый Каталог", wiz_step1_title: "Анкета кандидата",
                 wiz_name_label: "Имя и Титул", wiz_native_lang_label: "Родной язык", wiz_add_langs_label: "Дополнительные языки общения",
-                wiz_geo_title: "Локация проживания (Дом)", wiz_travel_label: "Частые маршруты / Перелеты", btn_detect_gps: "Определить GPS",
-                lbl_country: "Страна", lbl_region: "Область / Край", lbl_city: "Город"
+                wiz_geo_title: "Локация проживания (Дом)", wiz_travel_label: "Частые маршруты / Перелеты", btn_detect_gps: "Определить GPS", lbl_country: "Страна", lbl_region: "Область / Край", lbl_city: "Город"
             },
             ua: {
                 nav_calc: "Тест сумісності", nav_how: "Як це працює", nav_venues: "Локації Concierge", nav_pricing: "Членство", nav_faq: "Часті питання",
-                btn_hero_apply: "Подати заявку", hero_badge_discrete: "100% Дискретні знайомства преміум-класу", hero_badge_status: "Статус: Відкрито прийом заявок",
-                hero_title: "ШУКАЄТЕ СПРАВЖНЮ ЯКІСТЬ ТА ДИСКРЕТНІСТЬ?", hero_quote: "«DUONERA береже ваш час...»", btn_hero_cta: "Подати запит на перевірку",
-                puck_card_title: "Клубний HW Ключ", puck_card_subtitle: "Гарантований доступ у закриту мережу", wiz_step1_title: "Анкета кандидата",
+                btn_hero_apply: "Вступити в клуб", hero_badge_discrete: "100% Дискретні знайомства преміум-класу", hero_badge_status: "● Статус: Відкрито прийом заявок",
+                hero_title: "ШУКАЄТЕ СПРАВЖНЮ ЯКІСТЬ ТА ДИСКРЕТНІСТЬ?", hero_quote: "«DUONERA береже ваш час. Ми поєднуємо успішних чоловіків та натхненних жінок без нескінченного свайпінгу та публічних профілів.»",
+                btn_hero_cta: "Подати запит на перевірку", puck_card_title: "Відкрити Закритий Каталог", wiz_step1_title: "Анкета кандидата",
                 wiz_name_label: "Ім'я та Титул", wiz_native_lang_label: "Рідна мова", wiz_add_langs_label: "Додаткові мови спілкування",
-                wiz_geo_title: "Локація проживання (Дім)", wiz_travel_label: "Часті маршрути / Перельоти", btn_detect_gps: "Визначити GPS",
-                lbl_country: "Країна", lbl_region: "Область / Край", lbl_city: "Місто"
+                wiz_geo_title: "Локація проживання (Дім)", wiz_travel_label: "Часті маршрути / Перельоти", btn_detect_gps: "Визначити GPS", lbl_country: "Країна", lbl_region: "Область / Край", lbl_city: "Місто"
             }
         };
 
-        let currentLang = 'cs';
-
-        function autoDetectLanguage() {
-            const browserLang = (navigator.language || navigator.userLanguage || '').substring(0, 2).toLowerCase();
-            if (['cs', 'de', 'en', 'ru', 'ua'].includes(browserLang)) {
-                setLanguage(browserLang);
-            } else {
-                setLanguage('cs');
-            }
-        }
-
         function setLanguage(lang) {
-            currentLang = lang;
             document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
             const activeBtn = document.getElementById(`lang-${lang}`);
             if (activeBtn) activeBtn.classList.add('active');
-
             const dict = translations[lang];
             if (!dict) return;
-
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (dict[key]) el.innerHTML = dict[key];
             });
         }
 
-        function showToast(msg) {
-            const container = document.getElementById('toastContainer');
-            const toast = document.createElement('div');
-            toast.className = "glass-panel text-xs text-gold-light px-4 py-3 rounded-xl border-gold-main/40 shadow-2xl flex items-center gap-3 transition-all duration-300 transform translate-x-10 opacity-0 pointer-events-auto";
-            toast.innerHTML = `<i class="fa-solid fa-crown text-gold-main"></i> <span>${msg}</span>`;
-            container.appendChild(toast);
-            setTimeout(() => toast.classList.remove('translate-x-10', 'opacity-0'), 10);
-            setTimeout(() => {
-                toast.classList.add('opacity-0', 'translate-x-10');
-                setTimeout(() => toast.remove(), 300);
-            }, 3500);
-        }
-
-        /* Modal Logic */
-        let currentStep = 1;
         function openVettingModal() {
-            currentStep = 1; updateWizardUI();
             const modal = document.getElementById('vettingModal');
             modal.classList.remove('hidden');
             setTimeout(() => modal.classList.remove('opacity-0'), 10);
@@ -515,39 +469,19 @@
             modal.classList.add('opacity-0');
             setTimeout(() => modal.classList.add('hidden'), 300);
         }
-
-        function updateWizardUI() {
-            document.getElementById('step1Content').classList.add('hidden');
-            document.getElementById('step2Content').classList.add('hidden');
-            document.getElementById('step3Content').classList.add('hidden');
-
-            if (currentStep === 1) document.getElementById('step1Content').classList.remove('hidden');
-            if (currentStep === 2) {
-                document.getElementById('step2Content').classList.remove('hidden');
-                initSignaturePad();
+        function detectGPS() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(() => alert("GPS coordinates saved successfully."));
             }
-            if (currentStep === 3) document.getElementById('step3Content').classList.remove('hidden');
         }
-
         function handleWizardSubmit(e) {
             e.preventDefault();
-            if (currentStep < 2) { currentStep++; updateWizardUI(); }
-            else if (currentStep === 2) { currentStep = 3; updateWizardUI(); showToast("Žádost успешно отправлена"); }
+            alert("Žádost byla úspěšně odeslána k prověření.");
+            closeVettingModal();
         }
-
-        let sigCanvas, sigCtx, isDrawing = false;
-        function initSignaturePad() {
-            sigCanvas = document.getElementById('signaturePad');
-            sigCtx = sigCanvas.getContext('2d');
-            sigCtx.strokeStyle = '#d4af37'; sigCtx.lineWidth = 2.5;
-            sigCanvas.onmousedown = (e) => { isDrawing = true; sigCtx.beginPath(); sigCtx.moveTo(e.offsetX, e.offsetY); };
-            sigCanvas.onmousemove = (e) => { if (isDrawing) { sigCtx.lineTo(e.offsetX, e.offsetY); sigCtx.stroke(); } };
-            sigCanvas.onmouseup = () => isDrawing = false;
-        }
-        function clearSignature() { if (sigCtx) sigCtx.clearRect(0, 0, sigCanvas.width, sigCanvas.height); }
 
         document.addEventListener("DOMContentLoaded", () => {
-            autoDetectLanguage();
+            setLanguage('cs');
             onCountryChange();
         });
     </script>
