@@ -43,7 +43,7 @@ function applyLocale(next,manual=false){
 
 function updateDistance(value){
   distance=value;
-  document.querySelector('[data-radius]').textContent=String(value);
+  document.querySelectorAll('[data-radius]').forEach(element=>element.textContent=String(value));
   document.querySelector('[data-distance-one]').textContent=`+${Math.round(value*.34)} km`;
   document.querySelector('[data-distance-two]').textContent=`+${Math.round(value*.72)} km`;
   document.querySelectorAll('[data-distance]').forEach(button=>button.classList.toggle('active',Number(button.dataset.distance)===value));
@@ -113,4 +113,4 @@ form.addEventListener('submit',async event=>{
   }
 });
 
-if('serviceWorker'in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/service-worker.js?v=27').catch(()=>{}))}
+if('serviceWorker'in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/service-worker.js?v=28').catch(()=>{}))}
