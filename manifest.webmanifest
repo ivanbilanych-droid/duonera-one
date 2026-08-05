@@ -1,5 +1,5 @@
 {
-  "name": "DUONERA – Private Meeting Club",
+  "name": "DUONERA – Serious Dating Across Europe",
   "short_name": "DUONERA",
   "id": "/",
   "start_url": "/?source=pwa",
@@ -10,10 +10,10 @@
     "minimal-ui"
   ],
   "orientation": "portrait-primary",
-  "background_color": "#080806",
-  "theme_color": "#080806",
+  "background_color": "#f7f3eb",
+  "theme_color": "#f7f3eb",
   "lang": "cs",
-  "description": "Soukromý klub skutečných setkání. Méně profilů, lepší výběr, skutečné setkání.",
+  "description": "Soukromé seznamování pro vážný vztah ve vašem městě a po celé Evropě.",
   "categories": [
     "social",
     "lifestyle"
