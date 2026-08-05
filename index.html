@@ -16,11 +16,12 @@
             theme: {
                 extend: {
                     colors: {
-                        bumble: {
-                            yellow: '#ffca28',
-                            dark: '#111217',
-                            card: '#1c1e26',
-                            accent: '#ffb300'
+                        duonera: {
+                            bg: '#f8fafc',
+                            card: '#ffffff',
+                            primary: '#0f172a',
+                            accent: '#3b82f6',
+                            gold: '#f59e0b'
                         }
                     },
                     fontFamily: {
@@ -33,66 +34,55 @@
 
     <style>
         body {
-            background-color: #111217;
-            color: #ffffff;
+            background-color: #f8fafc;
+            color: #0f172a;
             font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: hidden;
         }
 
-        .hero-glow {
-            position: absolute;
-            top: -10%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 800px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(255, 202, 40, 0.15) 0%, rgba(255, 179, 0, 0.05) 40%, transparent 70%);
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        .bumble-card {
-            background: #1c1e26;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+        .profile-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
             border-radius: 24px;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
         }
-        .bumble-card:hover {
-            border-color: rgba(255, 202, 40, 0.4);
+        .profile-card:hover {
+            border-color: #3b82f6;
             transform: translateY(-6px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.12);
         }
 
-        .btn-yellow {
-            background-color: #ffca28;
-            color: #111217;
+        .btn-primary-custom {
+            background-color: #0f172a;
+            color: #ffffff;
             font-weight: 700;
             transition: all 0.2s ease;
         }
-        .btn-yellow:hover {
-            background-color: #ffb300;
+        .btn-primary-custom:hover {
+            background-color: #1e293b;
             transform: scale(1.02);
-            box-shadow: 0 10px 25px rgba(255, 202, 40, 0.3);
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.2);
         }
 
-        .lang-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #9ca3af;
+        .lang-pill {
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            color: #64748b;
             padding: 6px 14px;
             border-radius: 9999px;
             font-size: 12px;
             font-weight: 600;
             transition: all 0.2s ease;
         }
-        .lang-btn:hover {
-            color: #ffffff;
-            border-color: rgba(255, 255, 255, 0.3);
+        .lang-pill:hover {
+            color: #0f172a;
+            border-color: #cbd5e1;
         }
-        .lang-btn.active {
-            background: #ffca28;
-            color: #111217;
-            border-color: #ffca28;
+        .lang-pill.active {
+            background: #0f172a;
+            color: #ffffff;
+            border-color: #0f172a;
         }
 
         details summary::-webkit-details-marker { display:none; }
@@ -100,27 +90,25 @@
 </head>
 <body class="relative min-h-screen flex flex-col justify-between">
 
-    <div class="hero-glow"></div>
-
     <!-- Header -->
-    <header class="relative z-40 max-w-7xl mx-auto w-full px-6 py-6 flex justify-between items-center">
+    <header class="relative z-40 max-w-7xl mx-auto w-full px-6 py-6 flex justify-between items-center bg-white/80 backdrop-blur-md border-b border-slate-100 sticky top-0">
         <a href="#" class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-2xl bg-[#ffca28] flex items-center justify-center text-[#111217] font-extrabold text-xl shadow-lg">
+            <div class="w-10 h-10 rounded-2xl bg-slate-900 flex items-center justify-center text-white font-extrabold text-xl shadow-md">
                 D
             </div>
-            <span class="text-2xl font-extrabold tracking-tight text-white">DUONERA</span>
+            <span class="text-2xl font-extrabold tracking-tight text-slate-900">DUONERA</span>
         </a>
 
         <div class="flex items-center gap-4">
-            <div class="hidden sm:flex items-center gap-1.5 bg-[#1c1e26] p-1 rounded-full border border-white/5">
-                <button onclick="setLanguage('cs')" id="lang-cs" class="lang-btn active">CS</button>
-                <button onclick="setLanguage('de')" id="lang-de" class="lang-btn">DE</button>
-                <button onclick="setLanguage('en')" id="lang-en" class="lang-btn">EN</button>
-                <button onclick="setLanguage('ru')" id="lang-ru" class="lang-btn">RU</button>
-                <button onclick="setLanguage('ua')" id="lang-ua" class="lang-btn">UA</button>
+            <div class="hidden sm:flex items-center gap-1.5 bg-slate-100 p-1 rounded-full border border-slate-200">
+                <button onclick="setLanguage('cs')" id="lang-cs" class="lang-pill active">CS</button>
+                <button onclick="setLanguage('de')" id="lang-de" class="lang-pill">DE</button>
+                <button onclick="setLanguage('en')" id="lang-en" class="lang-pill">EN</button>
+                <button onclick="setLanguage('ru')" id="lang-ru" class="lang-pill">RU</button>
+                <button onclick="setLanguage('ua')" id="lang-ua" class="lang-pill">UA</button>
             </div>
 
-            <button onclick="openVettingModal()" class="btn-yellow text-xs uppercase tracking-wider px-6 py-3.5 rounded-full">
+            <button onclick="openVettingModal()" class="btn-primary-custom text-xs uppercase tracking-wider px-6 py-3.5 rounded-full">
                 Vstup do klubu
             </button>
         </div>
@@ -133,48 +121,46 @@
                 
                 <!-- Left Title Content -->
                 <div class="lg:col-span-7 space-y-8">
-                    <div class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#ffca28] bg-[#ffca28]/10 px-4 py-2 rounded-full border border-[#ffca28]/20" data-i18n="hero_tag">
-                        <i class="fa-solid fa-bolt"></i> Премиальный дейтинг нового поколения
+                    <div class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-4 py-2 rounded-full border border-blue-100" data-i18n="hero_tag">
+                        <i class="fa-solid fa-shield-check"></i> Закрытый клуб знакомств нового уровня
                     </div>
 
-                    <h1 class="text-5xl sm:text-7xl font-extrabold tracking-tight text-white leading-tight" data-i18n="hero_title">
+                    <h1 class="text-5xl sm:text-7xl font-extrabold tracking-tight text-slate-900 leading-tight" data-i18n="hero_title">
                         Найдите своего человека без лишних слов
                     </h1>
 
-                    <p class="text-lg sm:text-xl text-gray-400 max-w-xl leading-relaxed" data-i18n="hero_subtitle">
-                        Эксклюзивное пространство для успешных людей. Проверенные анкеты, безопасность, умный подбор по локации и языкам общения.
+                    <p class="text-lg sm:text-xl text-slate-600 max-w-xl leading-relaxed" data-i18n="hero_subtitle">
+                        Эксклюзивное пространство для успешных людей. Проверенные анкеты, абсолютная конфиденциальность и умный подбор по локации и языкам.
                     </p>
 
                     <div class="pt-2 flex flex-col sm:flex-row gap-4">
-                        <button onclick="openVettingModal()" class="btn-yellow text-sm tracking-wider uppercase px-9 py-4 rounded-full flex items-center justify-center gap-3 shadow-xl">
+                        <button onclick="openVettingModal()" class="btn-primary-custom text-sm tracking-wider uppercase px-9 py-4 rounded-full flex items-center justify-center gap-3 shadow-xl">
                             <span data-i18n="btn_hero_cta">Создать профиль</span>
                             <i class="fa-solid fa-arrow-right text-xs"></i>
                         </button>
                     </div>
                 </div>
 
-                <!-- Right Interactive Visual Card (Bumble Style) -->
+                <!-- Right Featured Profile Card -->
                 <div class="lg:col-span-5 flex justify-center">
-                    <div class="bumble-card p-6 w-full max-w-md relative overflow-hidden shadow-2xl">
-                        <div class="absolute top-4 right-4 z-20 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full border border-white/10 text-[10px] font-bold text-emerald-400">
+                    <div class="profile-card p-6 w-full max-w-md relative overflow-hidden">
+                        <div class="absolute top-4 right-4 z-20 bg-slate-900/80 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold text-emerald-400">
                             ● Онлайн
                         </div>
 
-                        <div class="h-96 rounded-2xl overflow-hidden relative mb-5">
-                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover">
-                            <div class="absolute inset-0 bg-gradient-to-t from-[#1c1e26] via-transparent to-transparent"></div>
-                            
-                            <div class="absolute bottom-4 left-4 right-4">
-                                <h3 class="text-2xl font-bold text-white">Elena, 26</h3>
-                                <p class="text-xs text-gray-300 mt-1">📍 Берлин • 🚗 15 км</p>
+                        <div class="h-80 rounded-2xl overflow-hidden relative mb-5 bg-slate-100 flex items-center justify-center text-slate-400">
+                            <div class="text-center p-6">
+                                <i class="fa-solid fa-user-shield text-5xl mb-2 text-slate-300"></i>
+                                <p class="text-xs font-semibold">Приватная анкета участника</p>
                             </div>
                         </div>
 
                         <div class="flex items-center justify-between">
-                            <span class="text-xs font-semibold text-[#ffca28] bg-[#ffca28]/10 px-3 py-1.5 rounded-xl border border-[#ffca28]/20">
-                                🗣 IT, EN, DE
-                            </span>
-                            <button onclick="openVettingModal()" class="w-12 h-12 rounded-full bg-[#ffca28] text-[#111217] flex items-center justify-center hover:scale-110 transition-transform shadow-lg">
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900">Elena, 26</h3>
+                                <p class="text-xs text-slate-500 mt-0.5">📍 Берлин • 🚗 15 км</p>
+                            </div>
+                            <button onclick="openVettingModal()" class="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition-colors shadow-lg">
                                 <i class="fa-solid fa-heart text-lg"></i>
                             </button>
                         </div>
@@ -186,83 +172,83 @@
     </section>
 
     <!-- Profiles Grid Section -->
-    <section class="py-20 bg-[#16181f] border-t border-white/5 relative z-10">
+    <section class="py-20 bg-slate-100/70 border-t border-slate-200 relative z-10">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center max-w-2xl mx-auto mb-16">
-                <span class="text-xs font-bold uppercase tracking-widest text-[#ffca28]" data-i18n="sec_sub">Сообщество</span>
-                <h2 class="text-3xl sm:text-5xl font-extrabold text-white mt-2" data-i18n="sec_title">Выбирайте пару рядом с вами</h2>
+                <span class="text-xs font-bold uppercase tracking-widest text-blue-600" data-i18n="sec_sub">Сообщество</span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-slate-900 mt-2" data-i18n="sec_title">Выбирайте пару рядом с вами</h2>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <!-- Card 1 -->
-                <div onclick="openVettingModal()" class="bumble-card p-4 cursor-pointer group">
-                    <div class="h-72 rounded-2xl overflow-hidden relative mb-4">
-                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <div onclick="openVettingModal()" class="profile-card p-4 cursor-pointer group">
+                    <div class="h-64 rounded-2xl overflow-hidden relative mb-4 bg-slate-200 flex items-center justify-center text-slate-400">
+                        <i class="fa-solid fa-user text-4xl text-slate-300"></i>
                         <span class="absolute top-3 right-3 bg-emerald-500 text-white text-[9px] font-bold px-2.5 py-1 rounded-full uppercase">Активна</span>
                     </div>
-                    <h3 class="text-lg font-bold text-white">Elena M., 26</h3>
-                    <p class="text-xs text-gray-400 mt-0.5">📍 Берлин, Германия</p>
-                    <p class="text-xs font-semibold text-[#ffca28] mt-2">🗣 IT, EN, DE</p>
+                    <h3 class="text-lg font-bold text-slate-900">Elena M., 26</h3>
+                    <p class="text-xs text-slate-500 mt-0.5">📍 Берлин, Германия</p>
+                    <p class="text-xs font-semibold text-blue-600 mt-2">🗣 IT, EN, DE</p>
                 </div>
 
                 <!-- Card 2 -->
-                <div onclick="openVettingModal()" class="bumble-card p-4 cursor-pointer group">
-                    <div class="h-72 rounded-2xl overflow-hidden relative mb-4">
-                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-3 right-3 bg-[#ffca28] text-black text-[9px] font-bold px-2.5 py-1 rounded-full uppercase">VIP</span>
+                <div onclick="openVettingModal()" class="profile-card p-4 cursor-pointer group">
+                    <div class="h-64 rounded-2xl overflow-hidden relative mb-4 bg-slate-200 flex items-center justify-center text-slate-400">
+                        <i class="fa-solid fa-user text-4xl text-slate-300"></i>
+                        <span class="absolute top-3 right-3 bg-amber-500 text-white text-[9px] font-bold px-2.5 py-1 rounded-full uppercase">VIP</span>
                     </div>
-                    <h3 class="text-lg font-bold text-white">Alexander K., 38</h3>
-                    <p class="text-xs text-gray-400 mt-0.5">📍 Прага, Чехия</p>
-                    <p class="text-xs font-semibold text-[#ffca28] mt-2">🗣 CS, EN, DE</p>
+                    <h3 class="text-lg font-bold text-slate-900">Alexander K., 38</h3>
+                    <p class="text-xs text-slate-500 mt-0.5">📍 Прага, Чехия</p>
+                    <p class="text-xs font-semibold text-blue-600 mt-2">🗣 CS, EN, DE</p>
                 </div>
 
                 <!-- Card 3 -->
-                <div onclick="openVettingModal()" class="bumble-card p-4 cursor-pointer group">
-                    <div class="h-72 rounded-2xl overflow-hidden relative mb-4">
-                        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <div onclick="openVettingModal()" class="profile-card p-4 cursor-pointer group">
+                    <div class="h-64 rounded-2xl overflow-hidden relative mb-4 bg-slate-200 flex items-center justify-center text-slate-400">
+                        <i class="fa-solid fa-user text-4xl text-slate-300"></i>
                         <span class="absolute top-3 right-3 bg-emerald-500 text-white text-[9px] font-bold px-2.5 py-1 rounded-full uppercase">Активна</span>
                     </div>
-                    <h3 class="text-lg font-bold text-white">Victoria S., 29</h3>
-                    <p class="text-xs text-gray-400 mt-0.5">📍 Милан, Италия</p>
-                    <p class="text-xs font-semibold text-[#ffca28] mt-2">🗣 IT, EN, RU</p>
+                    <h3 class="text-lg font-bold text-slate-900">Victoria S., 29</h3>
+                    <p class="text-xs text-slate-500 mt-0.5">📍 Милан, Италия</p>
+                    <p class="text-xs font-semibold text-blue-600 mt-2">🗣 IT, EN, RU</p>
                 </div>
 
                 <!-- Card 4 -->
-                <div onclick="openVettingModal()" class="bumble-card p-4 cursor-pointer group">
-                    <div class="h-72 rounded-2xl overflow-hidden relative mb-4">
-                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-3 right-3 bg-[#ffca28] text-black text-[9px] font-bold px-2.5 py-1 rounded-full uppercase">VIP</span>
+                <div onclick="openVettingModal()" class="profile-card p-4 cursor-pointer group">
+                    <div class="h-64 rounded-2xl overflow-hidden relative mb-4 bg-slate-200 flex items-center justify-center text-slate-400">
+                        <i class="fa-solid fa-user text-4xl text-slate-300"></i>
+                        <span class="absolute top-3 right-3 bg-amber-500 text-white text-[9px] font-bold px-2.5 py-1 rounded-full uppercase">VIP</span>
                     </div>
-                    <h3 class="text-lg font-bold text-white">Maximilian H., 42</h3>
-                    <p class="text-xs text-gray-400 mt-0.5">📍 Цюрих, Швейцария</p>
-                    <p class="text-xs font-semibold text-[#ffca28] mt-2">🗣 DE, EN, FR</p>
+                    <h3 class="text-lg font-bold text-slate-900">Maximilian H., 42</h3>
+                    <p class="text-xs text-slate-500 mt-0.5">📍 Цюрих, Швейцария</p>
+                    <p class="text-xs font-semibold text-blue-600 mt-2">🗣 DE, EN, FR</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Modal Form -->
-    <div id="vettingModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-xl flex justify-center items-center opacity-0 hidden transition-opacity duration-300 p-4">
-        <div class="bumble-card max-w-xl w-full p-8 relative border border-[#ffca28]/30 shadow-2xl">
-            <button onclick="closeVettingModal()" class="absolute top-6 right-6 text-gray-400 hover:text-white text-xl">
+    <div id="vettingModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-md flex justify-center items-center opacity-0 hidden transition-opacity duration-300 p-4">
+        <div class="bg-white max-w-xl w-full p-8 relative rounded-3xl border border-slate-200 shadow-2xl">
+            <button onclick="closeVettingModal()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-900 text-xl">
                 <i class="fa-solid fa-xmark"></i>
             </button>
 
             <div class="mb-6 text-center space-y-1">
-                <span class="text-xs text-[#ffca28] font-bold uppercase tracking-wider">Регистрация в клубе</span>
-                <h3 class="text-2xl text-white font-extrabold">Заполните данные профиля</h3>
+                <span class="text-xs text-blue-600 font-bold uppercase tracking-wider">Регистрация в клубе</span>
+                <h3 class="text-2xl text-slate-900 font-extrabold">Заполните данные профиля</h3>
             </div>
 
             <form onsubmit="handleFormSubmit(event)" class="space-y-4">
                 <div>
-                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1">Имя и титул</label>
-                    <input type="text" id="inputName" required placeholder="например: Ing. Viktor Sterling" class="w-full bg-[#111217] border border-white/10 rounded-2xl p-4 text-xs text-white outline-none focus:border-[#ffca28]">
+                    <label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Имя и титул</label>
+                    <input type="text" id="inputName" required placeholder="например: Ing. Viktor Sterling" class="w-full bg-slate-50 border border-slate-300 rounded-2xl p-4 text-xs text-slate-900 outline-none focus:border-blue-600">
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1">Родной язык</label>
-                        <select id="inputNativeLang" class="w-full bg-[#111217] border border-white/10 rounded-2xl p-4 text-xs text-white outline-none focus:border-[#ffca28]">
+                        <label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Родной язык</label>
+                        <select id="inputNativeLang" class="w-full bg-slate-50 border border-slate-300 rounded-2xl p-4 text-xs text-slate-900 outline-none focus:border-blue-600">
                             <option value="Čeština">🇨🇿 Čeština</option>
                             <option value="Deutsch">🇩🇪 Deutsch</option>
                             <option value="English">🇬🇧 English</option>
@@ -272,25 +258,25 @@
                         </select>
                     </div>
                     <div>
-                        <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1">Доп. языки</label>
-                        <input type="text" id="inputAddLangs" placeholder="например: EN, DE" class="w-full bg-[#111217] border border-white/10 rounded-2xl p-4 text-xs text-white outline-none focus:border-[#ffca28]">
+                        <label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Доп. языки</label>
+                        <input type="text" id="inputAddLangs" placeholder="например: EN, DE" class="w-full bg-slate-50 border border-slate-300 rounded-2xl p-4 text-xs text-slate-900 outline-none focus:border-blue-600">
                     </div>
                 </div>
 
                 <div>
                     <div class="flex justify-between items-center mb-1">
-                        <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider">Город и страна</label>
-                        <button type="button" onclick="detectGPS()" class="text-[10px] text-[#ffca28] hover:underline">Определить GPS</button>
+                        <label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider">Город и страна</label>
+                        <button type="button" onclick="detectGPS()" class="text-[10px] text-blue-600 hover:underline">Определить GPS</button>
                     </div>
-                    <input type="text" id="inputLocation" required placeholder="Praha, Česko" class="w-full bg-[#111217] border border-white/10 rounded-2xl p-4 text-xs text-white outline-none focus:border-[#ffca28]">
+                    <input type="text" id="inputLocation" required placeholder="Praha, Česko" class="w-full bg-slate-50 border border-slate-300 rounded-2xl p-4 text-xs text-slate-900 outline-none focus:border-blue-600">
                 </div>
 
                 <div>
-                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1">Контакт (Telegram / Телефон)</label>
-                    <input type="text" id="inputContact" required placeholder="@username или телефон" class="w-full bg-[#111217] border border-white/10 rounded-2xl p-4 text-xs text-white outline-none focus:border-[#ffca28]">
+                    <label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Контакт (Telegram / Телефон)</label>
+                    <input type="text" id="inputContact" required placeholder="@username или телефон" class="w-full bg-slate-50 border border-slate-300 rounded-2xl p-4 text-xs text-slate-900 outline-none focus:border-blue-600">
                 </div>
 
-                <button type="submit" id="submitBtn" class="w-full mt-4 py-4 btn-yellow uppercase tracking-widest rounded-2xl shadow-xl">
+                <button type="submit" id="submitBtn" class="w-full mt-4 py-4 btn-primary-custom uppercase tracking-widest rounded-2xl shadow-xl">
                     Отправить заявку
                 </button>
             </form>
@@ -298,12 +284,12 @@
     </div>
 
     <!-- Footer -->
-    <footer class="border-t border-white/5 py-8 bg-[#111217]">
-        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center text-xs text-gray-500">
+    <footer class="border-t border-slate-200 py-8 bg-white">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center text-xs text-slate-500">
             <div>© 2026 DUONERA Private Syndicate. Všechna práva vyhrazena.</div>
             <div class="flex gap-6">
-                <a href="#" class="hover:text-white">Конфиденциальность</a>
-                <a href="#" class="hover:text-white">Условия</a>
+                <a href="#" class="hover:text-slate-900">Конфиденциальность</a>
+                <a href="#" class="hover:text-slate-900">Условия</a>
             </div>
         </div>
     </footer>
@@ -314,44 +300,44 @@
 
         const translations = {
             cs: {
-                hero_tag: "Премиальный дейтинг нового поколения",
+                hero_tag: "Закрытый клуб знакомств нового уровня",
                 hero_title: "Найдите своего человека без лишних слов",
-                hero_subtitle: "Эксклюзивное пространство для успешных людей. Проверенные анкеты, безопасность, умный подбор по локации и языкам общения.",
+                hero_subtitle: "Эксклюзивное пространство для успешных людей. Проверенные анкеты, абсолютная конфиденциальность и умный подбор по локации и языкам.",
                 btn_hero_cta: "Создать профиль",
                 sec_sub: "Сообщество", sec_title: "Выбирайте пару рядом с вами"
             },
             de: {
-                hero_tag: "Premium Dating der neuen Generation",
+                hero_tag: "Exklusiver Dating-Club der neuen Generation",
                 hero_title: "Finden Sie Ihren Partner ohne Umwege",
-                hero_subtitle: "Exklusiver Raum für erfolgreiche Menschen. Verifizierte Profile, Sicherheit und intelligente Suche.",
+                hero_subtitle: "Exklusiver Raum für erfolgreiche Menschen. Verifizierte Profile, absolute Vertraulichkeit und intelligente Suche.",
                 btn_hero_cta: "Profil erstellen",
                 sec_sub: "Community", sec_title: "Finden Sie Matches in Ihrer Nähe"
             },
             en: {
-                hero_tag: "Next-gen Premium Dating",
+                hero_tag: "Next-gen Private Dating Club",
                 hero_title: "Find Your Match Without Compromise",
-                hero_subtitle: "An exclusive space for successful individuals. Verified profiles, security, smart location and language matching.",
+                hero_subtitle: "An exclusive space for successful individuals. Verified profiles, absolute privacy, and smart location/language matching.",
                 btn_hero_cta: "Create Profile",
                 sec_sub: "Community", sec_title: "Choose matches near you"
             },
             ru: {
-                hero_tag: "Премиальный дейтинг нового поколения",
+                hero_tag: "Закрытый клуб знакомств нового уровня",
                 hero_title: "Найдите своего человека без лишних слов",
-                hero_subtitle: "Эксклюзивное пространство для успешных людей. Проверенные анкеты, безопасность, умный подбор по локации и языкам общения.",
+                hero_subtitle: "Эксклюзивное пространство для успешных людей. Проверенные анкеты, абсолютная конфиденциальность и умный подбор по локации и языкам.",
                 btn_hero_cta: "Создать профиль",
                 sec_sub: "Сообщество", sec_title: "Выбирайте пару рядом с вами"
             },
             ua: {
-                hero_tag: "Преміальний дейтинг нового покоління",
+                hero_tag: "Закритий клуб знайомств нового рівня",
                 hero_title: "Знайдіть свою людину без зайвих слів",
-                hero_subtitle: "Ексклюзивний простір для успішних людей. Перевірені анкети, безпека, розумний підбір за локацією та мовами.",
+                hero_subtitle: "Ексклюзивний простір для успішних людей. Перевірені анкети, абсолютна конфіденційність та розумний підбір за локацією та мовами.",
                 btn_hero_cta: "Створити профіль",
                 sec_sub: "Спільнота", sec_title: "Обирайте пару поруч з вами"
             }
         };
 
         function setLanguage(lang) {
-            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.lang-pill').forEach(b => b.classList.remove('active'));
             const btn = document.getElementById(`lang-${lang}`);
             if (btn) btn.classList.add('active');
             const dict = translations[lang];
