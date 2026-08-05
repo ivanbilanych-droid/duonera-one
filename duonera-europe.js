@@ -10,6 +10,12 @@ const copy={
   en:{eyebrow:'PRIVATE SERIOUS DATING',titleOne:'A meeting does not begin on a screen.',titleTwo:'It starts with a person.',lead:'DUONERA selects a few people near you who want the same thing: a serious relationship and a real meeting.',radius:'Distance',preparing:'PRIVATE SELECTION',people:'suitable people',hidden:'Your profile is never public',cta:'Start my selection',micro:'Free · discreet · 1 minute',mutual:'MUTUAL CHOICE',meeting:'REAL MEETING',entry:'WE START NEAR YOU',question:'Who would you like to meet?',iAm:'I am',looking:'Looking for',woman:'Woman',man:'Man',womanAcc:'A woman',manAcc:'A man',age:'Age',city:'City',continue:'Continue',back:'Back',email:'Email',consent:'I agree to data processing for registration and private DUONERA selections.',privacyLink:'Privacy',submit:'Create private profile',privacy:'Your details are never public.',sending:'Saving securely…',error:'We could not save your registration. Check your connection and try again.'}
 };
 
+Object.assign(copy.cs,{login:'Přihlásit'});
+Object.assign(copy.de,{login:'Anmelden'});
+Object.assign(copy.pl,{login:'Zaloguj się'});
+Object.assign(copy.sk,{login:'Prihlásiť'});
+Object.assign(copy.en,{login:'Sign in'});
+
 const params=new URLSearchParams(location.search);
 const country=(params.get('country')||'').toUpperCase();
 const languageHint=(params.get('lang')||countryLocales[country]||'cs').toLowerCase();
@@ -113,4 +119,4 @@ form.addEventListener('submit',async event=>{
   }
 });
 
-if('serviceWorker'in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/service-worker.js?v=31').catch(()=>{}))}
+if('serviceWorker'in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/service-worker.js?v=32').catch(()=>{}))}
