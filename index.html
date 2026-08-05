@@ -7,7 +7,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -16,9 +16,9 @@
             theme: {
                 extend: {
                     colors: {
-                        app: {
-                            bg: '#0a0b0e',
-                            surface: '#141721',
+                        lux: {
+                            bg: '#050608',
+                            card: '#0e1017',
                             gold: '#d4af37',
                             goldLight: '#f3e5ab'
                         }
@@ -34,168 +34,161 @@
 
     <style>
         body {
-            background-color: #0a0b0e;
+            background-color: #050608;
             color: #f8fafc;
             font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: hidden;
             -webkit-tap-highlight-color: transparent;
         }
 
-        .gold-gradient-text {
-            background: linear-gradient(135deg, #ffffff 0%, #f3e5ab 50%, #d4af37 100%);
+        .gold-gradient {
+            background: linear-gradient(135deg, #ffffff 0%, #f3e5ab 40%, #d4af37 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .gold-btn {
+        .gold-btn-lux {
             background: linear-gradient(135deg, #f3e5ab 0%, #d4af37 100%);
-            color: #0a0b0e;
+            color: #050608;
             font-weight: 700;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.25);
+            transition: all 0.3s ease;
+            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.2);
         }
-        .gold-btn:active {
-            transform: scale(0.97);
-        }
-
-        .glass-card {
-            background: rgba(20, 23, 33, 0.75);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        .gold-btn-lux:active {
+            transform: scale(0.98);
         }
 
-        .lang-btn {
-            background: rgba(255, 255, 255, 0.05);
+        .lux-card {
+            background: rgba(14, 16, 23, 0.85);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
+        }
+
+        .lang-pill {
+            background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.1);
             color: #94a3b8;
-            padding: 6px 12px;
+            padding: 6px 14px;
             border-radius: 9999px;
             font-size: 11px;
             font-weight: 600;
             transition: all 0.2s;
         }
-        .lang-btn.active {
+        .lang-pill.active {
             background: #d4af37;
-            color: #0a0b0e;
+            color: #050608;
             border-color: #d4af37;
             font-weight: 700;
         }
 
-        /* Custom smooth scrollbar */
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: #0a0b0e; }
-        ::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 2px; }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 3px; }
+        ::-webkit-scrollbar-track { background: #050608; }
+        ::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 1.5px; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-amber-500 selection:text-black">
 
-    <!-- Mobile-Optimized Header -->
-    <header class="sticky top-0 z-50 w-full px-4 sm:px-6 py-4 flex justify-between items-center bg-[#0a0b0e]/90 backdrop-blur-xl border-b border-white/5">
-        <a href="#" class="flex items-center gap-2.5">
-            <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-200 to-amber-600 flex items-center justify-center text-black font-bold text-base shadow-lg shadow-amber-500/20">
+    <!-- Top Luxury Header -->
+    <header class="sticky top-0 z-50 w-full px-5 py-5 flex justify-between items-center bg-[#050608]/90 backdrop-blur-xl border-b border-white/5">
+        <a href="#" class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-200 to-amber-600 flex items-center justify-center text-black font-serif font-bold text-lg shadow-lg shadow-amber-500/20">
                 D
             </div>
-            <span class="font-serif text-xl tracking-[0.2em] font-bold text-white">DUONERA</span>
+            <div class="flex flex-col">
+                <span class="font-serif text-lg tracking-[0.25em] font-bold text-white leading-tight">DUONERA</span>
+                <span class="text-[7px] tracking-[0.3em] text-amber-400 uppercase">Private Syndicate</span>
+            </div>
         </a>
 
-        <!-- Language Selector & CTA -->
-        <div class="flex items-center gap-2 sm:gap-3">
+        <!-- Language & Access -->
+        <div class="flex items-center gap-2.5">
             <div class="flex items-center gap-1 bg-white/5 p-1 rounded-full border border-white/10">
-                <button onclick="setLanguage('cs')" id="lang-cs" class="lang-btn active">CS</button>
-                <button onclick="setLanguage('en')" id="lang-en" class="lang-btn">EN</button>
-                <button onclick="setLanguage('ru')" id="lang-ru" class="lang-btn">RU</button>
+                <button onclick="setLanguage('cs')" id="lang-cs" class="lang-pill active">CS</button>
+                <button onclick="setLanguage('en')" id="lang-en" class="lang-pill">EN</button>
+                <button onclick="setLanguage('ru')" id="lang-ru" class="lang-pill">RU</button>
             </div>
-
-            <button onclick="openVettingModal()" class="gold-btn text-[11px] uppercase tracking-wider px-4 sm:px-5 py-2.5 rounded-full">
-                Vstup
-            </button>
         </div>
     </header>
 
-    <!-- App-Style Hero Section (Mobile First) -->
-    <main class="flex-grow px-4 sm:px-6 py-6 max-w-xl mx-auto w-full flex flex-col justify-center">
+    <!-- Main Mobile-First Luxury Screen -->
+    <main class="flex-grow px-5 py-8 max-w-lg mx-auto w-full flex flex-col justify-center items-center text-center">
         
-        <!-- Status Badge -->
-        <div class="self-start inline-flex items-center gap-2 text-[11px] font-semibold tracking-wider text-amber-300 bg-amber-500/10 px-3.5 py-1.5 rounded-full border border-amber-500/20 mb-6">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span data-i18n="badge">Закрытый синдикат • 100% Верификация</span>
+        <!-- Security Badge -->
+        <div class="inline-flex items-center gap-2 text-[10px] font-semibold tracking-[0.25em] uppercase text-amber-300 bg-amber-500/10 px-4 py-2 rounded-full border border-amber-500/20 mb-8">
+            <i class="fa-solid fa-key text-amber-400"></i>
+            <span data-i18n="badge">Закрытый клуб • Доступ по мандату</span>
         </div>
 
-        <!-- Main Headline -->
-        <h1 class="font-serif text-4xl sm:text-5xl font-bold tracking-tight text-white mb-4 leading-[1.15]" data-i18n="title">
-            Приватный клуб для избранных знакомств
+        <!-- Headline -->
+        <h1 class="font-serif text-4xl sm:text-5xl font-bold tracking-tight gold-gradient mb-6 leading-[1.15]" data-i18n="title">
+            Конфиденциальный подбор пар для успешных
         </h1>
 
-        <p class="text-sm sm:text-base text-slate-400 mb-8 leading-relaxed" data-i18n="subtitle">
-            Никаких публичных анкет и бесконечного свайпинга. Только конфиденциальный подбор пары по вашему языку и локации.
+        <p class="text-xs sm:text-sm text-slate-400 mb-10 max-w-md leading-relaxed" data-i18n="subtitle">
+            Никаких публичных каталогов и случайных контактов. Персональный куратор подбирает окружение строго под ваши языковые и географические параметры.
         </p>
 
-        <!-- Interactive Preview Card (Tinder/Bumble vibe tailored for Luxury) -->
-        <div class="glass-card rounded-3xl p-5 mb-8 relative overflow-hidden group">
-            <div class="absolute -right-10 -top-10 w-40 h-40 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <!-- Interactive Luxury Entry Card -->
+        <div class="lux-card rounded-3xl p-6 w-full text-left mb-6 relative overflow-hidden">
+            <div class="absolute -right-12 -bottom-12 w-36 h-36 bg-amber-500/10 rounded-full blur-2xl pointer-events-none"></div>
 
-            <div class="flex items-center gap-4 mb-4">
-                <div class="w-14 h-14 rounded-2xl overflow-hidden border border-amber-500/40 relative flex-shrink-0">
-                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" class="w-full h-full object-cover">
+            <div class="flex items-center justify-between mb-4 pb-4 border-b border-white/10">
+                <span class="text-xs font-bold text-amber-300 uppercase tracking-widest" data-i18n="card_status">Статус: Открыт набор</span>
+                <span class="text-[10px] text-emerald-400 font-mono bg-emerald-950/80 px-2.5 py-1 rounded-full border border-emerald-500/30">● Свободно 4 места</span>
+            </div>
+
+            <div class="space-y-3 mb-6">
+                <div class="flex items-center gap-3 text-xs text-slate-300">
+                    <i class="fa-solid fa-shield-halved text-amber-400 w-5"></i>
+                    <span data-i18n="feat_1">Строгая верификация личности (KYC)</span>
                 </div>
-                <div>
-                    <div class="flex items-center gap-2">
-                        <h3 class="font-serif text-lg font-bold text-white">Elena M.</h3>
-                        <span class="bg-amber-500/20 text-amber-300 text-[10px] font-bold px-2 py-0.5 rounded-full">VIP</span>
-                    </div>
-                    <p class="text-xs text-slate-400">📍 Берлин • 🚗 15 км от вас</p>
-                    <p class="text-xs text-amber-300/90 font-medium mt-1">🗣 IT, EN, DE</p>
+                <div class="flex items-center gap-3 text-xs text-slate-300">
+                    <i class="fa-solid fa-location-crosshairs text-amber-400 w-5"></i>
+                    <span data-i18n="feat_2">Локальный поиск (Praha, Berlin, Zürich, Dubai)</span>
+                </div>
+                <div class="flex items-center gap-3 text-xs text-slate-300">
+                    <i class="fa-solid fa-comments text-amber-400 w-5"></i>
+                    <span data-i18n="feat_3">Коммуникация на вашем родном языке</span>
                 </div>
             </div>
 
-            <div class="pt-3 border-t border-white/10 flex justify-between items-center text-xs text-slate-300">
-                <span class="text-emerald-400 font-medium flex items-center gap-1.5">
-                    <i class="fa-solid fa-circle-check"></i> Профиль верифицирован
-                </span>
-                <button onclick="openVettingModal()" class="text-amber-400 font-bold hover:underline">
-                    Связаться <i class="fa-solid fa-arrow-right ml-1"></i>
-                </button>
-            </div>
+            <button onclick="openVettingModal()" class="w-full gold-btn-lux py-4 rounded-2xl text-xs uppercase tracking-[0.25em] flex items-center justify-center gap-3 shadow-xl">
+                <span data-i18n="cta_btn">Пройти верификацию</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
         </div>
 
-        <!-- Big Action CTA Button -->
-        <button onclick="openVettingModal()" class="w-full gold-btn py-4 rounded-2xl text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-3 shadow-2xl mb-4">
-            <span data-i18n="cta_main">Подать заявку на участие</span>
-            <i class="fa-solid fa-arrow-right"></i>
-        </button>
-
-        <p class="text-center text-[11px] text-slate-500" data-i18n="secure_note">
-            🔒 Вход строго по приглашениям или после прохождения проверки
+        <p class="text-[10px] text-slate-500 tracking-wider uppercase" data-i18n="footer_note">
+            Конфиденциальность данных гарантирована протоколом синдиката
         </p>
     </main>
 
-    <!-- Mobile-Optimized Modal Registration Form -->
-    <div id="vettingModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-xl flex items-end sm:items-center justify-center opacity-0 hidden transition-opacity duration-300 p-0 sm:p-4">
-        <div class="glass-card w-full max-w-lg p-6 sm:p-8 rounded-t-[32px] sm:rounded-3xl border-t sm:border border-amber-500/30 relative max-h-[90vh] overflow-y-auto">
+    <!-- Luxury Modal Registration Form -->
+    <div id="vettingModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-2xl flex items-end sm:items-center justify-center opacity-0 hidden transition-opacity duration-300 p-0 sm:p-4">
+        <div class="lux-card w-full max-w-md p-6 sm:p-8 rounded-t-[32px] sm:rounded-3xl border-t sm:border border-amber-500/30 relative max-h-[92vh] overflow-y-auto">
             
-            <!-- Close bar / button -->
             <div class="flex justify-between items-center mb-6">
                 <div>
-                    <span class="text-[10px] text-amber-400 font-bold uppercase tracking-widest">Secure Protocol</span>
-                    <h3 class="font-serif text-xl text-white font-bold" data-i18n="modal_title">Анкета кандидата</h3>
+                    <span class="text-[9px] text-amber-400 font-bold uppercase tracking-[0.2em]">Membership Protocol</span>
+                    <h3 class="font-serif text-xl text-white font-bold" data-i18n="modal_heading">Подать заявку</h3>
                 </div>
-                <button onclick="closeVettingModal()" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:text-white">
-                    <i class="fa-solid fa-xmark text-lg"></i>
+                <button onclick="closeVettingModal()" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:text-white transition-colors">
+                    <i class="fa-solid fa-xmark text-base"></i>
                 </button>
             </div>
 
             <form onsubmit="handleFormSubmit(event)" class="space-y-4">
                 <div>
-                    <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5" data-i18n="lbl_name">Имя и титул</label>
-                    <input type="text" id="inputName" required placeholder="например: Ing. Viktor Sterling" class="w-full bg-[#0a0b0e] border border-white/10 rounded-2xl p-4 text-xs text-white outline-none focus:border-amber-400 transition-colors">
+                    <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5" data-i18n="lbl_name">Имя и титул</label>
+                    <input type="text" id="inputName" required placeholder="например: Ing. Viktor Sterling" class="w-full bg-[#050608] border border-white/10 rounded-2xl p-4 text-xs text-white outline-none focus:border-amber-400 transition-colors">
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5" data-i18n="lbl_native">Родной язык</label>
-                        <select id="inputNativeLang" class="w-full bg-[#0a0b0e] border border-white/10 rounded-2xl p-4 text-xs text-white outline-none focus:border-amber-400 transition-colors">
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5" data-i18n="lbl_native">Родной язык</label>
+                        <select id="inputNativeLang" class="w-full bg-[#050608] border border-white/10 rounded-2xl p-4 text-xs text-white outline-none focus:border-amber-400 transition-colors">
                             <option value="Čeština">🇨🇿 Čeština</option>
                             <option value="Deutsch">🇩🇪 Deutsch</option>
                             <option value="English">🇬🇧 English</option>
@@ -205,33 +198,33 @@
                         </select>
                     </div>
                     <div>
-                        <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5" data-i18n="lbl_add">Доп. языки</label>
-                        <input type="text" id="inputAddLangs" placeholder="например: EN, DE" class="w-full bg-[#0a0b0e] border border-white/10 rounded-2xl p-4 text-xs text-white outline-none focus:border-amber-400 transition-colors">
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5" data-i18n="lbl_add">Доп. языки</label>
+                        <input type="text" id="inputAddLangs" placeholder="например: EN, DE" class="w-full bg-[#050608] border border-white/10 rounded-2xl p-4 text-xs text-white outline-none focus:border-amber-400 transition-colors">
                     </div>
                 </div>
 
                 <div>
                     <div class="flex justify-between items-center mb-1.5">
-                        <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider" data-i18n="lbl_loc">Город и страна</label>
-                        <button type="button" onclick="detectGPS()" class="text-[10px] text-amber-400 hover:underline">📍 Определить GPS</button>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest" data-i18n="lbl_loc">Город и страна</label>
+                        <button type="button" onclick="detectGPS()" class="text-[10px] text-amber-400 hover:underline">📍 GPS</button>
                     </div>
-                    <input type="text" id="inputLocation" required placeholder="Praha, Česko" class="w-full bg-[#0a0b0e] border border-white/10 rounded-2xl p-4 text-xs text-white outline-none focus:border-amber-400 transition-colors">
+                    <input type="text" id="inputLocation" required placeholder="Praha, Česko" class="w-full bg-[#050608] border border-white/10 rounded-2xl p-4 text-xs text-white outline-none focus:border-amber-400 transition-colors">
                 </div>
 
                 <div>
-                    <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5" data-i18n="lbl_contact">Контакт (Telegram / Телефон)</label>
-                    <input type="text" id="inputContact" required placeholder="@username или +420..." class="w-full bg-[#0a0b0e] border border-white/10 rounded-2xl p-4 text-xs text-white outline-none focus:border-amber-400 transition-colors">
+                    <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5" data-i18n="lbl_contact">Контакт (Telegram / Телефон)</label>
+                    <input type="text" id="inputContact" required placeholder="@username или +420..." class="w-full bg-[#050608] border border-white/10 rounded-2xl p-4 text-xs text-white outline-none focus:border-amber-400 transition-colors">
                 </div>
 
-                <button type="submit" id="submitBtn" class="w-full mt-2 gold-btn py-4 rounded-2xl uppercase tracking-[0.2em] text-xs shadow-xl">
-                    <span data-i18n="btn_submit">Отправить заявку в клуб</span>
+                <button type="submit" id="submitBtn" class="w-full mt-3 gold-btn-lux py-4 rounded-2xl uppercase tracking-[0.2em] text-xs shadow-2xl">
+                    <span data-i18n="btn_submit">Отправить запрос куратору</span>
                 </button>
             </form>
         </div>
     </div>
 
     <!-- Minimalist Footer -->
-    <footer class="py-6 px-6 text-center text-[11px] text-slate-600 border-t border-white/5">
+    <footer class="py-5 px-5 text-center text-[10px] text-slate-600 border-t border-white/5">
         © 2026 DUONERA Private Syndicate. Všechna práva vyhrazena.
     </footer>
 
@@ -241,51 +234,63 @@
 
         const translations = {
             cs: {
-                badge: "Закрытый синдикат • 100% Верификация",
-                title: "Приватный клуб для избранных знакомств",
-                subtitle: "Никаких публичных анкет и бесконечного свайпинга. Только конфиденциальный подбор пары по вашему языку и локации.",
-                cta_main: "Подать заявку на участие",
-                secure_note: "🔒 Вход строго по приглашениям или после прохождения проверки",
-                modal_title: "Анкета кандидата",
+                badge: "Закрытый клуб • Доступ по мандату",
+                title: "Конфиденциальный подбор пар для успешных",
+                subtitle: "Никаких публичных каталогов и случайных контактов. Персональный куратор подбирает окружение строго под ваши языковые и географические параметры.",
+                card_status: "Статус: Открыт набор",
+                feat_1: "Строгая верификация личности (KYC)",
+                feat_2: "Локальный поиск (Praha, Berlin, Zürich, Dubai)",
+                feat_3: "Коммуникация на вашем родном языке",
+                cta_btn: "Пройти верификацию",
+                footer_note: "Конфиденциальность данных гарантирована протоколом синдиката",
+                modal_heading: "Подать заявку",
                 lbl_name: "Имя и титул",
                 lbl_native: "Родной язык",
                 lbl_add: "Доп. языки",
                 lbl_loc: "Город и страна",
                 lbl_contact: "Контакт (Telegram / Телефон)",
-                btn_submit: "Отправить заявку в клуб"
+                btn_submit: "Отправить запрос куратору"
             },
             en: {
-                badge: "Private Syndicate • 100% Verified",
-                title: "Exclusive Club for Elite Connections",
-                subtitle: "No public profiles or endless swiping. Confidential matching based strictly on your language and location.",
-                cta_main: "Apply for Membership",
-                secure_note: "🔒 Access strictly by invitation or vetting approval",
-                modal_title: "Candidate Profile",
+                badge: "Private Club • Access by Mandate",
+                title: "Confidential Matchmaking for the Elite",
+                subtitle: "No public catalogs or random contacts. A personal curator selects your matches strictly based on your language and location.",
+                card_status: "Status: Open for Vetting",
+                feat_1: "Strict Identity Verification (KYC)",
+                feat_2: "Local Search (Praha, Berlin, Zürich, Dubai)",
+                feat_3: "Communication in your native language",
+                cta_btn: "Begin Vetting",
+                footer_note: "Data privacy guaranteed by syndicate protocol",
+                modal_heading: "Submit Application",
                 lbl_name: "Name & Title",
                 lbl_native: "Native Language",
                 lbl_add: "Other Languages",
                 lbl_loc: "City & Country",
                 lbl_contact: "Contact (Telegram / Phone)",
-                btn_submit: "Submit Application"
+                btn_submit: "Send Request to Curator"
             },
             ru: {
-                badge: "Закрытый синдикат • 100% Верификация",
-                title: "Приватный клуб для избранных знакомств",
-                subtitle: "Никаких публичных анкет и бесконечного свайпинга. Только конфиденциальный подбор пары по вашему языку и локации.",
-                cta_main: "Подать заявку на участие",
-                secure_note: "🔒 Вход строго по приглашениям или после прохождения проверки",
-                modal_title: "Анкета кандидата",
+                badge: "Закрытый клуб • Доступ по мандату",
+                title: "Конфиденциальный подбор пар для успешных",
+                subtitle: "Никаких публичных каталогов и случайных контактов. Персональный куратор подбирает окружение строго под ваши языковые и географические параметры.",
+                card_status: "Статус: Открыт набор",
+                feat_1: "Строгая верификация личности (KYC)",
+                feat_2: "Локальный поиск (Praha, Berlin, Zürich, Dubai)",
+                feat_3: "Коммуникация на вашем родном языке",
+                cta_btn: "Пройти верификацию",
+                footer_note: "Конфиденциальность данных гарантирована протоколом синдиката",
+                modal_heading: "Подать заявку",
                 lbl_name: "Имя и титул",
                 lbl_native: "Родной язык",
                 lbl_add: "Доп. языки",
                 lbl_loc: "Город и страна",
                 lbl_contact: "Контакт (Telegram / Телефон)",
-                btn_submit: "Отправить заявку в клуб"
+                btn_submit: "Отправить запрос куратору"
             }
         };
 
         function setLanguage(lang) {
-            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.lang-pill').forEach(b => b.classList.remove('active'));
             const btn = document.getElementById(`lang-${lang}`);
             if (btn) btn.classList.add('active');
             const dict = translations[lang];
@@ -334,7 +339,7 @@
                          `📱 <b>Контакт:</b> ${contact}`;
 
             try {
-                const res = href = await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+                const res = await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -355,7 +360,7 @@
                 alert('Ошибка соединения.');
             } finally {
                 btn.disabled = false;
-                btn.innerHTML = 'Отправить заявку в клуб';
+                btn.innerHTML = 'Отправить запрос куратору';
             }
         }
     </script>
