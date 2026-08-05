@@ -12,8 +12,8 @@ const copy={
 
 const params=new URLSearchParams(location.search);
 const country=(params.get('country')||'').toUpperCase();
-const languageHint=(params.get('lang')||countryLocales[country]||navigator.language.split('-')[0]||'en').toLowerCase();
-let current=Object.hasOwn(copy,languageHint)?languageHint:'en';
+const languageHint=(params.get('lang')||countryLocales[country]||'cs').toLowerCase();
+let current=Object.hasOwn(copy,languageHint)?languageHint:'cs';
 let city=params.get('city')?.trim()||cityDefaults[current];
 const cityWasProvided=Boolean(params.get('city')?.trim());
 let distance=50;
@@ -32,7 +32,7 @@ function updateCity(){
 
 function applyLocale(next,manual=false){
   const previous=current;
-  current=Object.hasOwn(copy,next)?next:'en';
+  current=Object.hasOwn(copy,next)?next:'cs';
   if(manual&&!cityWasProvided&&city===cityDefaults[previous]) city=cityDefaults[current];
   const dict=copy[current];
   document.documentElement.lang=current;
@@ -113,4 +113,4 @@ form.addEventListener('submit',async event=>{
   }
 });
 
-if('serviceWorker'in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/service-worker.js?v=28').catch(()=>{}))}
+if('serviceWorker'in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/service-worker.js?v=29').catch(()=>{}))}
