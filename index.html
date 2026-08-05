@@ -11,6 +11,27 @@
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/assets/duonera-app-icon-180.png">
   <link rel="stylesheet" href="/duonera-europe.css?v=20260805f">
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || function(){ dataLayer.push(arguments); };
+    gtag('consent', 'default', {
+      analytics_storage: 'denied',
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied'
+    });
+    try {
+      if (localStorage.getItem('duoneraAnalyticsConsent') === 'granted') {
+        gtag('consent', 'update', { analytics_storage: 'granted' });
+      }
+    } catch (error) {}
+    gtag('js', new Date());
+    gtag('config', 'G-PR38YKQ9QF', { anonymize_ip: true });
+    const analyticsScript = document.createElement('script');
+    analyticsScript.async = true;
+    analyticsScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-PR38YKQ9QF';
+    document.head.appendChild(analyticsScript);
+  </script>
 </head>
 <body>
   <main class="world-shell">
@@ -89,6 +110,6 @@
     </section>
   </div>
   <div class="toast" role="status" aria-live="polite"></div>
-  <script type="module" src="/duonera-europe.js?v=20260805f"></script>
+  <script type="module" src="/duonera-europe.js?v=20260805g"></script>
 </body>
 </html>
