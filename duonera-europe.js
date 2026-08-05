@@ -107,6 +107,10 @@ form.addEventListener('submit',async event=>{
       localStorage.setItem('duonera-entry-context',JSON.stringify({country,lang:current,city:payload.city,distance,utm_source:params.get('utm_source')||'',utm_campaign:params.get('utm_campaign')||''}));
     }catch(error){}
     if(typeof window.fbq==='function') window.fbq('track','Lead',{content_name:'orbit_short_registration'});
+    if(typeof window.gtag==='function'){
+      window.gtag('event','sign_up',{method:'duonera_short_registration'});
+      window.gtag('event','generate_lead',{lead_source:'homepage_short_registration'});
+    }
     const url=new URL('ucet.html',location.href);
     url.searchParams.set('mode','register');
     url.searchParams.set('email',payload.email);
@@ -119,4 +123,4 @@ form.addEventListener('submit',async event=>{
   }
 });
 
-if('serviceWorker'in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/service-worker.js?v=32').catch(()=>{}))}
+if('serviceWorker'in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/service-worker.js?v=33').catch(()=>{}))}
