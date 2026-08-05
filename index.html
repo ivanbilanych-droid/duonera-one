@@ -16,16 +16,9 @@
             theme: {
                 extend: {
                     colors: {
-                        champagne: {
-                            100: '#fef3c7',
-                            200: '#fde68a',
-                            500: '#d97706',
-                            900: '#451a03'
-                        },
                         editorial: {
-                            bg: '#0a0a0c',
+                            bg: '#08080a',
                             card: '#121216',
-                            border: 'rgba(217, 119, 6, 0.25)',
                             accent: '#fef3c7'
                         }
                     },
@@ -139,7 +132,7 @@
                     </h1>
 
                     <p class="font-serif italic text-xl sm:text-2xl text-gray-300 max-w-xl leading-relaxed" data-i18n="hero_subtitle">
-                        «Bez veřejných profilů. Без бесконечного свайпинга. Особный подбор пар с учётом локации и языков общения.»
+                        «Bez veřejných profilů. Bez бесконечного свайпинга. Особный подбор пар с учётом локации и языков общения.»
                     </p>
 
                     <div class="pt-4 flex flex-col sm:flex-row gap-4">
@@ -187,7 +180,7 @@
                         </div>
 
                         <button onclick="openVettingModal()" class="w-full py-4 bg-white/5 hover:bg-white/10 text-xs font-bold uppercase tracking-widest text-amber-200 border border-amber-400/30 rounded-xl transition-all text-center">
-                            Otevřít privátní каталог
+                            Otevřít privátní katalog
                         </button>
                     </div>
                 </div>
@@ -279,24 +272,24 @@
             <form onsubmit="handleFormSubmit(event)" class="space-y-4">
                 <div>
                     <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Jméno a Titul</label>
-                    <input type="text" required placeholder="например: Ing. Viktor Sterling" class="w-full bg-black/80 border border-white/10 rounded-xl p-3.5 text-xs text-white outline-none focus:border-amber-400">
+                    <input type="text" id="inputName" required placeholder="например: Ing. Viktor Sterling" class="w-full bg-black/80 border border-white/10 rounded-xl p-3.5 text-xs text-white outline-none focus:border-amber-400">
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Rodný jazyk</label>
-                        <select class="w-full bg-black/80 border border-white/10 rounded-xl p-3.5 text-xs text-white outline-none focus:border-amber-400">
-                            <option value="cs">🇨🇿 Čeština</option>
-                            <option value="de">🇩🇪 Deutsch</option>
-                            <option value="en">🇬🇧 English</option>
-                            <option value="ru">🇷🇺 Русский</option>
-                            <option value="ua">🇺🇦 Українська</option>
-                            <option value="it">🇮🇹 Italiano</option>
+                        <select id="inputNativeLang" class="w-full bg-black/80 border border-white/10 rounded-xl p-3.5 text-xs text-white outline-none focus:border-amber-400">
+                            <option value="Čeština">🇨🇿 Čeština</option>
+                            <option value="Deutsch">🇩🇪 Deutsch</option>
+                            <option value="English">🇬🇧 English</option>
+                            <option value="Русский">🇷🇺 Русский</option>
+                            <option value="Українська">🇺🇦 Українська</option>
+                            <option value="Italiano">🇮🇹 Italiano</option>
                         </select>
                     </div>
                     <div>
                         <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Další jazyky</label>
-                        <input type="text" placeholder="например: EN (Fluent), DE" class="w-full bg-black/80 border border-white/10 rounded-xl p-3.5 text-xs text-white outline-none focus:border-amber-400">
+                        <input type="text" id="inputAddLangs" placeholder="например: EN (Fluent), DE" class="w-full bg-black/80 border border-white/10 rounded-xl p-3.5 text-xs text-white outline-none focus:border-amber-400">
                     </div>
                 </div>
 
@@ -305,7 +298,7 @@
                         <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest">Místo pobytu (Město a Země)</label>
                         <button type="button" onclick="detectGPS()" class="text-[9px] text-amber-400 hover:underline">Určit GPS</button>
                     </div>
-                    <input type="text" required list="globalCities" placeholder="Zadejte jakékoliv město (Berlin, Praha, New York...)" class="w-full bg-black/80 border border-white/10 rounded-xl p-3.5 text-xs text-white outline-none focus:border-amber-400">
+                    <input type="text" id="inputLocation" required list="globalCities" placeholder="Zadejte jakékoliv město (Berlin, Praha, New York...)" class="w-full bg-black/80 border border-white/10 rounded-xl p-3.5 text-xs text-white outline-none focus:border-amber-400">
                     <datalist id="globalCities">
                         <option value="Praha, Česko"></option>
                         <option value="Berlin, Německo"></option>
@@ -318,10 +311,10 @@
 
                 <div>
                     <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Kontakt (Telegram / WhatsApp / Telefon)</label>
-                    <input type="text" required placeholder="@username nebo +420..." class="w-full bg-black/80 border border-white/10 rounded-xl p-3.5 text-xs text-white outline-none focus:border-amber-400">
+                    <input type="text" id="inputContact" required placeholder="@username nebo +420..." class="w-full bg-black/80 border border-white/10 rounded-xl p-3.5 text-xs text-white outline-none focus:border-amber-400">
                 </div>
 
-                <button type="submit" class="w-full mt-4 py-4 bg-amber-400 hover:bg-amber-300 text-black font-bold text-xs uppercase tracking-[0.2em] rounded-full shadow-xl transition-all">
+                <button type="submit" id="submitBtn" class="w-full mt-4 py-4 bg-amber-400 hover:bg-amber-300 text-black font-bold text-xs uppercase tracking-[0.2em] rounded-full shadow-xl transition-all">
                     Odeslat k prověření
                 </button>
             </form>
@@ -340,10 +333,13 @@
     </footer>
 
     <script>
+        const TELEGRAM_TOKEN = '8280723733:AAEz2v3LciycRTtJrltn7jcxVhBrsDuvezY';
+        const TELEGRAM_CHAT_ID = '5263424734';
+
         const translations = {
             cs: {
                 hero_tag: "Exkluzivní Matchmaking Pro Náročné", hero_title: "Umění Privátního Seznamování",
-                hero_subtitle: "«Bez veřejných profilů. Без бесконечного свайпинга. Особный подбор пар с учётом локации и языков общения.»",
+                hero_subtitle: "«Bez veřejných profilů. Bez бесконечного свайпинга. Особный подбор пар с учётом локации и языков общения.»",
                 btn_hero_cta: "Požádat o prověření profilu"
             },
             de: {
@@ -392,13 +388,55 @@
         }
         function detectGPS() {
             if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(() => alert("GPS параметры определены."));
+                navigator.geolocation.getCurrentPosition((pos) => {
+                    document.getElementById('inputLocation').value = `GPS: ${pos.coords.latitude.toFixed(4)}, ${pos.coords.longitude.toFixed(4)}`;
+                });
             }
         }
-        function handleFormSubmit(e) {
+
+        async function handleFormSubmit(e) {
             e.preventDefault();
-            alert("Žádost byla úspěšně odeslána k prověření.");
-            closeVettingModal();
+            const btn = document.getElementById('submitBtn');
+            btn.disabled = true;
+            btn.innerText = 'ОТПРАВКА...';
+
+            const name = document.getElementById('inputName').value;
+            const nativeLang = document.getElementById('inputNativeLang').value;
+            const addLangs = document.getElementById('inputAddLangs').value || 'Не указано';
+            const location = document.getElementById('inputLocation').value;
+            const contact = document.getElementById('inputContact').value;
+
+            const text = `👑 <b>НОВАЯ ЗАЯВКА DUONERA</b>\n\n` +
+                         `👤 <b>Имя:</b> ${name}\n` +
+                         `🗣 <b>Родной язык:</b> ${nativeLang}\n` +
+                         `💬 <b>Доп. языки:</b> ${addLangs}\n` +
+                         `📍 <b>Локация:</b> ${location}\n` +
+                         `📱 <b>Контакт:</b> ${contact}`;
+
+            try {
+                const res = await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: TELEGRAM_CHAT_ID,
+                        text: text,
+                        parse_mode: 'HTML'
+                    })
+                });
+
+                if (res.ok) {
+                    alert('Заявка успешно отправлена! Куратор свяжется с вами в ближайшее время.');
+                    closeVettingModal();
+                    e.target.reset();
+                } else {
+                    alert('Ошибка отправки. Попробуйте еще раз.');
+                }
+            } catch (err) {
+                alert('Ошибка соединения.');
+            } finally {
+                btn.disabled = false;
+                btn.innerText = 'ODESLAT K PROVĚŘENÍ';
+            }
         }
     </script>
 </body>
