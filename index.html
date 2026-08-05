@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DUONERA — Privátní Seznamovací Syndikát</title>
 
+    <!-- Google Fonts & FontAwesome -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Montserrat:wght@200;300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -37,7 +38,7 @@
         :root {
             --bg-deep: #030305;
             --gold-gradient: linear-gradient(135deg, #fffbeb 0%, #fef08a 20%, #d4af37 55%, #997a15 85%, #423207 100%);
-            --border-gold: rgba(212, 175, 55, 0.3);
+            --border-gold: rgba(212, 175, 55, 0.35);
         }
 
         body {
@@ -62,15 +63,15 @@
         }
 
         .glass-card {
-            background: rgba(14, 14, 20, 0.82);
+            background: rgba(12, 12, 18, 0.82);
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
             border: 1px solid var(--border-gold);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.95);
         }
 
         .avatar-blur {
-            filter: blur(6px);
+            filter: blur(7px);
             transition: filter 0.4s ease;
         }
         .profile-card:hover .avatar-blur {
@@ -87,11 +88,15 @@
             font-weight: 600;
             transition: all 0.3s ease;
         }
+        .lang-btn:hover { border-color: #d4af37; color: #fff; }
         .lang-btn.active {
             border-color: #d4af37;
             background: rgba(212, 175, 55, 0.25);
             color: #fef08a;
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
         }
+
+        details summary::-webkit-details-marker { display:none; }
     </style>
 </head>
 <body class="relative min-h-screen flex flex-col justify-between">
@@ -100,8 +105,8 @@
 
     <!-- Header Navigation -->
     <header class="relative z-40 max-w-7xl mx-auto w-full px-6 py-6 flex justify-between items-center border-b border-gold-main/20 bg-black/50 backdrop-blur-md">
-        <a href="#" class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full border border-gold-main flex items-center justify-center bg-black">
+        <a href="#" class="flex items-center gap-3.5 group">
+            <div class="w-10 h-10 rounded-full border border-gold-main flex items-center justify-center bg-black shadow-[0_0_15px_rgba(212,175,55,0.3)]">
                 <i class="fa-solid fa-crown text-gold-main text-sm"></i>
             </div>
             <div class="flex flex-col">
@@ -110,7 +115,15 @@
             </div>
         </a>
 
-        <!-- Languages & Main Action Button -->
+        <!-- Menu Links -->
+        <nav class="hidden lg:flex items-center gap-8 text-[11px] font-semibold tracking-[0.2em] text-gray-400 uppercase">
+            <a href="#kandidati" class="hover:text-gold-light transition-colors" data-i18n="nav_candidates">Kandidáti</a>
+            <a href="#jak-to-funguje" class="hover:text-gold-light transition-colors" data-i18n="nav_how">Jak to funguje</a>
+            <a href="#lokace" class="hover:text-gold-light transition-colors" data-i18n="nav_venues">VIP Lokace</a>
+            <a href="#faq" class="hover:text-gold-light transition-colors" data-i18n="nav_faq">Časté Dotazy</a>
+        </nav>
+
+        <!-- Languages & Primary Button -->
         <div class="flex items-center gap-3">
             <div class="flex items-center gap-1 bg-black/80 p-1 rounded-full border border-gold-main/30">
                 <button onclick="setLanguage('cs')" id="lang-cs" class="lang-btn active">🇨🇿 CS</button>
@@ -120,119 +133,254 @@
                 <button onclick="setLanguage('ua')" id="lang-ua" class="lang-btn">🇺🇦 UA</button>
             </div>
 
-            <button onclick="openVettingModal()" class="bg-gradient-to-r from-gold-light via-gold-main to-gold-dark text-black font-bold text-xs uppercase px-6 py-3 rounded-full shadow-lg hover:brightness-125 transition-all">
-                Получить доступ
+            <button onclick="openVettingModal()" class="bg-gradient-to-r from-gold-light via-gold-main to-gold-dark text-black font-bold text-xs uppercase tracking-widest px-6 py-3 rounded-full shadow-lg hover:shadow-[0_0_25px_rgba(212,175,55,0.6)] transition-all transform hover:-translate-y-0.5" data-i18n="btn_hero_apply">
+                Vstup do klubu
             </button>
         </div>
     </header>
 
-    <!-- Main Section: Live Member Showcase -->
-    <section class="relative z-10 pt-10 pb-20">
+    <!-- Hero Section: Members Live Showcase -->
+    <section id="kandidati" class="relative z-10 pt-10 pb-20">
         <div class="max-w-7xl mx-auto px-6">
             
             <div class="text-center max-w-3xl mx-auto space-y-4 mb-14">
-                <span class="bg-gold-main/10 border border-gold-main/40 text-gold-main text-[11px] font-bold tracking-[0.2em] px-4 py-1.5 rounded-full uppercase inline-block">
-                    Закрытый клуб • 100% Верифицированные профили
+                <span class="bg-gold-main/10 border border-gold-main/40 text-gold-main text-[11px] font-bold tracking-[0.2em] px-4 py-1.5 rounded-full uppercase inline-block" data-i18n="hero_badge">
+                    Privátní Syndikát • 100% Verifikované Profily
                 </span>
-                <h1 class="font-serif text-4xl sm:text-6xl gold-text-gradient font-extrabold tracking-wide uppercase leading-tight">
-                    Знакомства высокого класса без публичных анкет
+                <h1 class="font-serif text-4xl sm:text-6xl gold-text-gradient font-extrabold tracking-wide uppercase leading-tight" data-i18n="hero_title">
+                    Seznamování vysoké úrovně bez veřejných profilů
                 </h1>
-                <p class="font-garamond italic text-xl text-gray-300">
-                    «Выберите подходящий кандидатский профиль или подайте заявку для персонального подбора куратором.»
+                <p class="font-garamond italic text-xl text-gray-300" data-i18n="hero_quote">
+                    „Propojujeme úspěšné muže a inspirativní ženy. Vyberte si kandidáta podle jazyka a lokality nebo požádejte o osobní подбор.“
                 </p>
             </div>
 
-            <!-- Showcase Gallery of Profiles (Emotional Hook) -->
+            <!-- Profile Cards Showcase -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
                 
-                <!-- Profile Card 1 -->
+                <!-- Card 1 -->
                 <div onclick="openVettingModal()" class="glass-card profile-card rounded-3xl overflow-hidden cursor-pointer group hover:border-gold-main transition-all duration-300 transform hover:-translate-y-2">
                     <div class="h-72 relative overflow-hidden bg-gray-900">
-                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" alt="Profile Candidate" class="w-full h-full object-cover avatar-blur">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" alt="Candidate" class="w-full h-full object-cover avatar-blur">
                         <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
                         <span class="absolute top-4 right-4 bg-emerald-500/20 border border-emerald-400 text-emerald-300 text-[9px] font-bold px-3 py-1 rounded-full uppercase backdrop-blur-md">
-                            ● В сети
+                            ● Aktivní nyní
                         </span>
                     </div>
                     <div class="p-5 space-y-2">
                         <div class="flex justify-between items-center">
-                            <h3 class="font-serif text-lg text-gold-light font-bold">Анастасия, 26</h3>
-                            <span class="text-[10px] text-gold-main font-bold">99% Совпадение</span>
+                            <h3 class="font-serif text-lg text-gold-light font-bold">Elena M., 26</h3>
+                            <span class="text-[10px] text-gold-main font-bold">99% Shoda</span>
                         </div>
-                        <p class="text-xs text-gray-400">📍 Германия, Берлин • 🚗 15 км</p>
-                        <p class="text-[11px] text-gray-300 italic font-garamond border-t border-white/10 pt-2">«Часто бываю в Милане и Праге. Ценовые и культурные интересы.»</p>
+                        <p class="text-xs text-gray-400">📍 Německo, Berlín • 🚗 15 km</p>
+                        <p class="text-[10px] text-gray-300 font-semibold">🗣 Jazyky: 🇮🇹 IT, 🇬🇧 EN, 🇩🇪 DE</p>
+                        <p class="text-[11px] text-gray-300 italic font-garamond border-t border-white/10 pt-2">«Часто бываю в Милане и Праге. Архитектура, бизнес и путешествия.»</p>
                     </div>
                 </div>
 
-                <!-- Profile Card 2 -->
+                <!-- Card 2 -->
                 <div onclick="openVettingModal()" class="glass-card profile-card rounded-3xl overflow-hidden cursor-pointer group hover:border-gold-main transition-all duration-300 transform hover:-translate-y-2">
                     <div class="h-72 relative overflow-hidden bg-gray-900">
-                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80" alt="Profile Candidate" class="w-full h-full object-cover avatar-blur">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80" alt="Candidate" class="w-full h-full object-cover avatar-blur">
                         <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
                         <span class="absolute top-4 right-4 bg-gold-main/20 border border-gold-main text-gold-light text-[9px] font-bold px-3 py-1 rounded-full uppercase backdrop-blur-md">
-                            VIP статус
+                            VIP Status
                         </span>
                     </div>
                     <div class="p-5 space-y-2">
                         <div class="flex justify-between items-center">
-                            <h3 class="font-serif text-lg text-gold-light font-bold">Александр, 38</h3>
-                            <span class="text-[10px] text-gold-main font-bold">96% Совпадение</span>
+                            <h3 class="font-serif text-lg text-gold-light font-bold">Alexander K., 38</h3>
+                            <span class="text-[10px] text-gold-main font-bold">96% Shoda</span>
                         </div>
-                        <p class="text-xs text-gray-400">📍 Чехия, Прага • ✈️ Рейсы: ОАЭ</p>
-                        <p class="text-[11px] text-gray-300 italic font-garamond border-t border-white/10 pt-2">«Инвестиции, парусный спорт, ценю прямоту и интеллект.»</p>
+                        <p class="text-xs text-gray-400">📍 Česko, Praha • ✈️ Cesty: ОАЭ, США</p>
+                        <p class="text-[10px] text-gray-300 font-semibold">🗣 Jazyky: 🇨🇿 CS, 🇬🇧 EN, 🇩🇪 DE</p>
+                        <p class="text-[11px] text-gray-300 italic font-garamond border-t border-white/10 pt-2">«Инвестиции, парусный спорт, ценю интеллектуальное общение.»</p>
                     </div>
                 </div>
 
-                <!-- Profile Card 3 -->
+                <!-- Card 3 -->
                 <div onclick="openVettingModal()" class="glass-card profile-card rounded-3xl overflow-hidden cursor-pointer group hover:border-gold-main transition-all duration-300 transform hover:-translate-y-2">
                     <div class="h-72 relative overflow-hidden bg-gray-900">
-                        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80" alt="Profile Candidate" class="w-full h-full object-cover avatar-blur">
+                        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80" alt="Candidate" class="w-full h-full object-cover avatar-blur">
                         <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
                         <span class="absolute top-4 right-4 bg-emerald-500/20 border border-emerald-400 text-emerald-300 text-[9px] font-bold px-3 py-1 rounded-full uppercase backdrop-blur-md">
-                            ● В сети
+                            ● Aktivní nyní
                         </span>
                     </div>
                     <div class="p-5 space-y-2">
                         <div class="flex justify-between items-center">
-                            <h3 class="font-serif text-lg text-gold-light font-bold">Виктория, 29</h3>
-                            <span class="text-[10px] text-gold-main font-bold">94% Совпадение</span>
+                            <h3 class="font-serif text-lg text-gold-light font-bold">Victoria S., 29</h3>
+                            <span class="text-[10px] text-gold-main font-bold">94% Shoda</span>
                         </div>
-                        <p class="text-xs text-gray-400">📍 Италия, Милан • 🇩🇪 DE, EN, RU</p>
-                        <p class="text-[11px] text-gray-300 italic font-garamond border-t border-white/10 pt-2">«Искусство, дизайн архитектуры, частые поездки в Германию.»</p>
+                        <p class="text-xs text-gray-400">📍 Itálie, Milán • 🚗 8 km od centrum</p>
+                        <p class="text-[10px] text-gray-300 font-semibold">🗣 Jazyky: 🇮🇹 IT, 🇬🇧 EN, 🇷🇺 RU</p>
+                        <p class="text-[11px] text-gray-300 italic font-garamond border-t border-white/10 pt-2">«Искусство, дизайн, частые визиты в Швейцарию и Германию.»</p>
                     </div>
                 </div>
 
-                <!-- Profile Card 4 -->
+                <!-- Card 4 -->
                 <div onclick="openVettingModal()" class="glass-card profile-card rounded-3xl overflow-hidden cursor-pointer group hover:border-gold-main transition-all duration-300 transform hover:-translate-y-2">
                     <div class="h-72 relative overflow-hidden bg-gray-900">
-                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80" alt="Profile Candidate" class="w-full h-full object-cover avatar-blur">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80" alt="Candidate" class="w-full h-full object-cover avatar-blur">
                         <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
                         <span class="absolute top-4 right-4 bg-gold-main/20 border border-gold-main text-gold-light text-[9px] font-bold px-3 py-1 rounded-full uppercase backdrop-blur-md">
-                            VIP статус
+                            VIP Status
                         </span>
                     </div>
                     <div class="p-5 space-y-2">
                         <div class="flex justify-between items-center">
-                            <h3 class="font-serif text-lg text-gold-light font-bold">Максимилиан, 42</h3>
-                            <span class="text-[10px] text-gold-main font-bold">98% Совпадение</span>
+                            <h3 class="font-serif text-lg text-gold-light font-bold">Maximilian H., 42</h3>
+                            <span class="text-[10px] text-gold-main font-bold">98% Shoda</span>
                         </div>
-                        <p class="text-xs text-gray-400">📍 Швейцария, Цюрих • 🇩🇪 DE, EN</p>
-                        <p class="text-[11px] text-gray-300 italic font-garamond border-t border-white/10 pt-2">«Частный бизнес, увлекаюсь классической музыкой и автоспортом.»</p>
+                        <p class="text-xs text-gray-400">📍 Švýcarsko, Curych • ✈️ Cesty: Монако</p>
+                        <p class="text-[10px] text-gray-300 font-semibold">🗣 Jazyky: 🇩🇪 DE, 🇬🇧 EN, 🇫🇷 FR</p>
+                        <p class="text-[11px] text-gray-300 italic font-garamond border-t border-white/10 pt-2">«Частный бизнес, автоспорт, классическая музыка и искусство.»</p>
                     </div>
                 </div>
 
             </div>
 
-            <!-- Big Emotional Call to Action -->
+            <!-- Big Call to Action -->
             <div class="text-center">
                 <button onclick="openVettingModal()" class="bg-gradient-to-r from-gold-light via-gold-main to-gold-dark text-black font-bold text-xs tracking-[0.25em] uppercase px-12 py-5 rounded-full shadow-[0_0_40px_rgba(212,175,55,0.5)] hover:shadow-[0_0_60px_rgba(212,175,55,0.8)] transition-all transform hover:-translate-y-1">
-                    Открыть полный каталог и познакомится <i class="fa-solid fa-arrow-right ml-2"></i>
+                    <span data-i18n="btn_open_catalog">Otevřít privátní katalog a sejít se</span> <i class="fa-solid fa-arrow-right ml-2"></i>
                 </button>
             </div>
         </div>
     </section>
 
-    <!-- Modal Registration Form (Clean Fast Auto-complete City Input) -->
+    <!-- SECTION: HOW IT WORKS -->
+    <section id="jak-to-funguje" class="relative z-10 py-20 border-t border-gold-main/20 bg-black/40">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-gold-main">Diskrétní Proces</span>
+                <h2 class="font-serif text-3xl sm:text-5xl text-white font-bold mt-2">Jak probíhá seznamování v DUONERA</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="glass-card p-8 rounded-3xl relative">
+                    <span class="font-serif text-5xl font-bold text-gold-main/30 absolute top-6 right-6">01</span>
+                    <h3 class="font-serif text-xl text-gold-light font-bold mb-3">Verifikace & NDA</h3>
+                    <p class="text-xs text-gray-400 leading-relaxed">Každý zájemce projde osobním prověřením. Podpis NDA garantuje absolutní mlčenlivost a ochranu soukromí.</p>
+                </div>
+
+                <div class="glass-card p-8 rounded-3xl relative">
+                    <span class="font-serif text-5xl font-bold text-gold-main/30 absolute top-6 right-6">02</span>
+                    <h3 class="font-serif text-xl text-gold-light font-bold mb-3">Osobní Matchmaking</h3>
+                    <p class="text-xs text-gray-400 leading-relaxed">Žádné veřejné profily. Náš kurátor navrhne partnery přesně podle vašich jazykových a гео-preferencí.</p>
+                </div>
+
+                <div class="glass-card p-8 rounded-3xl relative">
+                    <span class="font-serif text-5xl font-bold text-gold-main/30 absolute top-6 right-6">03</span>
+                    <h3 class="font-serif text-xl text-gold-light font-bold mb-3">Rande na klíč</h3>
+                    <p class="text-xs text-gray-400 leading-relaxed">Zorganizujeme první setkání v partnerském VIP podniku s rezervací stolu a garantovanou privátností.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: CONCIERGE VENUES WITH PHOTOS -->
+    <section id="lokace" class="relative z-10 py-20 border-t border-gold-main/20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-gold-main">Partnerství & Privátní Prostory</span>
+                <h2 class="font-serif text-3xl sm:text-5xl text-white font-bold mt-2">Místa pro vaši první schůzku</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="glass-card rounded-3xl overflow-hidden group hover:border-gold-main transition-all duration-500">
+                    <div class="h-56 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80" alt="VIP Lounge" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                        <span class="absolute top-4 left-4 bg-black/80 border border-gold-main/40 text-gold-light text-[9px] font-bold px-3 py-1 rounded-full uppercase">Praha & Brno</span>
+                    </div>
+                    <div class="p-6 space-y-2">
+                        <h3 class="font-serif text-xl text-gold-light font-bold">VIP Salónky a Privátní Kluby</h3>
+                        <p class="text-xs text-gray-400 leading-relaxed">Soukromé salonky s garancí 100% diskrétnosti a osobním obsluhujícím personálem.</p>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-3xl overflow-hidden group hover:border-gold-main transition-all duration-500">
+                    <div class="h-56 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=800&q=80" alt="Fine Dining" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                        <span class="absolute top-4 left-4 bg-black/80 border border-gold-main/40 text-gold-light text-[9px] font-bold px-3 py-1 rounded-full uppercase">Fine Dining</span>
+                    </div>
+                    <div class="p-6 space-y-2">
+                        <h3 class="font-serif text-xl text-gold-light font-bold">Michelin & Fine Dining</h3>
+                        <p class="text-xs text-gray-400 leading-relaxed">Prioritní rezervace stolu v nejlepších restauracích bez čekacích lhůt.</p>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-3xl overflow-hidden group hover:border-gold-main transition-all duration-500">
+                    <div class="h-56 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80" alt="Hotels" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                        <span class="absolute top-4 left-4 bg-black/80 border border-gold-main/40 text-gold-light text-[9px] font-bold px-3 py-1 rounded-full uppercase">Mezinárodní</span>
+                    </div>
+                    <div class="p-6 space-y-2">
+                        <h3 class="font-serif text-xl text-gold-light font-bold">5* Boutique Hotely EU</h3>
+                        <p class="text-xs text-gray-400 leading-relaxed">Partnerské lokace v Miláně, Mnichově, Curychu a Monaku pro schůzky během cest.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: FAQ -->
+    <section id="faq" class="relative z-10 py-20 border-t border-gold-main/20 bg-black/40">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-gold-main">Odpovědi na Dotazy</span>
+                <h2 class="font-serif text-3xl sm:text-5xl text-white font-bold mt-2">Časté Dotazy</h2>
+            </div>
+
+            <div class="space-y-4">
+                <details class="glass-card rounded-2xl p-6 group cursor-pointer border border-gold-main/20 hover:border-gold-main transition-all">
+                    <summary class="font-serif text-base text-gold-light font-bold flex justify-between items-center">
+                        <span>Jak je zajištěna má diskrétnost?</span>
+                        <i class="fa-solid fa-chevron-down text-gold-main group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <p class="text-xs text-gray-400 leading-relaxed mt-4 pt-4 border-t border-white/10">
+                        Vaše údaje a fotografie se nikdy nezveřejňují otevřeně. Všichni kandidáti podepisují právní smlouvu NDA (Dohodu o mlčenlivosti) před získáním přístupu k profilům.
+                    </p>
+                </details>
+
+                <details class="glass-card rounded-2xl p-6 group cursor-pointer border border-gold-main/20 hover:border-gold-main transition-all">
+                    <summary class="font-serif text-base text-gold-light font-bold flex justify-between items-center">
+                        <span>Co se stane po odeslání žádosti?</span>
+                        <i class="fa-solid fa-chevron-down text-gold-main group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <p class="text-xs text-gray-400 leading-relaxed mt-4 pt-4 border-t border-white/10">
+                        Náš osobní kurátor vás kontaktuje do 24 hodin pro krátké potvrditelné ověření profilu. Poté jsou navrženy první ideální shody.
+                    </p>
+                </details>
+
+                <details class="glass-card rounded-2xl p-6 group cursor-pointer border border-gold-main/20 hover:border-gold-main transition-all">
+                    <summary class="font-serif text-base text-gold-light font-bold flex justify-between items-center">
+                        <span>Jak funguje určování vzdálenosti a jazyků?</span>
+                        <i class="fa-solid fa-chevron-down text-gold-main group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <p class="text-xs text-gray-400 leading-relaxed mt-4 pt-4 border-t border-white/10">
+                        Systém automaticky vypočítá přesnou vzdálenost mezi vámi a kandidátem v kilometrech a také prověří shodu jazyků komunikace.
+                    </p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="relative z-10 border-t border-gold-main/20 py-8 bg-black">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-gray-500">
+            <div>© 2026 DUONERA Private Syndicate. Všechna práva vyhrazena.</div>
+            <div class="flex gap-6">
+                <a href="#" class="hover:text-gold-main">Ochrana soukromí</a>
+                <a href="#" class="hover:text-gold-main">Podmínky NDA</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Vetting Modal Form (Unified Global City Search + Native/Additional Languages) -->
     <div id="vettingModal" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-2xl flex justify-center items-center opacity-0 hidden transition-opacity duration-300 p-4">
         <div class="glass-card max-w-xl w-full p-8 rounded-3xl border-gold-main/50 relative">
             
@@ -241,46 +389,77 @@
             </button>
 
             <div class="mb-6 text-center">
-                <span class="text-[10px] text-gold-main uppercase tracking-[0.25em] font-bold">Быстрая заявка</span>
-                <h3 class="font-serif text-2xl text-gold-light font-bold mt-1">Получить персональный подбор</h3>
+                <span class="text-[10px] text-gold-main uppercase tracking-[0.25em] font-bold">Registrační Protokol</span>
+                <h3 class="font-serif text-2xl text-gold-light font-bold mt-1">Žádost o prověření profilu</h3>
             </div>
 
             <form onsubmit="handleFormSubmit(event)" class="space-y-4">
                 <div>
-                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Ваше имя или псевдоним</label>
-                    <input type="text" required placeholder="например: Виктор или Елена" class="w-full bg-black/80 border border-gold-main/30 rounded-xl p-3.5 text-xs text-white outline-none focus:border-gold-main">
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Jméno a Titul</label>
+                    <input type="text" required placeholder="например: Ing. Viktor Sterling" class="w-full bg-black/80 border border-gold-main/30 rounded-xl p-3.5 text-xs text-white outline-none focus:border-gold-main">
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Родной язык</label>
+                        <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Rodný jazyk</label>
                         <select class="w-full bg-black/80 border border-gold-main/30 rounded-xl p-3.5 text-xs text-white outline-none focus:border-gold-main">
-                            <option value="cs">🇨🇿 Чешский</option>
-                            <option value="de">🇩🇪 Немецкий</option>
-                            <option value="en">🇬🇧 Английский</option>
+                            <option value="cs">🇨🇿 Čeština</option>
+                            <option value="de">🇩🇪 Deutsch</option>
+                            <option value="en">🇬🇧 English</option>
                             <option value="ru">🇷🇺 Русский</option>
-                            <option value="ua">🇺🇦 Украинский</option>
+                            <option value="ua">🇺🇦 Українська</option>
+                            <option value="it">🇮🇹 Italiano</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Ваш Город и Страна (Любой город)</label>
-                        <input type="text" required placeholder="например: Berlin, Praha, München..." class="w-full bg-black/80 border border-gold-main/30 rounded-xl p-3.5 text-xs text-white outline-none focus:border-gold-main">
+                        <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Další jazyky komunikace</label>
+                        <input type="text" placeholder="например: EN (Fluent), DE" class="w-full bg-black/80 border border-gold-main/30 rounded-xl p-3.5 text-xs text-white outline-none focus:border-gold-main">
                     </div>
                 </div>
 
+                <!-- Unified Global City Search -->
                 <div>
-                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Контакт для связи (Telegram / WhatsApp / Phone)</label>
-                    <input type="text" required placeholder="@username или +420..." class="w-full bg-black/80 border border-gold-main/30 rounded-xl p-3.5 text-xs text-white outline-none focus:border-gold-main">
+                    <div class="flex justify-between items-center mb-1.5">
+                        <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest">Místo pobytu (Země a Město)</label>
+                        <button type="button" onclick="detectGPS()" class="text-[9px] text-gold-main hover:underline">
+                            <i class="fa-solid fa-location-crosshairs mr-1"></i> Určit GPS
+                        </button>
+                    </div>
+                    <input type="text" required list="globalCities" placeholder="Zadejte jakékoliv město (např. Berlin, Praha, New York...)" class="w-full bg-black/80 border border-gold-main/30 rounded-xl p-3.5 text-xs text-white outline-none focus:border-gold-main">
+                    <datalist id="globalCities">
+                        <option value="Praha, Česko"></option>
+                        <option value="Brno, Česko"></option>
+                        <option value="Berlin, Německo"></option>
+                        <option value="München, Německo"></option>
+                        <option value="Frankfurt, Německo"></option>
+                        <option value="Wien, Rakousko"></option>
+                        <option value="Zürich, Švýcarsko"></option>
+                        <option value="Milano, Itálie"></option>
+                        <option value="Roma, Itálie"></option>
+                        <option value="Monaco, Mónaco"></option>
+                        <option value="Dubai, ОАЭ"></option>
+                        <option value="New York, США"></option>
+                    </datalist>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Časté cesty / letenky (Opcionální)</label>
+                    <input type="text" placeholder="например: Милан, Дубай, Нью-Йорк" class="w-full bg-black/80 border border-gold-main/30 rounded-xl p-3.5 text-xs text-white outline-none focus:border-gold-main">
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Kontakt (Telegram / WhatsApp / Telefon)</label>
+                    <input type="text" required placeholder="@username nebo +420..." class="w-full bg-black/80 border border-gold-main/30 rounded-xl p-3.5 text-xs text-white outline-none focus:border-gold-main">
                 </div>
 
                 <button type="submit" class="w-full mt-4 py-4 bg-gradient-to-r from-gold-light via-gold-main to-gold-dark text-black font-bold text-xs uppercase tracking-[0.2em] rounded-full shadow-lg hover:brightness-125 transition-all">
-                    Подать заявку куратору
+                    Odeslat k prověření
                 </button>
             </form>
         </div>
     </div>
 
-    <!-- Background Canvas & Logic -->
+    <!-- Script Engine -->
     <script>
         const canvas = document.getElementById('bgCanvas');
         const ctx = canvas.getContext('2d');
@@ -297,7 +476,7 @@
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 1.5 + 0.2;
+                this.size = Math.random() * 1.6 + 0.2;
                 this.speedY = Math.random() * -0.3 - 0.1;
                 this.opacity = Math.random() * 0.4 + 0.2;
             }
@@ -315,13 +494,63 @@
                 ctx.fill();
             }
         }
-        for (let i = 0; i < 60; i++) particles.push(new Particle());
+        for (let i = 0; i < 65; i++) particles.push(new Particle());
         function animateCanvas() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             particles.forEach(p => { p.update(); p.draw(); });
             requestAnimationFrame(animateCanvas);
         }
         animateCanvas();
+
+        const translations = {
+            cs: {
+                nav_candidates: "Kandidáti", nav_how: "Jak to funguje", nav_venues: "VIP Lokace", nav_faq: "Časté Dotazy",
+                btn_hero_apply: "Vstup do klubu", hero_badge: "Privátní Syndikát • 100% Verifikované Profily",
+                hero_title: "Seznamování vysoké úrovně bez veřejných profilů",
+                hero_quote: "„Propojujeme úspěšné muže a inspirativní ženy. Vyberte si kandidáta podle jazyka a lokality nebo požádejte o osobní podbor.“",
+                btn_open_catalog: "Otevřít privátní katalog a sejít se"
+            },
+            de: {
+                nav_candidates: "Kandidaten", nav_how: "Wie es funktioniert", nav_venues: "VIP-Orte", nav_faq: "FAQ",
+                btn_hero_apply: "Beitreten", hero_badge: "Privates Syndikat • 100% Verifizierte Profile",
+                hero_title: "Gehobenes Matchmaking ohne öffentliche Profile",
+                hero_quote: "„Wir verbinden erfolgreiche Männer und inspirierende Frauen. Wählen Sie Kandidaten nach Sprache und Wohnort.“",
+                btn_open_catalog: "Privaten Katalog öffnen"
+            },
+            en: {
+                nav_candidates: "Candidates", nav_how: "How it works", nav_venues: "VIP Venues", nav_faq: "FAQ",
+                btn_hero_apply: "Join Club", hero_badge: "Private Syndicate • 100% Verified Profiles",
+                hero_title: "High-End Dating Without Public Profiles",
+                hero_quote: "“Connecting successful men and inspiring women. Match candidates by language and location.”",
+                btn_open_catalog: "Open Private Catalog & Meet"
+            },
+            ru: {
+                nav_candidates: "Кандидаты", nav_how: "Как это работает", nav_venues: "VIP Локации", nav_faq: "Частые вопросы",
+                btn_hero_apply: "Вступить в клуб", hero_badge: "Закрытый Клуб • 100% Верифицированные Профили",
+                hero_title: "Знакомства высокого класса без публичных анкет",
+                hero_quote: "«Мы соединяем успешных мужчин и вдохновляющих женщин. Выбирайте кандидатов по языку и локации.»",
+                btn_open_catalog: "Открыть закрытый каталог и встретиться"
+            },
+            ua: {
+                nav_candidates: "Кандидати", nav_how: "Як це працює", nav_venues: "VIP Локації", nav_faq: "Часті питання",
+                btn_hero_apply: "Вступити в клуб", hero_badge: "Закритий Клуб • 100% Верифіковані Профілі",
+                hero_title: "Знайомства високого класу без публічних анкет",
+                hero_quote: "«Ми поєднуємо успішних чоловіків та натхненних жінок. Обирайте кандидатів за мовою та локацією.»",
+                btn_open_catalog: "Відкрити закритий каталог і зустрітися"
+            }
+        };
+
+        function setLanguage(lang) {
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            const btn = document.getElementById(`lang-${lang}`);
+            if (btn) btn.classList.add('active');
+            const dict = translations[lang];
+            if (!dict) return;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key]) el.innerHTML = dict[key];
+            });
+        }
 
         function openVettingModal() {
             const modal = document.getElementById('vettingModal');
@@ -333,15 +562,15 @@
             modal.classList.add('opacity-0');
             setTimeout(() => modal.classList.add('hidden'), 300);
         }
+        function detectGPS() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(() => alert("GPS параметры определены."));
+            }
+        }
         function handleFormSubmit(e) {
             e.preventDefault();
-            alert("Заявка успешно принята! Куратор свяжется с вами в ближайшее время.");
+            alert("Žádost byla úspěšně odeslána k prověření.");
             closeVettingModal();
-        }
-        function setLanguage(lang) {
-            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-            const btn = document.getElementById(`lang-${lang}`);
-            if (btn) btn.classList.add('active');
         }
     </script>
 </body>
