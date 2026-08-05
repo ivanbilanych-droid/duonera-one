@@ -10,11 +10,11 @@ const copy={
   en:{eyebrow:'PRIVATE SERIOUS DATING',titleOne:'A meeting does not begin on a screen.',titleTwo:'It starts with a person.',lead:'DUONERA selects a few people near you who want the same thing: a serious relationship and a real meeting.',radius:'Distance',preparing:'PRIVATE SELECTION',people:'suitable people',hidden:'Your profile is never public',cta:'Start my selection',micro:'Free · discreet · 1 minute',mutual:'MUTUAL CHOICE',meeting:'REAL MEETING',entry:'WE START NEAR YOU',question:'Who would you like to meet?',iAm:'I am',looking:'Looking for',woman:'Woman',man:'Man',womanAcc:'A woman',manAcc:'A man',age:'Age',city:'City',continue:'Continue',back:'Back',email:'Email',consent:'I agree to data processing for registration and private DUONERA selections.',privacyLink:'Privacy',submit:'Create private profile',privacy:'Your details are never public.',sending:'Saving securely…',error:'We could not save your registration. Check your connection and try again.'}
 };
 
-Object.assign(copy.cs,{login:'Přihlásit'});
-Object.assign(copy.de,{login:'Anmelden'});
-Object.assign(copy.pl,{login:'Zaloguj się'});
-Object.assign(copy.sk,{login:'Prihlásiť'});
-Object.assign(copy.en,{login:'Sign in'});
+Object.assign(copy.cs,{login:'Přihlásit',cookieText:'Pomozte nám měřit, zda DUONERA funguje. Reklamní měření spustíme jen s vaším souhlasem.',cookieMore:'Více informací',cookieReject:'Jen nutné',cookieAccept:'Povolit měření'});
+Object.assign(copy.de,{login:'Anmelden',cookieText:'Helfen Sie uns zu messen, ob DUONERA funktioniert. Werbemessung startet nur mit Ihrer Zustimmung.',cookieMore:'Mehr erfahren',cookieReject:'Nur erforderlich',cookieAccept:'Messung erlauben'});
+Object.assign(copy.pl,{login:'Zaloguj się',cookieText:'Pomóż nam mierzyć skuteczność DUONERA. Pomiar reklam uruchomimy tylko za Twoją zgodą.',cookieMore:'Więcej informacji',cookieReject:'Tylko niezbędne',cookieAccept:'Zezwól na pomiar'});
+Object.assign(copy.sk,{login:'Prihlásiť',cookieText:'Pomôžte nám merať, či DUONERA funguje. Meranie reklamy spustíme iba s vaším súhlasom.',cookieMore:'Viac informácií',cookieReject:'Iba nevyhnutné',cookieAccept:'Povoliť meranie'});
+Object.assign(copy.en,{login:'Sign in',cookieText:'Help us measure whether DUONERA works. Advertising measurement starts only with your consent.',cookieMore:'Learn more',cookieReject:'Essential only',cookieAccept:'Allow measurement'});
 
 const params=new URLSearchParams(location.search);
 const country=(params.get('country')||'').toUpperCase();
@@ -29,6 +29,7 @@ const form=document.querySelector('.register-form');
 const toast=document.querySelector('.toast');
 const languageButton=document.querySelector('.lang-pill');
 const languageMenu=document.querySelector('.language-menu');
+const trackingConsent=document.querySelector('.tracking-consent');
 
 function updateCity(){
   document.querySelectorAll('[data-city]').forEach(element=>element.textContent=city);
@@ -62,6 +63,27 @@ function showError(message){toast.textContent=message;toast.classList.add('show'
 
 applyLocale(current);
 updateDistance(distance);
+
+try{
+  if(!localStorage.getItem('duoneraMarketingConsent')) trackingConsent.hidden=false;
+}catch(error){trackingConsent.hidden=false}
+
+trackingConsent.querySelector('.tracking-accept').addEventListener('click',()=>{
+  try{
+    localStorage.setItem('duoneraAnalyticsConsent','granted');
+    localStorage.setItem('duoneraMarketingConsent','granted');
+  }catch(error){}
+  if(typeof window.gtag==='function') window.gtag('consent','update',{analytics_storage:'granted',ad_storage:'granted',ad_user_data:'granted',ad_personalization:'granted'});
+  if(typeof window.duoneraLoadMetaPixel==='function') window.duoneraLoadMetaPixel();
+  trackingConsent.hidden=true;
+});
+trackingConsent.querySelector('.tracking-reject').addEventListener('click',()=>{
+  try{
+    localStorage.setItem('duoneraAnalyticsConsent','denied');
+    localStorage.setItem('duoneraMarketingConsent','denied');
+  }catch(error){}
+  trackingConsent.hidden=true;
+});
 
 document.querySelectorAll('[data-distance]').forEach(button=>button.addEventListener('click',()=>updateDistance(Number(button.dataset.distance))));
 languageButton.addEventListener('click',()=>{const open=languageMenu.hidden;languageMenu.hidden=!open;languageButton.setAttribute('aria-expanded',String(open))});
@@ -106,7 +128,10 @@ form.addEventListener('submit',async event=>{
       localStorage.setItem('duonera-short-registration',JSON.stringify(Object.fromEntries(data.entries())));
       localStorage.setItem('duonera-entry-context',JSON.stringify({country,lang:current,city:payload.city,distance,utm_source:params.get('utm_source')||'',utm_campaign:params.get('utm_campaign')||''}));
     }catch(error){}
-    if(typeof window.fbq==='function') window.fbq('track','Lead',{content_name:'orbit_short_registration'});
+    if(typeof window.fbq==='function'){
+      window.fbq('track','Lead',{content_name:'orbit_short_registration'});
+      window.fbq('track','CompleteRegistration',{content_name:'orbit_short_registration'});
+    }
     if(typeof window.gtag==='function'){
       window.gtag('event','sign_up',{method:'duonera_short_registration'});
       window.gtag('event','generate_lead',{lead_source:'homepage_short_registration'});
@@ -123,4 +148,4 @@ form.addEventListener('submit',async event=>{
   }
 });
 
-if('serviceWorker'in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/service-worker.js?v=33').catch(()=>{}))}
+if('serviceWorker'in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/service-worker.js?v=34').catch(()=>{}))}
