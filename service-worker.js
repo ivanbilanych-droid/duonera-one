@@ -1,10 +1,10 @@
-const CACHE_NAME = 'duonera-app-v31';
+const CACHE_NAME = 'duonera-app-v32';
 const CORE_FILES = [
   '/',
   '/index.html',
   '/manifest.webmanifest?v=3',
-  '/duonera-europe.css?v=20260805e',
-  '/duonera-europe.js?v=20260805e',
+  '/duonera-europe.css?v=20260805f',
+  '/duonera-europe.js?v=20260805f',
   '/assets/duonera-hero-europe-v1.webp?v=20260805c',
   '/assets/favicon.svg',
   '/assets/duonera-avatar.png',
