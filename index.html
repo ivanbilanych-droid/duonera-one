@@ -155,7 +155,6 @@
                 
                 <!-- Left Column Text -->
                 <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
-                    
                     <div class="inline-flex flex-wrap items-center justify-center lg:justify-start gap-3 text-[11px] tracking-[0.2em] text-gold-main uppercase">
                         <span class="bg-gold-main/10 border border-gold-main/40 px-4 py-1.5 rounded-full flex items-center gap-2 backdrop-blur-md" data-i18n="hero_badge_discrete">
                             <i class="fa-solid fa-shield-halved text-gold-main"></i> 100% Diskrétní seznamování pro náročné
@@ -181,10 +180,9 @@
                     </div>
                 </div>
 
-                <!-- Right Column Rich Interactive Card -->
+                <!-- Right Column Card -->
                 <div class="lg:col-span-5 relative">
                     <div class="glass-card p-8 rounded-3xl border border-gold-main/40 relative overflow-hidden group hover:border-gold-main transition-all duration-500">
-                        
                         <div class="flex justify-between items-center mb-6 pb-4 border-b border-gold-main/20">
                             <div class="flex items-center gap-3">
                                 <div class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></div>
@@ -193,7 +191,6 @@
                             <span class="text-[10px] text-gray-400 font-mono">ID: 884-VIP</span>
                         </div>
 
-                        <!-- Card Previews -->
                         <div class="space-y-4 mb-6">
                             <div class="p-3.5 bg-black/60 rounded-2xl border border-white/5 flex items-center justify-between">
                                 <div class="flex items-center gap-3">
@@ -235,6 +232,156 @@
             </div>
         </div>
     </section>
+
+    <!-- SECTION: CALCULATOR / TEST SHODY -->
+    <section id="kalkulacka" class="relative z-10 py-20 border-t border-gold-main/20 bg-black/40">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-gold-main">Algoritmus Shody</span>
+                <h2 class="font-serif text-3xl sm:text-4xl text-white font-bold mt-2">Spočítejte si pravděpodobnost ideálního partnera</h2>
+            </div>
+
+            <div class="glass-card p-8 sm:p-12 rounded-3xl space-y-8">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                    <div>
+                        <label class="block text-[10px] text-gray-400 uppercase tracking-widest mb-2">Váš věk</label>
+                        <input type="number" id="calcAge" value="35" class="w-full bg-black/80 border border-gold-main/30 rounded-xl p-3 text-sm text-white outline-none focus:border-gold-main">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] text-gray-400 uppercase tracking-widest mb-2">Preferovaná lokalita</label>
+                        <select id="calcGeo" class="w-full bg-black/80 border border-gold-main/30 rounded-xl p-3 text-sm text-white outline-none focus:border-gold-main">
+                            <option value="prague">Praha & Česko</option>
+                            <option value="germany">Německo / DE</option>
+                            <option value="international">Mezinárodní / EU</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] text-gray-400 uppercase tracking-widest mb-2">Životní styl</label>
+                        <select id="calcStyle" class="w-full bg-black/80 border border-gold-main/30 rounded-xl p-3 text-sm text-white outline-none focus:border-gold-main">
+                            <option value="business">Byznys & Kariéra</option>
+                            <option value="travel">Cestování & Svoboda</option>
+                            <option value="family">Rodina & Tradice</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="p-6 bg-black/80 border border-gold-main/40 rounded-2xl flex flex-col sm:flex-row justify-between items-center gap-4">
+                    <div>
+                        <span class="text-xs text-gray-400 uppercase tracking-wider block">Odhadovaný počet kompatibilních profilů:</span>
+                        <span id="calcResult" class="text-3xl font-serif font-bold text-gold-light">14 – 18 kandidátů</span>
+                    </div>
+                    <button onclick="openVettingModal()" class="bg-gold-main text-black font-bold text-xs uppercase tracking-widest px-8 py-3.5 rounded-full hover:bg-gold-light transition-all">
+                        Zobrazit profily
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: HOW IT WORKS / JAK TO FUNGUJE -->
+    <section id="jak-to-funguje" class="relative z-10 py-20 border-t border-gold-main/20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-gold-main">Diskrétní Proces</span>
+                <h2 class="font-serif text-3xl sm:text-5xl text-white font-bold mt-2">Jak probíhá seznamování v DUONERA</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="glass-card p-8 rounded-3xl relative">
+                    <span class="font-serif text-5xl font-bold text-gold-main/30 absolute top-6 right-6">01</span>
+                    <h3 class="font-serif text-xl text-gold-light font-bold mb-3">Verifikace & NDA</h3>
+                    <p class="text-xs text-gray-400 leading-relaxed">Každý zájemce projde osobním prověřením. Podpis NDA garantuje абсолютную mlčenlivost a ochranu soukromí.</p>
+                </div>
+
+                <div class="glass-card p-8 rounded-3xl relative">
+                    <span class="font-serif text-5xl font-bold text-gold-main/30 absolute top-6 right-6">02</span>
+                    <h3 class="font-serif text-xl text-gold-light font-bold mb-3">Osobní Matchmaking</h3>
+                    <p class="text-xs text-gray-400 leading-relaxed">Žádné veřejné profily. Náš куратор navrhne partnery přesně podle vašich jazykových и гео-преференций.</p>
+                </div>
+
+                <div class="glass-card p-8 rounded-3xl relative">
+                    <span class="font-serif text-5xl font-bold text-gold-main/30 absolute top-6 right-6">03</span>
+                    <h3 class="font-serif text-xl text-gold-light font-bold mb-3">Rande na klíč</h3>
+                    <p class="text-xs text-gray-400 leading-relaxed">Zorganizujeme první setkání v partnerském VIP podniku s rezervací stolu а полной приватностью.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: CONCIERGE VENUES / LOKACE -->
+    <section id="lokace" class="relative z-10 py-20 border-t border-gold-main/20 bg-black/40">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-gold-main">Партнерская сеть</span>
+                <h2 class="font-serif text-3xl sm:text-5xl text-white font-bold mt-2">Místa pro vaší první schůzku</h2>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
+                <div class="glass-card overflow-hidden rounded-3xl border border-gold-main/20">
+                    <div class="h-48 bg-gradient-to-t from-black to-gold-dark/30 flex items-center justify-center">
+                        <i class="fa-solid fa-champagne-glasses text-4xl text-gold-main"></i>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-serif text-lg text-white font-bold">VIP Salónky Praha</h4>
+                        <p class="text-xs text-gray-400 mt-2">Soukromé prostory v centru s garancí diskrétnosti.</p>
+                    </div>
+                </div>
+
+                <div class="glass-card overflow-hidden rounded-3xl border border-gold-main/20">
+                    <div class="h-48 bg-gradient-to-t from-black to-gold-dark/30 flex items-center justify-center">
+                        <i class="fa-solid fa-utensils text-4xl text-gold-main"></i>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-serif text-lg text-white font-bold">Michelin & Fine Dining</h4>
+                        <p class="text-xs text-gray-400 mt-2">Rezervace nejlepších stolů bez čekací lhůty.</p>
+                    </div>
+                </div>
+
+                <div class="glass-card overflow-hidden rounded-3xl border border-gold-main/20">
+                    <div class="h-48 bg-gradient-to-t from-black to-gold-dark/30 flex items-center justify-center">
+                        <i class="fa-solid fa-hotel text-4xl text-gold-main"></i>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-serif text-lg text-white font-bold">5* Boutique Hotely EU</h4>
+                        <p class="text-xs text-gray-400 mt-2">Партнерские локации в Милане, Мюнхене и Цюрихе.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: FAQ -->
+    <section id="faq" class="relative z-10 py-20 border-t border-gold-main/20">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-gold-main">Odpovědi na Dotazy</span>
+                <h2 class="font-serif text-3xl sm:text-4xl text-white font-bold mt-2">Časté Dotazy</h2>
+            </div>
+
+            <div class="space-y-4">
+                <div class="glass-card p-6 rounded-2xl">
+                    <h4 class="font-serif text-base text-gold-light font-bold mb-2">Jak je zajištěna má diskrétnost?</h4>
+                    <p class="text-xs text-gray-400 leading-relaxed">Vaše údaje и фотографии никогда не публикуются открыто. Доступ к ним имеет только ваш личный куратор.</p>
+                </div>
+
+                <div class="glass-card p-6 rounded-2xl">
+                    <h4 class="font-serif text-base text-gold-light font-bold mb-2">Что происходит после подачи заявки?</h4>
+                    <p class="text-xs text-gray-400 leading-relaxed">Куратор свяжется с вами в течение 24 часов для короткого интервью и верификации анкеты.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="relative z-10 border-t border-gold-main/20 py-8 bg-black">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-gray-500">
+            <div>© 2026 DUONERA Private Syndicate. Všechna práva vyhrazena.</div>
+            <div class="flex gap-6">
+                <a href="#" class="hover:text-gold-main">Ochrana soukromí</a>
+                <a href="#" class="hover:text-gold-main">Podmínky NDA</a>
+            </div>
+        </div>
+    </footer>
 
     <!-- Modal Form (Hidden) -->
     <div id="vettingModal" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-2xl flex justify-center items-center opacity-0 hidden transition-opacity duration-300 p-4">
@@ -431,7 +578,7 @@
             },
             ru: {
                 nav_calc: "Тест совпадения", nav_how: "Как это работает", nav_venues: "Локации Concierge", nav_pricing: "Членство", nav_faq: "Частые вопросы",
-                btn_hero_apply: "Вступить в клуб", hero_badge_discrete: "100% Конфиденциальные знакомства премиум-класса", hero_badge_status: "● Статус: Открыт прием заявок",
+                btn_hero_apply: "Вступить в клуб", hero_badge_discrete: "100% Конфиденциальные знакомства премиум-класса", hero_badge_status: "● Статус: Открыт прием заявка",
                 hero_title: "ИЩЕТЕ НАСТОЯЩЕЕ КАЧЕСТВО И ДИСКРЕТНОСТЬ?", hero_quote: "«DUONERA бережет ваше время. Мы соединяем успешных мужчин и вдохновляющих женщин без бесконечного свайпинга и без публичных профилей.»",
                 btn_hero_cta: "Запросить проверку профиля", puck_card_title: "Открыть Закрытый Каталог", wiz_step1_title: "Анкета кандидата",
                 wiz_name_label: "Имя и Титул", wiz_native_lang_label: "Родной язык", wiz_add_langs_label: "Дополнительные языки общения",
@@ -439,7 +586,7 @@
             },
             ua: {
                 nav_calc: "Тест сумісності", nav_how: "Як це працює", nav_venues: "Локації Concierge", nav_pricing: "Членство", nav_faq: "Часті питання",
-                btn_hero_apply: "Вступити в клуб", hero_badge_discrete: "100% Дискретні знайомства преміум-класу", hero_badge_status: "● Статус: Відкрито прийом заявок",
+                btn_hero_apply: "Вступити в клуб", hero_badge_discrete: "100% Дискретні знайомства преміум-класу", hero_badge_status: "● Статус: Відкрито прийом заявка",
                 hero_title: "ШУКАЄТЕ СПРАВЖНЮ ЯКІСТЬ ТА ДИСКРЕТНІСТЬ?", hero_quote: "«DUONERA береже ваш час. Ми поєднуємо успішних чоловіків та натхненних жінок без нескінченного свайпінгу та публічних профілів.»",
                 btn_hero_cta: "Подати запит на перевірку", puck_card_title: "Відкрити Закритий Каталог", wiz_step1_title: "Анкета кандидата",
                 wiz_name_label: "Ім'я та Титул", wiz_native_lang_label: "Рідна мова", wiz_add_langs_label: "Додаткові мови спілкування",
