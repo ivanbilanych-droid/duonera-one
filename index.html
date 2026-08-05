@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DUONERA — Privátní Seznamovací Syndikát</title>
+    <title>DUONERA — Private Syndicate</title>
 
-    <!-- Google Fonts & FontAwesome -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Montserrat:wght@200;300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -37,7 +36,7 @@
     <style>
         :root {
             --bg-deep: #030305;
-            --gold-gradient: linear-gradient(135deg, #fffbeb 0%, #fef08a 20%, #d4af37 55%, #997a15 85%, #423207 100%);
+            --gold-gradient: linear-gradient(135deg, #fffbeb 0%, #fef08a 25%, #d4af37 60%, #997a15 85%, #423207 100%);
             --border-gold: rgba(212, 175, 55, 0.35);
         }
 
@@ -63,15 +62,25 @@
         }
 
         .glass-card {
-            background: rgba(12, 12, 18, 0.82);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
+            background: rgba(14, 14, 22, 0.85);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
             border: 1px solid var(--border-gold);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.95);
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-glow-bg {
+            position: absolute;
+            width: 700px; height: 700px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+            top: -10%; left: 50%;
+            transform: translateX(-50%);
+            pointer-events: none;
+            z-index: 1;
         }
 
         .avatar-blur {
-            filter: blur(7px);
+            filter: blur(8px);
             transition: filter 0.4s ease;
         }
         .profile-card:hover .avatar-blur {
@@ -79,10 +88,10 @@
         }
 
         .lang-btn {
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.8);
             border: 1px solid rgba(212, 175, 55, 0.3);
             color: #9ca3af;
-            padding: 4px 10px;
+            padding: 5px 11px;
             border-radius: 9999px;
             font-size: 11px;
             font-weight: 600;
@@ -93,7 +102,7 @@
             border-color: #d4af37;
             background: rgba(212, 175, 55, 0.25);
             color: #fef08a;
-            box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 0 14px rgba(212, 175, 55, 0.4);
         }
 
         details summary::-webkit-details-marker { display:none; }
@@ -102,12 +111,13 @@
 <body class="relative min-h-screen flex flex-col justify-between">
 
     <canvas id="bgCanvas"></canvas>
+    <div class="hero-glow-bg"></div>
 
     <!-- Header Navigation -->
-    <header class="relative z-40 max-w-7xl mx-auto w-full px-6 py-6 flex justify-between items-center border-b border-gold-main/20 bg-black/50 backdrop-blur-md">
+    <header class="relative z-40 max-w-7xl mx-auto w-full px-6 py-6 flex justify-between items-center border-b border-gold-main/20 bg-black/60 backdrop-blur-xl">
         <a href="#" class="flex items-center gap-3.5 group">
-            <div class="w-10 h-10 rounded-full border border-gold-main flex items-center justify-center bg-black shadow-[0_0_15px_rgba(212,175,55,0.3)]">
-                <i class="fa-solid fa-crown text-gold-main text-sm"></i>
+            <div class="w-11 h-11 rounded-full border border-gold-main flex items-center justify-center bg-black shadow-[0_0_20px_rgba(212,175,55,0.4)]">
+                <i class="fa-solid fa-crown text-gold-main text-base"></i>
             </div>
             <div class="flex flex-col">
                 <span class="font-serif text-2xl tracking-[0.25em] gold-text-gradient font-bold leading-none">DUONERA</span>
@@ -125,7 +135,7 @@
 
         <!-- Languages & Primary Button -->
         <div class="flex items-center gap-3">
-            <div class="flex items-center gap-1 bg-black/80 p-1 rounded-full border border-gold-main/30">
+            <div class="flex items-center gap-1 bg-black/80 p-1 rounded-full border border-gold-main/40">
                 <button onclick="setLanguage('cs')" id="lang-cs" class="lang-btn active">🇨🇿 CS</button>
                 <button onclick="setLanguage('de')" id="lang-de" class="lang-btn">🇩🇪 DE</button>
                 <button onclick="setLanguage('en')" id="lang-en" class="lang-btn">🇬🇧 EN</button>
@@ -133,29 +143,103 @@
                 <button onclick="setLanguage('ua')" id="lang-ua" class="lang-btn">🇺🇦 UA</button>
             </div>
 
-            <button onclick="openVettingModal()" class="bg-gradient-to-r from-gold-light via-gold-main to-gold-dark text-black font-bold text-xs uppercase tracking-widest px-6 py-3 rounded-full shadow-lg hover:shadow-[0_0_25px_rgba(212,175,55,0.6)] transition-all transform hover:-translate-y-0.5" data-i18n="btn_hero_apply">
+            <button onclick="openVettingModal()" class="bg-gradient-to-r from-gold-light via-gold-main to-gold-dark text-black font-bold text-xs uppercase tracking-widest px-6 py-3.5 rounded-full shadow-lg hover:shadow-[0_0_30px_rgba(212,175,55,0.7)] transition-all transform hover:-translate-y-0.5" data-i18n="btn_hero_apply">
                 Vstup do klubu
             </button>
         </div>
     </header>
 
-    <!-- Hero Section: Members Live Showcase -->
-    <section id="kandidati" class="relative z-10 pt-10 pb-20">
+    <!-- Main Rich Hero Section -->
+    <section class="relative z-10 pt-12 pb-20 lg:pt-16 lg:pb-28">
         <div class="max-w-7xl mx-auto px-6">
-            
-            <div class="text-center max-w-3xl mx-auto space-y-4 mb-14">
-                <span class="bg-gold-main/10 border border-gold-main/40 text-gold-main text-[11px] font-bold tracking-[0.2em] px-4 py-1.5 rounded-full uppercase inline-block" data-i18n="hero_badge">
-                    Privátní Syndikát • 100% Verifikované Profily
-                </span>
-                <h1 class="font-serif text-4xl sm:text-6xl gold-text-gradient font-extrabold tracking-wide uppercase leading-tight" data-i18n="hero_title">
-                    Seznamování vysoké úrovně bez veřejných profilů
-                </h1>
-                <p class="font-garamond italic text-xl text-gray-300" data-i18n="hero_quote">
-                    „Propojujeme úspěšné muže a inspirativní ženy. Vyberte si kandidáta podle jazyka a lokality nebo požádejte o osobní подбор.“
-                </p>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Column Header -->
+                <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
+                    <div class="inline-flex flex-wrap items-center justify-center lg:justify-start gap-3 text-[11px] tracking-[0.2em] text-gold-main uppercase">
+                        <span class="bg-gold-main/10 border border-gold-main/40 px-4 py-1.5 rounded-full flex items-center gap-2 backdrop-blur-md" data-i18n="hero_badge">
+                            <i class="fa-solid fa-shield-halved text-gold-main"></i> Privátní Syndikát • 100% Verifikované Profily
+                        </span>
+                    </div>
+
+                    <h1 class="font-serif text-4xl sm:text-6xl lg:text-7xl gold-text-gradient font-extrabold tracking-wide uppercase leading-[1.1]" data-i18n="hero_title">
+                        Seznamování vysoké úrovně bez veřejných profilů
+                    </h1>
+
+                    <p class="font-garamond italic text-xl sm:text-2xl text-gray-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed border-l-2 border-gold-main/50 pl-5 py-1" data-i18n="hero_quote">
+                        „Propojujeme úspěšné muže a inspirativní ženy. Vyberte si kandidáta podle jazyka a lokality nebo požádejte o osobní подбор.“
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-5 justify-center lg:justify-start items-center pt-2">
+                        <button onclick="openVettingModal()" class="w-full sm:w-auto bg-gradient-to-r from-gold-light via-gold-main to-gold-dark text-black font-bold text-xs tracking-[0.25em] uppercase px-10 py-5 rounded-full shadow-[0_0_35px_rgba(212,175,55,0.4)] hover:shadow-[0_0_55px_rgba(212,175,55,0.8)] transition-all transform hover:-translate-y-1 flex justify-center items-center gap-3">
+                            <span data-i18n="btn_hero_cta">Požádat o prověření profilu</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Column Interactive Sanctuary Pass -->
+                <div class="lg:col-span-5 relative">
+                    <div class="glass-card p-8 rounded-3xl border border-gold-main/50 relative overflow-hidden group hover:border-gold-main transition-all duration-500">
+                        <div class="flex justify-between items-center mb-6 pb-4 border-b border-gold-main/20">
+                            <div class="flex items-center gap-3">
+                                <div class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></div>
+                                <span class="text-[10px] font-bold tracking-[0.2em] text-gold-light uppercase" data-i18n="pass_status">Sanctuary Live Feed</span>
+                            </div>
+                            <span class="text-[10px] text-gray-400 font-mono">ID: VIP-2026</span>
+                        </div>
+
+                        <!-- Live Match Mini Stream -->
+                        <div class="space-y-4 mb-6">
+                            <div class="p-3.5 bg-black/60 rounded-2xl border border-white/5 flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-gold-dark to-gold-light p-0.5">
+                                        <div class="w-full h-full rounded-full bg-black flex items-center justify-center">
+                                            <i class="fa-solid fa-user-lock text-gold-main text-xs"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs font-bold text-white">Elena M., 26</div>
+                                        <div class="text-[10px] text-gray-400">📍 Berlin • 🇮🇹 EN, IT, DE</div>
+                                    </div>
+                                </div>
+                                <span class="text-[9px] bg-gold-main/20 border border-gold-main/40 text-gold-light px-2.5 py-1 rounded-full font-bold">99% Match</span>
+                            </div>
+
+                            <div class="p-3.5 bg-black/60 rounded-2xl border border-white/5 flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-gold-dark to-gold-light p-0.5">
+                                        <div class="w-full h-full rounded-full bg-black flex items-center justify-center">
+                                            <i class="fa-solid fa-user-lock text-gold-main text-xs"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs font-bold text-white">Alexander K., 38</div>
+                                        <div class="text-[10px] text-gray-400">📍 Praha • ✈️ Dubai, NYC</div>
+                                    </div>
+                                </div>
+                                <span class="text-[9px] bg-gold-main/20 border border-gold-main/40 text-gold-light px-2.5 py-1 rounded-full font-bold">96% Match</span>
+                            </div>
+                        </div>
+
+                        <button onclick="openVettingModal()" class="w-full py-4 bg-black/80 border border-gold-main/40 rounded-2xl text-xs font-bold text-gold-light uppercase tracking-widest hover:bg-gold-main hover:text-black transition-all flex justify-center items-center gap-2">
+                            <i class="fa-solid fa-key"></i> <span data-i18n="btn_open_catalog">Otevřít privátní katalog</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: MEMBER CARDS SHOWCASE -->
+    <section id="kandidati" class="relative z-10 py-16 border-t border-gold-main/20 bg-black/40">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-gold-main" data-i18n="section_cand_sub">Klubová Витрина</span>
+                <h2 class="font-serif text-3xl sm:text-5xl text-white font-bold mt-2" data-i18n="section_cand_title">Выбирайте пару по языкам и гео-локации</h2>
             </div>
 
-            <!-- Profile Cards Showcase -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
                 
                 <!-- Card 1 -->
@@ -163,8 +247,8 @@
                     <div class="h-72 relative overflow-hidden bg-gray-900">
                         <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" alt="Candidate" class="w-full h-full object-cover avatar-blur">
                         <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
-                        <span class="absolute top-4 right-4 bg-emerald-500/20 border border-emerald-400 text-emerald-300 text-[9px] font-bold px-3 py-1 rounded-full uppercase backdrop-blur-md">
-                            ● Aktivní nyní
+                        <span class="absolute top-4 right-4 bg-emerald-500/20 border border-emerald-400 text-emerald-300 text-[9px] font-bold px-3 py-1 rounded-full uppercase backdrop-blur-md" data-i18n="status_online">
+                            ● В сети
                         </span>
                     </div>
                     <div class="p-5 space-y-2">
@@ -172,9 +256,9 @@
                             <h3 class="font-serif text-lg text-gold-light font-bold">Elena M., 26</h3>
                             <span class="text-[10px] text-gold-main font-bold">99% Shoda</span>
                         </div>
-                        <p class="text-xs text-gray-400">📍 Německo, Berlín • 🚗 15 km</p>
-                        <p class="text-[10px] text-gray-300 font-semibold">🗣 Jazyky: 🇮🇹 IT, 🇬🇧 EN, 🇩🇪 DE</p>
-                        <p class="text-[11px] text-gray-300 italic font-garamond border-t border-white/10 pt-2">«Часто бываю в Милане и Праге. Архитектура, бизнес и путешествия.»</p>
+                        <p class="text-xs text-gray-400" data-i18n="c1_loc">📍 Германия, Берлин • 🚗 15 км</p>
+                        <p class="text-[10px] text-gray-300 font-semibold">🗣 🇮🇹 IT, 🇬🇧 EN, 🇩🇪 DE</p>
+                        <p class="text-[11px] text-gray-300 italic font-garamond border-t border-white/10 pt-2" data-i18n="c1_desc">«Часто бываю в Милане и Праге. Дизайн и архитектура.»</p>
                     </div>
                 </div>
 
@@ -192,9 +276,9 @@
                             <h3 class="font-serif text-lg text-gold-light font-bold">Alexander K., 38</h3>
                             <span class="text-[10px] text-gold-main font-bold">96% Shoda</span>
                         </div>
-                        <p class="text-xs text-gray-400">📍 Česko, Praha • ✈️ Cesty: ОАЭ, США</p>
-                        <p class="text-[10px] text-gray-300 font-semibold">🗣 Jazyky: 🇨🇿 CS, 🇬🇧 EN, 🇩🇪 DE</p>
-                        <p class="text-[11px] text-gray-300 italic font-garamond border-t border-white/10 pt-2">«Инвестиции, парусный спорт, ценю интеллектуальное общение.»</p>
+                        <p class="text-xs text-gray-400" data-i18n="c2_loc">📍 Чехия, Прага • ✈️ Перелеты: Дубай</p>
+                        <p class="text-[10px] text-gray-300 font-semibold">🗣 🇨🇿 CS, 🇬🇧 EN, 🇩🇪 DE</p>
+                        <p class="text-[11px] text-gray-300 italic font-garamond border-t border-white/10 pt-2" data-i18n="c2_desc">«Инвестиции, парусный спорт, ценю интеллект и искренность.»</p>
                     </div>
                 </div>
 
@@ -203,8 +287,8 @@
                     <div class="h-72 relative overflow-hidden bg-gray-900">
                         <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80" alt="Candidate" class="w-full h-full object-cover avatar-blur">
                         <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
-                        <span class="absolute top-4 right-4 bg-emerald-500/20 border border-emerald-400 text-emerald-300 text-[9px] font-bold px-3 py-1 rounded-full uppercase backdrop-blur-md">
-                            ● Aktivní nyní
+                        <span class="absolute top-4 right-4 bg-emerald-500/20 border border-emerald-400 text-emerald-300 text-[9px] font-bold px-3 py-1 rounded-full uppercase backdrop-blur-md" data-i18n="status_online">
+                            ● В сети
                         </span>
                     </div>
                     <div class="p-5 space-y-2">
@@ -212,9 +296,9 @@
                             <h3 class="font-serif text-lg text-gold-light font-bold">Victoria S., 29</h3>
                             <span class="text-[10px] text-gold-main font-bold">94% Shoda</span>
                         </div>
-                        <p class="text-xs text-gray-400">📍 Itálie, Milán • 🚗 8 km od centrum</p>
-                        <p class="text-[10px] text-gray-300 font-semibold">🗣 Jazyky: 🇮🇹 IT, 🇬🇧 EN, 🇷🇺 RU</p>
-                        <p class="text-[11px] text-gray-300 italic font-garamond border-t border-white/10 pt-2">«Искусство, дизайн, частые визиты в Швейцарию и Германию.»</p>
+                        <p class="text-xs text-gray-400" data-i18n="c3_loc">📍 Италия, Милан • 🚗 8 км</p>
+                        <p class="text-[10px] text-gray-300 font-semibold">🗣 🇮🇹 IT, 🇬🇧 EN, 🇷🇺 RU</p>
+                        <p class="text-[11px] text-gray-300 italic font-garamond border-t border-white/10 pt-2" data-i18n="c3_desc">«Искусство, мода, частые визиты в Швейцарию и Германию.»</p>
                     </div>
                 </div>
 
@@ -232,25 +316,18 @@
                             <h3 class="font-serif text-lg text-gold-light font-bold">Maximilian H., 42</h3>
                             <span class="text-[10px] text-gold-main font-bold">98% Shoda</span>
                         </div>
-                        <p class="text-xs text-gray-400">📍 Švýcarsko, Curych • ✈️ Cesty: Монако</p>
-                        <p class="text-[10px] text-gray-300 font-semibold">🗣 Jazyky: 🇩🇪 DE, 🇬🇧 EN, 🇫🇷 FR</p>
-                        <p class="text-[11px] text-gray-300 italic font-garamond border-t border-white/10 pt-2">«Частный бизнес, автоспорт, классическая музыка и искусство.»</p>
+                        <p class="text-xs text-gray-400" data-i18n="c4_loc">📍 Швейцария, Цюрих • ✈️ Монако</p>
+                        <p class="text-[10px] text-gray-300 font-semibold">🗣 🇩🇪 DE, 🇬🇧 EN, 🇫🇷 FR</p>
+                        <p class="text-[11px] text-gray-300 italic font-garamond border-t border-white/10 pt-2" data-i18n="c4_desc">«Частный бизнес, автоспорт, классическая музыка и культура.»</p>
                     </div>
                 </div>
 
-            </div>
-
-            <!-- Big Call to Action -->
-            <div class="text-center">
-                <button onclick="openVettingModal()" class="bg-gradient-to-r from-gold-light via-gold-main to-gold-dark text-black font-bold text-xs tracking-[0.25em] uppercase px-12 py-5 rounded-full shadow-[0_0_40px_rgba(212,175,55,0.5)] hover:shadow-[0_0_60px_rgba(212,175,55,0.8)] transition-all transform hover:-translate-y-1">
-                    <span data-i18n="btn_open_catalog">Otevřít privátní katalog a sejít se</span> <i class="fa-solid fa-arrow-right ml-2"></i>
-                </button>
             </div>
         </div>
     </section>
 
     <!-- SECTION: HOW IT WORKS -->
-    <section id="jak-to-funguje" class="relative z-10 py-20 border-t border-gold-main/20 bg-black/40">
+    <section id="jak-to-funguje" class="relative z-10 py-20 border-t border-gold-main/20">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-16">
                 <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-gold-main">Diskrétní Proces</span>
@@ -279,8 +356,8 @@
         </div>
     </section>
 
-    <!-- SECTION: CONCIERGE VENUES WITH PHOTOS -->
-    <section id="lokace" class="relative z-10 py-20 border-t border-gold-main/20">
+    <!-- SECTION: VIP VENUES WITH PHOTOS -->
+    <section id="lokace" class="relative z-10 py-20 border-t border-gold-main/20 bg-black/40">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-16">
                 <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-gold-main">Partnerství & Privátní Prostory</span>
@@ -328,7 +405,7 @@
     </section>
 
     <!-- SECTION: FAQ -->
-    <section id="faq" class="relative z-10 py-20 border-t border-gold-main/20 bg-black/40">
+    <section id="faq" class="relative z-10 py-20 border-t border-gold-main/20">
         <div class="max-w-4xl mx-auto px-6">
             <div class="text-center mb-16">
                 <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-gold-main">Odpovědi na Dotazy</span>
@@ -380,7 +457,7 @@
         </div>
     </footer>
 
-    <!-- Vetting Modal Form (Unified Global City Search + Native/Additional Languages) -->
+    <!-- Vetting Modal Form -->
     <div id="vettingModal" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-2xl flex justify-center items-center opacity-0 hidden transition-opacity duration-300 p-4">
         <div class="glass-card max-w-xl w-full p-8 rounded-3xl border-gold-main/50 relative">
             
@@ -417,7 +494,7 @@
                     </div>
                 </div>
 
-                <!-- Unified Global City Search -->
+                <!-- Global City Autocomplete -->
                 <div>
                     <div class="flex justify-between items-center mb-1.5">
                         <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest">Místo pobytu (Země a Město)</label>
@@ -508,35 +585,60 @@
                 btn_hero_apply: "Vstup do klubu", hero_badge: "Privátní Syndikát • 100% Verifikované Profily",
                 hero_title: "Seznamování vysoké úrovně bez veřejných profilů",
                 hero_quote: "„Propojujeme úspěšné muže a inspirativní ženy. Vyberte si kandidáta podle jazyka a lokality nebo požádejte o osobní podbor.“",
-                btn_open_catalog: "Otevřít privátní katalog a sejít se"
+                btn_hero_cta: "Požádat o prověření profilu", pass_status: "Sanctuary Live Feed", btn_open_catalog: "Otevřít privátní katalog",
+                section_cand_sub: "Klubová Витрина", section_cand_title: "Выбирайте пару по языкам и гео-локации",
+                status_online: "● Aktivní nyní", c1_loc: "📍 Německo, Berlín • 🚗 15 km", c1_desc: "«Často bývám v Miláně a Praze. Design a architektura.»",
+                c2_loc: "📍 Česko, Praha • ✈️ Cesty: Dubaj", c2_desc: "«Investice, jachting, cením si inteligence a upřímnosti.»",
+                c3_loc: "📍 Itálie, Milán • 🚗 8 km", c3_desc: "«Umění, móda, časté návštěvy Švýcarska a Německa.»",
+                c4_loc: "📍 Švýcarsko, Curych • ✈️ Monako", c4_desc: "«Soukromý byznys, motorsport, klasická hudba a kultura.»"
             },
             de: {
                 nav_candidates: "Kandidaten", nav_how: "Wie es funktioniert", nav_venues: "VIP-Orte", nav_faq: "FAQ",
                 btn_hero_apply: "Beitreten", hero_badge: "Privates Syndikat • 100% Verifizierte Profile",
                 hero_title: "Gehobenes Matchmaking ohne öffentliche Profile",
                 hero_quote: "„Wir verbinden erfolgreiche Männer und inspirierende Frauen. Wählen Sie Kandidaten nach Sprache und Wohnort.“",
-                btn_open_catalog: "Privaten Katalog öffnen"
+                btn_hero_cta: "Profilprüfung anfordern", pass_status: "Sanctuary Live Feed", btn_open_catalog: "Privaten Katalog öffnen",
+                section_cand_sub: "Klub-Showroom", section_cand_title: "Wählen Sie nach Sprache und Standort",
+                status_online: "● Jetzt online", c1_loc: "📍 Deutschland, Berlin • 🚗 15 km", c1_desc: "„Häufig in Mailand und Prag. Design und Architektur.“",
+                c2_loc: "📍 Tschechien, Prag • ✈️ Flüge: Dubai", c2_desc: "„Investitionen, Segeln, ich schätze Intelligenz und Ehrlichkeit.“",
+                c3_loc: "📍 Italien, Mailand • 🚗 8 km", c3_desc: "„Kunst, Mode, häufige Besuche in der Schweiz und Deutschland.“",
+                c4_loc: "📍 Schweiz, Zürich • ✈️ Monaco", c4_desc: "„Privatgeschäft, Motorsport, klassische Musik und Kultur.“"
             },
             en: {
                 nav_candidates: "Candidates", nav_how: "How it works", nav_venues: "VIP Venues", nav_faq: "FAQ",
                 btn_hero_apply: "Join Club", hero_badge: "Private Syndicate • 100% Verified Profiles",
                 hero_title: "High-End Dating Without Public Profiles",
                 hero_quote: "“Connecting successful men and inspiring women. Match candidates by language and location.”",
-                btn_open_catalog: "Open Private Catalog & Meet"
+                btn_hero_cta: "Request Profile Vetting", pass_status: "Sanctuary Live Feed", btn_open_catalog: "Open Private Catalog",
+                section_cand_sub: "Club Showcase", section_cand_title: "Choose by Language & Location",
+                status_online: "● Active Now", c1_loc: "📍 Germany, Berlin • 🚗 15 km", c1_desc: "“Frequently in Milan and Prague. Design & Architecture.”",
+                c2_loc: "📍 Czechia, Prague • ✈️ Travel: Dubai", c2_desc: "“Investments, sailing, value intelligence and honesty.”",
+                c3_loc: "📍 Italy, Milan • 🚗 8 km", c3_desc: "“Art, fashion, frequent trips to Switzerland and Germany.”",
+                c4_loc: "📍 Switzerland, Zurich • ✈️ Monaco", c4_desc: "“Private business, motorsport, classical music and culture.”"
             },
             ru: {
                 nav_candidates: "Кандидаты", nav_how: "Как это работает", nav_venues: "VIP Локации", nav_faq: "Частые вопросы",
                 btn_hero_apply: "Вступить в клуб", hero_badge: "Закрытый Клуб • 100% Верифицированные Профили",
                 hero_title: "Знакомства высокого класса без публичных анкет",
                 hero_quote: "«Мы соединяем успешных мужчин и вдохновляющих женщин. Выбирайте кандидатов по языку и локации.»",
-                btn_open_catalog: "Открыть закрытый каталог и встретиться"
+                btn_hero_cta: "Запросить проверку профиля", pass_status: "Sanctuary Live Feed", btn_open_catalog: "Открыть закрытый каталог",
+                section_cand_sub: "Витрина Клуба", section_cand_title: "Выбирайте пару по языкам и гео-локации",
+                status_online: "● В сети", c1_loc: "📍 Германия, Берлин • 🚗 15 км", c1_desc: "«Часто бываю в Милане и Праге. Дизайн и архитектура.»",
+                c2_loc: "📍 Чехия, Прага • ✈️ Перелеты: Дубай", c2_desc: "«Инвестиции, парусный спорт, ценю интеллект и искренность.»",
+                c3_loc: "📍 Италия, Милан • 🚗 8 км", c3_desc: "«Искусство, мода, частые визиты в Швейцарию и Германию.»",
+                c4_loc: "📍 Швейцария, Цюрих • ✈️ Монако", c4_desc: "«Частный бизнес, автоспорт, классическая музыка и культура.»"
             },
             ua: {
                 nav_candidates: "Кандидати", nav_how: "Як це працює", nav_venues: "VIP Локації", nav_faq: "Часті питання",
                 btn_hero_apply: "Вступити в клуб", hero_badge: "Закритий Клуб • 100% Верифіковані Профілі",
                 hero_title: "Знайомства високого класу без публічних анкет",
                 hero_quote: "«Ми поєднуємо успішних чоловіків та натхненних жінок. Обирайте кандидатів за мовою та локацією.»",
-                btn_open_catalog: "Відкрити закритий каталог і зустрітися"
+                btn_hero_cta: "Подати запит на перевірку", pass_status: "Sanctuary Live Feed", btn_open_catalog: "Відкрити закритий каталог",
+                section_cand_sub: "Вітрина Клубу", section_cand_title: "Обирайте пару за мовами та гео-локацією",
+                status_online: "● В мережі", c1_loc: "📍 Німеччина, Берлін • 🚗 15 км", c1_desc: "«Часто буваю в Мілані та Празі. Дизайн та архітектура.»",
+                c2_loc: "📍 Чехія, Прага • ✈️ Перельоти: Дубай", c2_desc: "«Інвестиції, вітрильний спорт, ціную інтелект та щирість.»",
+                c3_loc: "📍 Італія, Мілан • 🚗 8 км", c3_desc: "«Мистецтво, мода, часті візити до Швейцарії та Німеччини.»",
+                c4_loc: "📍 Швейцарія, Цюріх • ✈️ Монако", c4_desc: "«Приватний бізнес, автоспорт, класична музика та культура.»"
             }
         };
 
