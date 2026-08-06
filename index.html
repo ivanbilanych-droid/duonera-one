@@ -57,11 +57,11 @@
             <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-300">
                 <a href="#filosofie" class="hover:text-goldAccent transition-colors">Filosofie</a>
                 <a href="#clenove" class="hover:text-goldAccent transition-colors">Společenství</a>
-                <a href="#lokality" class="hover:text-goldAccent transition-colors">Lokality</a>
+                <a href="#registrace" class="hover:text-goldAccent transition-colors">Žádost o členství</a>
             </nav>
             <div>
                 <a href="#registrace" class="bg-gradient-to-r from-goldAccent to-[#c59b27] text-black font-semibold px-6 py-3 rounded-full text-sm shadow-lg shadow-goldAccent/20 hover:opacity-90 transition-all transform hover:scale-105">
-                    Žádost o členství
+                    Vstoupit
                 </a>
             </div>
         </div>
@@ -96,7 +96,7 @@
         <div class="max-w-7xl mx-auto">
             <div class="text-center max-w-2xl mx-auto mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Proč Duonera?</h2>
-                <p class="text-gray-400">Opuštíme povrchnost běžných aplikací a vracíme se k exkluzivitě, diskrétnosti a reálným setkáním.</p>
+                <p class="text-gray-400">Opouštíme povrchnost běžných aplikací a vracíme se k exkluzivitě, diskrétnosti a reálným setkáním.</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="p-8 rounded-2xl bg-cardBg border border-white/10 backdrop-blur-xl hover:border-goldAccent/50 transition-all">
@@ -124,7 +124,7 @@
             <div class="flex flex-col md:flex-row md:items-end justify-between mb-16">
                 <div>
                     <span class="text-xs uppercase tracking-widest text-goldAccent font-semibold block mb-2">Exkluzivní komunita</span>
-                <h2 class="text-3xl md:text-4xl font-bold text-white">Vybrané profily ve společenství</h2>
+                    <h2 class="text-3xl md:text-4xl font-bold text-white">Vybrané profily ve společenství</h2>
                 </div>
                 <p class="text-gray-400 text-sm mt-4 md:mt-0 max-w-sm">Ukázka profilů osobností, které již tvoří naši mezinárodní síť.</p>
             </div>
@@ -153,10 +153,178 @@
         </div>
     </section>
 
+    <!-- Sekce Registrace (Žádost o členství) -->
+    <section id="registrace" class="py-24 px-6 border-t border-white/5 relative z-10">
+        <div class="max-w-xl mx-auto">
+            
+            <div class="text-center mb-12">
+                <span class="text-xs uppercase tracking-widest text-goldAccent font-semibold block mb-2">Vstupní verifikace</span>
+                <h2 class="text-3xl font-bold text-white">Žádost o členství v Duonera</h2>
+                <p class="text-gray-400 text-sm mt-2">Vyplňte formulář pro zahájení diskrétního ověřovacího procesu.</p>
+            </div>
+
+            <!-- Kontejner formuláře (Glassmorphism) -->
+            <div class="p-8 rounded-2xl bg-cardBg border border-white/10 backdrop-blur-xl relative shadow-2xl">
+                
+                <!-- Indikátor kroků -->
+                <div class="flex items-center justify-between mb-8 pb-6 border-b border-white/10">
+                    <div class="flex items-center space-x-2">
+                        <span id="step-indicator-1" class="w-8 h-8 rounded-full bg-goldAccent text-black font-bold flex items-center justify-center text-sm transition-all">1</span>
+                        <span class="text-xs text-gray-300 font-medium hidden sm:inline">Základ</span>
+                    </div>
+                    <div class="w-12 h-[1px] bg-white/10"></div>
+                    <div class="flex items-center space-x-2">
+                        <span id="step-indicator-2" class="w-8 h-8 rounded-full bg-white/10 text-gray-400 font-bold flex items-center justify-center text-sm transition-all">2</span>
+                        <span class="text-xs text-gray-400 font-medium hidden sm:inline">Záměr</span>
+                    </div>
+                    <div class="w-12 h-[1px] bg-white/10"></div>
+                    <div class="flex items-center space-x-2">
+                        <span id="step-indicator-3" class="w-8 h-8 rounded-full bg-white/10 text-gray-400 font-bold flex items-center justify-center text-sm transition-all">3</span>
+                        <span class="text-xs text-gray-400 font-medium hidden sm:inline">Ověření</span>
+                    </div>
+                </div>
+
+                <form id="duonera-reg-form" onsubmit="handleFormSubmit(event)">
+                    
+                    <!-- KROK 1: Základní údaje -->
+                    <div id="form-step-1" class="space-y-5">
+                        <div>
+                            <label class="block text-xs uppercase tracking-wider text-gray-400 mb-2">Celé jméno nebo přezdívka</label>
+                            <input type="text" id="reg-name" required placeholder="např. Alexander M." class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-goldAccent transition-colors">
+                        </div>
+                        <div>
+                            <label class="block text-xs uppercase tracking-wider text-gray-400 mb-2">Věk</label>
+                            <input type="number" id="reg-age" required min="18" max="99" placeholder="např. 30" class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-goldAccent transition-colors">
+                        </div>
+                        <div>
+                            <label class="block text-xs uppercase tracking-wider text-gray-400 mb-2">Město / Lokalita</label>
+                            <select id="reg-city" class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-goldAccent transition-colors">
+                                <option value="Praha" class="bg-darkBg">Praha</option>
+                                <option value="Viden" class="bg-darkBg">Vídeň</option>
+                                <option value="Londyn" class="bg-darkBg">Londýn</option>
+                                <option value="Dubaj" class="bg-darkBg">Dubaj</option>
+                                <option value="Jine" class="bg-darkBg">Jiná metropole</option>
+                            </select>
+                        </div>
+                        <button type="button" onclick="nextStep(2)" class="w-full py-4 rounded-xl bg-goldAccent text-black font-semibold hover:bg-goldHover transition-all mt-4">
+                            Pokračovat
+                        </button>
+                    </div>
+
+                    <!-- KROK 2: Záměr a preference -->
+                    <div id="form-step-2" class="space-y-5 hidden">
+                        <div>
+                            <label class="block text-xs uppercase tracking-wider text-gray-400 mb-2">Co od společenství očekáváte?</label>
+                            <textarea id="reg-expectation" rows="4" required placeholder="Stručně popište váš pohled na vážný vztah..." class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-goldAccent transition-colors resize-none"></textarea>
+                        </div>
+                        <div class="flex space-x-4">
+                            <button type="button" onclick="prevStep(1)" class="w-1/2 py-4 rounded-xl bg-white/5 border border-white/10 text-white font-semibold hover:bg-white/10 transition-all">
+                                Zpět
+                            </button>
+                            <button type="button" onclick="nextStep(3)" class="w-1/2 py-4 rounded-xl bg-goldAccent text-black font-semibold hover:bg-goldHover transition-all">
+                                Pokračovat
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- KROK 3: Kontakt a dokončení -->
+                    <div id="form-step-3" class="space-y-5 hidden">
+                        <div>
+                            <label class="block text-xs uppercase tracking-wider text-gray-400 mb-2">Kontaktní kanál (Telegram nebo telefon)</label>
+                            <input type="text" id="reg-contact" required placeholder="@username nebo +420..." class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-goldAccent transition-colors">
+                        </div>
+                        <div class="p-4 rounded-xl bg-goldAccent/5 border border-goldAccent/20 text-xs text-gray-300 leading-relaxed">
+                            ℹ️ Odesláním žádosti souhlasíte s přísnými pravidly diskrétnosti. Vaše data nebudou nikde zveřejněna.
+                        </div>
+                        <div class="flex space-x-4">
+                            <button type="button" onclick="prevStep(2)" class="w-1/2 py-4 rounded-xl bg-white/5 border border-white/10 text-white font-semibold hover:bg-white/10 transition-all">
+                                Zpět
+                            </button>
+                            <button type="submit" class="w-1/2 py-4 rounded-xl bg-gradient-to-r from-goldAccent to-[#c59b27] text-black font-semibold hover:opacity-90 transition-all shadow-lg shadow-goldAccent/20">
+                                Odeslat žádost
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+
+                <!-- Úspěšná zpráva (skrytá do odeslání) -->
+                <div id="form-success" class="hidden text-center py-8 space-y-4">
+                    <div class="w-16 h-16 bg-goldAccent/10 border border-goldAccent text-goldAccent rounded-full flex items-center justify-center mx-auto text-2xl">✓</div>
+                    <h3 class="text-2xl font-bold text-white">Žádost byla přijata</h3>
+                    <p class="text-gray-400 text-sm max-w-sm mx-auto">Váš profil byl zařazen do vstupního vetingového procesu. Náš tým nebo concierge vás bude brzy kontaktovat.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
     <!-- Patička -->
     <footer class="py-12 px-6 border-t border-white/10 text-center text-sm text-gray-500 relative z-10">
         <p>&copy; 2026 Duonera ONE. Všechna práva vyhrazena. Soukromé společenství.</p>
     </footer>
 
+    <!-- Klientský skript pro správu kroků formuláře -->
+    <script>
+        let currentStep = 1;
+
+        function updateStepsDisplay() {
+            document.getElementById('form-step-1').classList.toggle('hidden', currentStep !== 1);
+            document.getElementById('form-step-2').classList.toggle('hidden', currentStep !== 2);
+            document.getElementById('form-step-3').classList.toggle('hidden', currentStep !== 3);
+
+            for (let i = 1; i <= 3; i++) {
+                const indicator = document.getElementById(`step-indicator-${i}`);
+                if (i <= currentStep) {
+                    indicator.className = "w-8 h-8 rounded-full bg-goldAccent text-black font-bold flex items-center justify-center text-sm transition-all";
+                } else {
+                    indicator.className = "w-8 h-8 rounded-full bg-white/10 text-gray-400 font-bold flex items-center justify-center text-sm transition-all";
+                }
+            }
+        }
+
+        function nextStep(step) {
+            if (step === 2) {
+                const name = document.getElementById('reg-name').value;
+                const age = document.getElementById('reg-age').value;
+                if (!name || !age) {
+                    alert('Prosím vyplňte jméno a věk.');
+                    return;
+                }
+            }
+            if (step === 3) {
+                const expectation = document.getElementById('reg-expectation').value;
+                if (!expectation) {
+                    alert('Prosím popište vaše očekávání.');
+                    return;
+                }
+            }
+            currentStep = step;
+            updateStepsDisplay();
+        }
+
+        function prevStep(step) {
+            currentStep = step;
+            updateStepsDisplay();
+        }
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('reg-name').value,
+                age: document.getElementById('reg-age').value,
+                city: document.getElementById('reg-city').value,
+                expectation: document.getElementById('reg-expectation').value,
+                contact: document.getElementById('reg-contact').value,
+                timestamp: new Date().toISOString()
+            };
+
+            console.log("Odesílaná data člena:", formData);
+
+            document.getElementById('duonera-reg-form').classList.add('hidden');
+            document.getElementById('form-success').classList.remove('hidden');
+        }
+    </script>
 </body>
 </html>
