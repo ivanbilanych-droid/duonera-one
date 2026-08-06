@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html lang="cs" class="dark">
+<html lang="cs">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DUONERA | Private Club & Matchmaking</title>
+    <title>Duonera | Private Club & Matchmaking</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        clubBlack: '#0a0a0c',
-                        clubCard: '#131318',
-                        clubGold: '#dfb768',
-                        clubGoldHover: '#c8a052',
-                        clubGray: '#8e8e93'
+                        brandBg: '#f9f6f0',
+                        brandSurface: '#ffffff',
+                        brandDark: '#121212',
+                        brandGold: '#b89753',
+                        brandGoldHover: '#a38344',
+                        brandGray: '#767676'
                     },
                     fontFamily: {
                         sans: ['"Plus Jakarta Sans"', 'sans-serif'],
@@ -27,216 +27,209 @@
         }
     </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
-        
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap');
+
         body {
-            background-color: #0a0a0c;
-            color: #f5f5f7;
+            background-color: #f9f6f0;
+            color: #121212;
             font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: hidden;
         }
-        .serif { font-family: 'Playfair Display', serif; }
-        .glass-panel {
-            background: rgba(19, 19, 24, 0.7);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(223, 183, 104, 0.15);
+        .serif {
+            font-family: 'Playfair Display', serif;
         }
-        .gold-gradient {
-            background: linear-gradient(135deg, #f3e5ab 0%, #dfb768 50%, #9c7832 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .luxury-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(184, 151, 83, 0.15);
         }
     </style>
 </head>
-<body class="min-h-screen selection:bg-clubGold selection:text-black">
+<body class="min-h-screen selection:bg-brandGold selection:text-white">
 
-    <!-- Hlavní navigace -->
-    <header class="fixed top-0 left-0 right-0 z-50 glass-panel border-b border-white/5">
+    <!-- Horní prémiová lišta -->
+    <header class="fixed top-0 left-0 right-0 z-50 luxury-card border-b border-brandGold/10">
         <div class="max-w-7xl mx-auto px-8 h-24 flex items-center justify-between">
             <div class="flex items-center space-x-3">
-                <span class="serif text-2xl tracking-[0.2em] font-bold text-white uppercase">DUONERA<span class="text-clubGold">.</span></span>
+                <span class="serif text-2xl tracking-[0.25em] font-medium text-brandDark uppercase">Duonera<span class="text-brandGold">.</span></span>
             </div>
             
-            <nav class="hidden md:flex items-center space-x-10 text-xs font-semibold uppercase tracking-widest text-gray-400">
-                <a href="#filosofie" class="hover:text-clubGold transition-colors">Filosofie</a>
-                <a href="#princip" class="hover:text-clubGold transition-colors">Jak to funguje</a>
-                <a href="#připojit" class="hover:text-clubGold transition-colors">Členství</a>
+            <nav class="hidden md:flex items-center space-x-12 text-xs font-semibold uppercase tracking-[0.2em] text-gray-600">
+                <a href="#filosofie" class="hover:text-brandGold transition-colors">Filosofie</a>
+                <a href="#princip" class="hover:text-brandGold transition-colors">Princip</a>
+                <a href="#vstup" class="hover:text-brandGold transition-colors">Členství</a>
             </nav>
 
             <div class="flex items-center space-x-6">
-                <span class="text-xs tracking-wider text-gray-400 cursor-pointer hover:text-white">CZ / RU</span>
-                <a href="#připojit" class="px-6 py-3 rounded-full bg-clubGold text-black text-xs uppercase tracking-widest font-bold hover:bg-clubGoldHover transition-all shadow-lg shadow-clubGold/10">
-                    Vstoupit
+                <span class="text-xs font-semibold tracking-wider text-gray-500 cursor-pointer hover:text-brandGold">CZ / RU</span>
+                <a href="#vstup" class="px-6 py-3 rounded-full bg-brandDark text-brandBg text-xs uppercase tracking-widest font-semibold hover:bg-brandGold transition-all">
+                    Žádost
                 </a>
             </div>
         </div>
     </header>
 
-    <!-- Hero sekce (Světový styl prémiových klubů) -->
+    <!-- Hlavní Hero sekce (Světový minimalistický luxus) -->
     <section class="relative min-h-screen flex items-center justify-center pt-32 pb-20 px-8">
-        <!-- Pozadí s jemným světlem -->
-        <div class="absolute inset-0 overflow-hidden pointer-events-none">
-            <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-clubGold/5 rounded-full blur-[140px]"></div>
-        </div>
-
         <div class="max-w-4xl mx-auto text-center relative z-10">
-            <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full glass-panel mb-8">
-                <span class="w-1.5 h-1.5 rounded-full bg-clubGold animate-pulse"></span>
-                <span class="text-[11px] uppercase tracking-[0.25em] text-gray-300 font-medium">Exkluzivní uzavřená komunita</span>
+            
+            <div class="inline-flex items-center space-x-2 px-5 py-2 rounded-full luxury-card mb-8">
+                <span class="w-1.5 h-1.5 rounded-full bg-brandGold"></span>
+                <span class="text-[11px] uppercase tracking-[0.3em] text-gray-600 font-medium">Uzavřené privátní společenství</span>
             </div>
 
             <h1 class="serif text-5xl md:text-7xl lg:text-8xl font-normal tracking-tight mb-8 leading-[1.08]">
                 Seznamování <br>
-                <span class="gold-gradient italic font-light">na zcela jiné úrovni.</span>
+                <span class="italic font-light text-brandGold">bez kompromisů.</span>
             </h1>
 
-            <p class="text-base md:text-lg text-gray-400 font-light max-w-2xl mx-auto mb-14 leading-relaxed">
-                Žádné veřejné katalogy, nekonečné chatování ani ztráta času. Duonera propojuje výjimečné lidi na základě diskrétnosti, vzájemné shody a reálných setkání.
+            <p class="text-base md:text-lg text-brandGray font-light max-w-2xl mx-auto mb-14 leading-relaxed">
+                Opouštíme svět veřejných profilů a nekonečného chatování. Duonera představuje exkluzivní prostor postavený na diskrétnosti, úspoře času a reálných setkáních.
             </p>
 
             <div class="flex flex-col sm:flex-row items-center justify-center gap-5">
-                <a href="#připojit" class="w-full sm:w-auto px-9 py-5 rounded-full bg-clubGold text-black text-xs uppercase tracking-widest font-bold shadow-xl shadow-clubGold/20 hover:bg-clubGoldHover transition-all">
-                    Žádost o členství
+                <a href="#vstup" class="w-full sm:w-auto px-10 py-5 rounded-full bg-brandGold text-white text-xs uppercase tracking-widest font-semibold shadow-xl shadow-brandGold/20 hover:bg-brandGoldHover transition-all">
+                    Vstoupit do procesu
                 </a>
-                <a href="#filosofie" class="w-full sm:w-auto px-9 py-5 rounded-full glass-panel text-white text-xs uppercase tracking-widest font-medium hover:border-clubGold/50 transition-all">
-                    Prozkoumat standardy
+                <a href="#filosofie" class="w-full sm:w-auto px-10 py-5 rounded-full border border-brandDark/20 text-brandDark text-xs uppercase tracking-widest font-semibold hover:border-brandGold transition-all">
+                    Standardy klubu
                 </a>
             </div>
 
-            <!-- Rychlá statistika / hodnoty klubu -->
-            <div class="grid grid-cols-3 gap-6 max-w-2xl mx-auto mt-24 pt-12 border-t border-white/5 text-center">
+            <!-- Hodnoty / Statistiky -->
+            <div class="grid grid-cols-3 gap-6 max-w-2xl mx-auto mt-24 pt-12 border-t border-brandGold/15 text-center">
                 <div>
-                    <span class="serif text-3xl font-normal text-white block mb-1">0%</span>
-                    <span class="text-[11px] uppercase tracking-wider text-gray-500">Veřejných profilů</span>
+                    <span class="serif text-3xl font-normal text-brandDark block mb-1">0%</span>
+                    <span class="text-[11px] uppercase tracking-wider text-brandGray">Veřejných dat</span>
                 </div>
                 <div>
-                    <span class="serif text-3xl font-normal text-clubGold block mb-1">100%</span>
-                    <span class="text-[11px] uppercase tracking-wider text-gray-500">Verifikovaní členové</span>
+                    <span class="serif text-3xl font-normal text-brandGold block mb-1">100%</span>
+                    <span class="text-[11px] uppercase tracking-wider text-brandGray">Prověření členové</span>
                 </div>
                 <div>
-                    <span class="serif text-3xl font-normal text-white block mb-1">VIP</span>
-                    <span class="text-[11px] uppercase tracking-wider text-gray-500">Concierge servis</span>
+                    <span class="serif text-3xl font-normal text-brandDark block mb-1">VIP</span>
+                    <span class="text-[11px] uppercase tracking-wider text-brandGray">Concierge servis</span>
                 </div>
             </div>
+
         </div>
     </section>
 
-    <!-- Sekce Filosofie & Hodnoty -->
-    <section id="filosofie" class="py-32 px-8 border-t border-white/5 relative">
+    <!-- Sekce Filosofie -->
+    <section id="filosofie" class="py-32 px-8 border-t border-brandGold/15">
         <div class="max-w-6xl mx-auto">
             <div class="text-center max-w-xl mx-auto mb-20">
-                <span class="text-xs uppercase tracking-[0.25em] text-clubGold font-semibold block mb-3">Filosofie klubu</span>
-                <h2 class="serif text-3xl md:text-5xl font-normal">Navrženo pro váš klid a soukromí</h2>
+                <span class="text-xs uppercase tracking-[0.25em] text-brandGold font-semibold block mb-3">Základní pilíře</span>
+                <h2 class="serif text-3xl md:text-5xl font-normal">Navrženo pro náročné</h2>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="glass-panel p-10 rounded-3xl relative group hover:border-clubGold/40 transition-all">
-                    <div class="w-12 h-12 rounded-2xl bg-clubGold/10 flex items-center justify-center text-clubGold mb-6 text-xl">🔒</div>
-                    <h3 class="serif text-2xl font-normal mb-4 text-white">Úplná diskrétnost</h3>
-                    <p class="text-gray-400 text-sm font-light leading-relaxed">Vaše fotografie ani osobní údaje nejsou volně dohledatelné na internetu. Přístup získáte pouze vybraným schválením.</p>
+                <div class="luxury-card p-10 rounded-3xl shadow-sm hover:border-brandGold/40 transition-all">
+                    <span class="text-brandGold serif text-lg block mb-4">01</span>
+                    <h3 class="serif text-2xl font-normal mb-3 text-brandDark">Absolutní diskrétnost</h3>
+                    <p class="text-brandGray text-sm font-light leading-relaxed">Žádné volně dohledatelné profily. Vaše soukromí je chráněno na nejvyšší možné úrovni.</p>
                 </div>
-                <div class="glass-panel p-10 rounded-3xl relative group hover:border-clubGold/40 transition-all">
-                    <div class="w-12 h-12 rounded-2xl bg-clubGold/10 flex items-center justify-center text-clubGold mb-6 text-xl">⚡</div>
-                    <h3 class="serif text-2xl font-normal mb-4 text-white">Efektivita času</h3>
-                    <p class="text-gray-400 text-sm font-light leading-relaxed">Neztrácejte hodiny psaním zpráv. Náš systém a osobní concierge vás směřují přímo k vybraným a smysluplným setkáním.</p>
+                <div class="luxury-card p-10 rounded-3xl shadow-sm hover:border-brandGold/40 transition-all">
+                    <span class="text-brandGold serif text-lg block mb-4">02</span>
+                    <h3 class="serif text-2xl font-normal mb-3 text-brandDark">Reálné osobnosti</h3>
+                    <p class="text-brandGray text-sm font-light leading-relaxed">Přísný vstupní vetingový proces zajišťuje, že komunikujete výhradně s ověřenými partnery.</p>
                 </div>
-                <div class="glass-panel p-10 rounded-3xl relative group hover:border-clubGold/40 transition-all">
-                    <div class="w-12 h-12 rounded-2xl bg-clubGold/10 flex items-center justify-center text-clubGold mb-6 text-xl">✨</div>
-                    <h3 class="serif text-2xl font-normal mb-4 text-white">Selektivní komunita</h3>
-                    <p class="text-gray-400 text-sm font-light leading-relaxed">Každý uchazeč prochází vstupním ověřením. Garantujeme bezpečné, inteligentní a seriózní prostředí pro život.</p>
+                <div class="luxury-card p-10 rounded-3xl shadow-sm hover:border-brandGold/40 transition-all">
+                    <span class="text-brandGold serif text-lg block mb-4">03</span>
+                    <h3 class="serif text-2xl font-normal mb-3 text-brandDark">Osobní směřování</h3>
+                    <p class="text-brandGray text-sm font-light leading-relaxed">Systém concierge služeb vás vede přímo k hodnotným setkáním bez zbytečného zdržování.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Interaktivní Vstupní Formulář (Nový moderní proces) -->
-    <section id="připojit" class="py-32 px-8 border-t border-white/5 bg-clubCard/30 relative">
+    <!-- Sekce Nového Formuláře (Vstup do klubu) -->
+    <section id="vstup" class="py-32 px-8 border-t border-brandGold/15 bg-white/40">
         <div class="max-w-xl mx-auto">
             
             <div class="text-center mb-16">
-                <span class="text-xs uppercase tracking-[0.25em] text-clubGold font-semibold block mb-3">Vstupní verifikace</span>
+                <span class="text-xs uppercase tracking-[0.25em] text-brandGold font-semibold block mb-3">Veting</span>
                 <h2 class="serif text-3xl md:text-4xl font-normal">Žádost o členství</h2>
-                <p class="text-gray-400 text-sm font-light mt-3">Zahajte diskrétní proces zařazení do komunity.</p>
+                <p class="text-brandGray text-sm font-light mt-2">Zahajte neveřejný proces ověření.</p>
             </div>
 
-            <div class="glass-panel p-10 md:p-12 rounded-3xl shadow-2xl relative">
+            <div class="luxury-card p-10 md:p-12 rounded-3xl shadow-xl relative">
                 
                 <!-- Indikátor kroků -->
-                <div class="flex items-center justify-between mb-10 pb-6 border-b border-white/10">
+                <div class="flex items-center justify-between mb-10 pb-6 border-b border-gray-200">
                     <div class="flex items-center space-x-3">
-                        <span id="step-ind-1" class="w-8 h-8 rounded-full bg-clubGold text-black font-bold flex items-center justify-center text-xs">1</span>
-                        <span class="text-xs text-white font-medium">Profil</span>
+                        <span id="s-ind-1" class="w-8 h-8 rounded-full bg-brandGold text-white font-semibold flex items-center justify-center text-xs">1</span>
+                        <span class="text-xs text-brandDark font-medium">Základ</span>
                     </div>
-                    <div class="w-12 h-[1px] bg-white/10"></div>
+                    <div class="w-12 h-[1px] bg-gray-200"></div>
                     <div class="flex items-center space-x-3">
-                        <span id="step-ind-2" class="w-8 h-8 rounded-full bg-white/5 text-gray-500 font-bold flex items-center justify-center text-xs border border-white/10">2</span>
-                        <span class="text-xs text-gray-500 font-medium">Záměr</span>
+                        <span id="s-ind-2" class="w-8 h-8 rounded-full bg-gray-100 text-gray-400 font-semibold flex items-center justify-center text-xs">2</span>
+                        <span class="text-xs text-gray-400 font-medium">Záměr</span>
                     </div>
-                    <div class="w-12 h-[1px] bg-white/10"></div>
+                    <div class="w-12 h-[1px] bg-gray-200"></div>
                     <div class="flex items-center space-x-3">
-                        <span id="step-ind-3" class="w-8 h-8 rounded-full bg-white/5 text-gray-500 font-bold flex items-center justify-center text-xs border border-white/10">3</span>
-                        <span class="text-xs text-gray-500 font-medium">Kontakt</span>
+                        <span id="s-ind-3" class="w-8 h-8 rounded-full bg-gray-100 text-gray-400 font-semibold flex items-center justify-center text-xs">3</span>
+                        <span class="text-xs text-gray-400 font-medium">Kontakt</span>
                     </div>
                 </div>
 
-                <form id="duonera-form" onsubmit="handleFormSubmit(event)">
+                <form id="brand-form" onsubmit="handleBrandSubmit(event)">
                     
                     <!-- Krok 1 -->
-                    <div id="form-content-1" class="space-y-6">
+                    <div id="step-box-1" class="space-y-6">
                         <div>
-                            <label class="block text-xs uppercase tracking-wider text-gray-400 mb-2 font-medium">Celé jméno nebo exkluzivní přezdívka</label>
-                            <input type="text" id="f-name" required placeholder="např. Alexander M." class="w-full bg-black/50 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-gray-600 focus:outline-none focus:border-clubGold transition-colors text-sm">
+                            <label class="block text-xs uppercase tracking-wider text-brandGray mb-2 font-medium">Celé jméno nebo přezdívka</label>
+                            <input type="text" id="b-name" required placeholder="např. Alexander M." class="w-full bg-brandBg border border-gray-200 rounded-2xl px-5 py-4 text-brandDark placeholder-gray-400 focus:outline-none focus:border-brandGold transition-colors text-sm">
                         </div>
                         <div>
-                            <label class="block text-xs uppercase tracking-wider text-gray-400 mb-2 font-medium">Věk</label>
-                            <input type="number" id="f-age" required min="18" max="99" placeholder="např. 32" class="w-full bg-black/50 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-gray-600 focus:outline-none focus:border-clubGold transition-colors text-sm">
+                            <label class="block text-xs uppercase tracking-wider text-brandGray mb-2 font-medium">Věk</label>
+                            <input type="number" id="b-age" required min="18" max="99" placeholder="např. 32" class="w-full bg-brandBg border border-gray-200 rounded-2xl px-5 py-4 text-brandDark placeholder-gray-400 focus:outline-none focus:border-brandGold transition-colors text-sm">
                         </div>
                         <div>
-                            <label class="block text-xs uppercase tracking-wider text-gray-400 mb-2 font-medium">Lokalita / Metropole</label>
-                            <select id="f-city" class="w-full bg-black/50 border border-white/10 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-clubGold transition-colors text-sm">
-                                <option value="Praha" class="bg-clubCard">Praha</option>
-                                <option value="Viden" class="bg-clubCard">Vídeň</option>
-                                <option value="Londyn" class="bg-clubCard">Londýn</option>
-                                <option value="Dubaj" class="bg-clubCard">Dubaj</option>
-                                <option value="Jine" class="bg-clubCard">Jiná lokace</option>
+                            <label class="block text-xs uppercase tracking-wider text-brandGray mb-2 font-medium">Lokalita / Město</label>
+                            <select id="b-city" class="w-full bg-brandBg border border-gray-200 rounded-2xl px-5 py-4 text-brandDark focus:outline-none focus:border-brandGold transition-colors text-sm">
+                                <option value="Praha">Praha</option>
+                                <option value="Viden">Vídeň</option>
+                                <option value="Londyn">Londýn</option>
+                                <option value="Dubaj">Dubaj</option>
                             </select>
                         </div>
-                        <button type="button" onclick="goToStep(2)" class="w-full py-4 rounded-2xl bg-clubGold text-black text-xs uppercase tracking-widest font-bold hover:bg-clubGoldHover transition-all mt-6 shadow-lg shadow-clubGold/10">
+                        <button type="button" onclick="changeStep(2)" class="w-full py-4 rounded-2xl bg-brandGold text-white text-xs uppercase tracking-widest font-semibold hover:bg-brandGoldHover transition-all mt-6 shadow-md shadow-brandGold/10">
                             Pokračovat
                         </button>
                     </div>
 
                     <!-- Krok 2 -->
-                    <div id="form-content-2" class="space-y-6 hidden">
+                    <div id="step-box-2" class="space-y-6 hidden">
                         <div>
-                            <label class="block text-xs uppercase tracking-wider text-gray-400 mb-2 font-medium">Co od partnerství a společenství očekáváte?</label>
-                            <textarea id="f-expect" rows="4" required placeholder="Stručně popište vaše hodnoty a vizi..." class="w-full bg-black/50 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-gray-600 focus:outline-none focus:border-clubGold transition-colors text-sm resize-none"></textarea>
+                            <label class="block text-xs uppercase tracking-wider text-brandGray mb-2 font-medium">Co od společenství očekáváte?</label>
+                            <textarea id="b-expect" rows="4" required placeholder="Stručně popište váš vztahový záměr..." class="w-full bg-brandBg border border-gray-200 rounded-2xl px-5 py-4 text-brandDark placeholder-gray-400 focus:outline-none focus:border-brandGold transition-colors text-sm resize-none"></textarea>
                         </div>
                         <div class="flex space-x-4">
-                            <button type="button" onclick="goToStep(1)" class="w-1/2 py-4 rounded-2xl border border-white/10 text-white text-xs uppercase tracking-widest font-medium hover:border-clubGold transition-all">
+                            <button type="button" onclick="changeStep(1)" class="w-1/2 py-4 rounded-2xl border border-gray-200 text-brandDark text-xs uppercase tracking-widest font-semibold hover:border-brandGold transition-all">
                                 Zpět
                             </button>
-                            <button type="button" onclick="goToStep(3)" class="w-1/2 py-4 rounded-2xl bg-clubGold text-black text-xs uppercase tracking-widest font-bold hover:bg-clubGoldHover transition-all">
+                            <button type="button" onclick="changeStep(3)" class="w-1/2 py-4 rounded-2xl bg-brandGold text-white text-xs uppercase tracking-widest font-semibold hover:bg-brandGoldHover transition-all">
                                 Pokračovat
                             </button>
                         </div>
                     </div>
 
                     <!-- Krok 3 -->
-                    <div id="form-content-3" class="space-y-6 hidden">
+                    <div id="step-box-3" class="space-y-6 hidden">
                         <div>
-                            <label class="block text-xs uppercase tracking-wider text-gray-400 mb-2 font-medium">Přímý kontakt (Telegram uživatel nebo telefon)</label>
-                            <input type="text" id="f-contact" required placeholder="@username nebo +420..." class="w-full bg-black/50 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-gray-600 focus:outline-none focus:border-clubGold transition-colors text-sm">
+                            <label class="block text-xs uppercase tracking-wider text-brandGray mb-2 font-medium">Přímý kontakt (Telegram nebo telefon)</label>
+                            <input type="text" id="b-contact" required placeholder="@username nebo +420..." class="w-full bg-brandBg border border-gray-200 rounded-2xl px-5 py-4 text-brandDark placeholder-gray-400 focus:outline-none focus:border-brandGold transition-colors text-sm">
                         </div>
-                        <div class="p-4 rounded-2xl bg-clubGold/5 border border-clubGold/20 text-xs text-gray-300 leading-relaxed">
-                            Odesláním žádosti berete na vědomí přísná pravidla mlčenlivosti a ochrany soukromí klubu.
+                        <div class="p-4 rounded-2xl bg-brandBg border border-brandGold/20 text-xs text-brandGray leading-relaxed">
+                            Odesláním žádosti potvrzujete závazek dodržovat přísná pravidla diskrétnosti.
                         </div>
                         <div class="flex space-x-4">
-                            <button type="button" onclick="goToStep(2)" class="w-1/2 py-4 rounded-2xl border border-white/10 text-white text-xs uppercase tracking-widest font-medium hover:border-clubGold transition-all">
+                            <button type="button" onclick="changeStep(2)" class="w-1/2 py-4 rounded-2xl border border-gray-200 text-brandDark text-xs uppercase tracking-widest font-semibold hover:border-brandGold transition-all">
                                 Zpět
                             </button>
-                            <button type="submit" class="w-1/2 py-4 rounded-2xl bg-clubGold text-black text-xs uppercase tracking-widest font-bold hover:bg-clubGoldHover transition-all shadow-lg shadow-clubGold/20">
+                            <button type="submit" class="w-1/2 py-4 rounded-2xl bg-brandDark text-white text-xs uppercase tracking-widest font-semibold hover:bg-brandGold transition-all shadow-md">
                                 Odeslat žádost
                             </button>
                         </div>
@@ -244,11 +237,11 @@
 
                 </form>
 
-                <!-- Úspěšné dokončení -->
-                <div id="form-success" class="hidden text-center py-10 space-y-5">
-                    <div class="w-16 h-16 bg-clubGold/10 border border-clubGold/30 text-clubGold rounded-full flex items-center justify-center mx-auto text-xl">✓</div>
-                    <h3 class="serif text-2xl font-normal text-white">Žádost byla úspěšně přijata</h3>
-                    <p class="text-gray-400 text-sm font-light max-w-sm mx-auto leading-relaxed">Váš profil byl zařazen do neveřejného ověřovacího procesu. V nejbližší době vás budeme kontaktovat.</p>
+                <!-- Úspěšná obrazovka -->
+                <div id="success-box" class="hidden text-center py-12 space-y-4">
+                    <div class="w-16 h-16 bg-brandGold/10 text-brandGold rounded-full flex items-center justify-center mx-auto text-xl border border-brandGold/30">✓</div>
+                    <h3 class="serif text-2xl font-normal text-brandDark">Žádost byla přijata</h3>
+                    <p class="text-brandGray text-sm font-light max-w-sm mx-auto">Váš profil byl zařazen do ověřovacího procesu. Náš tým vás bude brzy kontaktovat.</p>
                 </div>
 
             </div>
@@ -256,51 +249,51 @@
     </section>
 
     <!-- Patička -->
-    <footer class="py-16 px-8 border-t border-white/5 text-center text-xs tracking-wider text-gray-500">
-        <p>&copy; 2026 DUONERA. Všechna práva vyhrazena. Privátní klub.</p>
+    <footer class="py-16 px-8 border-t border-brandGold/15 text-center text-xs tracking-wider text-brandGray">
+        <p>&copy; 2026 Duonera. Všechna práva vyhrazena. Privátní klub.</p>
     </footer>
 
-    <!-- Logika formuláře -->
+    <!-- Skript pro formulář -->
     <script>
         let currentStep = 1;
 
-        function goToStep(step) {
-            if (step === 2) {
-                const name = document.getElementById('f-name').value;
-                const age = document.getElementById('f-age').value;
+        function changeStep(targetStep) {
+            if (targetStep === 2) {
+                const name = document.getElementById('b-name').value;
+                const age = document.getElementById('b-age').value;
                 if (!name || !age) {
-                    alert('Prosím vyplňte jméno a věk.');
+                    alert('Vyplňte prosím jméno a věk.');
                     return;
                 }
             }
-            if (step === 3) {
-                const expect = document.getElementById('f-expect').value;
+            if (targetStep === 3) {
+                const expect = document.getElementById('b-expect').value;
                 if (!expect) {
-                    alert('Prosím vyplňte vaše očekávání.');
+                    alert('Vyplňte prosím vaše očekávání.');
                     return;
                 }
             }
-
-            currentStep = step;
             
-            document.getElementById('form-content-1').classList.toggle('hidden', currentStep !== 1);
-            document.getElementById('form-content-2').classList.toggle('hidden', currentStep !== 2);
-            document.getElementById('form-content-3').classList.toggle('hidden', currentStep !== 3);
+            currentStep = targetStep;
+            
+            document.getElementById('step-box-1').classList.toggle('hidden', currentStep !== 1);
+            document.getElementById('step-box-2').classList.toggle('hidden', currentStep !== 2);
+            document.getElementById('step-box-3').classList.toggle('hidden', currentStep !== 3);
 
             for (let i = 1; i <= 3; i++) {
-                const ind = document.getElementById(`step-ind-${i}`);
+                const ind = document.getElementById(`s-ind-${i}`);
                 if (i <= currentStep) {
-                    ind.className = "w-8 h-8 rounded-full bg-clubGold text-black font-bold flex items-center justify-center text-xs transition-all";
+                    ind.className = "w-8 h-8 rounded-full bg-brandGold text-white font-semibold flex items-center justify-center text-xs transition-all";
                 } else {
-                    ind.className = "w-8 h-8 rounded-full bg-white/5 text-gray-500 font-bold flex items-center justify-center text-xs border border-white/10 transition-all";
+                    ind.className = "w-8 h-8 rounded-full bg-gray-100 text-gray-400 font-semibold flex items-center justify-center text-xs transition-all";
                 }
             }
         }
 
-        function handleFormSubmit(e) {
+        function handleBrandSubmit(e) {
             e.preventDefault();
-            document.getElementById('duonera-form').classList.add('hidden');
-            document.getElementById('form-success').classList.remove('hidden');
+            document.getElementById('brand-form').classList.add('hidden');
+            document.getElementById('success-box').classList.remove('hidden');
         }
     </script>
 </body>
