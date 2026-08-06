@@ -1,87 +1,162 @@
-<!doctype html>
-<html lang="cs">
+<!DOCTYPE html>
+<html lang="cs" class="dark">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#ebe5da">
-  <meta name="description" content="DUONERA — soukromé seznámení s lidmi ve vašem městě.">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="DUONERA">
-  <title>DUONERA — někdo blízký</title>
-  <link rel="manifest" href="manifest.webmanifest?v=4">
-  <link rel="icon" href="assets/duonera-mark-v2.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/duonera-app-icon-180.png">
-  <link rel="preload" href="assets/duonera-hero-v2.webp?v=20260806b" as="image" type="image/webp">
-  <link rel="stylesheet" href="duonera-invitation-v2.css?v=20260806c">
-  <link rel="stylesheet" href="pwa-install.css?v=2">
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = window.gtag || function(){ dataLayer.push(arguments); };
-    gtag('consent', 'default', {analytics_storage:'denied',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});
-    try {
-      if (localStorage.getItem('duoneraAnalyticsConsent') === 'granted') gtag('consent','update',{analytics_storage:'granted'});
-      if (localStorage.getItem('duoneraMarketingConsent') === 'granted') gtag('consent','update',{analytics_storage:'granted',ad_storage:'granted',ad_user_data:'granted',ad_personalization:'granted'});
-    } catch (error) {}
-    gtag('js',new Date());
-    gtag('config','G-PR38YKQ9QF',{anonymize_ip:true});
-    const analyticsScript=document.createElement('script');analyticsScript.async=true;analyticsScript.src='https://www.googletagmanager.com/gtag/js?id=G-PR38YKQ9QF';document.head.appendChild(analyticsScript);
-    window.duoneraLoadMetaPixel=function(){if(window.fbq)return;!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','2547916698982259');fbq('track','PageView')};
-    try{if(localStorage.getItem('duoneraMarketingConsent')==='granted')window.duoneraLoadMetaPixel()}catch(error){}
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duonera | Exkluzivní společenství pro vážné vztahy</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#050505',
+                        cardBg: 'rgba(255, 255, 255, 0.03)',
+                        goldAccent: '#d4af37',
+                        goldHover: '#e5c158',
+                    },
+                    backdropBlur: {
+                        xs: '2px',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #050505;
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+        .glow-effect {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
+            z-index: 0;
+            pointer-events: none;
+        }
+    </style>
 </head>
-<body>
-  <header class="topbar">
-    <a class="brand" href="#top" aria-label="DUONERA">
-      <img src="assets/duonera-mark-v2.svg" width="42" height="42" alt="">
-      <span>DUONERA<small>PRIVATE INTRODUCTIONS</small></span>
-    </a>
-    <nav aria-label="Hlavní navigace" data-i18n-aria="navLabel">
-      <label class="language"><span class="sr-only" data-i18n="languageLabel">Jazyk</span><select data-language aria-label="Jazyk" data-i18n-aria="languageLabel"><option value="cs">CZ</option><option value="de">DE</option><option value="it">IT</option><option value="pl">PL</option><option value="sk">SK</option><option value="uk">UA</option><option value="ru">RU</option><option value="en">EN</option></select></label>
-      <a class="login" href="ucet.html" data-i18n="login">Přihlásit</a>
-    </nav>
-  </header>
+<body class="bg-darkBg text-gray-100 min-h-screen relative selection:bg-goldAccent selection:text-black">
 
-  <main id="top">
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="hero-image" role="img" aria-label="Dva lidé se potkávají v evropském městě" data-i18n-aria="photoAlt">
-        <div class="city-signal"><i></i><span data-city>Praha</span><b>3</b><small data-i18n="nearbyNow">lidé poblíž dnes</small></div>
-        <div class="image-signature">DUONERA <span>01 / 03</span></div>
-      </div>
-      <article class="invitation">
-        <p class="kicker"><span>01</span><b data-i18n="kicker">SOUKROMÉ SEZNÁMENÍ VE VAŠEM MĚSTĚ</b></p>
-        <h1 id="hero-title"><span data-i18n="title1">Někdo blízký.</span><em data-i18n="title2">Ne další profil.</em></h1>
-        <p class="intro" data-i18n="intro">DUONERA vám představí tři lidi poblíž, kteří chtějí skutečný vztah. Kontakt se otevře jen při vzájemném ano.</p>
-        <div class="proof" aria-label="Princip DUONERA" data-i18n-aria="proofLabel"><div><strong>3</strong><span data-i18n="proof1">lidé ve vašem okruhu</span></div><div><strong>0</strong><span data-i18n="proof2">veřejných profilů</span></div><div><strong>1</strong><span data-i18n="proof3">skutečný cíl</span></div></div>
-        <button class="primary" type="button" data-open-register><span data-i18n="cta">Najít mé tři</span><b aria-hidden="true">→</b></button>
-        <p class="under-cta"><span data-i18n="free">Zdarma</span><i></i><span data-i18n="oneMinute">1 minuta</span><i></i><span data-i18n="ageRule">od 18 let</span></p>
-      </article>
-      <a class="scroll-cue" href="#how"><span data-i18n="discover">Jak to funguje</span><b>↓</b></a>
+    <!-- Atmosférické osvětlení v pozadí -->
+    <div class="glow-effect top-[-100px] left-[-100px]"></div>
+    <div class="glow-effect top-[40%] right-[-200px]"></div>
+
+    <!-- Navigace -->
+    <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-darkBg/60 border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <span class="text-2xl font-bold tracking-widest text-white uppercase">DUONERA<span class="text-goldAccent">.</span></span>
+            </div>
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-300">
+                <a href="#filosofie" class="hover:text-goldAccent transition-colors">Filosofie</a>
+                <a href="#clenove" class="hover:text-goldAccent transition-colors">Společenství</a>
+                <a href="#lokality" class="hover:text-goldAccent transition-colors">Lokality</a>
+            </nav>
+            <div>
+                <a href="#registrace" class="bg-gradient-to-r from-goldAccent to-[#c59b27] text-black font-semibold px-6 py-3 rounded-full text-sm shadow-lg shadow-goldAccent/20 hover:opacity-90 transition-all transform hover:scale-105">
+                    Žádost o členství
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero sekce -->
+    <section class="relative pt-36 pb-24 md:pt-48 md:pb-32 px-6 flex items-center justify-center">
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-8">
+                <span class="w-2 h-2 rounded-full bg-goldAccent animate-pulse"></span>
+                <span class="text-xs uppercase tracking-widest text-gray-300">Soukromé a diskrétní společenství</span>
+            </div>
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white mb-8 leading-tight">
+                Vztahy na úrovni. <br><span class="bg-gradient-to-r from-goldAccent via-[#f3e5ab] to-amber-600 bg-clip-text text-transparent">Bez kompromisů a ztráty času.</span>
+            </h1>
+            <p class="text-lg md:text-xl text-gray-400 mb-12 max-w-2xl mx-auto font-light leading-relaxed">
+                Prémiová platforma nové generace pro náročné lidi hledající vážné a hluboké vztahy. Profily nejsou veřejně dohledatelné.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#registrace" class="w-full sm:w-auto px-8 py-4 rounded-full bg-goldAccent text-black font-semibold text-base shadow-xl shadow-goldAccent/20 hover:bg-goldHover transition-all">
+                    Vstoupit do procesu
+                </a>
+                <a href="#filosofie" class="w-full sm:w-auto px-8 py-4 rounded-full bg-white/5 border border-white/10 text-white font-semibold text-base hover:bg-white/10 transition-all backdrop-blur-md">
+                    Jak to funguje
+                </a>
+            </div>
+        </div>
     </section>
 
-    <section class="how" id="how" aria-labelledby="how-title"><p class="section-label" data-i18n="howLabel">DUONERA CITY CIRCLE</p><h2 id="how-title" data-i18n="howTitle">Méně hledání. Více pozornosti.</h2><div class="steps"><article><span>01</span><h3 data-i18n="step1Title">Řeknete jen to důležité</h3><p data-i18n="step1Text">Kdo jste, koho hledáte, město, věk a jazyky.</p></article><article><span>02</span><h3 data-i18n="step2Title">Vybereme lidi poblíž</h3><p data-i18n="step2Text">Bydliště a aktuální poloha zůstávají oddělené a soukromé.</p></article><article><span>03</span><h3 data-i18n="step3Title">Otevře se skutečné setkání</h3><p data-i18n="step3Text">Kontakt až po vzájemném výběru. Žádné swipování.</p></article></div></section>
-    <section class="closing" aria-labelledby="closing-title"><img src="assets/duonera-mark-v2.svg" width="72" height="72" alt=""><p data-i18n="closingLabel">LUXURY JE KLID, SOUKROMÍ A POZORNOST</p><h2 id="closing-title" data-i18n="closingTitle">Nejste položka v katalogu.</h2><button class="secondary-open" type="button" data-open-register><span data-i18n="cta">Najít mé tři</span><b>→</b></button></section>
-  </main>
+    <!-- Sekce Filosofie / O nás -->
+    <section id="filosofie" class="py-24 px-6 border-t border-white/5 relative z-10">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Proč Duonera?</h2>
+                <p class="text-gray-400">Opuštíme povrchnost běžných aplikací a vracíme se k exkluzivitě, diskrétnosti a reálným setkáním.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="p-8 rounded-2xl bg-cardBg border border-white/10 backdrop-blur-xl hover:border-goldAccent/50 transition-all">
+                    <div class="w-12 h-12 rounded-xl bg-goldAccent/10 flex items-center justify-center text-goldAccent mb-6 text-xl">🔒</div>
+                    <h3 class="text-xl font-semibold text-white mb-3">Absolutní diskrétnost</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Vaše data a profil nejsou volně dohledatelné na internetu. Přístup mají pouze ověření zájemci.</p>
+                </div>
+                <div class="p-8 rounded-2xl bg-cardBg border border-white/10 backdrop-blur-xl hover:border-goldAccent/50 transition-all">
+                    <div class="w-12 h-12 rounded-xl bg-goldAccent/10 flex items-center justify-center text-goldAccent mb-6 text-xl">⚡</div>
+                    <h3 class="text-xl font-semibold text-white mb-3">Úspora vašeho času</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Žádné zdlouhavé vypisování. Náš systém a concierge služby vás rovnou směřují k osobním setkáním.</p>
+                </div>
+                <div class="p-8 rounded-2xl bg-cardBg border border-white/10 backdrop-blur-xl hover:border-goldAccent/50 transition-all">
+                    <div class="w-12 h-12 rounded-xl bg-goldAccent/10 flex items-center justify-center text-goldAccent mb-6 text-xl">✨</div>
+                    <h3 class="text-xl font-semibold text-white mb-3">Ověřená komunita</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Každý člen prochází přísnou vstupní verifikací, což garantuje bezpečné a seriózní prostředí.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <dialog class="register-dialog" aria-labelledby="register-title"><div class="dialog-shell">
-    <header class="dialog-head"><div><p data-i18n="formKicker">VÁŠ SOUKROMÝ VSTUP</p><h2 id="register-title" data-i18n="formTitle">Koho máme hledat pro vás?</h2></div><button type="button" class="close-dialog" data-close-register aria-label="Zavřít" data-i18n-aria="close">×</button></header>
-    <form class="register-form" novalidate>
-      <div class="paired-choices"><fieldset><legend data-i18n="iam">Jsem</legend><div class="segments"><label><input name="gender" value="woman" type="radio" required><span data-i18n="woman">Žena</span></label><label><input name="gender" value="man" type="radio"><span data-i18n="man">Muž</span></label></div></fieldset><fieldset><legend data-i18n="seeking">Hledám</legend><div class="segments"><label><input name="looking_for" value="woman" type="radio" required><span data-i18n="seekWoman">Ženu</span></label><label><input name="looking_for" value="man" type="radio"><span data-i18n="seekMan">Muže</span></label></div></fieldset></div>
-      <div class="name-age"><label class="field"><span data-i18n="name">Jméno</span><input name="first_name" autocomplete="given-name" maxlength="40" placeholder="Jana" data-i18n-placeholder="namePlaceholder" required></label><label class="field age"><span data-i18n="age">Věk</span><input name="age" type="number" inputmode="numeric" min="18" placeholder="38" required></label></div>
-      <label class="field city"><span data-i18n="homeCity">Město, kde žijete</span><small data-country>Česko</small><input name="city" autocomplete="address-level2" maxlength="80" placeholder="Praha" data-i18n-placeholder="cityPlaceholder" required></label>
-      <button class="location" type="button"><i></i><span data-i18n="location">Použít aktuální polohu</span></button><input name="latitude" type="hidden"><input name="longitude" type="hidden">
-      <fieldset class="languages"><legend><span data-i18n="languages">Jazyky</span><small data-i18n="multiple">můžete vybrat více</small></legend><div><label><input name="languages" value="Čeština" type="checkbox"><span>Čeština</span></label><label><input name="languages" value="English" type="checkbox"><span>English</span></label><label><input name="languages" value="Deutsch" type="checkbox"><span>Deutsch</span></label><label><input name="languages" value="Italiano" type="checkbox"><span>Italiano</span></label><label><input name="languages" value="Slovenčina" type="checkbox"><span>Slovenčina</span></label><label><input name="languages" value="Polski" type="checkbox"><span>Polski</span></label><label><input name="languages" value="Українська" type="checkbox"><span>Українська</span></label><label><input name="languages" value="Русский" type="checkbox"><span>Русский</span></label></div></fieldset>
-      <label class="field"><span>E-mail</span><input name="email" type="email" autocomplete="email" maxlength="120" placeholder="vas@email.cz" data-i18n-placeholder="emailPlaceholder" required></label>
-      <label class="consent"><input name="consent" type="checkbox" required><i></i><small><span data-i18n="consent">Souhlasím se zpracováním údajů pro registraci a soukromý výběr.</span> <a href="privacy.html" data-i18n="privacy">Soukromí</a></small></label>
-      <button class="form-submit" type="submit"><span data-i18n="submit">Vstoupit do DUONERA</span><b>→</b></button><p class="form-note"><span data-i18n="noPassword">Bez hesla</span><i></i><span data-i18n="private">Neveřejný profil</span><i></i><span data-i18n="noPhoto">Fotografie později</span></p>
-    </form>
-  </div></dialog>
+    <!-- Sekce Členové / Showcase -->
+    <section id="clenove" class="py-24 px-6 border-t border-white/5 relative z-10 bg-black/30">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16">
+                <div>
+                    <span class="text-xs uppercase tracking-widest text-goldAccent font-semibold block mb-2">Exkluzivní komunita</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-white">Vybrané profily ve společenství</h2>
+                </div>
+                <p class="text-gray-400 text-sm mt-4 md:mt-0 max-w-sm">Ukázka profilů osobností, které již tvoří naši mezinárodní síť.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- Karta 1 -->
+                <div class="group relative rounded-2xl overflow-hidden border border-white/10 bg-cardBg backdrop-blur-xl p-4 transition-all hover:border-goldAccent">
+                    <div class="h-72 rounded-xl overflow-hidden relative mb-4">
+                        <img src="assets/profile-elena.jpg" alt="Elena" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                        <span class="absolute bottom-4 left-4 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md text-xs text-goldAccent border border-goldAccent/30">Ověřeno • Praha</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white">Elena, 28</h3>
+                    <p class="text-gray-400 text-sm mt-1">Architektura & Design</p>
+                </div>
+                <!-- Karta 2 -->
+                <div class="group relative rounded-2xl overflow-hidden border border-white/10 bg-cardBg backdrop-blur-xl p-4 transition-all hover:border-goldAccent">
+                    <div class="h-72 rounded-xl overflow-hidden relative mb-4">
+                        <img src="assets/profile-igor.jpg" alt="Igor" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                        <span class="absolute bottom-4 left-4 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md text-xs text-goldAccent border border-goldAccent/30">Ověřeno • Vídeň</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white">Igor, 34</h3>
+                    <p class="text-gray-400 text-sm mt-1">Investice & Tech</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <section class="success" hidden aria-live="polite" aria-labelledby="success-title"><div><img src="assets/duonera-mark-v2.svg" width="72" height="72" alt=""><p data-i18n="successLabel">VÍTEJTE V DUONERA</p><h2 id="success-title"><span data-i18n="successTitle">Váš soukromý profil je připraven,</span> <em data-success-name></em>.</h2><p data-i18n="successText">Fotografii a další informace můžete doplnit později.</p><a href="ucet.html" data-account-after-registration><span data-i18n="openProfile">Otevřít můj profil</span><b>→</b></a></div></section>
-  <aside class="tracking-consent" aria-label="Nastavení soukromí" hidden><p data-i18n="cookieText">Pomozte nám měřit, zda DUONERA funguje. Reklamní měření spustíme jen s vaším souhlasem.</p><a href="privacy.html" data-i18n="cookieMore">Více informací</a><div><button class="tracking-reject" type="button" data-i18n="cookieReject">Jen nutné</button><button class="tracking-accept" type="button" data-i18n="cookieAccept">Povolit měření</button></div></aside>
-  <div class="toast" role="status" aria-live="polite"></div>
-  <script type="module" src="duonera-invitation-v2.js?v=20260806d"></script>
-  <script src="pwa-install.js?v=2"></script>
+    <!-- Patička -->
+    <footer class="py-12 px-6 border-t border-white/10 text-center text-sm text-gray-500 relative z-10">
+        <p>&copy; 2026 Duonera ONE. Všechna práva vyhrazena. Soukromé společenství.</p>
+    </footer>
+
 </body>
 </html>
