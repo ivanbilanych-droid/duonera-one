@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="DUONERA">
-  <link rel="manifest" href="manifest.webmanifest?v=1">
+  <link rel="manifest" href="manifest.webmanifest?v=4">
   <link rel="icon" href="assets/duonera-mark-v2.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="assets/favicon.svg">
   <title>Můj účet — DUONERA</title>
@@ -56,7 +56,7 @@
     })();
   </script>
   <link rel="stylesheet" href="styles.css?v=21">
-  <link rel="stylesheet" href="ucet.css?v=20260805a">\n  <link rel="stylesheet" href="duonera-member-v3.css?v=20260806c">
+  <link rel="stylesheet" href="ucet.css?v=20260805a">\n  <link rel="stylesheet" href="duonera-member-v3.css?v=20260806d">
 </head>
 <body class="member-page">
   <header class="site-header member-header">
@@ -67,11 +67,18 @@
     <div class="header-actions">
       <div class="lang-switch" aria-label="Jazyk">
         <button type="button" class="active" data-lang="cs">CZ</button>
-        <button type="button" data-lang="en">EN</button>
         <button type="button" data-lang="de">DE</button>
+        <button type="button" data-lang="it">IT</button>
+        <button type="button" data-lang="pl">PL</button>
+        <button type="button" data-lang="sk">SK</button>
         <button type="button" data-lang="uk">UA</button>
         <button type="button" data-lang="ru">RU</button>
+        <button type="button" data-lang="en">EN</button>
       </div>
+      <select class="member-language-select" id="memberLanguageSelect" aria-label="Jazyk">
+        <option value="cs">CZ</option><option value="de">DE</option><option value="it">IT</option><option value="pl">PL</option><option value="sk">SK</option><option value="uk">UA</option><option value="ru">RU</option><option value="en">EN</option>
+      </select>
+      <button class="member-install" id="installAppButton" type="button" hidden data-i18n="installApp">Nainstalovat</button>
       <a class="member-home-link" id="adminLink" href="admin.html" hidden>Správa</a>
       <a class="member-home-link" href="index.html" data-i18n="home">Hlavní stránka</a>
       <button class="btn btn-outline member-logout" id="logoutButton" type="button" hidden data-i18n="logout">Odhlásit</button>
@@ -215,6 +222,6 @@
     </div>
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.53.0/dist/umd/supabase.js"></script>
-  <script type="module" src="ucet.js?v=20"></script>
+  <script type="module" src="ucet.js?v=21"></script>
 </body>
 </html>
