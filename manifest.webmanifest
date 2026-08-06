@@ -1,8 +1,8 @@
 {
-  "name": "DUONERA – Serious Dating Across Europe",
+  "name": "DUONERA – Soukromé seznamování",
   "short_name": "DUONERA",
   "id": "/",
-  "start_url": "/?source=pwa",
+  "start_url": "/ucet.html?source=pwa",
   "scope": "/",
   "display": "standalone",
   "display_override": [
@@ -10,10 +10,10 @@
     "minimal-ui"
   ],
   "orientation": "portrait-primary",
-  "background_color": "#f7f3eb",
-  "theme_color": "#f7f3eb",
+  "background_color": "#ebe5da",
+  "theme_color": "#f7f1e7",
   "lang": "cs",
-  "description": "Soukromé seznamování pro vážný vztah ve vašem městě a po celé Evropě.",
+  "description": "Soukromé seznamování s lidmi poblíž. Vzájemná volba, žádné nekonečné swipování.",
   "categories": [
     "social",
     "lifestyle"
