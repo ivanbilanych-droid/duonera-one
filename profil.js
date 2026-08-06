@@ -63,7 +63,7 @@ const profileProcessTranslations = {
     dataConsent:'Výslovně souhlasím se zpracováním údajů a fotografií pro vytvoření mého účtu, výběr vhodných kandidátů a organizaci případné schůzky.',
     discoveryConsent:'Souhlasím, aby po kontrole DUONERA mohly být moje křestní jméno, věk, město, vybrané údaje a fotografie zobrazeny v omezené nabídce. Kontaktní údaje se nezobrazí.',
     finalTitle:'Po odeslání uvidíte profil ve svém osobním účtu.',
-    finalText:'DUONERA profil zkontroluje. Teprve po schválení se může zobrazit v omezeném výběru.'
+    finalText:'Profil se aktivuje automaticky a systém ho zařadí do vhodných soukromých výběrů.'
   },
   en:{
     privateTitle:'Your contact details remain private',
@@ -72,7 +72,7 @@ const profileProcessTranslations = {
     dataConsent:'I explicitly consent to the processing of my details and photos to create my account, select suitable candidates and arrange a possible meeting.',
     discoveryConsent:'I agree that, after DUONERA review, my first name, age, city, selected profile details and photos may appear in the limited selection. Contact details will not be displayed.',
     finalTitle:'After submission, your profile appears in your personal account.',
-    finalText:'DUONERA reviews the profile. It may enter the limited selection only after approval.'
+    finalText:'The profile is activated automatically and the system includes it in suitable private selections.'
   },
   de:{
     privateTitle:'Ihre Kontaktdaten bleiben privat',
@@ -81,7 +81,7 @@ const profileProcessTranslations = {
     dataConsent:'Ich willige ausdrücklich in die Verarbeitung meiner Angaben und Fotos ein, um mein Konto zu erstellen, passende Personen auszuwählen und ein mögliches Treffen zu organisieren.',
     discoveryConsent:'Ich stimme zu, dass nach der Prüfung durch DUONERA mein Vorname, Alter, Ort, ausgewählte Profildaten und Fotos in der begrenzten Auswahl erscheinen dürfen. Kontaktdaten werden nicht angezeigt.',
     finalTitle:'Nach dem Absenden sehen Sie Ihr Profil in Ihrem persönlichen Konto.',
-    finalText:'DUONERA prüft das Profil. Erst nach der Freigabe kann es in der begrenzten Auswahl erscheinen.'
+    finalText:'Das Profil wird automatisch aktiviert und in passende private Auswahlen aufgenommen.'
   },
   uk:{
     privateTitle:'Ваші контактні дані залишаються приватними',
@@ -90,7 +90,7 @@ const profileProcessTranslations = {
     dataConsent:'Я прямо погоджуюся на обробку даних і фотографій для створення мого кабінету, добору відповідних кандидатів та організації можливої зустрічі.',
     discoveryConsent:'Я погоджуюся, що після перевірки DUONERA моє ім’я, вік, місто, вибрані дані анкети та фотографії можуть бути показані в обмеженій добірці. Контактні дані не показуються.',
     finalTitle:'Після надсилання анкета з’явиться у вашому особистому кабінеті.',
-    finalText:'DUONERA перевірить анкету. Лише після схвалення вона може з’явитися в обмеженій добірці.'
+    finalText:'Анкета активується автоматично, і система додасть її до відповідних приватних добірок.'
   },
   ru:{
     privateTitle:'Ваши контактные данные остаются закрытыми',
@@ -99,7 +99,7 @@ const profileProcessTranslations = {
     dataConsent:'Я прямо соглашаюсь на обработку данных и фотографий для создания моего кабинета, подбора подходящих кандидатов и организации возможной встречи.',
     discoveryConsent:'Я согласен, что после проверки DUONERA моё имя, возраст, город, выбранные данные анкеты и фотографии могут показываться в ограниченной подборке. Контактные данные не показываются.',
     finalTitle:'После отправки анкета появится в вашем личном кабинете.',
-    finalText:'DUONERA проверит анкету. Только после одобрения она может появиться в ограниченной подборке.'
+    finalText:'Анкета активируется автоматически, и система добавит её в подходящие закрытые подборки.'
   }
 };
 Object.entries(profileProcessTranslations).forEach(([language,values])=>{
