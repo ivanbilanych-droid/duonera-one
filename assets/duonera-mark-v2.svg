@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">DUONERA</title>
+  <circle cx="32" cy="32" r="29" fill="#f7f1e7" stroke="#123c3a" stroke-width="2"/>
+  <path d="M13 19c11 0 18 5.5 19 13-1 7.5-8 13-19 13" fill="none" stroke="#123c3a" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M51 19c-11 0-18 5.5-19 13 1 7.5 8 13 19 13" fill="none" stroke="#c75b3d" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="32" cy="32" r="3.5" fill="#e6ad51"/>
+</svg>
