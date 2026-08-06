@@ -57,6 +57,7 @@
   </script>
   <link rel="stylesheet" href="styles.css?v=21">
   <link rel="stylesheet" href="ucet.css?v=20260805a">\n  <link rel="stylesheet" href="duonera-member-v3.css?v=20260806d">
+  <link rel="stylesheet" href="pwa-install.css?v=2">
 </head>
 <body class="member-page">
   <header class="site-header member-header">
@@ -78,7 +79,7 @@
       <select class="member-language-select" id="memberLanguageSelect" aria-label="Jazyk">
         <option value="cs">CZ</option><option value="de">DE</option><option value="it">IT</option><option value="pl">PL</option><option value="sk">SK</option><option value="uk">UA</option><option value="ru">RU</option><option value="en">EN</option>
       </select>
-      <button class="member-install" id="installAppButton" type="button" hidden data-i18n="installApp">Nainstalovat</button>
+
       <a class="member-home-link" id="adminLink" href="admin.html" hidden>Správa</a>
       <a class="member-home-link" href="index.html" data-i18n="home">Hlavní stránka</a>
       <button class="btn btn-outline member-logout" id="logoutButton" type="button" hidden data-i18n="logout">Odhlásit</button>
@@ -223,5 +224,6 @@
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.53.0/dist/umd/supabase.js"></script>
   <script type="module" src="ucet.js?v=21"></script>
+  <script src="pwa-install.js?v=2"></script>
 </body>
 </html>

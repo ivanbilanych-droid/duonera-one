@@ -191,7 +191,6 @@ const forgotPassword = document.querySelector('#forgotPassword');
 const loginNote = document.querySelector('#loginNote');
 const logoutButton = document.querySelector('#logoutButton');
 const memberLanguageSelect = document.querySelector('#memberLanguageSelect');
-const installAppButton = document.querySelector('#installAppButton');
 const dashboardMessage = document.querySelector('#dashboardMessage');
 const memberEmailLabel = document.querySelector('#memberEmailLabel');
 const createProfileButton = document.querySelector('#createProfileButton');
@@ -646,31 +645,6 @@ document.querySelectorAll('[data-lang]').forEach(button => {
 });
 memberLanguageSelect?.addEventListener('change',()=>applyLanguage(memberLanguageSelect.value));
 
-let deferredInstallPrompt = null;
-const standalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
-const iosDevice = /iphone|ipad|ipod/i.test(navigator.userAgent);
-if (!standalone && iosDevice) installAppButton.hidden = false;
-window.addEventListener('beforeinstallprompt',event=>{
-  event.preventDefault();
-  deferredInstallPrompt = event;
-  installAppButton.hidden = false;
-});
-installAppButton?.addEventListener('click',async()=>{
-  if (deferredInstallPrompt) {
-    deferredInstallPrompt.prompt();
-    await deferredInstallPrompt.userChoice;
-    deferredInstallPrompt = null;
-    installAppButton.hidden = true;
-    return;
-  }
-  if (!dashboardView.hidden) {
-    dashboardMessage.className = 'member-message dashboard-message';
-    dashboardMessage.textContent = t('installIos');
-  } else {
-    setLoginMessage(t('installIos'));
-  }
-});
-window.addEventListener('appinstalled',()=>{installAppButton.hidden=true;});
 
 document.querySelector('#year').textContent = new Date().getFullYear();
 applyLanguage(currentLang);
@@ -716,7 +690,7 @@ if (auth && recoveryFlow) {
 // Keep the member area available from the installed DUONERA app.
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js?v=38').catch(error => {
+    navigator.serviceWorker.register('/service-worker.js?v=39').catch(error => {
       console.warn('DUONERA service worker registration failed', error);
     });
   });
