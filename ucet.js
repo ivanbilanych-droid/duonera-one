@@ -35,6 +35,16 @@ const translations = {
   }
 };
 
+Object.assign(translations.cs,{profileActive:'Profil je aktivní',profilePending:'Profil je aktivní',profileApproved:'Profil je aktivní',profileHidden:'Profil je aktivní',accountReady:'Profil je aktivní. Systém pro vás průběžně hledá vhodné lidi.',installApp:'Nainstalovat',installIos:'V Safari zvolte Sdílet a Přidat na plochu.',discoveryText:'Žádné nekonečné listování. Systém ukazuje jen malý soukromý výběr vhodných lidí.'});
+Object.assign(translations.en,{profileActive:'Profile active',profilePending:'Profile active',profileApproved:'Profile active',profileHidden:'Profile active',accountReady:'Your profile is active. The system is looking for suitable people nearby.',installApp:'Install app',installIos:'In Safari, choose Share and Add to Home Screen.',discoveryText:'No endless browsing. The system shows only a small private selection of suitable people.'});
+Object.assign(translations.de,{profileActive:'Profil aktiv',profilePending:'Profil aktiv',profileApproved:'Profil aktiv',profileHidden:'Profil aktiv',accountReady:'Ihr Profil ist aktiv. Das System sucht laufend nach passenden Menschen in Ihrer Nähe.',installApp:'App installieren',installIos:'Wählen Sie in Safari Teilen und Zum Home-Bildschirm.',discoveryText:'Kein endloses Wischen. Das System zeigt nur eine kleine private Auswahl passender Menschen.'});
+Object.assign(translations.uk,{profileActive:'Анкета активна',profilePending:'Анкета активна',profileApproved:'Анкета активна',profileHidden:'Анкета активна',accountReady:'Ваша анкета активна. Система шукає відповідних людей поруч.',installApp:'Встановити',installIos:'У Safari виберіть «Поділитися» та «На початковий екран».',discoveryText:'Без нескінченного перегляду. Система показує лише невелику приватну добірку відповідних людей.'});
+Object.assign(translations.ru,{profileActive:'Анкета активна',profilePending:'Анкета активна',profileApproved:'Анкета активна',profileHidden:'Анкета активна',accountReady:'Ваша анкета активна. Система ищет подходящих людей поблизости.',installApp:'Установить',installIos:'В Safari нажмите «Поделиться» и «На экран Домой».',discoveryText:'Без бесконечного просмотра. Система показывает только небольшую закрытую подборку подходящих людей.'});
+
+translations.it={...translations.en,home:'Pagina principale',logout:'Esci',loginLabel:'ACCESSO PRIVATO',loginTitle:'Il tuo spazio personale DUONERA.',loginText:'Accedi con e-mail e password.',loginTrust1:'✓ Il tuo profilo e le tue foto',loginTrust2:'✓ Una selezione privata di persone vicine',loginTrust3:'✓ I contatti restano nascosti',signInTab:'Accedi',registerTab:'Registrati',password:'Password',repeatPassword:'Ripeti la password',signIn:'Accedi',forgotPassword:'Password dimenticata?',createAccount:'Crea account',accountLabel:'IL MIO ACCOUNT',accountTitle:'Benvenuto in DUONERA.',createProfile:'Crea il mio profilo',ownLabel:'IL MIO PROFILO',ownTitle:'Così ti vede DUONERA.',notCompleted:'Non completato',profileActive:'Profilo attivo',premiumLabel:'SERVIZIO PREMIUM DUONERA',premiumTitle:'Le tre persone migliori per te.',premiumText:'Una selezione personale e limitata, non un altro catalogo.',premiumEmpty:'La tua selezione non è ancora pronta.',discoveryLabel:'SELEZIONE LIMITATA',discoveryTitle:'Persone reali che puoi conoscere.',discoveryText:'Niente scorrimento infinito. Solo una piccola selezione privata di persone adatte.',mutualTitle:'Avete una scelta reciproca.',mutualText:'DUONERA vi aiuterà a organizzare un incontro reale.',loading:'Caricamento…',footer:'Privacy. Selezione limitata. Un incontro reale.',age:'Età',location:'Città',seeking:'Cerco',languages:'Lingue',occupation:'Professione',traits:'Carattere',interests:'Interessi',about:'Su di me',like:'Vorrei conoscere questa persona',selected:'Selezionato',mutual:'Scelta reciproca',noProfiles:'Al momento non ci sono profili adatti.',accountReady:'Il tuo profilo è attivo. Il sistema cerca persone adatte nelle vicinanze.',installApp:'Installa app',installIos:'In Safari scegli Condividi e Aggiungi alla schermata Home.'};
+translations.pl={...translations.en,home:'Strona główna',logout:'Wyloguj',loginLabel:'PRYWATNY DOSTĘP',loginTitle:'Twoja osobista przestrzeń DUONERA.',loginText:'Zaloguj się e-mailem i hasłem.',loginTrust1:'✓ Twój profil i zdjęcia',loginTrust2:'✓ Prywatny wybór osób w pobliżu',loginTrust3:'✓ Dane kontaktowe są ukryte',signInTab:'Logowanie',registerTab:'Rejestracja',password:'Hasło',repeatPassword:'Powtórz hasło',signIn:'Zaloguj się',forgotPassword:'Nie pamiętasz hasła?',createAccount:'Utwórz konto',accountLabel:'MOJE KONTO',accountTitle:'Witamy w DUONERA.',createProfile:'Utwórz mój profil',ownLabel:'MÓJ PROFIL',ownTitle:'Tak widzi Cię DUONERA.',notCompleted:'Nieukończony',profileActive:'Profil aktywny',premiumLabel:'USŁUGA PREMIUM DUONERA',premiumTitle:'Trzy najlepsze osoby dla Ciebie.',premiumText:'Osobisty, ograniczony wybór — nie kolejny katalog.',premiumEmpty:'Twój wybór nie jest jeszcze gotowy.',discoveryLabel:'OGRANICZONY WYBÓR',discoveryTitle:'Prawdziwe osoby, które możesz poznać.',discoveryText:'Bez nieskończonego przewijania. Tylko mały prywatny wybór odpowiednich osób.',mutualTitle:'Macie wzajemny wybór.',mutualText:'DUONERA pomoże zorganizować prawdziwe spotkanie.',loading:'Ładowanie…',footer:'Prywatność. Ograniczony wybór. Prawdziwe spotkanie.',age:'Wiek',location:'Miasto',seeking:'Szukam',languages:'Języki',occupation:'Zawód',traits:'Charakter',interests:'Zainteresowania',about:'O mnie',like:'Chcę poznać tę osobę',selected:'Wybrano',mutual:'Wzajemny wybór',noProfiles:'Obecnie nie ma odpowiednich profili.',accountReady:'Twój profil jest aktywny. System szuka odpowiednich osób w pobliżu.',installApp:'Zainstaluj',installIos:'W Safari wybierz Udostępnij i Dodaj do ekranu początkowego.'};
+translations.sk={...translations.cs,home:'Hlavná stránka',logout:'Odhlásiť',loginLabel:'SÚKROMNÝ PRÍSTUP',loginTitle:'Váš osobný priestor DUONERA.',loginText:'Prihláste sa e-mailom a heslom.',loginTrust1:'✓ Váš profil a fotografie',loginTrust2:'✓ Súkromný výber ľudí nablízku',loginTrust3:'✓ Kontakty zostávajú skryté',signInTab:'Prihlásenie',registerTab:'Registrácia',password:'Heslo',repeatPassword:'Zopakujte heslo',signIn:'Prihlásiť sa',forgotPassword:'Zabudli ste heslo?',createAccount:'Vytvoriť účet',accountLabel:'MÔJ ÚČET',accountTitle:'Vitajte v DUONERA.',createProfile:'Vytvoriť môj profil',ownLabel:'MÔJ PROFIL',ownTitle:'Takto vás vidí DUONERA.',notCompleted:'Nie je vyplnený',profileActive:'Profil je aktívny',premiumLabel:'PRÉMIOVÁ SLUŽBA DUONERA',premiumTitle:'Traja najlepší ľudia pre vás.',premiumText:'Osobný obmedzený výber, nie ďalší katalóg.',premiumEmpty:'Váš výber ešte nie je pripravený.',discoveryLabel:'OBMEDZENÝ VÝBER',discoveryTitle:'Skutoční ľudia, ktorých môžete spoznať.',discoveryText:'Žiadne nekonečné listovanie. Iba malý súkromný výber vhodných ľudí.',mutualTitle:'Máte vzájomnú voľbu.',mutualText:'DUONERA vám pomôže zorganizovať skutočné stretnutie.',loading:'Načítavam…',footer:'Súkromie. Obmedzený výber. Skutočné stretnutie.',age:'Vek',location:'Mesto',seeking:'Hľadám',languages:'Jazyky',occupation:'Povolanie',traits:'Povaha',interests:'Záujmy',about:'O mne',like:'Chcem spoznať túto osobu',selected:'Vybrané',mutual:'Vzájomná voľba',noProfiles:'Momentálne nie sú vhodné profily.',accountReady:'Váš profil je aktívny. Systém hľadá vhodných ľudí nablízku.',installApp:'Nainštalovať',installIos:'V Safari vyberte Zdieľať a Pridať na plochu.'};
+
 Object.assign(translations.cs, {
   loginText:'Zadejte e-mail. Pošleme vám bezpečný přihlašovací odkaz — bez hesla.',
   sendCode:'Poslat přihlašovací odkaz',
@@ -157,8 +167,7 @@ Object.assign(translations.ru, {
   alreadyRegistered:'Для этого e-mail уже есть аккаунт. Войдите или нажмите «Забыли пароль?».',
   authServiceError:'Не удалось войти. Попробуйте ещё раз.'
 });
-
-
+['it','pl','sk'].forEach(language=>{translations[language]={...translations.en,...translations[language]};});
 
 const loginView = document.querySelector('#loginView');
 const dashboardView = document.querySelector('#dashboardView');
@@ -181,6 +190,8 @@ const showRegister = document.querySelector('#showRegister');
 const forgotPassword = document.querySelector('#forgotPassword');
 const loginNote = document.querySelector('#loginNote');
 const logoutButton = document.querySelector('#logoutButton');
+const memberLanguageSelect = document.querySelector('#memberLanguageSelect');
+const installAppButton = document.querySelector('#installAppButton');
 const dashboardMessage = document.querySelector('#dashboardMessage');
 const memberEmailLabel = document.querySelector('#memberEmailLabel');
 const createProfileButton = document.querySelector('#createProfileButton');
@@ -210,6 +221,7 @@ function applyLanguage(lang) {
   document.querySelectorAll('[data-lang]').forEach(button => {
     button.classList.toggle('active', button.dataset.lang === currentLang);
   });
+  if (memberLanguageSelect) memberLanguageSelect.value = currentLang;
   localStorage.setItem('duonera-lang', currentLang);
   if (!dashboardView.hidden) renderAll();
 }
@@ -267,9 +279,7 @@ async function renderOwnProfile(auth) {
   }
 
   createProfileButton.hidden = true;
-  profileState.textContent = currentProfile.is_approved
-    ? (currentProfile.is_discoverable ? t('profileApproved') : t('profileHidden'))
-    : t('profilePending');
+  profileState.textContent = t('profileActive');
   ownProfileCard.replaceChildren();
   const layout = document.createElement('div');
   layout.className = 'own-profile-layout';
@@ -634,6 +644,33 @@ logoutButton.addEventListener('click', async () => {
 document.querySelectorAll('[data-lang]').forEach(button => {
   button.addEventListener('click', () => applyLanguage(button.dataset.lang));
 });
+memberLanguageSelect?.addEventListener('change',()=>applyLanguage(memberLanguageSelect.value));
+
+let deferredInstallPrompt = null;
+const standalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+const iosDevice = /iphone|ipad|ipod/i.test(navigator.userAgent);
+if (!standalone && iosDevice) installAppButton.hidden = false;
+window.addEventListener('beforeinstallprompt',event=>{
+  event.preventDefault();
+  deferredInstallPrompt = event;
+  installAppButton.hidden = false;
+});
+installAppButton?.addEventListener('click',async()=>{
+  if (deferredInstallPrompt) {
+    deferredInstallPrompt.prompt();
+    await deferredInstallPrompt.userChoice;
+    deferredInstallPrompt = null;
+    installAppButton.hidden = true;
+    return;
+  }
+  if (!dashboardView.hidden) {
+    dashboardMessage.className = 'member-message dashboard-message';
+    dashboardMessage.textContent = t('installIos');
+  } else {
+    setLoginMessage(t('installIos'));
+  }
+});
+window.addEventListener('appinstalled',()=>{installAppButton.hidden=true;});
 
 document.querySelector('#year').textContent = new Date().getFullYear();
 applyLanguage(currentLang);
@@ -679,7 +716,7 @@ if (auth && recoveryFlow) {
 // Keep the member area available from the installed DUONERA app.
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js').catch(error => {
+    navigator.serviceWorker.register('/service-worker.js?v=38').catch(error => {
       console.warn('DUONERA service worker registration failed', error);
     });
   });
