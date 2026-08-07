@@ -189,14 +189,25 @@ export async function consumeAuthRedirect() {
 }
 
 
-export async function registerMember(email, password, redirectTo) {
+export async function registerMember(email, password, redirectTo, profile = {}) {
   if (!supabaseAuthClient) throw new Error('Přihlašovací služba není dostupná.');
+  const metadata = {
+    source: String(profile.source || 'duonera.cz'),
+    first_name: String(profile.first_name || '').slice(0, 40),
+    age: Number(profile.age || 0) || null,
+    gender: String(profile.gender || ''),
+    looking_for: String(profile.looking_for || ''),
+    city: String(profile.city || '').slice(0, 80),
+    country: String(profile.country || '').slice(0, 80),
+    languages: Array.isArray(profile.languages) ? profile.languages.slice(0, 8) : [],
+    landing_language: String(profile.landing_language || '').slice(0, 5)
+  };
   const { data, error } = await supabaseAuthClient.auth.signUp({
     email: String(email || '').trim().toLowerCase(),
     password: String(password || ''),
     options: {
       emailRedirectTo: redirectTo,
-      data: { source: 'duonera.cz' }
+      data: metadata
     }
   });
   if (error) throw error;
