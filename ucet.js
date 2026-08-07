@@ -183,6 +183,18 @@ const quickRegistrationCopy = {
 };
 Object.entries(quickRegistrationCopy).forEach(([language, copy]) => Object.assign(translations[language], copy));
 
+const profileCompletionCopy = {
+  cs:{completeProfileTitle:'Doplňte poslední údaje',completeProfileText:'Stačí jedna minuta. Potom se váš účet otevře bez další ankety.',languagesInput:'Jazyky',languagesPlaceholder:'Čeština, English',saveProfile:'Uložit a pokračovat',profileSaveError:'Údaje se nepodařilo uložit. Zkuste to znovu.'},
+  en:{completeProfileTitle:'Add the last details',completeProfileText:'It takes one minute. Your account will then open without another questionnaire.',languagesInput:'Languages',languagesPlaceholder:'English, Czech',saveProfile:'Save and continue',profileSaveError:'We could not save the details. Please try again.'},
+  de:{completeProfileTitle:'Letzte Angaben ergänzen',completeProfileText:'Das dauert eine Minute. Danach öffnet sich Ihr Konto ohne weiteren Fragebogen.',languagesInput:'Sprachen',languagesPlaceholder:'Deutsch, English',saveProfile:'Speichern und weiter',profileSaveError:'Die Angaben konnten nicht gespeichert werden. Versuchen Sie es erneut.'},
+  it:{completeProfileTitle:'Aggiungi gli ultimi dati',completeProfileText:'Basta un minuto. Poi il tuo account si apre senza altri questionari.',languagesInput:'Lingue',languagesPlaceholder:'Italiano, English',saveProfile:'Salva e continua',profileSaveError:'Non è stato possibile salvare i dati. Riprova.'},
+  pl:{completeProfileTitle:'Uzupełnij ostatnie dane',completeProfileText:'To zajmie minutę. Potem konto otworzy się bez kolejnej ankiety.',languagesInput:'Języki',languagesPlaceholder:'Polski, English',saveProfile:'Zapisz i kontynuuj',profileSaveError:'Nie udało się zapisać danych. Spróbuj ponownie.'},
+  sk:{completeProfileTitle:'Doplňte posledné údaje',completeProfileText:'Stačí jedna minúta. Potom sa účet otvorí bez ďalšieho dotazníka.',languagesInput:'Jazyky',languagesPlaceholder:'Slovenčina, English',saveProfile:'Uložiť a pokračovať',profileSaveError:'Údaje sa nepodarilo uložiť. Skúste to znova.'},
+  uk:{completeProfileTitle:'Додайте останні дані',completeProfileText:'Це займе одну хвилину. Потім кабінет відкриється без іншої анкети.',languagesInput:'Мови',languagesPlaceholder:'Українська, English',saveProfile:'Зберегти й продовжити',profileSaveError:'Не вдалося зберегти дані. Спробуйте ще раз.'},
+  ru:{completeProfileTitle:'Добавьте последние данные',completeProfileText:'Это займёт одну минуту. После сохранения кабинет откроется без другой анкеты.',languagesInput:'Языки',languagesPlaceholder:'Русский, Čeština',saveProfile:'Сохранить и продолжить',profileSaveError:'Не удалось сохранить данные. Попробуйте ещё раз.'}
+};
+Object.entries(profileCompletionCopy).forEach(([language, copy]) => Object.assign(translations[language], copy));
+
 const loginView = document.querySelector('#loginView');
 const dashboardView = document.querySelector('#dashboardView');
 const loginForm = document.querySelector('#loginForm');
@@ -228,6 +240,26 @@ let activeAuth = null;
 
 function t(key) {
   return translations[currentLang]?.[key] || translations.cs[key] || key;
+}
+
+function trackSuccessfulRegistration(method, identity = '') {
+  const trackingKey = identity ? `duonera-registration-tracked:${identity}` : '';
+  if (trackingKey && localStorage.getItem(trackingKey) === '1') return;
+  if (typeof window.gtag === 'function') {
+    window.gtag('event', 'generate_lead', {
+      method,
+      landing_language: currentLang,
+      transport_type: 'beacon'
+    });
+    window.gtag('event', 'sign_up', {
+      method,
+      transport_type: 'beacon'
+    });
+  }
+  if (typeof window.fbq === 'function') {
+    window.fbq('track', 'Lead', {content_name:'duonera_registration'});
+  }
+  if (trackingKey) localStorage.setItem(trackingKey, '1');
 }
 
 function applyLanguage(lang) {
@@ -304,6 +336,16 @@ function savedShortRegistration(email = '') {
   } catch {
     return {};
   }
+}
+
+function hasRegistrationDetails(registration = {}) {
+  return Boolean(
+    String(registration.first_name || '').trim() &&
+    Number(registration.age) >= 18 &&
+    String(registration.gender || '').trim() &&
+    String(registration.looking_for || '').trim() &&
+    String(registration.city || '').trim()
+  );
 }
 
 function registrationSnapshot(auth, lead = null) {
@@ -399,6 +441,8 @@ async function ensureLeadForMember(auth, lead, saved) {
 
 async function ensureStarterProfile(auth, lead) {
   const saved = savedShortRegistration(auth.user.email);
+  const registration = {...(auth.user?.user_metadata || {}), ...(lead || {}), ...saved};
+  if (!hasRegistrationDetails(registration)) return null;
   const memberLead = await ensureLeadForMember(auth, lead, saved);
   if (!memberLead?.id) return null;
   const payload = starterProfilePayload(auth, memberLead, saved);
@@ -406,16 +450,136 @@ async function ensureStarterProfile(auth, lead) {
   return payload;
 }
 
+function profileField(label, input) {
+  const field = document.createElement('label');
+  const title = document.createElement('span');
+  title.textContent = label;
+  field.append(title, input);
+  return field;
+}
+
+function profileInput(name, type = 'text') {
+  const input = document.createElement('input');
+  input.name = name;
+  input.type = type;
+  input.required = true;
+  return input;
+}
+
+function profileSelect(name, options) {
+  const select = document.createElement('select');
+  select.name = name;
+  select.required = true;
+  options.forEach(([value, label]) => {
+    const option = document.createElement('option');
+    option.value = value;
+    option.textContent = label;
+    select.appendChild(option);
+  });
+  return select;
+}
+
+function renderProfileCompletion(auth, registration = {}) {
+  ownProfileCard.replaceChildren();
+  const form = document.createElement('form');
+  form.className = 'profile-completion-form';
+
+  const intro = document.createElement('div');
+  intro.className = 'profile-completion-head';
+  const title = document.createElement('h3');
+  title.textContent = t('completeProfileTitle');
+  const text = document.createElement('p');
+  text.textContent = t('completeProfileText');
+  intro.append(title, text);
+
+  const fields = document.createElement('div');
+  fields.className = 'profile-completion-grid';
+  const firstName = profileInput('first_name');
+  firstName.autocomplete = 'given-name';
+  firstName.maxLength = 40;
+  firstName.value = String(registration.first_name || '');
+  const age = profileInput('age', 'number');
+  age.inputMode = 'numeric';
+  age.min = '18';
+  age.max = '120';
+  age.value = Number(registration.age) >= 18 ? String(registration.age) : '';
+  const gender = profileSelect('gender', [['Muž', t('man')], ['Žena', t('woman')]]);
+  gender.value = ['Muž', 'Žena'].includes(registration.gender) ? registration.gender : 'Muž';
+  const lookingFor = profileSelect('looking_for', [['Ženu', t('seekWoman')], ['Muže', t('seekMan')]]);
+  lookingFor.value = ['Ženu', 'Muže'].includes(registration.looking_for) ? registration.looking_for : 'Ženu';
+  const city = profileInput('city');
+  city.autocomplete = 'address-level2';
+  city.maxLength = 80;
+  city.value = String(registration.city || '');
+  const languages = profileInput('languages');
+  languages.maxLength = 160;
+  languages.placeholder = t('languagesPlaceholder');
+  languages.value = Array.isArray(registration.languages) ? registration.languages.join(', ') : '';
+
+  fields.append(
+    profileField(t('firstName'), firstName),
+    profileField(t('age'), age),
+    profileField(t('iam'), gender),
+    profileField(t('seeking'), lookingFor),
+    profileField(t('city'), city),
+    profileField(t('languagesInput'), languages)
+  );
+
+  const submit = document.createElement('button');
+  submit.type = 'submit';
+  submit.className = 'btn btn-gold profile-completion-submit';
+  submit.textContent = t('saveProfile');
+  form.append(intro, fields, submit);
+
+  form.addEventListener('submit', async event => {
+    event.preventDefault();
+    submit.disabled = true;
+    dashboardMessage.className = 'member-message dashboard-message';
+    dashboardMessage.textContent = t('profilePreparing');
+    const saved = {
+      first_name: firstName.value.trim(),
+      age: Number(age.value),
+      gender: gender.value,
+      looking_for: lookingFor.value,
+      city: city.value.trim(),
+      country: countryForLanguage(currentLang),
+      languages: languages.value.split(',').map(value => value.trim()).filter(Boolean).slice(0, 8),
+      email: String(auth.user.email || '').trim().toLowerCase(),
+      landing_language: currentLang,
+      consent_privacy: true,
+      source: 'duonera.cz/account-completion'
+    };
+
+    try {
+      localStorage.setItem('duonera-short-registration', JSON.stringify(saved));
+      const linkedLead = currentRegistration?.id ? currentRegistration : null;
+      const lead = await ensureLeadForMember(auth, linkedLead, saved);
+      if (!lead?.id) throw new Error('DUONERA lead was not created.');
+      const payload = starterProfilePayload(auth, lead, saved);
+      await insertRow('duonera_profiles', payload, 20000, auth.session.access_token);
+      currentRegistration = saved;
+      currentProfile = payload;
+      trackSuccessfulRegistration('account_completion', auth.user.id);
+      await renderOwnProfile(auth);
+      renderDiscovery(loadedDiscovery);
+      renderPremium(loadedPremium);
+      dashboardMessage.textContent = t('profileReady');
+    } catch (error) {
+      console.error('DUONERA profile completion failed', error);
+      dashboardMessage.className = 'member-message dashboard-message error';
+      dashboardMessage.textContent = t('profileSaveError');
+      submit.disabled = false;
+    }
+  });
+
+  ownProfileCard.appendChild(form);
+}
+
 async function renderOwnProfile(auth) {
   if (!currentProfile) {
-    profileState.textContent = t('profileActive');
-    createProfileButton.hidden = !currentRegistration;
-    const saved = savedShortRegistration(auth.user.email);
-    const registration = currentRegistration || saved;
-    const name = registration.first_name || fallbackName(auth.user.email);
-    const age = registration.age || '—';
-    const city = registration.city || '—';
-    ownProfileCard.innerHTML = `<div class="own-profile-layout starter-profile"><div class="starter-photo" aria-hidden="true"><span>D</span><small>${escapeHtml(t('photoLater'))}</small></div><div class="own-profile-info"><h3>${escapeHtml(name)}, ${escapeHtml(age)}</h3><p class="location">${escapeHtml(city)}</p><div class="own-details"><div><span>${escapeHtml(t('seeking'))}</span><p>${escapeHtml(registration.looking_for || '—')}</p></div><div><span>${escapeHtml(t('languages'))}</span><p>${escapeHtml(valueText(registration.languages))}</p></div></div></div></div>`;
+    profileState.textContent = t('notCompleted');
+    createProfileButton.hidden = true;
+    renderProfileCompletion(auth, currentRegistration || savedShortRegistration(auth.user.email));
     return;
   }
 
@@ -615,7 +779,7 @@ async function loadDashboard(auth) {
     await renderOwnProfile(auth);
     renderDiscovery(loadedDiscovery);
     renderPremium(loadedPremium);
-    dashboardMessage.textContent = currentProfile ? t('profileReady') : t('accountReady');
+    dashboardMessage.textContent = currentProfile ? t('profileReady') : t('completeProfileText');
   } catch (error) {
     dashboardMessage.className = 'member-message dashboard-message error';
     dashboardMessage.textContent = error.message || t('loadError');
@@ -676,13 +840,6 @@ showRegister.addEventListener('click', () => {
   registerEmail.value = memberEmail.value.trim();
   setAuthMode('register');
 });
-createProfileButton.addEventListener('click', async () => {
-  if (!activeAuth) return;
-  createProfileButton.disabled = true;
-  await loadDashboard(activeAuth);
-  createProfileButton.disabled = false;
-});
-
 loginForm.addEventListener('submit', async event => {
   event.preventDefault();
   loginButton.disabled = true;
@@ -749,20 +906,7 @@ registerForm.addEventListener('submit', async event => {
     } catch (leadError) {
       console.warn('DUONERA account created, but the starter registration could not be saved yet', leadError);
     }
-    if (typeof window.gtag === 'function') {
-      window.gtag('event', 'generate_lead', {
-        method: 'account_registration',
-        landing_language: currentLang,
-        transport_type: 'beacon'
-      });
-      window.gtag('event', 'sign_up', {
-        method: 'email_password',
-        transport_type: 'beacon'
-      });
-    }
-    if (typeof window.fbq === 'function') {
-      window.fbq('track', 'Lead', { content_name: 'duonera_registration' });
-    }
+    trackSuccessfulRegistration('email_password', data?.user?.id || shortRegistration.email);
     if (data?.session?.access_token && data?.user) {
       await openDashboard({ session: data.session, user: data.user });
     } else {
@@ -893,7 +1037,7 @@ if (auth && recoveryFlow) {
 // Keep the member area available from the installed DUONERA app.
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js?v=43').catch(error => {
+    navigator.serviceWorker.register('/service-worker.js?v=44').catch(error => {
       console.warn('DUONERA service worker registration failed', error);
     });
   });
