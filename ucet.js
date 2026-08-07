@@ -249,6 +249,7 @@ let selectedProfiles = new Map();
 let loadedDiscovery = [];
 let loadedPremium = [];
 let activeAuth = null;
+let passwordResetBusy = false;
 
 function t(key) {
   return translations[currentLang]?.[key] || translations.cs[key] || key;
@@ -959,6 +960,7 @@ forgotPassword.addEventListener('click', async () => {
     memberEmail.focus();
     return;
   }
+  passwordResetBusy = true;
   forgotPassword.disabled = true;
   forgotPassword.textContent = t('resetSending');
   setLoginMessage(t('resetSending'));
@@ -968,6 +970,7 @@ forgotPassword.addEventListener('click', async () => {
   } catch (error) {
     setLoginMessage(authMessage(error), true);
   } finally {
+    passwordResetBusy = false;
     forgotPassword.disabled = false;
     forgotPassword.textContent = t('forgotPassword');
   }
@@ -1061,7 +1064,7 @@ if (auth && recoveryFlow) {
   loginView.hidden = false;
   dashboardView.hidden = true;
   logoutButton.hidden = true;
-  setAuthMode(requestedMode === 'register' ? 'register' : 'login');
+  if (!passwordResetBusy) setAuthMode(requestedMode === 'register' ? 'register' : 'login');
   const redirectError = takeAuthRedirectError();
   if (redirectError) setLoginMessage(t('authServiceError'), true);
 }
@@ -1070,7 +1073,7 @@ if (auth && recoveryFlow) {
 // Keep the member area available from the installed DUONERA app.
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js?v=47').catch(error => {
+    navigator.serviceWorker.register('/service-worker.js?v=48').catch(error => {
       console.warn('DUONERA service worker registration failed', error);
     });
   });
