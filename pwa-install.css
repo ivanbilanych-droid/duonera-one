@@ -2,7 +2,8 @@
 @media(max-width:700px){
   .pwa-install{position:fixed;z-index:125;left:10px;right:10px;bottom:max(10px,env(safe-area-inset-bottom));display:flex;align-items:center;gap:10px;padding:9px 9px 9px 12px;border:1px solid rgba(255,255,255,.82);border-radius:21px;background:rgba(247,241,231,.97);box-shadow:0 18px 55px rgba(18,60,58,.24);backdrop-filter:blur(16px);color:#123c3a;font-family:"DM Sans",Arial,sans-serif}
   .pwa-install[hidden]{display:none!important}.pwa-install img{width:34px;height:34px;flex:0 0 auto}.pwa-install-copy{min-width:0;flex:1}.pwa-install-copy strong{display:block;font-size:11px;line-height:1.15}.pwa-install-copy span{display:block;margin-top:3px;color:#64726f;font-size:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.pwa-install-button{min-height:42px;padding:0 14px;border:0;border-radius:999px;background:#c75b3d;color:#fff;font-size:10px;font-weight:800;white-space:nowrap;cursor:pointer}
+  .member-page .pwa-install{position:relative;z-index:20;left:auto;right:auto;bottom:auto;margin:10px 14px 0;box-shadow:0 10px 30px rgba(18,60,58,.12)}
   .pwa-guide{position:fixed;z-index:90;inset:0;display:grid;align-items:end;background:rgba(18,48,47,.55);backdrop-filter:blur(8px)}.pwa-guide[hidden]{display:none!important}.pwa-guide-card{padding:24px 20px max(24px,env(safe-area-inset-bottom));border-radius:28px 28px 0 0;background:#f7f1e7;color:#123c3a;box-shadow:0 -20px 70px rgba(18,60,58,.28)}.pwa-guide-card h2{margin:0 0 8px;font:400 29px Georgia,serif}.pwa-guide-card p{margin:0 0 18px;color:#64726f;font-size:13px;line-height:1.5}.pwa-guide-card button{width:100%;min-height:50px;border:0;border-radius:999px;background:#123c3a;color:#fff;font-weight:800}
-  body{padding-bottom:78px}
+  body:not(.member-page){padding-bottom:78px}
 }
 @media(display-mode:standalone){.pwa-install{display:none!important}}
