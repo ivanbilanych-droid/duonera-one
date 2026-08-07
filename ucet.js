@@ -23,7 +23,7 @@ import {
   signOutMember,
   takeAuthRedirectError,
   updateMemberPassword
-} from './member-auth.js?v=18';
+} from './member-auth.js?v=19';
 
 const DISCOVERY_BUCKET = 'duonera-discovery-photos';
 const translations = {
@@ -225,6 +225,18 @@ const passwordResetCopy = {
   ru:{resetEmailRequired:'Сначала введите e-mail, для которого нужно восстановить пароль.',resetSending:'Отправляем ссылку для нового пароля…',resetSentTo:'Ссылка для нового пароля отправлена на'}
 };
 Object.entries(passwordResetCopy).forEach(([language, copy]) => Object.assign(translations[language], copy));
+
+const passwordRecoveryResultCopy = {
+  cs:{resetExpired:'Odkaz už není platný. Pošlete si prosím nový odkaz přes „Zapomněli jste heslo?“.',passwordSavedSignIn:'Heslo je uloženo. Přihlaste se novým heslem.'},
+  en:{resetExpired:'This link has expired. Please request a new one with “Forgot password?”.',passwordSavedSignIn:'Password saved. Sign in with your new password.'},
+  de:{resetExpired:'Dieser Link ist abgelaufen. Fordern Sie über „Passwort vergessen?“ einen neuen an.',passwordSavedSignIn:'Passwort gespeichert. Melden Sie sich mit dem neuen Passwort an.'},
+  it:{resetExpired:'Questo link è scaduto. Richiedine uno nuovo con “Password dimenticata?”.',passwordSavedSignIn:'Password salvata. Accedi con la nuova password.'},
+  pl:{resetExpired:'Ten link wygasł. Poproś o nowy przez „Nie pamiętasz hasła?”.',passwordSavedSignIn:'Hasło zapisane. Zaloguj się nowym hasłem.'},
+  sk:{resetExpired:'Tento odkaz už nie je platný. Pošlite si nový cez „Zabudli ste heslo?”.',passwordSavedSignIn:'Heslo je uložené. Prihláste sa novým heslom.'},
+  uk:{resetExpired:'Термін дії посилання минув. Запросіть нове через «Забули пароль?».',passwordSavedSignIn:'Пароль збережено. Увійдіть з новим паролем.'},
+  ru:{resetExpired:'Срок действия ссылки истёк. Запросите новую через «Забыли пароль?».',passwordSavedSignIn:'Пароль сохранён. Войдите с новым паролем.'}
+};
+Object.entries(passwordRecoveryResultCopy).forEach(([language, copy]) => Object.assign(translations[language], copy));
 
 const loginView = document.querySelector('#loginView');
 const dashboardView = document.querySelector('#dashboardView');
@@ -887,6 +899,7 @@ function renderAll() {
 
 function authMessage(error) {
   const details = String(error?.message || '').toLowerCase();
+  if (String(error?.code || '').startsWith('recovery_session_')) return t('resetExpired');
   if (details.includes('invalid login credentials')) return t('wrongLogin');
   if (details.includes('email not confirmed')) return t('emailNotConfirmed');
   if (isExistingAccountError(error)) return t('alreadyRegistered');
@@ -1096,9 +1109,13 @@ resetForm.addEventListener('submit', async event => {
   try {
     await updateMemberPassword(password);
     sessionStorage.removeItem('duonera-auth-flow-type');
-    setLoginMessage(t('passwordSaved'));
     const auth = await requireMemberSession();
-    if (auth) await openDashboard(auth);
+    if (auth) {
+      await openDashboard(auth);
+    } else {
+      setAuthMode('login');
+      setLoginMessage(t('passwordSavedSignIn'));
+    }
   } catch (error) {
     setLoginMessage(authMessage(error), true);
   } finally {
@@ -1178,7 +1195,7 @@ if (auth && recoveryFlow) {
 // Keep the member area available from the installed DUONERA app.
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js?v=50').catch(error => {
+    navigator.serviceWorker.register('/service-worker.js?v=51').catch(error => {
       console.warn('DUONERA service worker registration failed', error);
     });
   });

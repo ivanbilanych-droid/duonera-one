@@ -1,5 +1,5 @@
 import { createUuid, insertRow } from './supabase-client.js?v=5';
-import { registerMember } from './member-auth.js?v=18';
+import { registerMember } from './member-auth.js?v=19';
 import { compressProfilePhoto, savePendingRegistrationPhoto } from './registration-photo.js?v=1';
 
 const t = {
@@ -169,4 +169,4 @@ form.addEventListener('submit',async event=>{
   }
 });
 
-if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/service-worker.js?v=50').catch(()=>{}))}
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/service-worker.js?v=51').catch(()=>{}))}

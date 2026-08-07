@@ -246,12 +246,29 @@ export async function requestPasswordReset(email, redirectTo) {
 }
 
 export async function updateMemberPassword(password) {
-  if (!supabaseAuthClient) throw new Error('Přihlašovací služba není dostupná.');
-  const { data, error } = await supabaseAuthClient.auth.updateUser({
-    password: String(password || '')
+  // Mobile browsers and installed PWAs can lose the recovery URL fragment
+  // after the page starts. The bootstrap preserves that access token in our
+  // session store, so use it directly instead of depending on SDK state.
+  const session = getMemberSession() || await readSupabaseSession();
+  if (!session?.access_token) {
+    const missingSession = new Error('Password recovery session is missing or expired.');
+    missingSession.code = 'recovery_session_missing';
+    throw missingSession;
+  }
+
+  const response = await fetch(`${SUPABASE_URL}/auth/v1/user`, {
+    method: 'PUT',
+    headers: authHeaders(session.access_token, true),
+    body: JSON.stringify({ password: String(password || '') })
   });
-  if (error) throw error;
-  return data?.user || null;
+  if (!response.ok) {
+    const recoveryError = new Error(await readError(response, 'Password recovery failed.'));
+    recoveryError.code = response.status === 401 || response.status === 403
+      ? 'recovery_session_expired'
+      : 'recovery_update_failed';
+    throw recoveryError;
+  }
+  return response.json();
 }
 
 async function refreshMemberSession(refreshToken) {
