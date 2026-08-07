@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="duonera-invitation-v2.css?v=20260806c">
+  <title>DUONERA registration QA</title>
+</head>
+<body>
+  <dialog class="register-dialog" open aria-labelledby="register-title"><div class="dialog-shell">
+    <header class="dialog-head"><div><p>VÁŠ SOUKROMÝ VSTUP</p><h2 id="register-title">Koho máme hledat pro vás?</h2></div><button type="button" class="close-dialog" aria-label="Zavřít">×</button></header>
+    <form class="register-form" novalidate>
+      <div class="paired-choices"><fieldset><legend>Jsem</legend><div class="segments"><label><input name="gender" value="woman" type="radio" required><span>Žena</span></label><label><input name="gender" value="man" type="radio" checked><span>Muž</span></label></div></fieldset><fieldset><legend>Hledám</legend><div class="segments"><label><input name="looking_for" value="woman" type="radio" checked required><span>Ženu</span></label><label><input name="looking_for" value="man" type="radio"><span>Muže</span></label></div></fieldset></div>
+      <div class="name-age"><label class="field"><span>Jméno</span><input name="first_name" value="Ivan" required></label><label class="field age"><span>Věk</span><input name="age" type="number" value="60" min="18" required></label></div>
+      <label class="field city"><span>Město, kde žijete</span><small>Česko</small><input name="city" value="Kadaň" required></label>
+      <button class="location" type="button"><i></i><span>Použít aktuální polohu</span></button>
+      <fieldset class="languages"><legend><span>Jazyky</span><small>můžete vybrat více</small></legend><div><label><input name="languages" value="Čeština" type="checkbox" checked><span>Čeština</span></label><label><input name="languages" value="English" type="checkbox"><span>English</span></label><label><input name="languages" value="Deutsch" type="checkbox"><span>Deutsch</span></label><label><input name="languages" value="Italiano" type="checkbox"><span>Italiano</span></label><label><input name="languages" value="Slovenčina" type="checkbox"><span>Slovenčina</span></label><label><input name="languages" value="Polski" type="checkbox"><span>Polski</span></label><label><input name="languages" value="Українська" type="checkbox"><span>Українська</span></label><label><input name="languages" value="Русский" type="checkbox"><span>Русский</span></label></div></fieldset>
+      <label class="field"><span>E-mail</span><input name="email" type="email" value="ivan@example.cz" required></label>
+      <label class="field"><span>Heslo</span><input name="password" type="password" value="12345678" minlength="8" required></label>
+      <label class="consent"><input name="consent" type="checkbox" checked required><i></i><small>Souhlasím se zpracováním údajů pro registraci a soukromý výběr. <a href="privacy.html">Soukromí</a></small></label>
+      <button class="form-submit" type="button"><span>Vstoupit do DUONERA</span><b>→</b></button><p class="form-note"><span>Jedna registrace</span><i></i><span>Neveřejný profil</span><i></i><span>Fotografie později</span></p>
+    </form>
+  </div></dialog>
+</body>
+</html>

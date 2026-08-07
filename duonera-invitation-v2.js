@@ -1,4 +1,5 @@
 import { createUuid, insertRow } from './supabase-client.js?v=5';
+import { registerMember } from './member-auth.js?v=16';
 
 const t = {
   cs:{login:'Přihlásit',kicker:'SOUKROMÉ SEZNÁMENÍ VE VAŠEM MĚSTĚ',title1:'Někdo blízký.',title2:'Ne další profil.',intro:'DUONERA vám představí tři lidi poblíž, kteří chtějí skutečný vztah. Kontakt se otevře jen při vzájemném ano.',nearbyNow:'lidé poblíž dnes',proof1:'lidé ve vašem okruhu',proof2:'veřejných profilů',proof3:'skutečný cíl',cta:'Najít mé tři',free:'Zdarma',oneMinute:'1 minuta',ageRule:'od 18 let',discover:'Jak to funguje',howTitle:'Méně hledání. Více pozornosti.',formTitle:'Koho máme hledat pro vás?',name:'Jméno',namePlaceholder:'Jana',age:'Věk',iam:'Jsem',seeking:'Hledám',woman:'Žena',man:'Muž',seekWoman:'Ženu',seekMan:'Muže',homeCity:'Město, kde žijete',cityPlaceholder:'Praha',location:'Použít aktuální polohu',locating:'Zjišťuji polohu…',locationReady:'Poloha je připravena',locationDenied:'Povolte polohu nebo napište město ručně.',languages:'Jazyky',multiple:'můžete vybrat více',emailPlaceholder:'vas@email.cz',consent:'Souhlasím se zpracováním údajů pro registraci a soukromý výběr.',privacy:'Soukromí',submit:'Vstoupit do DUONERA',submitting:'Vytvářím profil…',noPassword:'Bez hesla',private:'Neveřejný profil',noPhoto:'Fotografie později',close:'Zavřít',successTitle:'Váš soukromý profil je připraven,',successText:'Fotografii a další informace můžete doplnit později.',openProfile:'Otevřít můj profil',error:'Profil se nepodařilo uložit. Zkuste to prosím znovu.',photoAlt:'Dva lidé se potkávají v evropském městě'},
@@ -10,6 +11,18 @@ const t = {
 t.en={...t.cs,login:'Sign in',kicker:'PRIVATE INTRODUCTIONS IN YOUR CITY',title1:'Someone nearby.',title2:'Not another profile.',intro:'DUONERA introduces three nearby people who want a real relationship. Contact opens only after a mutual yes.',nearbyNow:'people nearby today',proof1:'people in your circle',proof2:'public profiles',proof3:'real goal',cta:'Find my three',free:'Free',oneMinute:'1 minute',ageRule:'18 and over',discover:'How it works',howTitle:'Less searching. More attention.',formTitle:'Who should we look for?',name:'First name',namePlaceholder:'Anna',age:'Age',iam:'I am',seeking:'Looking for',woman:'Woman',man:'Man',seekWoman:'Woman',seekMan:'Man',homeCity:'City where you live',cityPlaceholder:'London',location:'Use current location',locating:'Finding location…',locationReady:'Location is ready',locationDenied:'Allow location or enter your city.',languages:'Languages',multiple:'choose more than one',emailPlaceholder:'you@email.com',consent:'I agree to data processing for registration and private selection.',privacy:'Privacy',submit:'Join DUONERA',submitting:'Creating profile…',noPassword:'No password',private:'Private profile',noPhoto:'Photo later',close:'Close',successTitle:'Your private profile is ready,',successText:'Add your photo and other details later.',openProfile:'Open my profile',error:'We could not save the profile. Please try again.',photoAlt:'Two people meet in a European city'};
 t.uk={...t.en,login:'Увійти',kicker:'ПРИВАТНІ ЗНАЙОМСТВА У ВАШОМУ МІСТІ',title1:'Хтось поруч.',title2:'Не ще одна анкета.',intro:'DUONERA познайомить вас із трьома людьми поруч, які прагнуть справжніх стосунків. Контакт відкриється лише після взаємного вибору.',nearbyNow:'люди поруч сьогодні',proof1:'люди у вашому колі',proof2:'публічних анкет',proof3:'справжня мета',cta:'Знайти мою трійку',free:'Безкоштовно',oneMinute:'1 хвилина',ageRule:'від 18 років',discover:'Як це працює',howTitle:'Менше пошуку. Більше уваги.',formTitle:'Кого нам шукати для вас?',name:'Ім’я',namePlaceholder:'Анна',age:'Вік',iam:'Я',seeking:'Шукаю',woman:'Жінка',man:'Чоловік',seekWoman:'Жінку',seekMan:'Чоловіка',homeCity:'Місто, де ви живете',cityPlaceholder:'Київ',location:'Використати поточне місце',locating:'Визначаємо місце…',locationReady:'Місце визначено',locationDenied:'Дозвольте геолокацію або введіть місто.',languages:'Мови',multiple:'можна вибрати кілька',emailPlaceholder:'vas@email.ua',consent:'Я погоджуюся на обробку даних для реєстрації та приватного добору.',privacy:'Конфіденційність',submit:'Приєднатися до DUONERA',submitting:'Створюємо профіль…',noPassword:'Без пароля',private:'Непублічний профіль',noPhoto:'Фото пізніше',close:'Закрити',successTitle:'Ваш приватний профіль готовий,',successText:'Фото та іншу інформацію можна додати пізніше.',openProfile:'Відкрити мій профіль',error:'Не вдалося зберегти профіль. Спробуйте ще раз.',photoAlt:'Двоє людей зустрічаються в європейському місті'};
 t.ru={...t.en,login:'Войти',kicker:'ПРИВАТНЫЕ ЗНАКОМСТВА В ВАШЕМ ГОРОДЕ',title1:'Кто-то рядом.',title2:'Не ещё одна анкета.',intro:'DUONERA познакомит вас с тремя людьми рядом, которые хотят настоящих отношений. Контакт откроется только после взаимного выбора.',nearbyNow:'люди рядом сегодня',proof1:'люди в вашем круге',proof2:'публичных анкет',proof3:'настоящая цель',cta:'Найти мою тройку',free:'Бесплатно',oneMinute:'1 минута',ageRule:'от 18 лет',discover:'Как это работает',howTitle:'Меньше поиска. Больше внимания.',formTitle:'Кого нам искать для вас?',name:'Имя',namePlaceholder:'Анна',age:'Возраст',iam:'Я',seeking:'Ищу',woman:'Женщина',man:'Мужчина',seekWoman:'Женщину',seekMan:'Мужчину',homeCity:'Город, где вы живёте',cityPlaceholder:'Прага',location:'Использовать текущее местоположение',locating:'Определяем местоположение…',locationReady:'Местоположение определено',locationDenied:'Разрешите геолокацию или укажите город.',languages:'Языки',multiple:'можно выбрать несколько',emailPlaceholder:'vas@email.cz',consent:'Я согласен на обработку данных для регистрации и приватного подбора.',privacy:'Конфиденциальность',submit:'Вступить в DUONERA',submitting:'Создаём профиль…',noPassword:'Без пароля',private:'Непубличный профиль',noPhoto:'Фото позже',close:'Закрыть',successTitle:'Ваш приватный профиль готов,',successText:'Фотографию и другие данные можно добавить позже.',openProfile:'Открыть мой профиль',error:'Не удалось сохранить профиль. Попробуйте ещё раз.',photoAlt:'Два человека встречаются в европейском городе'};
+
+const registrationCopy={
+  cs:{password:'Heslo',passwordPlaceholder:'Min. 8 znaků',oneRegistration:'Jedna registrace',successTitle:'Účet je vytvořen,',successText:'Potvrďte e-mail od DUONERA. Potom se otevře váš soukromý účet.',openProfile:'Otevřít přihlášení',accountExists:'Tento e-mail už má účet. Použijte Přihlásit.',registrationError:'Registraci se nepodařilo dokončit. Zkuste to prosím znovu.'},
+  de:{password:'Passwort',passwordPlaceholder:'Mind. 8 Zeichen',oneRegistration:'Eine Registrierung',successTitle:'Ihr Konto wurde erstellt,',successText:'Bestätigen Sie die E-Mail von DUONERA. Danach öffnet sich Ihr privates Konto.',openProfile:'Zur Anmeldung',accountExists:'Für diese E-Mail besteht bereits ein Konto. Bitte melden Sie sich an.',registrationError:'Die Registrierung konnte nicht abgeschlossen werden. Bitte versuchen Sie es erneut.'},
+  it:{password:'Password',passwordPlaceholder:'Almeno 8 caratteri',oneRegistration:'Una registrazione',successTitle:'Il tuo account è stato creato,',successText:'Conferma l’e-mail di DUONERA. Poi si aprirà il tuo account privato.',openProfile:'Vai all’accesso',accountExists:'Esiste già un account per questa e-mail. Accedi.',registrationError:'Non è stato possibile completare la registrazione. Riprova.'},
+  pl:{password:'Hasło',passwordPlaceholder:'Min. 8 znaków',oneRegistration:'Jedna rejestracja',successTitle:'Twoje konto zostało utworzone,',successText:'Potwierdź e-mail od DUONERA. Potem otworzy się Twoje prywatne konto.',openProfile:'Przejdź do logowania',accountExists:'Dla tego e-maila istnieje już konto. Zaloguj się.',registrationError:'Nie udało się dokończyć rejestracji. Spróbuj ponownie.'},
+  sk:{password:'Heslo',passwordPlaceholder:'Min. 8 znakov',oneRegistration:'Jedna registrácia',successTitle:'Váš účet je vytvorený,',successText:'Potvrďte e-mail od DUONERA. Potom sa otvorí váš súkromný účet.',openProfile:'Otvoriť prihlásenie',accountExists:'Tento e-mail už má účet. Prihláste sa.',registrationError:'Registráciu sa nepodarilo dokončiť. Skúste to znova.'},
+  uk:{password:'Пароль',passwordPlaceholder:'Щонайменше 8 символів',oneRegistration:'Одна реєстрація',successTitle:'Ваш обліковий запис створено,',successText:'Підтвердьте лист від DUONERA. Після цього відкриється ваш приватний кабінет.',openProfile:'Перейти до входу',accountExists:'Для цього e-mail уже є обліковий запис. Увійдіть.',registrationError:'Не вдалося завершити реєстрацію. Спробуйте ще раз.'},
+  ru:{password:'Пароль',passwordPlaceholder:'Минимум 8 символов',oneRegistration:'Одна регистрация',successTitle:'Ваш аккаунт создан,',successText:'Подтвердите письмо от DUONERA. После этого откроется ваш личный кабинет.',openProfile:'Перейти ко входу',accountExists:'Для этого e-mail уже есть аккаунт. Войдите.',registrationError:'Не удалось завершить регистрацию. Попробуйте ещё раз.'},
+  en:{password:'Password',passwordPlaceholder:'At least 8 characters',oneRegistration:'One registration',successTitle:'Your account has been created,',successText:'Confirm the email from DUONERA. Your private account will then open.',openProfile:'Go to sign in',accountExists:'An account already exists for this email. Sign in instead.',registrationError:'We could not complete the registration. Please try again.'}
+};
+Object.entries(registrationCopy).forEach(([code,copy])=>Object.assign(t[code],copy));
 
 const shared={navLabel:'Hlavní navigace',languageLabel:'Jazyk',proofLabel:'Princip DUONERA',howLabel:'DUONERA CITY CIRCLE',step1Title:'Řeknete jen to důležité',step1Text:'Kdo jste, koho hledáte, město, věk a jazyky.',step2Title:'Vybereme lidi poblíž',step2Text:'Bydliště a aktuální poloha zůstávají oddělené a soukromé.',step3Title:'Otevře se skutečné setkání',step3Text:'Kontakt až po vzájemném výběru. Žádné swipování.',closingLabel:'LUXURY JE KLID, SOUKROMÍ A POZORNOST',closingTitle:'Nejste položka v katalogu.',formKicker:'VÁŠ SOUKROMÝ VSTUP',successLabel:'VÍTEJTE V DUONERA'};
 const sharedLocalized={
@@ -46,6 +59,75 @@ const locationButton=document.querySelector('.location');locationButton.addEvent
 form.addEventListener('input',event=>{event.target.classList.remove('invalid');event.target.closest('fieldset')?.classList.remove('invalid')});
 function validate(){form.querySelectorAll('.invalid').forEach(el=>el.classList.remove('invalid'));const invalid=[...form.elements].filter(el=>el.willValidate&&!el.checkValidity());invalid.forEach(el=>{const group=el.closest('fieldset');(group||el).classList.add('invalid')});const missingLanguages=!form.querySelector('[name=languages]:checked');if(missingLanguages)document.querySelector('.languages').classList.add('invalid');if(invalid.length){invalid[0].focus();return false}if(missingLanguages){document.querySelector('.languages label').focus();return false}return true}
 function gender(value){return value==='woman'?'Žena':'Muž'}function seeking(value){return value==='woman'?'Ženu':'Muže'}
-form.addEventListener('submit',async event=>{event.preventDefault();if(!validate())return;const data=new FormData(form);const id=createUuid();const params=new URLSearchParams(location.search);const profile={id,first_name:String(data.get('first_name')).trim(),age:Number(data.get('age')),gender:gender(data.get('gender')),looking_for:seeking(data.get('looking_for')),city:String(data.get('city')).trim(),country:settings[active].country,languages:data.getAll('languages'),email:String(data.get('email')).trim().toLowerCase(),latitude:String(data.get('latitude')||''),longitude:String(data.get('longitude')||''),consent_privacy:true,landing_language:active,attribution:{source:params.get('utm_source')||'direct',medium:params.get('utm_medium')||'',campaign:params.get('utm_campaign')||'',content:params.get('utm_content')||'',referrer:document.referrer||''},source:'duonera.cz/invitation'};const payload={id,gender:profile.gender,looking_for:profile.looking_for,age:profile.age,city:profile.city,email:profile.email,consent_privacy:true,source:profile.source};const button=form.querySelector('.form-submit');const label=button.querySelector('span');const original=label.textContent;const prototype=document.querySelector('meta[name=robots]')?.content.includes('noindex');try{button.disabled=true;label.textContent=t[active].submitting;if(prototype)await new Promise(resolve=>setTimeout(resolve,420));else await insertRow('duonera_leads',payload,20000);localStorage.setItem('duonera-short-registration',JSON.stringify(profile));localStorage.setItem('duonera-lead-id',id);if(!prototype&&typeof gtag==='function'){gtag('event','generate_lead',{method:'duonera_invitation',campaign_source:profile.attribution.source,campaign_name:profile.attribution.campaign,landing_language:active,transport_type:'beacon'});gtag('event','sign_up',{method:'email',transport_type:'beacon'})}if(!prototype&&typeof fbq==='function')fbq('track','Lead',{content_name:'duonera_invitation'});document.querySelector('[data-success-name]').textContent=profile.first_name;const accountLink=document.querySelector('[data-account-after-registration]');accountLink.href=`ucet.html?mode=register&email=${encodeURIComponent(profile.email)}`;dialog.close();document.querySelector('.success').hidden=false}catch(error){console.error(error);showToast(t[active].error)}finally{button.disabled=false;label.textContent=original}});
+form.addEventListener('submit',async event=>{
+  event.preventDefault();
+  if(!validate())return;
+  const data=new FormData(form);
+  const id=createUuid();
+  const params=new URLSearchParams(location.search);
+  const profile={
+    id,
+    first_name:String(data.get('first_name')).trim(),
+    age:Number(data.get('age')),
+    gender:gender(data.get('gender')),
+    looking_for:seeking(data.get('looking_for')),
+    city:String(data.get('city')).trim(),
+    country:settings[active].country,
+    languages:data.getAll('languages'),
+    email:String(data.get('email')).trim().toLowerCase(),
+    latitude:String(data.get('latitude')||''),
+    longitude:String(data.get('longitude')||''),
+    consent_privacy:true,
+    landing_language:active,
+    attribution:{
+      source:params.get('utm_source')||'direct',
+      medium:params.get('utm_medium')||'',
+      campaign:params.get('utm_campaign')||'',
+      content:params.get('utm_content')||'',
+      referrer:document.referrer||''
+    },
+    source:'duonera.cz/invitation'
+  };
+  const payload={id,gender:profile.gender,looking_for:profile.looking_for,age:profile.age,city:profile.city,email:profile.email,consent_privacy:true,source:profile.source};
+  const button=form.querySelector('.form-submit');
+  const label=button.querySelector('span');
+  const original=label.textContent;
+  const prototype=document.querySelector('meta[name=robots]')?.content.includes('noindex');
+  try{
+    button.disabled=true;
+    label.textContent=t[active].submitting;
+    let registration=null;
+    if(prototype){
+      await new Promise(resolve=>setTimeout(resolve,420));
+    }else{
+      registration=await registerMember(profile.email,String(data.get('password')||''),`${location.origin}/ucet.html`);
+      try{
+        await insertRow('duonera_leads',payload,20000);
+      }catch(leadError){
+        console.warn('DUONERA account created, but the lead row could not be saved',leadError);
+      }
+    }
+    localStorage.setItem('duonera-short-registration',JSON.stringify(profile));
+    localStorage.setItem('duonera-lead-id',id);
+    if(!prototype&&registration?.user?.id){
+      if(typeof gtag==='function'){
+        gtag('event','generate_lead',{method:'duonera_invitation',campaign_source:profile.attribution.source,campaign_name:profile.attribution.campaign,landing_language:active,transport_type:'beacon'});
+        gtag('event','sign_up',{method:'email_password',transport_type:'beacon'});
+      }
+      if(typeof fbq==='function')fbq('track','Lead',{content_name:'duonera_registration'});
+    }
+    document.querySelector('[data-success-name]').textContent=profile.first_name;
+    const accountLink=document.querySelector('[data-account-after-registration]');
+    accountLink.href=`ucet.html?mode=login&email=${encodeURIComponent(profile.email)}`;
+    dialog.close();
+    document.querySelector('.success').hidden=false;
+  }catch(error){
+    console.error(error);
+    showToast(error?.code==='account_exists'?t[active].accountExists:t[active].registrationError);
+  }finally{
+    button.disabled=false;
+    label.textContent=original;
+  }
+});
 
-if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/service-worker.js?v=39').catch(()=>{}))}
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/service-worker.js?v=40').catch(()=>{}))}
