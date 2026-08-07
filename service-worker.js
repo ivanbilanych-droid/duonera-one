@@ -1,4 +1,4 @@
-const CACHE_NAME = 'duonera-app-v45';
+const CACHE_NAME = 'duonera-app-v46';
 const CORE_FILES = [
   '/',
   '/index.html',
@@ -20,7 +20,7 @@ const CORE_FILES = [
   '/duonera-member-v3.css?v=20260806d',
   '/pwa-install.css?v=3',
   '/pwa-install.js?v=3',
-  '/ucet.js?v=25',
+  '/ucet.js?v=26',
   '/profil.html',
   '/profil-v2.css?v=20260805a',
   '/profil-hotovo.html',
