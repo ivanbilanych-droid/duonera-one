@@ -65,7 +65,7 @@
     })();
   </script>
   <link rel="stylesheet" href="styles.css?v=21">
-  <link rel="stylesheet" href="ucet.css?v=20260807d">
+  <link rel="stylesheet" href="ucet.css?v=20260807e">
   <link rel="stylesheet" href="duonera-member-v3.css?v=20260806d">
   <link rel="stylesheet" href="pwa-install.css?v=3">
 </head>
@@ -154,9 +154,28 @@
               </select>
             </label>
           </div>
-          <label>
-            <span data-i18n="city">Město</span>
-            <input id="registerCity" type="text" autocomplete="address-level2" maxlength="80" required>
+          <div class="quick-register-grid quick-location-grid">
+            <label>
+              <span data-i18n="city">Město</span>
+              <input id="registerCity" type="text" autocomplete="address-level2" maxlength="80" required>
+            </label>
+            <label>
+              <span data-i18n="distance">Vzdálenost</span>
+              <select id="registerDistance" required>
+                <option value="25">25 km</option>
+                <option value="50" selected>50 km</option>
+                <option value="100">100 km</option>
+              </select>
+            </label>
+          </div>
+          <label class="quick-photo-field">
+            <span data-i18n="profilePhoto">Vaše fotografie</span>
+            <span class="quick-photo-picker">
+              <img id="registerPhotoPreview" alt="" hidden>
+              <span class="quick-photo-placeholder" id="registerPhotoPlaceholder" data-i18n="choosePhoto">Vybrat fotografii</span>
+              <input id="registerPhoto" type="file" accept="image/*" required>
+            </span>
+            <small data-i18n="photoRequirement">Aktuální fotografie obličeje z telefonu nebo galerie.</small>
           </label>
           <label>
             <span data-i18n="email">E-mail</span>
@@ -166,16 +185,12 @@
             <span data-i18n="password">Heslo</span>
             <input id="registerPassword" type="password" autocomplete="new-password" minlength="8" required>
           </label>
-          <label>
-            <span data-i18n="repeatPassword">Zopakujte heslo</span>
-            <input id="registerPasswordAgain" type="password" autocomplete="new-password" minlength="8" required>
-          </label>
           <label class="quick-register-consent">
             <input id="registerConsent" type="checkbox" required>
             <span data-i18n="privacyConsent">Souhlasím se zpracováním údajů pro registraci a soukromý výběr.</span>
           </label>
           <button class="btn btn-gold full" id="registerButton" type="submit" data-i18n="createAccount">Vytvořit účet</button>
-          <small data-i18n="registerNote">Pošleme vám e-mail. Kliknutím jednou potvrdíte svou adresu.</small>
+          <small data-i18n="registerNote">Hotovo na jedné stránce. E-mail potvrdíte pouze jednou.</small>
         </form>
 
         <form id="resetForm" hidden>
@@ -267,7 +282,7 @@
     </div>
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.53.0/dist/umd/supabase.js"></script>
-  <script type="module" src="ucet.js?v=29"></script>
+  <script type="module" src="ucet.js?v=30"></script>
   <script src="pwa-install.js?v=3"></script>
 </body>
 </html>

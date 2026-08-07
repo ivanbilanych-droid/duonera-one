@@ -6,6 +6,13 @@ import {
   SUPABASE_PUBLISHABLE_KEY
 } from './supabase-client.js?v=5';
 import {
+  compressProfilePhoto,
+  listMemberPhotoPaths,
+  savePendingRegistrationPhoto,
+  uploadMemberPhoto,
+  uploadPendingRegistrationPhoto
+} from './registration-photo.js?v=1';
+import {
   callMemberRpc,
   clearMemberSession,
   memberRest,
@@ -16,7 +23,7 @@ import {
   signOutMember,
   takeAuthRedirectError,
   updateMemberPassword
-} from './member-auth.js?v=17';
+} from './member-auth.js?v=18';
 
 const DISCOVERY_BUCKET = 'duonera-discovery-photos';
 const translations = {
@@ -183,6 +190,18 @@ const quickRegistrationCopy = {
 };
 Object.entries(quickRegistrationCopy).forEach(([language, copy]) => Object.assign(translations[language], copy));
 
+const shortPhotoCopy = {
+  cs:{distance:'Vzdálenost',profilePhoto:'Vaše fotografie',choosePhoto:'Vybrat fotografii',photoRequirement:'Aktuální fotografie obličeje. JPG, PNG nebo WEBP.',photoInvalid:'Vyberte fotografii JPG, PNG nebo WEBP do 12 MB.',addPhoto:'Přidat fotografii',changePhoto:'Přidat další fotografii',photoSaving:'Ukládám fotografii…',photoSaved:'Fotografie je uložená.',registerNote:'Hotovo na jedné stránce. E-mail potvrdíte pouze jednou.'},
+  en:{distance:'Distance',profilePhoto:'Your photo',choosePhoto:'Choose a photo',photoRequirement:'A current face photo. JPG, PNG or WEBP.',photoInvalid:'Choose a JPG, PNG or WEBP photo up to 12 MB.',addPhoto:'Add photo',changePhoto:'Add another photo',photoSaving:'Saving photo…',photoSaved:'Photo saved.',registerNote:'Everything on one page. Confirm your email only once.'},
+  de:{distance:'Entfernung',profilePhoto:'Ihr Foto',choosePhoto:'Foto auswählen',photoRequirement:'Aktuelles Gesichtsfoto. JPG, PNG oder WEBP.',photoInvalid:'Wählen Sie ein JPG-, PNG- oder WEBP-Foto bis 12 MB.',addPhoto:'Foto hinzufügen',changePhoto:'Weiteres Foto hinzufügen',photoSaving:'Foto wird gespeichert…',photoSaved:'Foto gespeichert.',registerNote:'Alles auf einer Seite. Bestätigen Sie Ihre E-Mail nur einmal.'},
+  it:{distance:'Distanza',profilePhoto:'La tua foto',choosePhoto:'Scegli una foto',photoRequirement:'Foto attuale del viso. JPG, PNG o WEBP.',photoInvalid:'Scegli una foto JPG, PNG o WEBP fino a 12 MB.',addPhoto:'Aggiungi foto',changePhoto:'Aggiungi un’altra foto',photoSaving:'Salvataggio foto…',photoSaved:'Foto salvata.',registerNote:'Tutto in una pagina. Conferma l’e-mail una sola volta.'},
+  pl:{distance:'Odległość',profilePhoto:'Twoje zdjęcie',choosePhoto:'Wybierz zdjęcie',photoRequirement:'Aktualne zdjęcie twarzy. JPG, PNG lub WEBP.',photoInvalid:'Wybierz zdjęcie JPG, PNG lub WEBP do 12 MB.',addPhoto:'Dodaj zdjęcie',changePhoto:'Dodaj kolejne zdjęcie',photoSaving:'Zapisywanie zdjęcia…',photoSaved:'Zdjęcie zapisane.',registerNote:'Wszystko na jednej stronie. Potwierdź e-mail tylko raz.'},
+  sk:{distance:'Vzdialenosť',profilePhoto:'Vaša fotografia',choosePhoto:'Vybrať fotografiu',photoRequirement:'Aktuálna fotografia tváre. JPG, PNG alebo WEBP.',photoInvalid:'Vyberte fotografiu JPG, PNG alebo WEBP do 12 MB.',addPhoto:'Pridať fotografiu',changePhoto:'Pridať ďalšiu fotografiu',photoSaving:'Ukladám fotografiu…',photoSaved:'Fotografia je uložená.',registerNote:'Všetko na jednej stránke. E-mail potvrdíte iba raz.'},
+  uk:{distance:'Відстань',profilePhoto:'Ваше фото',choosePhoto:'Обрати фото',photoRequirement:'Актуальне фото обличчя. JPG, PNG або WEBP.',photoInvalid:'Оберіть фото JPG, PNG або WEBP до 12 МБ.',addPhoto:'Додати фото',changePhoto:'Додати ще фото',photoSaving:'Зберігаємо фото…',photoSaved:'Фото збережено.',registerNote:'Усе на одній сторінці. Підтвердьте e-mail лише один раз.'},
+  ru:{distance:'Расстояние',profilePhoto:'Ваша фотография',choosePhoto:'Выбрать фотографию',photoRequirement:'Актуальная фотография лица. JPG, PNG или WEBP.',photoInvalid:'Выберите фотографию JPG, PNG или WEBP до 12 МБ.',addPhoto:'Добавить фотографию',changePhoto:'Добавить ещё фотографию',photoSaving:'Сохраняем фотографию…',photoSaved:'Фотография сохранена.',registerNote:'Всё на одной странице. Подтвердите e-mail только один раз.'}
+};
+Object.entries(shortPhotoCopy).forEach(([language, copy]) => Object.assign(translations[language], copy));
+
 const profileCompletionCopy = {
   cs:{completeProfileTitle:'Doplňte poslední údaje',completeProfileText:'Stačí jedna minuta. Potom se váš účet otevře bez další ankety.',languagesInput:'Jazyky',languagesPlaceholder:'Čeština, English',saveProfile:'Uložit a pokračovat',profileSaveError:'Údaje se nepodařilo uložit. Zkuste to znovu.'},
   en:{completeProfileTitle:'Add the last details',completeProfileText:'It takes one minute. Your account will then open without another questionnaire.',languagesInput:'Languages',languagesPlaceholder:'English, Czech',saveProfile:'Save and continue',profileSaveError:'We could not save the details. Please try again.'},
@@ -220,9 +239,12 @@ const registerAge = document.querySelector('#registerAge');
 const registerGender = document.querySelector('#registerGender');
 const registerLookingFor = document.querySelector('#registerLookingFor');
 const registerCity = document.querySelector('#registerCity');
+const registerDistance = document.querySelector('#registerDistance');
+const registerPhoto = document.querySelector('#registerPhoto');
+const registerPhotoPreview = document.querySelector('#registerPhotoPreview');
+const registerPhotoPlaceholder = document.querySelector('#registerPhotoPlaceholder');
 const registerEmail = document.querySelector('#registerEmail');
 const registerPassword = document.querySelector('#registerPassword');
-const registerPasswordAgain = document.querySelector('#registerPasswordAgain');
 const registerButton = document.querySelector('#registerButton');
 const resetForm = document.querySelector('#resetForm');
 const newPassword = document.querySelector('#newPassword');
@@ -250,6 +272,9 @@ let loadedDiscovery = [];
 let loadedPremium = [];
 let activeAuth = null;
 let passwordResetStarted = false;
+let preparedRegisterPhoto = null;
+let registerPhotoUrl = '';
+let registerPhotoPreparation = Promise.resolve();
 
 function t(key) {
   return translations[currentLang]?.[key] || translations.cs[key] || key;
@@ -387,7 +412,7 @@ function countryForLanguage(language) {
   return {cs:'Česko',de:'Deutschland',it:'Italia',pl:'Polska',sk:'Slovensko',uk:'Україна'}[language] || 'Česko';
 }
 
-function starterProfilePayload(auth, lead, saved) {
+function starterProfilePayload(auth, lead, saved, photoPaths = []) {
   const registration = {...(auth.user?.user_metadata || {}), ...lead, ...saved};
   const email = String(auth.user.email || lead?.email || saved.email || '').trim().toLowerCase();
   const age = Number(registration.age || 18);
@@ -418,7 +443,9 @@ function starterProfilePayload(auth, lead, saved) {
     ideal_relationship: '',
     preferred_age_min: null,
     preferred_age_max: null,
-    preferred_distance_km: 50,
+    preferred_distance_km: [25, 50, 100].includes(Number(registration.preferred_distance_km))
+      ? Number(registration.preferred_distance_km)
+      : 50,
     relationship_goal: 'Vážný vztah',
     consent_privacy: true,
     consent_discovery: true,
@@ -426,7 +453,7 @@ function starterProfilePayload(auth, lead, saved) {
     is_approved: false,
     is_discoverable: false,
     source: 'duonera.cz/short-registration',
-    photo_paths: [],
+    photo_paths: photoPaths,
     public_photo_paths: [],
     raw_data: { starter_profile: true, registration_age: age }
   };
@@ -458,7 +485,8 @@ async function ensureStarterProfile(auth, lead) {
   if (!hasRegistrationDetails(registration)) return null;
   const memberLead = await ensureLeadForMember(auth, lead, saved);
   if (!memberLead?.id) return null;
-  const payload = starterProfilePayload(auth, memberLead, saved);
+  const pendingPhotoPath = await uploadPendingRegistrationPhoto(auth);
+  const payload = starterProfilePayload(auth, memberLead, saved, pendingPhotoPath ? [pendingPhotoPath] : []);
   await insertRow('duonera_profiles', payload, 20000, auth.session.access_token);
   return payload;
 }
@@ -568,7 +596,8 @@ function renderProfileCompletion(auth, registration = {}) {
       const linkedLead = currentRegistration?.id ? currentRegistration : null;
       const lead = await ensureLeadForMember(auth, linkedLead, saved);
       if (!lead?.id) throw new Error('DUONERA lead was not created.');
-      const payload = starterProfilePayload(auth, lead, saved);
+      const pendingPhotoPath = await uploadPendingRegistrationPhoto(auth);
+      const payload = starterProfilePayload(auth, lead, saved, pendingPhotoPath ? [pendingPhotoPath] : []);
       await insertRow('duonera_profiles', payload, 20000, auth.session.access_token);
       currentRegistration = saved;
       currentProfile = payload;
@@ -603,7 +632,10 @@ async function renderOwnProfile(auth) {
   layout.className = 'own-profile-layout';
   const gallery = document.createElement('div');
   gallery.className = 'own-photo-grid';
-  const paths = Array.isArray(currentProfile.photo_paths) ? currentProfile.photo_paths : [];
+  const storedPaths = Array.isArray(currentProfile.photo_paths) ? currentProfile.photo_paths : [];
+  const memberPaths = await listMemberPhotoPaths(auth);
+  const paths = [...new Set([...storedPaths, ...memberPaths])].slice(0, 3);
+  currentProfile.photo_paths = paths;
   const urls = (await Promise.all(paths.map(path => signedOwnPhotoUrl(path, auth.session.access_token)))).filter(Boolean);
   if (urls.length) {
     urls.forEach((url, index) => {
@@ -614,6 +646,42 @@ async function renderOwnProfile(auth) {
     });
   } else {
     gallery.innerHTML = `<div class="starter-photo" aria-hidden="true"><span>D</span><small>${t('photoLater')}</small></div>`;
+  }
+
+  if (paths.length < 3) {
+    const upload = document.createElement('div');
+    upload.className = 'own-photo-upload';
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.hidden = true;
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'btn btn-outline';
+    button.textContent = paths.length ? t('changePhoto') : t('addPhoto');
+    button.addEventListener('click', () => input.click());
+    input.addEventListener('change', async () => {
+      const file = input.files?.[0];
+      if (!file) return;
+      button.disabled = true;
+      button.textContent = t('photoSaving');
+      dashboardMessage.className = 'member-message dashboard-message';
+      dashboardMessage.textContent = t('photoSaving');
+      try {
+        const path = await uploadMemberPhoto(auth, file);
+        currentProfile.photo_paths = [...new Set([...paths, path])].slice(0, 3);
+        await renderOwnProfile(auth);
+        dashboardMessage.textContent = t('photoSaved');
+      } catch (error) {
+        console.error('DUONERA member photo upload failed', error);
+        dashboardMessage.className = 'member-message dashboard-message error';
+        dashboardMessage.textContent = error.message === 'invalid_photo' ? t('photoInvalid') : t('profileSaveError');
+        button.disabled = false;
+        button.textContent = paths.length ? t('changePhoto') : t('addPhoto');
+      }
+    });
+    upload.append(input, button);
+    gallery.appendChild(upload);
   }
 
   const info = document.createElement('div');
@@ -627,6 +695,7 @@ async function renderOwnProfile(auth) {
   details.className = 'own-details';
   [
     [t('seeking'), currentProfile.looking_for],
+    [t('distance'), currentProfile.preferred_distance_km ? `${currentProfile.preferred_distance_km} km` : '50 km'],
     [t('languages'), currentProfile.languages],
     [t('occupation'), currentProfile.occupation],
     [t('traits'), currentProfile.traits],
@@ -777,6 +846,15 @@ async function loadDashboard(auth) {
     ]);
     currentProfile = ownRows?.[0] || null;
     currentRegistration = registrationSnapshot(auth, leadRows?.[0] || null);
+    if (currentProfile) {
+      const pendingPhotoPath = await uploadPendingRegistrationPhoto(auth);
+      if (pendingPhotoPath) {
+        currentProfile.photo_paths = [...new Set([
+          ...(Array.isArray(currentProfile.photo_paths) ? currentProfile.photo_paths : []),
+          pendingPhotoPath
+        ])].slice(0, 3);
+      }
+    }
     if (!currentProfile) {
       dashboardMessage.textContent = t('profilePreparing');
       try {
@@ -872,8 +950,30 @@ loginForm.addEventListener('submit', async event => {
   }
 });
 
+registerPhoto.addEventListener('change', () => {
+  registerPhotoPreparation = (async () => {
+  preparedRegisterPhoto = null;
+  if (registerPhotoUrl) URL.revokeObjectURL(registerPhotoUrl);
+  registerPhotoPreview.hidden = true;
+  registerPhotoPlaceholder.hidden = false;
+  const file = registerPhoto.files?.[0];
+  if (!file) return;
+  try {
+    preparedRegisterPhoto = await compressProfilePhoto(file);
+    registerPhotoUrl = URL.createObjectURL(preparedRegisterPhoto);
+    registerPhotoPreview.src = registerPhotoUrl;
+    registerPhotoPreview.hidden = false;
+    registerPhotoPlaceholder.hidden = true;
+  } catch (error) {
+    registerPhoto.value = '';
+    setLoginMessage(t('photoInvalid'), true);
+  }
+  })();
+});
+
 registerForm.addEventListener('submit', async event => {
   event.preventDefault();
+  await registerPhotoPreparation;
   registerButton.disabled = true;
   setLoginMessage();
   const password = registerPassword.value;
@@ -882,8 +982,9 @@ registerForm.addEventListener('submit', async event => {
     registerButton.disabled = false;
     return;
   }
-  if (password !== registerPasswordAgain.value) {
-    setLoginMessage(t('passwordMismatch'), true);
+  if (!preparedRegisterPhoto) {
+    setLoginMessage(t('photoInvalid'), true);
+    registerPhoto.focus();
     registerButton.disabled = false;
     return;
   }
@@ -896,12 +997,14 @@ registerForm.addEventListener('submit', async event => {
       looking_for: registerLookingFor.value,
       city: registerCity.value.trim(),
       country: countryForLanguage(currentLang),
-      languages: [],
+      languages: [countryForLanguage(currentLang) === 'Česko' && currentLang === 'cs' ? 'Čeština' : ({de:'Deutsch',it:'Italiano',pl:'Polski',sk:'Slovenčina',uk:'Українська',ru:'Русский',en:'English'}[currentLang] || 'Čeština')],
+      preferred_distance_km: Number(registerDistance.value || 50),
       email: registerEmail.value.trim().toLowerCase(),
       landing_language: currentLang,
       consent_privacy: true,
       source: 'duonera.cz/account-registration'
     };
+    await savePendingRegistrationPhoto(shortRegistration.email, preparedRegisterPhoto);
     const data = await registerMember(
       shortRegistration.email,
       password,
@@ -1041,6 +1144,9 @@ if (savedRegistration.age) registerAge.value = savedRegistration.age;
 if (savedRegistration.gender) registerGender.value = savedRegistration.gender;
 if (savedRegistration.looking_for) registerLookingFor.value = savedRegistration.looking_for;
 if (savedRegistration.city) registerCity.value = savedRegistration.city;
+if ([25, 50, 100].includes(Number(savedRegistration.preferred_distance_km))) {
+  registerDistance.value = String(savedRegistration.preferred_distance_km);
+}
 const pageParams = new URLSearchParams(location.search);
 const requestedEmail = String(pageParams.get('email') || '').trim().toLowerCase();
 const requestedMode = pageParams.get('mode');
@@ -1072,7 +1178,7 @@ if (auth && recoveryFlow) {
 // Keep the member area available from the installed DUONERA app.
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js?v=49').catch(error => {
+    navigator.serviceWorker.register('/service-worker.js?v=50').catch(error => {
       console.warn('DUONERA service worker registration failed', error);
     });
   });

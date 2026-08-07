@@ -1,12 +1,12 @@
-const CACHE_NAME = 'duonera-app-v49';
+const CACHE_NAME = 'duonera-app-v50';
 const CORE_FILES = [
   '/',
   '/index.html',
   '/terms.html',
   '/duonera-legal.css?v=20260807a',
   '/manifest.webmanifest?v=4',
-  '/duonera-invitation-v2.css?v=20260806c',
-  '/duonera-invitation-v2.js?v=20260807b',
+  '/duonera-invitation-v2.css?v=20260807e',
+  '/duonera-invitation-v2.js?v=20260807c',
   '/assets/duonera-hero-v2.webp?v=20260806b',
   '/assets/duonera-mark-v2.svg',
   '/assets/favicon.svg',
@@ -16,19 +16,20 @@ const CORE_FILES = [
   '/assets/duonera-app-icon-512.png',
   '/assets/duonera-app-icon-maskable-512.png',
   '/ucet.html',
-  '/ucet.css?v=20260807d',
+  '/ucet.css?v=20260807e',
   '/duonera-member-v3.css?v=20260806d',
   '/pwa-install.css?v=3',
   '/pwa-install.js?v=3',
-  '/ucet.js?v=29',
+  '/ucet.js?v=30',
+  '/registration-photo.js?v=1',
   '/profil.html',
   '/profil-v2.css?v=20260805a',
   '/profil-hotovo.html',
   '/dekujeme.html',
   '/admin.html',
   '/admin.css?v=5',
-  '/admin.js?v=5',
-  '/member-auth.js?v=17',
+  '/admin.js?v=6',
+  '/member-auth.js?v=18',
   '/supabase-client.js'
 ];
 
