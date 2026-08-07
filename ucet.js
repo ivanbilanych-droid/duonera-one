@@ -1,4 +1,6 @@
 import {
+  createUuid,
+  insertRow,
   PROFILE_PHOTO_BUCKET,
   SUPABASE_URL,
   SUPABASE_PUBLISHABLE_KEY
@@ -14,7 +16,7 @@ import {
   signOutMember,
   takeAuthRedirectError,
   updateMemberPassword
-} from './member-auth.js?v=16';
+} from './member-auth.js?v=17';
 
 const DISCOVERY_BUCKET = 'duonera-discovery-photos';
 const translations = {
@@ -169,6 +171,18 @@ Object.assign(translations.ru, {
 });
 ['it','pl','sk'].forEach(language=>{translations[language]={...translations.en,...translations[language]};});
 
+const quickRegistrationCopy = {
+  cs:{firstName:'Jméno',iam:'Jsem',woman:'Žena',man:'Muž',seekWoman:'Ženu',seekMan:'Muže',city:'Město',privacyConsent:'Souhlasím se zpracováním údajů pro registraci a soukromý výběr.',restoreProfile:'Znovu načíst profil',profilePreparing:'Připravuji váš soukromý profil…',profileReady:'Registrace je hotová. Váš soukromý profil je aktivní.',photoLater:'Fotografii můžete přidat později.'},
+  en:{firstName:'First name',iam:'I am',woman:'Woman',man:'Man',seekWoman:'Woman',seekMan:'Man',city:'City',privacyConsent:'I agree to data processing for registration and private selection.',restoreProfile:'Reload profile',profilePreparing:'Preparing your private profile…',profileReady:'Registration is complete. Your private profile is active.',photoLater:'You can add a photo later.'},
+  de:{firstName:'Vorname',iam:'Ich bin',woman:'Frau',man:'Mann',seekWoman:'Frau',seekMan:'Mann',city:'Stadt',privacyConsent:'Ich stimme der Datenverarbeitung für Registrierung und private Auswahl zu.',restoreProfile:'Profil neu laden',profilePreparing:'Ihr privates Profil wird vorbereitet…',profileReady:'Die Registrierung ist abgeschlossen. Ihr privates Profil ist aktiv.',photoLater:'Ein Foto können Sie später hinzufügen.'},
+  it:{firstName:'Nome',iam:'Sono',woman:'Donna',man:'Uomo',seekWoman:'Donna',seekMan:'Uomo',city:'Città',privacyConsent:'Acconsento al trattamento dei dati per la registrazione e la selezione privata.',restoreProfile:'Ricarica profilo',profilePreparing:'Preparazione del profilo privato…',profileReady:'Registrazione completata. Il tuo profilo privato è attivo.',photoLater:'Puoi aggiungere una foto più tardi.'},
+  pl:{firstName:'Imię',iam:'Jestem',woman:'Kobieta',man:'Mężczyzna',seekWoman:'Kobiety',seekMan:'Mężczyzny',city:'Miasto',privacyConsent:'Zgadzam się na przetwarzanie danych do rejestracji i prywatnego doboru.',restoreProfile:'Załaduj profil ponownie',profilePreparing:'Przygotowujemy Twój prywatny profil…',profileReady:'Rejestracja zakończona. Twój prywatny profil jest aktywny.',photoLater:'Zdjęcie możesz dodać później.'},
+  sk:{firstName:'Meno',iam:'Som',woman:'Žena',man:'Muž',seekWoman:'Ženu',seekMan:'Muža',city:'Mesto',privacyConsent:'Súhlasím so spracovaním údajov na registráciu a súkromný výber.',restoreProfile:'Načítať profil znova',profilePreparing:'Pripravujem váš súkromný profil…',profileReady:'Registrácia je hotová. Váš súkromný profil je aktívny.',photoLater:'Fotografiu môžete pridať neskôr.'},
+  uk:{firstName:'Ім’я',iam:'Я',woman:'Жінка',man:'Чоловік',seekWoman:'Жінку',seekMan:'Чоловіка',city:'Місто',privacyConsent:'Я погоджуюся на обробку даних для реєстрації та приватного добору.',restoreProfile:'Завантажити анкету знову',profilePreparing:'Готуємо вашу приватну анкету…',profileReady:'Реєстрацію завершено. Ваша приватна анкета активна.',photoLater:'Фото можна додати пізніше.'},
+  ru:{firstName:'Имя',iam:'Я',woman:'Женщина',man:'Мужчина',seekWoman:'Женщину',seekMan:'Мужчину',city:'Город',privacyConsent:'Я согласен на обработку данных для регистрации и приватного подбора.',restoreProfile:'Загрузить анкету снова',profilePreparing:'Готовим вашу приватную анкету…',profileReady:'Регистрация завершена. Ваша приватная анкета активна.',photoLater:'Фотографию можно добавить позже.'}
+};
+Object.entries(quickRegistrationCopy).forEach(([language, copy]) => Object.assign(translations[language], copy));
+
 const loginView = document.querySelector('#loginView');
 const dashboardView = document.querySelector('#dashboardView');
 const loginForm = document.querySelector('#loginForm');
@@ -177,6 +191,11 @@ const loginMessage = document.querySelector('#loginMessage');
 const memberEmail = document.querySelector('#memberEmail');
 const memberPassword = document.querySelector('#memberPassword');
 const registerForm = document.querySelector('#registerForm');
+const registerFirstName = document.querySelector('#registerFirstName');
+const registerAge = document.querySelector('#registerAge');
+const registerGender = document.querySelector('#registerGender');
+const registerLookingFor = document.querySelector('#registerLookingFor');
+const registerCity = document.querySelector('#registerCity');
 const registerEmail = document.querySelector('#registerEmail');
 const registerPassword = document.querySelector('#registerPassword');
 const registerPasswordAgain = document.querySelector('#registerPasswordAgain');
@@ -201,6 +220,7 @@ const premiumGrid = document.querySelector('#premiumGrid');
 const mutualNotice = document.querySelector('#mutualNotice');
 let currentLang = localStorage.getItem('duonera-lang') || 'cs';
 let currentProfile = null;
+let currentRegistration = null;
 let selectedProfiles = new Map();
 let loadedDiscovery = [];
 let loadedPremium = [];
@@ -259,6 +279,12 @@ function valueText(value) {
   return value || '—';
 }
 
+function escapeHtml(value) {
+  return String(value ?? '').replace(/[&<>'"]/g, character => ({
+    '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#39;', '"':'&quot;'
+  })[character]);
+}
+
 function ownDetail(label, value) {
   const item = document.createElement('div');
   const title = document.createElement('span');
@@ -269,11 +295,127 @@ function ownDetail(label, value) {
   return item;
 }
 
+function savedShortRegistration(email = '') {
+  try {
+    const saved = JSON.parse(localStorage.getItem('duonera-short-registration') || '{}');
+    return String(saved.email || '').trim().toLowerCase() === String(email).trim().toLowerCase()
+      ? saved
+      : {};
+  } catch {
+    return {};
+  }
+}
+
+function registrationSnapshot(auth, lead = null) {
+  const metadata = auth.user?.user_metadata || {};
+  return {
+    ...metadata,
+    ...(lead || {}),
+    ...savedShortRegistration(auth.user?.email)
+  };
+}
+
+function birthDateFromAge(age) {
+  const numericAge = Math.min(120, Math.max(18, Number(age) || 18));
+  const date = new Date();
+  date.setFullYear(date.getFullYear() - numericAge);
+  return date.toISOString().slice(0, 10);
+}
+
+function fallbackName(email) {
+  const localPart = String(email || '').split('@')[0].replace(/[._-]+/g, ' ').trim();
+  if (!localPart) return 'DUONERA';
+  return localPart.split(/\s+/).map(part => part.charAt(0).toUpperCase() + part.slice(1)).join(' ').slice(0, 40);
+}
+
+function countryForLanguage(language) {
+  return {cs:'Česko',de:'Deutschland',it:'Italia',pl:'Polska',sk:'Slovensko',uk:'Україна'}[language] || 'Česko';
+}
+
+function starterProfilePayload(auth, lead, saved) {
+  const registration = {...(auth.user?.user_metadata || {}), ...lead, ...saved};
+  const email = String(auth.user.email || lead?.email || saved.email || '').trim().toLowerCase();
+  const age = Number(registration.age || 18);
+  return {
+    id: createUuid(),
+    user_id: auth.user.id,
+    lead_id: lead.id,
+    status: 'new',
+    first_name: String(registration.first_name || fallbackName(email)).trim().slice(0, 40),
+    birth_date: birthDateFromAge(age),
+    gender: String(registration.gender || ''),
+    looking_for: String(registration.looking_for || ''),
+    country: String(registration.country || countryForLanguage(registration.landing_language || currentLang)),
+    city: String(registration.city || '').trim(),
+    email,
+    languages: Array.isArray(registration.languages) ? registration.languages.filter(Boolean) : [],
+    height_cm: null,
+    occupation: '',
+    education: '',
+    relationship_status: '',
+    children: '',
+    pets: '',
+    smoking: '',
+    alcohol: '',
+    traits: [],
+    interests: [],
+    about_me: '',
+    ideal_relationship: '',
+    preferred_age_min: null,
+    preferred_age_max: null,
+    preferred_distance_km: 50,
+    relationship_goal: 'Vážný vztah',
+    consent_privacy: true,
+    consent_discovery: true,
+    consent_contact: false,
+    is_approved: false,
+    is_discoverable: false,
+    source: 'duonera.cz/short-registration',
+    photo_paths: [],
+    public_photo_paths: [],
+    raw_data: { starter_profile: true, registration_age: age }
+  };
+}
+
+async function ensureLeadForMember(auth, lead, saved) {
+  if (lead?.id) return lead;
+  const registration = {...(auth.user?.user_metadata || {}), ...saved};
+  if (!registration.first_name && !registration.city) return null;
+  const payload = {
+    id: createUuid(),
+    gender: registration.gender || '',
+    looking_for: registration.looking_for || '',
+    age: Number(registration.age || 18),
+    city: registration.city || '',
+    email: String(auth.user.email || '').trim().toLowerCase(),
+    consent_privacy: true,
+    source: 'duonera.cz/account-recovery'
+  };
+  await insertRow('duonera_leads', payload, 20000);
+  await callMemberRpc('duonera_claim_registration');
+  const rows = await memberRest(`duonera_leads?select=*&user_id=eq.${encodeURIComponent(auth.user.id)}&order=created_at.desc&limit=1`);
+  return rows?.[0] || null;
+}
+
+async function ensureStarterProfile(auth, lead) {
+  const saved = savedShortRegistration(auth.user.email);
+  const memberLead = await ensureLeadForMember(auth, lead, saved);
+  if (!memberLead?.id) return null;
+  const payload = starterProfilePayload(auth, memberLead, saved);
+  await insertRow('duonera_profiles', payload, 20000, auth.session.access_token);
+  return payload;
+}
+
 async function renderOwnProfile(auth) {
   if (!currentProfile) {
-    profileState.textContent = t('notCompleted');
-    createProfileButton.hidden = false;
-    ownProfileCard.innerHTML = `<div class="empty-member-state"><h3>${t('emptyOwnTitle')}</h3><p>${t('emptyOwnText')}</p></div>`;
+    profileState.textContent = t('profileActive');
+    createProfileButton.hidden = !currentRegistration;
+    const saved = savedShortRegistration(auth.user.email);
+    const registration = currentRegistration || saved;
+    const name = registration.first_name || fallbackName(auth.user.email);
+    const age = registration.age || '—';
+    const city = registration.city || '—';
+    ownProfileCard.innerHTML = `<div class="own-profile-layout starter-profile"><div class="starter-photo" aria-hidden="true"><span>D</span><small>${escapeHtml(t('photoLater'))}</small></div><div class="own-profile-info"><h3>${escapeHtml(name)}, ${escapeHtml(age)}</h3><p class="location">${escapeHtml(city)}</p><div class="own-details"><div><span>${escapeHtml(t('seeking'))}</span><p>${escapeHtml(registration.looking_for || '—')}</p></div><div><span>${escapeHtml(t('languages'))}</span><p>${escapeHtml(valueText(registration.languages))}</p></div></div></div></div>`;
     return;
   }
 
@@ -294,7 +436,7 @@ async function renderOwnProfile(auth) {
       gallery.appendChild(image);
     });
   } else {
-    gallery.innerHTML = `<div class="empty-member-state"><p>${t('emptyOwnText')}</p></div>`;
+    gallery.innerHTML = `<div class="starter-photo" aria-hidden="true"><span>D</span><small>${t('photoLater')}</small></div>`;
   }
 
   const info = document.createElement('div');
@@ -449,13 +591,23 @@ async function loadDashboard(auth) {
   memberEmailLabel.textContent = auth.user.email || '';
   try {
     await callMemberRpc('duonera_claim_registration');
-    const [ownRows, discovery, choices, premium] = await Promise.all([
+    const [ownRows, leadRows, discovery, choices, premium] = await Promise.all([
       memberRest(`duonera_profiles?select=*&user_id=eq.${encodeURIComponent(auth.user.id)}&limit=1`),
+      memberRest(`duonera_leads?select=*&user_id=eq.${encodeURIComponent(auth.user.id)}&order=created_at.desc&limit=1`),
       fetchDiscoveryProfiles(),
       callMemberRpc('duonera_my_choices'),
       callMemberRpc('duonera_my_premium_selection')
     ]);
     currentProfile = ownRows?.[0] || null;
+    currentRegistration = registrationSnapshot(auth, leadRows?.[0] || null);
+    if (!currentProfile) {
+      dashboardMessage.textContent = t('profilePreparing');
+      try {
+        currentProfile = await ensureStarterProfile(auth, leadRows?.[0] || null);
+      } catch (profileError) {
+        console.error('DUONERA starter profile could not be created', profileError);
+      }
+    }
     loadedDiscovery = discovery || [];
     loadedPremium = premium || [];
     selectedProfiles = new Map((choices || []).map(choice => [choice.chosen_profile_id, choice]));
@@ -463,7 +615,7 @@ async function loadDashboard(auth) {
     await renderOwnProfile(auth);
     renderDiscovery(loadedDiscovery);
     renderPremium(loadedPremium);
-    dashboardMessage.textContent = t('accountReady');
+    dashboardMessage.textContent = currentProfile ? t('profileReady') : t('accountReady');
   } catch (error) {
     dashboardMessage.className = 'member-message dashboard-message error';
     dashboardMessage.textContent = error.message || t('loadError');
@@ -524,6 +676,12 @@ showRegister.addEventListener('click', () => {
   registerEmail.value = memberEmail.value.trim();
   setAuthMode('register');
 });
+createProfileButton.addEventListener('click', async () => {
+  if (!activeAuth) return;
+  createProfileButton.disabled = true;
+  await loadDashboard(activeAuth);
+  createProfileButton.disabled = false;
+});
 
 loginForm.addEventListener('submit', async event => {
   event.preventDefault();
@@ -555,12 +713,48 @@ registerForm.addEventListener('submit', async event => {
     return;
   }
   try {
+    const leadId = createUuid();
+    const shortRegistration = {
+      first_name: registerFirstName.value.trim(),
+      age: Number(registerAge.value),
+      gender: registerGender.value,
+      looking_for: registerLookingFor.value,
+      city: registerCity.value.trim(),
+      country: countryForLanguage(currentLang),
+      languages: [],
+      email: registerEmail.value.trim().toLowerCase(),
+      landing_language: currentLang,
+      consent_privacy: true,
+      source: 'duonera.cz/account-registration'
+    };
     const data = await registerMember(
-      registerEmail.value,
+      shortRegistration.email,
       password,
-      `${location.origin}/ucet.html`
+      `${location.origin}/ucet.html`,
+      shortRegistration
     );
+    localStorage.setItem('duonera-short-registration', JSON.stringify(shortRegistration));
+    localStorage.setItem('duonera-lead-id', leadId);
+    try {
+      await insertRow('duonera_leads', {
+        id: leadId,
+        gender: shortRegistration.gender,
+        looking_for: shortRegistration.looking_for,
+        age: shortRegistration.age,
+        city: shortRegistration.city,
+        email: shortRegistration.email,
+        consent_privacy: true,
+        source: shortRegistration.source
+      }, 20000);
+    } catch (leadError) {
+      console.warn('DUONERA account created, but the starter registration could not be saved yet', leadError);
+    }
     if (typeof window.gtag === 'function') {
+      window.gtag('event', 'generate_lead', {
+        method: 'account_registration',
+        landing_language: currentLang,
+        transport_type: 'beacon'
+      });
       window.gtag('event', 'sign_up', {
         method: 'email_password',
         transport_type: 'beacon'
@@ -572,7 +766,7 @@ registerForm.addEventListener('submit', async event => {
     if (data?.session?.access_token && data?.user) {
       await openDashboard({ session: data.session, user: data.user });
     } else {
-      memberEmail.value = registerEmail.value.trim().toLowerCase();
+      memberEmail.value = shortRegistration.email;
       memberPassword.value = '';
       setAuthMode('login');
       setLoginMessage(t('confirmationSent'));
@@ -634,6 +828,7 @@ logoutButton.addEventListener('click', async () => {
   await signOutMember();
   activeAuth = null;
   currentProfile = null;
+  currentRegistration = null;
   loadedDiscovery = [];
   loadedPremium = [];
   selectedProfiles.clear();
@@ -662,6 +857,11 @@ if (savedRegistration.email) {
   memberEmail.value = savedRegistration.email;
   registerEmail.value = savedRegistration.email;
 }
+if (savedRegistration.first_name) registerFirstName.value = savedRegistration.first_name;
+if (savedRegistration.age) registerAge.value = savedRegistration.age;
+if (savedRegistration.gender) registerGender.value = savedRegistration.gender;
+if (savedRegistration.looking_for) registerLookingFor.value = savedRegistration.looking_for;
+if (savedRegistration.city) registerCity.value = savedRegistration.city;
 const pageParams = new URLSearchParams(location.search);
 const requestedEmail = String(pageParams.get('email') || '').trim().toLowerCase();
 const requestedMode = pageParams.get('mode');
@@ -693,7 +893,7 @@ if (auth && recoveryFlow) {
 // Keep the member area available from the installed DUONERA app.
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js?v=40').catch(error => {
+    navigator.serviceWorker.register('/service-worker.js?v=43').catch(error => {
       console.warn('DUONERA service worker registration failed', error);
     });
   });
