@@ -1,5 +1,6 @@
 import { createUuid, insertRow } from './supabase-client.js?v=5';
-import { registerMember } from './member-auth.js?v=17';
+import { registerMember } from './member-auth.js?v=18';
+import { compressProfilePhoto, savePendingRegistrationPhoto } from './registration-photo.js?v=1';
 
 const t = {
   cs:{login:'Přihlásit',kicker:'SOUKROMÉ SEZNÁMENÍ VE VAŠEM MĚSTĚ',title1:'Někdo blízký.',title2:'Ne další profil.',intro:'DUONERA vám představí tři lidi poblíž, kteří chtějí skutečný vztah. Kontakt se otevře jen při vzájemném ano.',nearbyNow:'lidé poblíž dnes',proof1:'lidé ve vašem okruhu',proof2:'veřejných profilů',proof3:'skutečný cíl',cta:'Najít mé tři',free:'Zdarma',oneMinute:'1 minuta',ageRule:'od 18 let',discover:'Jak to funguje',howTitle:'Méně hledání. Více pozornosti.',formTitle:'Koho máme hledat pro vás?',name:'Jméno',namePlaceholder:'Jana',age:'Věk',iam:'Jsem',seeking:'Hledám',woman:'Žena',man:'Muž',seekWoman:'Ženu',seekMan:'Muže',homeCity:'Město, kde žijete',cityPlaceholder:'Praha',location:'Použít aktuální polohu',locating:'Zjišťuji polohu…',locationReady:'Poloha je připravena',locationDenied:'Povolte polohu nebo napište město ručně.',languages:'Jazyky',multiple:'můžete vybrat více',emailPlaceholder:'vas@email.cz',consent:'Souhlasím se zpracováním údajů pro registraci a soukromý výběr.',privacy:'Soukromí',submit:'Vstoupit do DUONERA',submitting:'Vytvářím profil…',noPassword:'Bez hesla',private:'Neveřejný profil',noPhoto:'Fotografie později',close:'Zavřít',successTitle:'Váš soukromý profil je připraven,',successText:'Fotografii a další informace můžete doplnit později.',openProfile:'Otevřít můj profil',error:'Profil se nepodařilo uložit. Zkuste to prosím znovu.',photoAlt:'Dva lidé se potkávají v evropském městě'},
@@ -24,6 +25,18 @@ const registrationCopy={
 };
 Object.entries(registrationCopy).forEach(([code,copy])=>Object.assign(t[code],copy));
 
+const shortPhotoCopy={
+  cs:{distance:'Koho hledat v okruhu',profilePhoto:'Vaše fotografie',choosePhoto:'Vybrat fotografii',photoRequirement:'Aktuální fotografie obličeje. JPG, PNG nebo WEBP.',photoNow:'Fotografie je součástí profilu',photoInvalid:'Vyberte fotografii JPG, PNG nebo WEBP do 12 MB.',successText:'Potvrďte e-mail. Fotografie a údaje se potom automaticky otevřou ve vašem profilu.'},
+  de:{distance:'Suchradius',profilePhoto:'Ihr Foto',choosePhoto:'Foto auswählen',photoRequirement:'Aktuelles Gesichtsfoto. JPG, PNG oder WEBP.',photoNow:'Foto ist Teil des Profils',photoInvalid:'Wählen Sie ein JPG-, PNG- oder WEBP-Foto bis 12 MB.',successText:'Bestätigen Sie Ihre E-Mail. Foto und Angaben erscheinen danach automatisch in Ihrem Profil.'},
+  it:{distance:'Raggio di ricerca',profilePhoto:'La tua foto',choosePhoto:'Scegli una foto',photoRequirement:'Foto attuale del viso. JPG, PNG o WEBP.',photoNow:'La foto fa parte del profilo',photoInvalid:'Scegli una foto JPG, PNG o WEBP fino a 12 MB.',successText:'Conferma l’e-mail. La foto e i dati appariranno automaticamente nel tuo profilo.'},
+  pl:{distance:'Promień wyszukiwania',profilePhoto:'Twoje zdjęcie',choosePhoto:'Wybierz zdjęcie',photoRequirement:'Aktualne zdjęcie twarzy. JPG, PNG lub WEBP.',photoNow:'Zdjęcie jest częścią profilu',photoInvalid:'Wybierz zdjęcie JPG, PNG lub WEBP do 12 MB.',successText:'Potwierdź e-mail. Zdjęcie i dane automatycznie pojawią się w Twoim profilu.'},
+  sk:{distance:'Okruh hľadania',profilePhoto:'Vaša fotografia',choosePhoto:'Vybrať fotografiu',photoRequirement:'Aktuálna fotografia tváre. JPG, PNG alebo WEBP.',photoNow:'Fotografia je súčasťou profilu',photoInvalid:'Vyberte fotografiu JPG, PNG alebo WEBP do 12 MB.',successText:'Potvrďte e-mail. Fotografia a údaje sa potom automaticky zobrazia vo vašom profile.'},
+  uk:{distance:'Радіус пошуку',profilePhoto:'Ваше фото',choosePhoto:'Обрати фото',photoRequirement:'Актуальне фото обличчя. JPG, PNG або WEBP.',photoNow:'Фото є частиною анкети',photoInvalid:'Оберіть фото JPG, PNG або WEBP до 12 МБ.',successText:'Підтвердьте e-mail. Фото й дані автоматично з’являться у вашій анкеті.'},
+  ru:{distance:'Радиус поиска',profilePhoto:'Ваша фотография',choosePhoto:'Выбрать фотографию',photoRequirement:'Актуальная фотография лица. JPG, PNG или WEBP.',photoNow:'Фотография входит в профиль',photoInvalid:'Выберите фотографию JPG, PNG или WEBP до 12 МБ.',successText:'Подтвердите e-mail. Фотография и данные автоматически появятся в вашем профиле.'},
+  en:{distance:'Search radius',profilePhoto:'Your photo',choosePhoto:'Choose a photo',photoRequirement:'A current face photo. JPG, PNG or WEBP.',photoNow:'Photo included in profile',photoInvalid:'Choose a JPG, PNG or WEBP photo up to 12 MB.',successText:'Confirm your email. Your photo and details will then appear automatically in your profile.'}
+};
+Object.entries(shortPhotoCopy).forEach(([code,copy])=>Object.assign(t[code],copy));
+
 const shared={navLabel:'Hlavní navigace',languageLabel:'Jazyk',proofLabel:'Princip DUONERA',howLabel:'DUONERA CITY CIRCLE',step1Title:'Řeknete jen to důležité',step1Text:'Kdo jste, koho hledáte, město, věk a jazyky.',step2Title:'Vybereme lidi poblíž',step2Text:'Bydliště a aktuální poloha zůstávají oddělené a soukromé.',step3Title:'Otevře se skutečné setkání',step3Text:'Kontakt až po vzájemném výběru. Žádné swipování.',closingLabel:'LUXURY JE KLID, SOUKROMÍ A POZORNOST',closingTitle:'Nejste položka v katalogu.',formKicker:'VÁŠ SOUKROMÝ VSTUP',successLabel:'VÍTEJTE V DUONERA'};
 const sharedLocalized={
   de:{navLabel:'Hauptnavigation',languageLabel:'Sprache',proofLabel:'Das DUONERA-Prinzip',step1Title:'Nur das Wesentliche',step1Text:'Wer Sie sind, wen Sie suchen, Stadt, Alter und Sprachen.',step2Title:'Wir wählen Menschen in der Nähe',step2Text:'Wohnort und aktueller Standort bleiben getrennt und privat.',step3Title:'Ein echtes Treffen wird möglich',step3Text:'Kontakt erst nach gegenseitiger Wahl. Kein Swipen.',closingLabel:'LUXURY IST RUHE, PRIVATSPHÄRE UND AUFMERKSAMKEIT',closingTitle:'Sie sind kein Eintrag in einem Katalog.',formKicker:'IHR PRIVATER ZUGANG',successLabel:'WILLKOMMEN BEI DUONERA'},
@@ -46,7 +59,7 @@ const toast=document.querySelector('.toast');
 let active='cs';
 
 function initialLanguage(){const params=new URLSearchParams(location.search);const query=aliases[params.get('lang')?.toLowerCase()];if(query)return query;const country=countryLanguage[String(params.get('country')||'').toUpperCase()];if(country)return country;try{const saved=aliases[localStorage.getItem('duonera-lang')];if(saved)return saved}catch(_){}const zone=Intl.DateTimeFormat().resolvedOptions().timeZone;if(zoneLanguage[zone])return zoneLanguage[zone];for(const value of navigator.languages||[navigator.language]){const code=aliases[String(value).toLowerCase().split('-')[0]];if(code)return code}return'cs'}
-function applyLanguage(code){active=t[code]?code:'cs';const d=t[active];document.documentElement.lang=active;document.querySelectorAll('[data-i18n]').forEach(el=>{if(d[el.dataset.i18n])el.textContent=d[el.dataset.i18n]});document.querySelectorAll('[data-i18n-aria]').forEach(el=>{if(d[el.dataset.i18nAria])el.setAttribute('aria-label',d[el.dataset.i18nAria])});document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{if(d[el.dataset.i18nPlaceholder])el.placeholder=d[el.dataset.i18nPlaceholder]});languageSelect.value=active;document.querySelectorAll('[data-city]').forEach(el=>el.textContent=settings[active].city);document.querySelector('[data-country]').textContent=settings[active].country;const preferred=[...form.querySelectorAll('[name=languages]')].find(el=>el.value===settings[active].language);if(preferred&&!form.querySelector('[name=languages]:checked'))preferred.checked=true;try{localStorage.setItem('duonera-lang',active)}catch(_){}}
+function applyLanguage(code){active=t[code]?code:'cs';const d=t[active];document.documentElement.lang=active;document.querySelectorAll('[data-i18n]').forEach(el=>{if(d[el.dataset.i18n])el.textContent=d[el.dataset.i18n]});document.querySelectorAll('[data-i18n-aria]').forEach(el=>{if(d[el.dataset.i18nAria])el.setAttribute('aria-label',d[el.dataset.i18nAria])});document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{if(d[el.dataset.i18nPlaceholder])el.placeholder=d[el.dataset.i18nPlaceholder]});languageSelect.value=active;document.querySelectorAll('[data-city]').forEach(el=>el.textContent=settings[active].city);document.querySelector('[data-country]').textContent=settings[active].country;try{localStorage.setItem('duonera-lang',active)}catch(_){}}
 languageSelect.addEventListener('change',()=>applyLanguage(languageSelect.value));applyLanguage(initialLanguage());
 const cookieCopy={cs:{cookieText:'Pomozte nám měřit, zda DUONERA funguje. Reklamní měření spustíme jen s vaším souhlasem.',cookieMore:'Více informací',cookieReject:'Jen nutné',cookieAccept:'Povolit měření'},de:{cookieText:'Helfen Sie uns zu messen, ob DUONERA funktioniert. Werbemessung startet nur mit Ihrer Zustimmung.',cookieMore:'Mehr erfahren',cookieReject:'Nur erforderlich',cookieAccept:'Messung erlauben'},it:{cookieText:'Aiutaci a misurare l’efficacia di DUONERA. La misurazione pubblicitaria inizierà solo con il tuo consenso.',cookieMore:'Maggiori informazioni',cookieReject:'Solo necessari',cookieAccept:'Consenti misurazione'},pl:{cookieText:'Pomóż nam mierzyć skuteczność DUONERA. Pomiar reklam uruchomimy tylko za Twoją zgodą.',cookieMore:'Więcej informacji',cookieReject:'Tylko niezbędne',cookieAccept:'Zezwól na pomiar'},sk:{cookieText:'Pomôžte nám merať, či DUONERA funguje. Meranie reklamy spustíme iba s vaším súhlasom.',cookieMore:'Viac informácií',cookieReject:'Iba nevyhnutné',cookieAccept:'Povoliť meranie'},uk:{cookieText:'Допоможіть нам виміряти ефективність DUONERA. Рекламне вимірювання почнеться лише з вашої згоди.',cookieMore:'Докладніше',cookieReject:'Лише необхідні',cookieAccept:'Дозволити вимірювання'},ru:{cookieText:'Помогите нам измерять эффективность DUONERA. Рекламное измерение начнётся только с вашего согласия.',cookieMore:'Подробнее',cookieReject:'Только необходимые',cookieAccept:'Разрешить измерение'},en:{cookieText:'Help us measure whether DUONERA works. Advertising measurement starts only with your consent.',cookieMore:'Learn more',cookieReject:'Essential only',cookieAccept:'Allow measurement'}};
 Object.keys(cookieCopy).forEach(code=>Object.assign(t[code],cookieCopy[code]));
@@ -55,12 +68,38 @@ const trackingConsent=document.querySelector('.tracking-consent');
 if(trackingConsent){try{if(!localStorage.getItem('duoneraMarketingConsent'))trackingConsent.hidden=false}catch(_){trackingConsent.hidden=false}trackingConsent.querySelector('.tracking-accept').addEventListener('click',()=>{try{localStorage.setItem('duoneraAnalyticsConsent','granted');localStorage.setItem('duoneraMarketingConsent','granted')}catch(_){}if(typeof gtag==='function')gtag('consent','update',{analytics_storage:'granted',ad_storage:'granted',ad_user_data:'granted',ad_personalization:'granted'});if(typeof window.duoneraLoadMetaPixel==='function')window.duoneraLoadMetaPixel();trackingConsent.hidden=true});trackingConsent.querySelector('.tracking-reject').addEventListener('click',()=>{try{localStorage.setItem('duoneraAnalyticsConsent','denied');localStorage.setItem('duoneraMarketingConsent','denied')}catch(_){}trackingConsent.hidden=true})}
 document.querySelectorAll('[data-open-register]').forEach(button=>button.addEventListener('click',()=>dialog.showModal()));document.querySelector('[data-close-register]').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',event=>{if(event.target===dialog)dialog.close()});
 function showToast(message){toast.textContent=message;toast.classList.add('show');clearTimeout(window.__toast);window.__toast=setTimeout(()=>toast.classList.remove('show'),3800)}
-const locationButton=document.querySelector('.location');locationButton.addEventListener('click',()=>{if(!navigator.geolocation)return showToast(t[active].locationDenied);locationButton.disabled=true;locationButton.querySelector('span').textContent=t[active].locating;navigator.geolocation.getCurrentPosition(({coords})=>{form.elements.latitude.value=coords.latitude.toFixed(5);form.elements.longitude.value=coords.longitude.toFixed(5);locationButton.disabled=false;locationButton.querySelector('span').textContent=t[active].locationReady},()=>{locationButton.disabled=false;locationButton.querySelector('span').textContent=t[active].location;showToast(t[active].locationDenied)},{enableHighAccuracy:false,timeout:8000,maximumAge:600000})});
 form.addEventListener('input',event=>{event.target.classList.remove('invalid');event.target.closest('fieldset')?.classList.remove('invalid')});
-function validate(){form.querySelectorAll('.invalid').forEach(el=>el.classList.remove('invalid'));const invalid=[...form.elements].filter(el=>el.willValidate&&!el.checkValidity());invalid.forEach(el=>{const group=el.closest('fieldset');(group||el).classList.add('invalid')});const missingLanguages=!form.querySelector('[name=languages]:checked');if(missingLanguages)document.querySelector('.languages').classList.add('invalid');if(invalid.length){invalid[0].focus();return false}if(missingLanguages){document.querySelector('.languages label').focus();return false}return true}
+const registrationPhoto=form.elements.photo;
+const registrationPhotoPreview=form.querySelector('[data-photo-preview]');
+const registrationPhotoPlaceholder=form.querySelector('[data-photo-placeholder]');
+let preparedRegistrationPhoto=null;
+let registrationPhotoUrl='';
+let registrationPhotoPreparation=Promise.resolve();
+registrationPhoto.addEventListener('change',()=>{
+  registrationPhotoPreparation=(async()=>{
+  preparedRegistrationPhoto=null;
+  if(registrationPhotoUrl)URL.revokeObjectURL(registrationPhotoUrl);
+  registrationPhotoPreview.hidden=true;
+  registrationPhotoPlaceholder.hidden=false;
+  const file=registrationPhoto.files?.[0];
+  if(!file)return;
+  try{
+    preparedRegistrationPhoto=await compressProfilePhoto(file);
+    registrationPhotoUrl=URL.createObjectURL(preparedRegistrationPhoto);
+    registrationPhotoPreview.src=registrationPhotoUrl;
+    registrationPhotoPreview.hidden=false;
+    registrationPhotoPlaceholder.hidden=true;
+  }catch(_){
+    registrationPhoto.value='';
+    showToast(t[active].photoInvalid);
+  }
+  })();
+});
+function validate(){form.querySelectorAll('.invalid').forEach(el=>el.classList.remove('invalid'));const invalid=[...form.elements].filter(el=>el.willValidate&&!el.checkValidity());invalid.forEach(el=>{const group=el.closest('fieldset');(group||el).classList.add('invalid')});if(invalid.length){invalid[0].focus();return false}if(!preparedRegistrationPhoto){registrationPhoto.classList.add('invalid');showToast(t[active].photoInvalid);return false}return true}
 function gender(value){return value==='woman'?'Žena':'Muž'}function seeking(value){return value==='woman'?'Ženu':'Muže'}
 form.addEventListener('submit',async event=>{
   event.preventDefault();
+  await registrationPhotoPreparation;
   if(!validate())return;
   const data=new FormData(form);
   const id=createUuid();
@@ -73,10 +112,9 @@ form.addEventListener('submit',async event=>{
     looking_for:seeking(data.get('looking_for')),
     city:String(data.get('city')).trim(),
     country:settings[active].country,
-    languages:data.getAll('languages'),
+    languages:[settings[active].language],
     email:String(data.get('email')).trim().toLowerCase(),
-    latitude:String(data.get('latitude')||''),
-    longitude:String(data.get('longitude')||''),
+    preferred_distance_km:Number(data.get('distance')||50),
     consent_privacy:true,
     landing_language:active,
     attribution:{
@@ -100,6 +138,7 @@ form.addEventListener('submit',async event=>{
     if(prototype){
       await new Promise(resolve=>setTimeout(resolve,420));
     }else{
+      await savePendingRegistrationPhoto(profile.email,preparedRegistrationPhoto);
       registration=await registerMember(profile.email,String(data.get('password')||''),`${location.origin}/ucet.html`,profile);
       try{
         await insertRow('duonera_leads',payload,20000);
@@ -130,4 +169,4 @@ form.addEventListener('submit',async event=>{
   }
 });
 
-if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/service-worker.js?v=43').catch(()=>{}))}
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/service-worker.js?v=50').catch(()=>{}))}
