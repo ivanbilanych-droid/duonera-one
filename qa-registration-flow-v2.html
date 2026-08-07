@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow">
+  <title>DUONERA — registrace mobile preview</title>
+  <link rel="stylesheet" href="styles.css?v=21">
+  <link rel="stylesheet" href="ucet.css?v=20260807b">
+  <link rel="stylesheet" href="duonera-member-v3.css?v=20260806d">
+  <style>
+    body{display:grid;place-items:start;min-height:100vh;padding:0;background:#d8d4cc}
+    .phone{width:390px;min-height:844px;overflow:hidden;background:linear-gradient(145deg,#f7f4ee 0%,#eeebe5 58%,#e4ece9 100%);box-shadow:0 28px 80px rgba(23,35,38,.18)}
+    .phone .member-header{position:relative;min-height:66px;padding:10px 16px}
+    .phone .member-header .brand-name{font-size:14px}
+    .phone .member-header .brand-name:before{display:none}
+    .phone .member-language-select{display:block}
+    .phone main{padding:22px 14px 34px}
+    .phone .member-login{display:block;width:100%;min-height:auto;padding:0}
+    .phone .login-intro{margin:0 4px 20px}
+    .phone .login-intro h1{margin:7px 0 8px;font-size:35px;line-height:1}
+    .phone .login-intro>p:not(.section-label){margin:0;font-size:13px;line-height:1.5}
+    .phone .login-trust{display:none}
+    .phone .member-login-card{padding:20px;border-radius:25px}
+    .phone .quick-register-grid{grid-template-columns:1fr 1fr}
+    .phone .member-login-card input,.phone .member-login-card select{height:46px;margin-bottom:12px}
+    .phone .member-login-card .quick-register-consent{margin-bottom:14px;font-size:10px}
+    .phone .btn{min-height:50px}
+  </style>
+</head>
+<body class="member-page">
+  <div class="phone" data-phone>
+    <header class="site-header member-header">
+      <a class="brand" href="#" aria-label="DUONERA">
+        <img class="brand-mark" src="assets/duonera-mark-v2.svg" width="42" height="42" alt="">
+        <span class="brand-name">DUONERA<small>PRIVATE INTRODUCTIONS</small></span>
+      </a>
+      <select class="member-language-select" aria-label="Jazyk"><option>CZ</option></select>
+    </header>
+    <main>
+      <section class="member-login">
+        <div class="login-intro">
+          <p class="section-label">1 MINUTA · SOUKROMĚ</p>
+          <h1>Řekněte jen to důležité.</h1>
+          <p>Po potvrzení e-mailu se rovnou otevře váš účet. Fotografie a další údaje můžete doplnit později.</p>
+        </div>
+        <div class="member-login-card">
+          <div class="auth-tabs"><button class="auth-tab" type="button">Přihlášení</button><button class="auth-tab active" type="button">Registrace</button></div>
+          <form>
+            <div class="quick-register-grid">
+              <label><span>Jméno</span><input value="Jana" readonly></label>
+              <label><span>Věk</span><input value="38" readonly></label>
+            </div>
+            <div class="quick-register-grid">
+              <label><span>Jsem</span><select><option>Žena</option></select></label>
+              <label><span>Hledám</span><select><option>Muže</option></select></label>
+            </div>
+            <label><span>Město</span><input value="Praha" readonly></label>
+            <label><span>E-mail</span><input value="jana@email.cz" readonly></label>
+            <label><span>Heslo</span><input type="password" value="12345678" readonly></label>
+            <label class="quick-register-consent"><input type="checkbox" checked disabled><span>Souhlasím se zpracováním údajů pro registraci a soukromý výběr.</span></label>
+            <button class="btn btn-gold full" type="button">Vytvořit účet</button>
+            <small>Jedno potvrzení e-mailem. Potom jste přímo v účtu.</small>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
