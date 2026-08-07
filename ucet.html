@@ -65,7 +65,7 @@
     })();
   </script>
   <link rel="stylesheet" href="styles.css?v=21">
-  <link rel="stylesheet" href="ucet.css?v=20260805a">
+  <link rel="stylesheet" href="ucet.css?v=20260807b">
   <link rel="stylesheet" href="duonera-member-v3.css?v=20260806d">
   <link rel="stylesheet" href="pwa-install.css?v=3">
 </head>
@@ -128,6 +128,36 @@
         </form>
 
         <form id="registerForm" hidden>
+          <div class="quick-register-grid">
+            <label>
+              <span data-i18n="firstName">Jméno</span>
+              <input id="registerFirstName" type="text" autocomplete="given-name" maxlength="40" required>
+            </label>
+            <label>
+              <span data-i18n="age">Věk</span>
+              <input id="registerAge" type="number" inputmode="numeric" min="18" max="120" required>
+            </label>
+          </div>
+          <div class="quick-register-grid">
+            <label>
+              <span data-i18n="iam">Jsem</span>
+              <select id="registerGender" required>
+                <option value="Muž" data-i18n="man">Muž</option>
+                <option value="Žena" data-i18n="woman">Žena</option>
+              </select>
+            </label>
+            <label>
+              <span data-i18n="seeking">Hledám</span>
+              <select id="registerLookingFor" required>
+                <option value="Ženu" data-i18n="seekWoman">Ženu</option>
+                <option value="Muže" data-i18n="seekMan">Muže</option>
+              </select>
+            </label>
+          </div>
+          <label>
+            <span data-i18n="city">Město</span>
+            <input id="registerCity" type="text" autocomplete="address-level2" maxlength="80" required>
+          </label>
           <label>
             <span data-i18n="email">E-mail</span>
             <input id="registerEmail" type="email" autocomplete="email" placeholder="vas@email.cz" required>
@@ -139,6 +169,10 @@
           <label>
             <span data-i18n="repeatPassword">Zopakujte heslo</span>
             <input id="registerPasswordAgain" type="password" autocomplete="new-password" minlength="8" required>
+          </label>
+          <label class="quick-register-consent">
+            <input id="registerConsent" type="checkbox" required>
+            <span data-i18n="privacyConsent">Souhlasím se zpracováním údajů pro registraci a soukromý výběr.</span>
           </label>
           <button class="btn btn-gold full" id="registerButton" type="submit" data-i18n="createAccount">Vytvořit účet</button>
           <small data-i18n="registerNote">Pošleme vám e-mail. Kliknutím jednou potvrdíte svou adresu.</small>
@@ -169,7 +203,7 @@
           <h1 id="welcomeTitle" data-i18n="accountTitle">Vítejte v DUONERA.</h1>
           <p id="memberEmailLabel"></p>
         </div>
-        <a class="btn btn-gold" id="createProfileButton" href="profil.html" data-i18n="createProfile">Vytvořit můj profil</a>
+        <button class="btn btn-gold" id="createProfileButton" type="button" data-i18n="restoreProfile" hidden>Znovu načíst profil</button>
       </div>
 
       <p class="member-message dashboard-message" id="dashboardMessage" role="status"></p>
@@ -233,7 +267,7 @@
     </div>
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.53.0/dist/umd/supabase.js"></script>
-  <script type="module" src="ucet.js?v=22"></script>
+  <script type="module" src="ucet.js?v=23"></script>
   <script src="pwa-install.js?v=3"></script>
 </body>
 </html>

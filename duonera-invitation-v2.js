@@ -1,5 +1,5 @@
 import { createUuid, insertRow } from './supabase-client.js?v=5';
-import { registerMember } from './member-auth.js?v=16';
+import { registerMember } from './member-auth.js?v=17';
 
 const t = {
   cs:{login:'Přihlásit',kicker:'SOUKROMÉ SEZNÁMENÍ VE VAŠEM MĚSTĚ',title1:'Někdo blízký.',title2:'Ne další profil.',intro:'DUONERA vám představí tři lidi poblíž, kteří chtějí skutečný vztah. Kontakt se otevře jen při vzájemném ano.',nearbyNow:'lidé poblíž dnes',proof1:'lidé ve vašem okruhu',proof2:'veřejných profilů',proof3:'skutečný cíl',cta:'Najít mé tři',free:'Zdarma',oneMinute:'1 minuta',ageRule:'od 18 let',discover:'Jak to funguje',howTitle:'Méně hledání. Více pozornosti.',formTitle:'Koho máme hledat pro vás?',name:'Jméno',namePlaceholder:'Jana',age:'Věk',iam:'Jsem',seeking:'Hledám',woman:'Žena',man:'Muž',seekWoman:'Ženu',seekMan:'Muže',homeCity:'Město, kde žijete',cityPlaceholder:'Praha',location:'Použít aktuální polohu',locating:'Zjišťuji polohu…',locationReady:'Poloha je připravena',locationDenied:'Povolte polohu nebo napište město ručně.',languages:'Jazyky',multiple:'můžete vybrat více',emailPlaceholder:'vas@email.cz',consent:'Souhlasím se zpracováním údajů pro registraci a soukromý výběr.',privacy:'Soukromí',submit:'Vstoupit do DUONERA',submitting:'Vytvářím profil…',noPassword:'Bez hesla',private:'Neveřejný profil',noPhoto:'Fotografie později',close:'Zavřít',successTitle:'Váš soukromý profil je připraven,',successText:'Fotografii a další informace můžete doplnit později.',openProfile:'Otevřít můj profil',error:'Profil se nepodařilo uložit. Zkuste to prosím znovu.',photoAlt:'Dva lidé se potkávají v evropském městě'},
@@ -100,7 +100,7 @@ form.addEventListener('submit',async event=>{
     if(prototype){
       await new Promise(resolve=>setTimeout(resolve,420));
     }else{
-      registration=await registerMember(profile.email,String(data.get('password')||''),`${location.origin}/ucet.html`);
+      registration=await registerMember(profile.email,String(data.get('password')||''),`${location.origin}/ucet.html`,profile);
       try{
         await insertRow('duonera_leads',payload,20000);
       }catch(leadError){
@@ -130,4 +130,4 @@ form.addEventListener('submit',async event=>{
   }
 });
 
-if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/service-worker.js?v=40').catch(()=>{}))}
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/service-worker.js?v=43').catch(()=>{}))}
