@@ -196,14 +196,14 @@ const profileCompletionCopy = {
 Object.entries(profileCompletionCopy).forEach(([language, copy]) => Object.assign(translations[language], copy));
 
 const passwordResetCopy = {
-  cs:{resetEmailRequired:'Nejdříve zadejte e-mail, ke kterému chcete obnovit heslo.',resetSentTo:'Odkaz pro nové heslo jsme poslali na'},
-  en:{resetEmailRequired:'Enter the email address whose password you want to reset.',resetSentTo:'We sent the new-password link to'},
-  de:{resetEmailRequired:'Geben Sie zuerst die E-Mail-Adresse für die Passwortwiederherstellung ein.',resetSentTo:'Wir haben den Link für ein neues Passwort gesendet an'},
-  it:{resetEmailRequired:'Inserisci prima l’e-mail per cui vuoi reimpostare la password.',resetSentTo:'Abbiamo inviato il link per la nuova password a'},
-  pl:{resetEmailRequired:'Najpierw wpisz e-mail, dla którego chcesz odzyskać hasło.',resetSentTo:'Wysłaliśmy link do nowego hasła na'},
-  sk:{resetEmailRequired:'Najprv zadajte e-mail, ku ktorému chcete obnoviť heslo.',resetSentTo:'Odkaz na nové heslo sme poslali na'},
-  uk:{resetEmailRequired:'Спочатку введіть e-mail, для якого потрібно відновити пароль.',resetSentTo:'Посилання для нового пароля надіслано на'},
-  ru:{resetEmailRequired:'Сначала введите e-mail, для которого нужно восстановить пароль.',resetSentTo:'Ссылка для нового пароля отправлена на'}
+  cs:{resetEmailRequired:'Nejdříve zadejte e-mail, ke kterému chcete obnovit heslo.',resetSending:'Odesílám odkaz pro nové heslo…',resetSentTo:'Odkaz pro nové heslo jsme poslali na'},
+  en:{resetEmailRequired:'Enter the email address whose password you want to reset.',resetSending:'Sending the new-password link…',resetSentTo:'We sent the new-password link to'},
+  de:{resetEmailRequired:'Geben Sie zuerst die E-Mail-Adresse für die Passwortwiederherstellung ein.',resetSending:'Link für ein neues Passwort wird gesendet…',resetSentTo:'Wir haben den Link für ein neues Passwort gesendet an'},
+  it:{resetEmailRequired:'Inserisci prima l’e-mail per cui vuoi reimpostare la password.',resetSending:'Invio del link per la nuova password…',resetSentTo:'Abbiamo inviato il link per la nuova password a'},
+  pl:{resetEmailRequired:'Najpierw wpisz e-mail, dla którego chcesz odzyskać hasło.',resetSending:'Wysyłamy link do nowego hasła…',resetSentTo:'Wysłaliśmy link do nowego hasła na'},
+  sk:{resetEmailRequired:'Najprv zadajte e-mail, ku ktorému chcete obnoviť heslo.',resetSending:'Odosielam odkaz na nové heslo…',resetSentTo:'Odkaz na nové heslo sme poslali na'},
+  uk:{resetEmailRequired:'Спочатку введіть e-mail, для якого потрібно відновити пароль.',resetSending:'Надсилаємо посилання для нового пароля…',resetSentTo:'Посилання для нового пароля надіслано на'},
+  ru:{resetEmailRequired:'Сначала введите e-mail, для которого нужно восстановить пароль.',resetSending:'Отправляем ссылку для нового пароля…',resetSentTo:'Ссылка для нового пароля отправлена на'}
 };
 Object.entries(passwordResetCopy).forEach(([language, copy]) => Object.assign(translations[language], copy));
 
@@ -960,7 +960,8 @@ forgotPassword.addEventListener('click', async () => {
     return;
   }
   forgotPassword.disabled = true;
-  setLoginMessage();
+  forgotPassword.textContent = t('resetSending');
+  setLoginMessage(t('resetSending'));
   try {
     await requestPasswordReset(email, `${location.origin}/ucet.html?mode=reset`);
     setLoginMessage(`${t('resetSentTo')} ${email}.`);
@@ -968,6 +969,7 @@ forgotPassword.addEventListener('click', async () => {
     setLoginMessage(authMessage(error), true);
   } finally {
     forgotPassword.disabled = false;
+    forgotPassword.textContent = t('forgotPassword');
   }
 });
 
@@ -1068,7 +1070,7 @@ if (auth && recoveryFlow) {
 // Keep the member area available from the installed DUONERA app.
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js?v=46').catch(error => {
+    navigator.serviceWorker.register('/service-worker.js?v=47').catch(error => {
       console.warn('DUONERA service worker registration failed', error);
     });
   });
