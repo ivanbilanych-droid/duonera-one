@@ -195,6 +195,18 @@ const profileCompletionCopy = {
 };
 Object.entries(profileCompletionCopy).forEach(([language, copy]) => Object.assign(translations[language], copy));
 
+const passwordResetCopy = {
+  cs:{resetEmailRequired:'Nejdříve zadejte e-mail, ke kterému chcete obnovit heslo.',resetSentTo:'Odkaz pro nové heslo jsme poslali na'},
+  en:{resetEmailRequired:'Enter the email address whose password you want to reset.',resetSentTo:'We sent the new-password link to'},
+  de:{resetEmailRequired:'Geben Sie zuerst die E-Mail-Adresse für die Passwortwiederherstellung ein.',resetSentTo:'Wir haben den Link für ein neues Passwort gesendet an'},
+  it:{resetEmailRequired:'Inserisci prima l’e-mail per cui vuoi reimpostare la password.',resetSentTo:'Abbiamo inviato il link per la nuova password a'},
+  pl:{resetEmailRequired:'Najpierw wpisz e-mail, dla którego chcesz odzyskać hasło.',resetSentTo:'Wysłaliśmy link do nowego hasła na'},
+  sk:{resetEmailRequired:'Najprv zadajte e-mail, ku ktorému chcete obnoviť heslo.',resetSentTo:'Odkaz na nové heslo sme poslali na'},
+  uk:{resetEmailRequired:'Спочатку введіть e-mail, для якого потрібно відновити пароль.',resetSentTo:'Посилання для нового пароля надіслано на'},
+  ru:{resetEmailRequired:'Сначала введите e-mail, для которого нужно восстановить пароль.',resetSentTo:'Ссылка для нового пароля отправлена на'}
+};
+Object.entries(passwordResetCopy).forEach(([language, copy]) => Object.assign(translations[language], copy));
+
 const loginView = document.querySelector('#loginView');
 const dashboardView = document.querySelector('#dashboardView');
 const loginForm = document.querySelector('#loginForm');
@@ -943,14 +955,15 @@ registerForm.addEventListener('submit', async event => {
 forgotPassword.addEventListener('click', async () => {
   const email = memberEmail.value.trim().toLowerCase();
   if (!email) {
+    setLoginMessage(t('resetEmailRequired'), true);
     memberEmail.focus();
     return;
   }
   forgotPassword.disabled = true;
   setLoginMessage();
   try {
-    await requestPasswordReset(email, `${location.origin}/ucet.html`);
-    setLoginMessage(t('resetSent'));
+    await requestPasswordReset(email, `${location.origin}/ucet.html?mode=reset`);
+    setLoginMessage(`${t('resetSentTo')} ${email}.`);
   } catch (error) {
     setLoginMessage(authMessage(error), true);
   } finally {
@@ -1033,7 +1046,7 @@ if (requestedEmail) {
 }
 
 const auth = await requireMemberSession();
-const recoveryFlow = sessionStorage.getItem('duonera-auth-flow-type') === 'recovery';
+const recoveryFlow = sessionStorage.getItem('duonera-auth-flow-type') === 'recovery' || requestedMode === 'reset';
 if (auth && recoveryFlow) {
   activeAuth = auth;
   loginView.hidden = false;
@@ -1055,7 +1068,7 @@ if (auth && recoveryFlow) {
 // Keep the member area available from the installed DUONERA app.
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js?v=45').catch(error => {
+    navigator.serviceWorker.register('/service-worker.js?v=46').catch(error => {
       console.warn('DUONERA service worker registration failed', error);
     });
   });
