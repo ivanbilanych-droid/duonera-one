@@ -14,7 +14,7 @@ import {
   signOutMember,
   takeAuthRedirectError,
   updateMemberPassword
-} from './member-auth.js?v=15';
+} from './member-auth.js?v=16';
 
 const DISCOVERY_BUCKET = 'duonera-discovery-photos';
 const translations = {
@@ -562,9 +562,12 @@ registerForm.addEventListener('submit', async event => {
     );
     if (typeof window.gtag === 'function') {
       window.gtag('event', 'sign_up', {
-        method: 'email',
+        method: 'email_password',
         transport_type: 'beacon'
       });
+    }
+    if (typeof window.fbq === 'function') {
+      window.fbq('track', 'Lead', { content_name: 'duonera_registration' });
     }
     if (data?.session?.access_token && data?.user) {
       await openDashboard({ session: data.session, user: data.user });
@@ -690,7 +693,7 @@ if (auth && recoveryFlow) {
 // Keep the member area available from the installed DUONERA app.
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js?v=39').catch(error => {
+    navigator.serviceWorker.register('/service-worker.js?v=40').catch(error => {
       console.warn('DUONERA service worker registration failed', error);
     });
   });

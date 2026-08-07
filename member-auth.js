@@ -200,6 +200,12 @@ export async function registerMember(email, password, redirectTo) {
     }
   });
   if (error) throw error;
+  if (data?.user && Array.isArray(data.user.identities) && data.user.identities.length === 0) {
+    const accountExists = new Error('User already registered');
+    accountExists.code = 'account_exists';
+    throw accountExists;
+  }
+  if (!data?.user?.id) throw new Error('Registraci se nepodařilo dokončit.');
   if (data?.session?.access_token) saveMemberSession(data.session);
   return data || {};
 }

@@ -15,7 +15,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="assets/duonera-app-icon-180.png">
   <link rel="preload" href="assets/duonera-hero-v2.webp?v=20260806b" as="image" type="image/webp">
   <link rel="stylesheet" href="duonera-invitation-v2.css?v=20260806c">
-  <link rel="stylesheet" href="pwa-install.css?v=2">
+  <link rel="stylesheet" href="pwa-install.css?v=3">
   <script>
     window.dataLayer = window.dataLayer || [];
     window.gtag = window.gtag || function(){ dataLayer.push(arguments); };
@@ -73,15 +73,17 @@
       <button class="location" type="button"><i></i><span data-i18n="location">Použít aktuální polohu</span></button><input name="latitude" type="hidden"><input name="longitude" type="hidden">
       <fieldset class="languages"><legend><span data-i18n="languages">Jazyky</span><small data-i18n="multiple">můžete vybrat více</small></legend><div><label><input name="languages" value="Čeština" type="checkbox"><span>Čeština</span></label><label><input name="languages" value="English" type="checkbox"><span>English</span></label><label><input name="languages" value="Deutsch" type="checkbox"><span>Deutsch</span></label><label><input name="languages" value="Italiano" type="checkbox"><span>Italiano</span></label><label><input name="languages" value="Slovenčina" type="checkbox"><span>Slovenčina</span></label><label><input name="languages" value="Polski" type="checkbox"><span>Polski</span></label><label><input name="languages" value="Українська" type="checkbox"><span>Українська</span></label><label><input name="languages" value="Русский" type="checkbox"><span>Русский</span></label></div></fieldset>
       <label class="field"><span>E-mail</span><input name="email" type="email" autocomplete="email" maxlength="120" placeholder="vas@email.cz" data-i18n-placeholder="emailPlaceholder" required></label>
-      <label class="consent"><input name="consent" type="checkbox" required><i></i><small><span data-i18n="consent">Souhlasím se zpracováním údajů pro registraci a soukromý výběr.</span> <a href="privacy.html" data-i18n="privacy">Soukromí</a></small></label>
-      <button class="form-submit" type="submit"><span data-i18n="submit">Vstoupit do DUONERA</span><b>→</b></button><p class="form-note"><span data-i18n="noPassword">Bez hesla</span><i></i><span data-i18n="private">Neveřejný profil</span><i></i><span data-i18n="noPhoto">Fotografie později</span></p>
+      <label class="field"><span data-i18n="password">Heslo</span><input name="password" type="password" autocomplete="new-password" minlength="8" maxlength="72" placeholder="Min. 8 znaků" data-i18n-placeholder="passwordPlaceholder" required></label>
+      <label class="consent"><input name="consent" type="checkbox" required><i></i><small><span data-i18n="consent">Souhlasím se zpracováním údajů pro registraci a soukromý výběr.</span> <a href="privacy.html" data-i18n="privacy">Soukromí</a> · <a href="terms.html" data-i18n="terms">Jak funguje DUONERA</a></small></label>
+      <button class="form-submit" type="submit"><span data-i18n="submit">Vstoupit do DUONERA</span><b>→</b></button><p class="form-note"><span data-i18n="oneRegistration">Jedna registrace</span><i></i><span data-i18n="private">Neveřejný profil</span><i></i><span data-i18n="noPhoto">Fotografie později</span></p>
     </form>
   </div></dialog>
 
   <section class="success" hidden aria-live="polite" aria-labelledby="success-title"><div><img src="assets/duonera-mark-v2.svg" width="72" height="72" alt=""><p data-i18n="successLabel">VÍTEJTE V DUONERA</p><h2 id="success-title"><span data-i18n="successTitle">Váš soukromý profil je připraven,</span> <em data-success-name></em>.</h2><p data-i18n="successText">Fotografii a další informace můžete doplnit později.</p><a href="ucet.html" data-account-after-registration><span data-i18n="openProfile">Otevřít můj profil</span><b>→</b></a></div></section>
   <aside class="tracking-consent" aria-label="Nastavení soukromí" hidden><p data-i18n="cookieText">Pomozte nám měřit, zda DUONERA funguje. Reklamní měření spustíme jen s vaším souhlasem.</p><a href="privacy.html" data-i18n="cookieMore">Více informací</a><div><button class="tracking-reject" type="button" data-i18n="cookieReject">Jen nutné</button><button class="tracking-accept" type="button" data-i18n="cookieAccept">Povolit měření</button></div></aside>
   <div class="toast" role="status" aria-live="polite"></div>
-  <script type="module" src="duonera-invitation-v2.js?v=20260806d"></script>
-  <script src="pwa-install.js?v=2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.53.0/dist/umd/supabase.js"></script>
+  <script type="module" src="duonera-invitation-v2.js?v=20260807a"></script>
+  <script src="pwa-install.js?v=3"></script>
 </body>
 </html>
