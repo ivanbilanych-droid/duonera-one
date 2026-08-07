@@ -200,6 +200,9 @@ export async function registerMember(email, password, redirectTo, profile = {}) 
     city: String(profile.city || '').slice(0, 80),
     country: String(profile.country || '').slice(0, 80),
     languages: Array.isArray(profile.languages) ? profile.languages.slice(0, 8) : [],
+    preferred_distance_km: [25, 50, 100].includes(Number(profile.preferred_distance_km))
+      ? Number(profile.preferred_distance_km)
+      : 50,
     landing_language: String(profile.landing_language || '').slice(0, 5)
   };
   const { data, error } = await supabaseAuthClient.auth.signUp({
