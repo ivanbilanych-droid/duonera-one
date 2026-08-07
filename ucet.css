@@ -1,7 +1,7 @@
 :root{--paper:#f2efe9;--card:#fbf9f5;--ink:#172326;--muted:#66736f;--copper:#bf7452;--copper-dark:#985137;--sage:#6f918a;--line:rgba(23,35,38,.15);--shadow:0 20px 55px rgba(23,35,38,.10)}
 *{box-sizing:border-box}
 .member-page [hidden]{display:none!important}
-.member-page{min-height:100vh;margin:0;color:var(--ink);background:linear-gradient(145deg,#f7f4ee 0%,#eeebe5 58%,#e4ece9 100%);font-family:Arial,Helvetica,sans-serif}
+.member-page{min-height:100vh;margin:0;overflow-x:hidden;color:var(--ink);background:linear-gradient(145deg,#f7f4ee 0%,#eeebe5 58%,#e4ece9 100%);font-family:Arial,Helvetica,sans-serif}
 .member-page a{color:inherit}.member-page .shell{width:min(calc(100% - 36px),1160px);margin-inline:auto}
 .member-header{position:sticky;z-index:20;top:0;display:flex;align-items:center;justify-content:space-between;min-height:74px;padding:14px max(18px,calc((100vw - 1160px)/2));border-bottom:1px solid var(--line);background:rgba(247,244,238,.88);backdrop-filter:blur(18px)}
 .member-header .brand{display:flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none}.member-header .brand-crown,.member-header .brand-sub{display:none}.member-header .brand-name{font:17px Georgia,serif;letter-spacing:.19em}.member-header .brand-name:before{content:"D";display:inline-grid;place-items:center;width:30px;height:30px;margin-right:10px;border:1px solid var(--ink);border-radius:50%;color:var(--copper);font:13px Arial,sans-serif;letter-spacing:0}

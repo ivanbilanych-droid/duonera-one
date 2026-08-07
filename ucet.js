@@ -798,8 +798,13 @@ function authMessage(error) {
   const details = String(error?.message || '').toLowerCase();
   if (details.includes('invalid login credentials')) return t('wrongLogin');
   if (details.includes('email not confirmed')) return t('emailNotConfirmed');
-  if (details.includes('already registered') || details.includes('already been registered')) return t('alreadyRegistered');
+  if (isExistingAccountError(error)) return t('alreadyRegistered');
   return t('authServiceError');
+}
+
+function isExistingAccountError(error) {
+  const details = String(error?.message || '').toLowerCase();
+  return details.includes('already registered') || details.includes('already been registered');
 }
 
 function setLoginMessage(message = '', error = false) {
@@ -916,7 +921,20 @@ registerForm.addEventListener('submit', async event => {
       setLoginMessage(t('confirmationSent'));
     }
   } catch (error) {
-    setLoginMessage(authMessage(error), true);
+    if (isExistingAccountError(error)) {
+      const email = registerEmail.value.trim().toLowerCase();
+      try {
+        const auth = await signInMember(email, password);
+        await openDashboard(auth);
+      } catch (signInError) {
+        memberEmail.value = email;
+        memberPassword.value = '';
+        setAuthMode('login');
+        setLoginMessage(t('alreadyRegistered'));
+      }
+    } else {
+      setLoginMessage(authMessage(error), true);
+    }
   } finally {
     registerButton.disabled = false;
   }
@@ -1037,7 +1055,7 @@ if (auth && recoveryFlow) {
 // Keep the member area available from the installed DUONERA app.
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js?v=44').catch(error => {
+    navigator.serviceWorker.register('/service-worker.js?v=45').catch(error => {
       console.warn('DUONERA service worker registration failed', error);
     });
   });
