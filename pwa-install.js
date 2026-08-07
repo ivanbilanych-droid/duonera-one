@@ -21,7 +21,10 @@
   guide.className='pwa-guide';guide.hidden=true;
   const ios=/iphone|ipad|ipod/i.test(navigator.userAgent);
   guide.innerHTML=`<div class="pwa-guide-card"><h2>${text.guideTitle}</h2><p>${ios?text.ios:text.android}</p><button type="button">${text.close}</button></div>`;
-  document.body.append(bar,guide);
+  const memberHeader=document.querySelector('.member-page .member-header');
+  if(memberHeader)memberHeader.after(bar);
+  else document.body.append(bar);
+  document.body.append(guide);
   const consent=document.querySelector('.tracking-consent');
   const placeBar=()=>{
     if(consent&&!consent.hidden){bar.style.bottom=`${Math.ceil(consent.getBoundingClientRect().height)+20}px`;}
