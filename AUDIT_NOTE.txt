@@ -1,0 +1,1 @@
+DUONERA repair started 2026-08-07. Backup branch: backup-before-audit-2026-08-07. Goal: restore the last known working homepage registration flow before later index.html-only edits.
