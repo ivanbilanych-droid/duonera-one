@@ -750,6 +750,11 @@ registerForm.addEventListener('submit', async event => {
       console.warn('DUONERA account created, but the starter registration could not be saved yet', leadError);
     }
     if (typeof window.gtag === 'function') {
+      window.gtag('event', 'generate_lead', {
+        method: 'account_registration',
+        landing_language: currentLang,
+        transport_type: 'beacon'
+      });
       window.gtag('event', 'sign_up', {
         method: 'email_password',
         transport_type: 'beacon'
