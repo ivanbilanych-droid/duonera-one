@@ -427,6 +427,32 @@ function encodedObjectPath(path) {
     .join('/');
 }
 
+async function memberFolderPhotoPaths(profile) {
+  if (!profile.user_id) return [];
+  const response = await fetch(
+    `${SUPABASE_URL}/storage/v1/object/list/${encodeURIComponent(PROFILE_PHOTO_BUCKET)}`,
+    {
+      method: 'POST',
+      headers: {
+        ...authHeaders(session.access_token),
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        prefix: `${profile.user_id}/`,
+        limit: 20,
+        offset: 0,
+        sortBy: { column: 'created_at', order: 'asc' }
+      })
+    }
+  );
+  if (!response.ok) return [];
+  const rows = await response.json();
+  return (Array.isArray(rows) ? rows : [])
+    .map(row => String(row.name || ''))
+    .filter(name => /\.(jpe?g|png|webp)$/i.test(name))
+    .map(name => `${profile.user_id}/${name}`);
+}
+
 async function createSignedPhotoUrl(path) {
   const response = await fetch(
     `${SUPABASE_URL}/storage/v1/object/sign/${encodeURIComponent(PROFILE_PHOTO_BUCKET)}/${encodedObjectPath(path)}`,
@@ -912,6 +938,13 @@ async function loadData() {
       fetchRows('duonera_leads'),
       fetchRpc('duonera_admin_mutual_matches')
     ]);
+    await Promise.all(profiles.map(async profile => {
+      const memberPaths = await memberFolderPhotoPaths(profile);
+      profile.photo_paths = [...new Set([
+        ...(Array.isArray(profile.photo_paths) ? profile.photo_paths : []),
+        ...memberPaths
+      ])].slice(0, 3);
+    }));
     profileCount.textContent = profiles.length;
     leadCount.textContent = leads.length;
     newProfileCount.textContent = profiles.filter(profile => !profile.is_approved).length;
