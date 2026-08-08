@@ -145,3 +145,40 @@ export async function listMemberPhotoPaths(auth) {
     .filter(name => /\.(jpe?g|png|webp)$/i.test(name))
     .map(name => `${auth.user.id}/${name}`);
 }
+
+export async function createMemberPhotoUrl(auth, path, expiresIn = 3600) {
+  if (!auth?.session?.access_token || !path) return '';
+  const encodedPath = String(path)
+    .split('/')
+    .map(segment => encodeURIComponent(segment))
+    .join('/');
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 10000);
+  try {
+    const response = await fetch(
+      `${SUPABASE_URL}/storage/v1/object/sign/${encodeURIComponent(PROFILE_PHOTO_BUCKET)}/${encodedPath}`,
+      {
+        method: 'POST',
+        headers: {
+          apikey: SUPABASE_PUBLISHABLE_KEY,
+          Authorization: `Bearer ${auth.session.access_token}`,
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ expiresIn }),
+        signal: controller.signal
+      }
+    );
+    if (!response.ok) return '';
+    const data = await response.json();
+    const signedPath = data.signedURL || data.signedUrl || '';
+    if (!signedPath) return '';
+    return signedPath.startsWith('http')
+      ? signedPath
+      : `${SUPABASE_URL}/storage/v1${signedPath}`;
+  } catch {
+    return '';
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
