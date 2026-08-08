@@ -1,10 +1,11 @@
-const CACHE_NAME = 'duonera-app-v52';
+const CACHE_NAME = 'duonera-app-v59';
 const CORE_FILES = [
   '/',
   '/index.html',
   '/terms.html',
   '/duonera-legal.css?v=20260807a',
   '/manifest.webmanifest?v=4',
+  '/v2-manifest.webmanifest?v=1',
   '/duonera-invitation-v2.css?v=20260807e',
   '/duonera-invitation-v2.js?v=20260808a',
   '/assets/duonera-hero-v2.webp?v=20260806b',
@@ -20,7 +21,9 @@ const CORE_FILES = [
   '/duonera-member-v3.css?v=20260806d',
   '/pwa-install.css?v=3',
   '/pwa-install.js?v=3',
-  '/ucet.js?v=31',
+  '/pwa-install.js?v=4',
+  '/pwa-install.js?v=5',
+  '/ucet.js?v=32',
   '/registration-photo.js?v=1',
   '/profil.html',
   '/profil-v2.css?v=20260805a',
@@ -30,6 +33,14 @@ const CORE_FILES = [
   '/admin.css?v=5',
   '/admin.js?v=6',
   '/member-auth.js?v=19',
+  '/v2.html',
+  '/v2.css?v=2',
+  '/v2.js?v=3',
+  '/v2-app.html',
+  '/v2-app.css?v=2',
+  '/v2-app.js?v=4',
+  '/assets/duonera-v2-hero.png',
+  '/assets/duonera-v2-mark.svg',
   '/supabase-client.js'
 ];
 

@@ -10,17 +10,28 @@
     en:{title:'DUONERA on your phone',sub:'Quick access to your account',button:'Install',guideTitle:'Install DUONERA',ios:'In Safari tap Share, then Add to Home Screen.',android:'In the browser menu ⋮ choose Install app or Add to Home screen.',close:'Got it'}
   };
   const aliases={cz:'cs',ua:'uk'};
-  const lang=(()=>{try{const raw=new URLSearchParams(location.search).get('lang')||localStorage.getItem('duonera-lang')||'cs';return aliases[raw]||raw}catch(_){return'cs'}})();
-  const text=copy[lang]||copy.cs;
+  const resolveLanguage=value=>{const raw=String(value||'cs').toLowerCase();return aliases[raw]||raw};
+  const lang=(()=>{try{return resolveLanguage(new URLSearchParams(location.search).get('lang')||localStorage.getItem('duonera-lang')||'cs')}catch(_){return'cs'}})();
+  let text=copy[lang]||copy.cs;
   const standalone=matchMedia('(display-mode:standalone)').matches||navigator.standalone===true;
   if(standalone)return;
+  const mark=document.querySelector('link[rel="icon"]')?.getAttribute('href')?.includes('duonera-v2-mark')?'assets/duonera-v2-mark.svg':'assets/duonera-mark-v2.svg';
   const bar=document.createElement('aside');
   bar.className='pwa-install';
-  bar.innerHTML=`<img src="assets/duonera-mark-v2.svg" alt=""><div class="pwa-install-copy"><strong>${text.title}</strong><span>${text.sub}</span></div><button class="pwa-install-button" type="button">${text.button}</button>`;
+  bar.innerHTML=`<img src="${mark}" alt=""><div class="pwa-install-copy"><strong>${text.title}</strong><span>${text.sub}</span></div><button class="pwa-install-button" type="button">${text.button}</button>`;
   const guide=document.createElement('section');
   guide.className='pwa-guide';guide.hidden=true;
   const ios=/iphone|ipad|ipod/i.test(navigator.userAgent);
   guide.innerHTML=`<div class="pwa-guide-card"><h2>${text.guideTitle}</h2><p>${ios?text.ios:text.android}</p><button type="button">${text.close}</button></div>`;
+  const applyLanguage=value=>{
+    text=copy[resolveLanguage(value)]||copy.cs;
+    bar.querySelector('strong').textContent=text.title;
+    bar.querySelector('.pwa-install-copy span').textContent=text.sub;
+    bar.querySelector('.pwa-install-button').textContent=text.button;
+    guide.querySelector('h2').textContent=text.guideTitle;
+    guide.querySelector('p').textContent=ios?text.ios:text.android;
+    guide.querySelector('button').textContent=text.close;
+  };
   const memberHeader=document.querySelector('.member-page .member-header');
   if(memberHeader)memberHeader.after(bar);
   else document.body.append(bar);
@@ -40,5 +51,6 @@
   });
   guide.querySelector('button').addEventListener('click',()=>guide.hidden=true);
   guide.addEventListener('click',event=>{if(event.target===guide)guide.hidden=true});
+  addEventListener('duonera-language-change',event=>applyLanguage(event.detail?.language));
   addEventListener('appinstalled',()=>{bar.hidden=true;guide.hidden=true});
 })();

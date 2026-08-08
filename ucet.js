@@ -293,23 +293,28 @@ function t(key) {
 }
 
 function trackSuccessfulRegistration(method, identity = '') {
-  const trackingKey = identity ? `duonera-registration-tracked:${identity}` : '';
-  if (trackingKey && localStorage.getItem(trackingKey) === '1') return;
-  if (typeof window.gtag === 'function') {
-    window.gtag('event', 'generate_lead', {
-      method,
-      landing_language: currentLang,
-      transport_type: 'beacon'
-    });
-    window.gtag('event', 'sign_up', {
-      method,
-      transport_type: 'beacon'
-    });
+  if (!identity) return;
+  const signUpKey = `duonera-sign-up-tracked:${identity}`;
+  const leadKey = `duonera-meta-lead-tracked:${identity}`;
+  try {
+    if (typeof window.gtag === 'function' && !localStorage.getItem(signUpKey)) {
+      localStorage.setItem(signUpKey, '1');
+      window.gtag('event', 'sign_up', {
+        method,
+        landing_language: currentLang,
+        transport_type: 'beacon'
+      });
+    }
+    if (typeof window.fbq === 'function' && !localStorage.getItem(leadKey)) {
+      localStorage.setItem(leadKey, '1');
+      window.fbq('track', 'Lead', {
+        content_name: 'duonera_registration',
+        landing_language: currentLang
+      }, { eventID: `duonera-sign-up-${identity}` });
+    }
+  } catch (error) {
+    console.warn('Registration measurement could not be completed', error);
   }
-  if (typeof window.fbq === 'function') {
-    window.fbq('track', 'Lead', {content_name:'duonera_registration'});
-  }
-  if (trackingKey) localStorage.setItem(trackingKey, '1');
 }
 
 function applyLanguage(lang) {
