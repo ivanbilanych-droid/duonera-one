@@ -1,4 +1,4 @@
-const CACHE_NAME = 'duonera-app-v61';
+const CACHE_NAME = 'duonera-app-v63';
 const CORE_FILES = [
   '/',
   '/index.html',
@@ -35,7 +35,7 @@ const CORE_FILES = [
   '/admin.js?v=6',
   '/member-auth.js?v=19',
   '/v2.html',
-  '/v2.css?v=3',
+  '/v2.css?v=5',
   '/v2.js?v=4',
   '/v2-app.html',
   '/v2-app.css?v=2',
