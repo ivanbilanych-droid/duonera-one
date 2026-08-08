@@ -97,6 +97,28 @@ registrationPhoto.addEventListener('change',()=>{
 });
 function validate(){form.querySelectorAll('.invalid').forEach(el=>el.classList.remove('invalid'));const invalid=[...form.elements].filter(el=>el.willValidate&&!el.checkValidity());invalid.forEach(el=>{const group=el.closest('fieldset');(group||el).classList.add('invalid')});if(invalid.length){invalid[0].focus();return false}if(!preparedRegistrationPhoto){registrationPhoto.classList.add('invalid');showToast(t[active].photoInvalid);return false}return true}
 function gender(value){return value==='woman'?'Žena':'Muž'}function seeking(value){return value==='woman'?'Ženu':'Muže'}
+function trackNewMemberOnce(userId,profile){
+  if(!userId)return;
+  const signUpKey=`duonera-sign-up-tracked:${userId}`;
+  const leadKey=`duonera-meta-lead-tracked:${userId}`;
+  try{
+    if(typeof gtag==='function'&&!localStorage.getItem(signUpKey)){
+      localStorage.setItem(signUpKey,'1');
+      gtag('event','sign_up',{method:'email_password',transport_type:'beacon'});
+    }
+    if(typeof fbq==='function'&&!localStorage.getItem(leadKey)){
+      localStorage.setItem(leadKey,'1');
+      fbq('track','Lead',{
+        content_name:'duonera_registration',
+        campaign_source:profile.attribution.source,
+        campaign_name:profile.attribution.campaign,
+        landing_language:active
+      },{eventID:`duonera-sign-up-${userId}`});
+    }
+  }catch(error){
+    console.warn('Registration measurement could not be completed',error);
+  }
+}
 form.addEventListener('submit',async event=>{
   event.preventDefault();
   await registrationPhotoPreparation;
@@ -148,13 +170,7 @@ form.addEventListener('submit',async event=>{
     }
     localStorage.setItem('duonera-short-registration',JSON.stringify(profile));
     localStorage.setItem('duonera-lead-id',id);
-    if(!prototype&&registration?.user?.id){
-      if(typeof gtag==='function'){
-        gtag('event','generate_lead',{method:'duonera_invitation',campaign_source:profile.attribution.source,campaign_name:profile.attribution.campaign,landing_language:active,transport_type:'beacon'});
-        gtag('event','sign_up',{method:'email_password',transport_type:'beacon'});
-      }
-      if(typeof fbq==='function')fbq('track','Lead',{content_name:'duonera_registration'});
-    }
+    if(!prototype&&registration?.user?.id)trackNewMemberOnce(registration.user.id,profile);
     document.querySelector('[data-success-name]').textContent=profile.first_name;
     const accountLink=document.querySelector('[data-account-after-registration]');
     accountLink.href=`ucet.html?mode=login&email=${encodeURIComponent(profile.email)}`;
@@ -169,4 +185,4 @@ form.addEventListener('submit',async event=>{
   }
 });
 
-if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/service-worker.js?v=51').catch(()=>{}))}
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/service-worker.js?v=52').catch(()=>{}))}
