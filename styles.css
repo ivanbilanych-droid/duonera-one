@@ -1,12 +1,15 @@
-/* Отражаем портреты по горизонтали, чтобы герои смотрели в центр */
-.hero-image-left, 
-.hero-portrait-left, 
-.hero-section img.left-side {
-    transform: scaleX(-1);
+/* Левая сторона: замена изображения на портрет с взглядом вправо (в центр) */
+.hero-section .hero-image-left,
+.hero-bg-left {
+    background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
 }
 
-.hero-image-right, 
-.hero-portrait-right, 
-.hero-section img.right-side {
-    transform: scaleX(-1);
+/* Правая сторона: замена изображения на портрет с взглядом влево (в центр) */
+.hero-section .hero-image-right,
+.hero-bg-right {
+    background-image: url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1000&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
 }
