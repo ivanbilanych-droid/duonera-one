@@ -1,6 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-labelledby="title">
   <title id="title">DUONERA</title>
-  <circle cx="48" cy="48" r="43" fill="none" stroke="#c6a45a" stroke-width="2"/>
-  <path d="M28 69V26h14c18 0 28 8 28 21s-10 22-28 22H28Zm8-7h7c12 0 19-5 19-15 0-9-7-14-19-14h-7v29Z" fill="#d8bb74"/>
-  <path d="M51 26h7l15 28V26h7v43h-7L58 41v28h-7V26Z" fill="#d8bb74" opacity=".9"/>
+  <g fill="none" stroke="#d2ad61" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="48" cy="48" r="43" stroke-width="1.5"/>
+    <path d="M29 23v50h13c16 0 25-10 25-25S58 23 42 23H29Z" stroke-width="1.8"/>
+    <path d="M40 72V24l28 48V24" stroke-width="1.8"/>
+    <path d="M24 30h21M24 66h21" stroke-width="1" opacity=".7"/>
+  </g>
 </svg>
