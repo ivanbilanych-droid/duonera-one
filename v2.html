@@ -10,14 +10,14 @@
   <meta name="apple-mobile-web-app-title" content="DUONERA">
   <meta name="robots" content="noindex,nofollow">
   <title>DUONERA 2.0 — soukromé seznámení</title>
-  <link rel="icon" href="assets/duonera-v2-mark.svg">
+  <link rel="icon" href="assets/duonera-v2-mark.svg?v=2">
   <link rel="manifest" href="v2-manifest.webmanifest?v=1">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/duonera-app-icon-180.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="pwa-install.css?v=3">
-  <link rel="stylesheet" href="v2.css?v=2">
+  <link rel="stylesheet" href="v2.css?v=3">
   <script>
     window.dataLayer=window.dataLayer||[];window.gtag=window.gtag||function(){dataLayer.push(arguments)};
     gtag('consent','default',{analytics_storage:'denied',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});
@@ -31,7 +31,7 @@
 <body>
   <header class="topbar">
     <a class="brand" href="#top" aria-label="DUONERA">
-      <img src="assets/duonera-v2-mark.svg" alt="">
+      <img src="assets/duonera-v2-mark.svg?v=2" alt="">
       <span>DUONERA<small>PRIVATE INTRODUCTIONS</small></span>
     </a>
     <nav aria-label="Hlavní navigace">
@@ -49,7 +49,7 @@
         <div class="city-chip"><span aria-hidden="true">⌖</span><b data-city>Praha</b><i>3</i><small data-i18n="nearby">lidé poblíž dnes</small></div>
       </div>
       <article class="hero-card">
-        <div class="card-emblem" aria-hidden="true">◇</div>
+        <div class="card-emblem" aria-hidden="true">♙</div>
         <p class="eyebrow" data-i18n="eyebrow">SOUKROMÉ SEZNÁMENÍ VE VAŠEM MĚSTĚ</p>
         <h1 id="hero-title"><span data-i18n="headline">Někdo blízký.</span><em data-i18n="headlineAccent">Ne další profil.</em></h1>
         <p class="lead" data-i18n="lead">Tři pečlivě vybraní lidé poblíž. Kontakt se otevře jen při vzájemném zájmu.</p>
@@ -61,13 +61,15 @@
         <button class="gold-cta" type="button" data-open-register><span data-i18n="cta">Najít mé tři</span><b aria-hidden="true">→</b></button>
         <p class="trust"><span>▣ <i data-i18n="private">Diskrétně</i></span><span>◷ <i data-i18n="minute">1 minuta</i></span><span>◇ <i data-i18n="verified">Ověřené profily</i></span></p>
       </article>
-      <div class="journey" aria-label="Jak to funguje">
+      <div class="journey" id="how-it-works" aria-label="Jak to funguje">
         <div class="journey-title"><small data-i18n="how">JAK TO</small><b data-i18n="works">FUNGUJE</b></div>
-        <div><i>01</i><span><b data-i18n="step1">Vytvoříte profil</b><small data-i18n="step1s">Jen to důležité</small></span></div>
-        <div><i>02</i><span><b data-i18n="step2">Dostanete 3 lidi</b><small data-i18n="step2s">Žádné nekonečné listování</small></span></div>
-        <div><i>03</i><span><b data-i18n="step3">Vzájemné ano</b><small data-i18n="step3s">Kontakt se otevře oběma</small></span></div>
-        <div><i>04</i><span><b data-i18n="step4">Skutečné setkání</b><small data-i18n="step4s">Soukromě a bezpečně</small></span></div>
+        <div><i>♙</i><span><b data-i18n="step1">Vytvoříte profil</b><small data-i18n="step1s">Jen to důležité</small></span></div>
+        <div><i>♡</i><span><b data-i18n="step2">Dostanete 3 lidi</b><small data-i18n="step2s">Žádné nekonečné listování</small></span></div>
+        <div><i>▤</i><span><b data-i18n="step3">Vzájemné ano</b><small data-i18n="step3s">Kontakt se otevře oběma</small></span></div>
+        <div><i>◇</i><span><b data-i18n="step4">Skutečné spojení</b><small data-i18n="step4s">Budujte vztah, který má smysl</small></span></div>
+        <div><i>▣</i><span><b data-i18n="step5">Diskrétně a bezpečně</b><small data-i18n="step5s">Vaše soukromí je na prvním místě</small></span></div>
       </div>
+      <div class="hero-footer" aria-hidden="true"><span>DUONERA</span><a href="#how-it-works"><b data-i18n="howLink">Jak to funguje</b><i>↓</i></a><span>01 / 03</span></div>
     </section>
   </main>
 
@@ -100,11 +102,11 @@
     </form>
   </dialog>
 
-  <section class="success" hidden><div><img src="assets/duonera-v2-mark.svg" alt=""><p data-i18n="successEyebrow">VÍTEJTE V DUONERA</p><h2><span data-i18n="success">Váš soukromý profil je připraven,</span> <em data-success-name></em>.</h2><p data-i18n="successText">Potvrďte e-mail. Potom se otevře váš osobní výběr.</p><a class="gold-cta" data-account-after-registration href="v2-app.html"><span data-i18n="openAccount">Otevřít můj účet</span><b>→</b></a></div></section>
+  <section class="success" hidden><div><img src="assets/duonera-v2-mark.svg?v=2" alt=""><p data-i18n="successEyebrow">VÍTEJTE V DUONERA</p><h2><span data-i18n="success">Váš soukromý profil je připraven,</span> <em data-success-name></em>.</h2><p data-i18n="successText">Potvrďte e-mail. Potom se otevře váš osobní výběr.</p><a class="gold-cta" data-account-after-registration href="v2-app.html"><span data-i18n="openAccount">Otevřít můj účet</span><b>→</b></a></div></section>
   <aside class="tracking-consent" aria-label="Nastavení soukromí" hidden><p data-tracking-copy>Pomozte nám měřit, zda DUONERA funguje. Reklamní měření spustíme jen s vaším souhlasem.</p><a href="privacy.html">Soukromí</a><div><button class="tracking-reject" type="button" data-tracking-reject>Jen nutné</button><button class="tracking-accept" type="button" data-tracking-accept>Povolit měření</button></div></aside>
   <div class="toast" role="status" aria-live="polite"></div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.53.0/dist/umd/supabase.js"></script>
-  <script type="module" src="v2.js?v=3"></script>
-  <script src="pwa-install.js?v=5"></script>
+  <script type="module" src="v2.js?v=4"></script>
+  <script src="pwa-install.js?v=6"></script>
 </body>
 </html>

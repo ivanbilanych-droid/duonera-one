@@ -15,7 +15,7 @@
   let text=copy[lang]||copy.cs;
   const standalone=matchMedia('(display-mode:standalone)').matches||navigator.standalone===true;
   if(standalone)return;
-  const mark=document.querySelector('link[rel="icon"]')?.getAttribute('href')?.includes('duonera-v2-mark')?'assets/duonera-v2-mark.svg':'assets/duonera-mark-v2.svg';
+  const mark=document.querySelector('link[rel="icon"]')?.getAttribute('href')?.includes('duonera-v2-mark')?'assets/duonera-v2-mark.svg?v=2':'assets/duonera-mark-v2.svg';
   const bar=document.createElement('aside');
   bar.className='pwa-install';
   bar.innerHTML=`<img src="${mark}" alt=""><div class="pwa-install-copy"><strong>${text.title}</strong><span>${text.sub}</span></div><button class="pwa-install-button" type="button">${text.button}</button>`;
