@@ -1,4 +1,4 @@
-const CACHE_NAME = 'duonera-v24';
+const CACHE_NAME = 'duonera-v25';
 const CORE_FILES = [
   '/',
   '/index.html',
@@ -7,7 +7,6 @@ const CORE_FILES = [
   '/v2-app.html',
   '/v2-app.css?v=24',
   '/v2-app.js?v=24',
-  '/profil.html',
   '/admin.html',
   '/privacy.html',
   '/terms.html',
@@ -15,6 +14,7 @@ const CORE_FILES = [
   '/pwa-install.js?v=24',
   '/registration-photo.js?v=24',
   '/member-auth.js?v=24',
+  '/member-bootstrap.js?v=1',
   '/supabase-client.js?v=24',
   '/assets/duonera-v2-hero-approved.webp',
   '/assets/duonera-v2-mark.svg?v=2',
