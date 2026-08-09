@@ -8,3 +8,53 @@
 }
 @media(display-mode:standalone){.pwa-install{display:none!important}}
 .brand img,.success img{content:url("assets/duonera-logo-final.svg")!important;object-fit:cover;border-radius:50%}
+
+/* Registration modal: compact, single-scroll, fully visible CTA */
+.register-dialog{width:min(calc(100vw - 24px),660px)!important;max-height:calc(100dvh - 24px)!important;margin:auto!important;padding:0!important;overflow:hidden!important;border-radius:22px!important}
+.register-form{display:flex!important;flex-direction:column!important;max-height:calc(100dvh - 24px)!important;overflow:hidden!important}
+.register-form>header{flex:0 0 auto!important;padding:16px 24px 12px!important}
+.register-form>header p{margin-bottom:4px!important}
+.register-form h2{font-size:28px!important;line-height:1!important}
+.dialog-close{width:42px!important;height:42px!important;font-size:22px!important}
+.form-scroll{flex:1 1 auto!important;min-height:0!important;max-height:none!important;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior:contain!important;scrollbar-gutter:stable!important;padding:14px 24px 16px!important}
+.register-form .pair{gap:8px!important}
+.register-form .name-age,.register-form .city-distance{margin-top:9px!important}
+.register-form input,.register-form select{height:44px!important}
+.register-form .segments{height:42px!important}
+.register-form .photo-picker{min-height:86px!important;margin-top:9px!important}
+.register-form .photo-picker>img{height:112px!important}
+.register-form .full{margin-top:9px!important}
+.register-form .consent{margin:9px 0!important}
+.register-form .submit{min-height:52px!important}
+.register-form .submit b{width:42px!important;height:42px!important}
+.register-form .form-foot{margin-top:6px!important}
+@media(min-width:760px) and (max-height:900px){
+  .register-dialog{max-height:calc(100dvh - 16px)!important}
+  .register-form{max-height:calc(100dvh - 16px)!important}
+  .register-form>header{padding:13px 22px 10px!important}
+  .register-form h2{font-size:27px!important}
+  .form-scroll{padding:10px 22px 12px!important}
+  .register-form input,.register-form select{height:42px!important}
+  .register-form .segments{height:40px!important}
+  .register-form .photo-picker{min-height:76px!important}
+  .register-form .full,.register-form .name-age,.register-form .city-distance,.register-form .photo-picker{margin-top:7px!important}
+  .register-form .consent{margin:7px 0!important}
+  .register-form .submit{min-height:48px!important}
+  .register-form .submit b{width:38px!important;height:38px!important}
+}
+@media(max-width:600px){
+  .register-dialog{width:calc(100vw - 12px)!important;max-height:calc(100dvh - 12px)!important;border-radius:18px!important}
+  .register-form{max-height:calc(100dvh - 12px)!important;border-radius:18px!important}
+  .register-form>header{padding:14px 14px 10px!important}
+  .register-form h2{font-size:25px!important}
+  .dialog-close{width:38px!important;height:38px!important;font-size:20px!important}
+  .form-scroll{padding:10px 14px 12px!important;scrollbar-gutter:auto!important}
+  .register-form .name-age{grid-template-columns:minmax(0,1fr) 76px!important}
+  .register-form .city-distance{grid-template-columns:minmax(0,1fr) 96px!important}
+  .register-form input,.register-form select{height:42px!important}
+  .register-form .segments{height:40px!important}
+  .register-form .photo-picker{min-height:78px!important}
+  .register-form .photo-picker>img{height:96px!important}
+  .register-form .submit{min-height:48px!important}
+  .register-form .submit b{width:38px!important;height:38px!important}
+}
