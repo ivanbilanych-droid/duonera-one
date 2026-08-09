@@ -119,14 +119,14 @@ function profilePayload(auth, lead, registration, photoPaths) {
       : 50,
     relationship_goal: 'Vážný vztah',
     consent_privacy: true,
-    consent_discovery: true,
+    consent_discovery: registration.consent_discovery === true,
     consent_contact: false,
     is_approved: false,
     is_discoverable: false,
-    source: 'duonera.cz/short-registration',
-    photo_paths: photoPaths,
+    source: 'duonera.cz/registration',
+    photo_paths: photoPaths.slice(0, 1),
     public_photo_paths: [],
-    raw_data: { starter_profile: true, registration_age: age }
+    raw_data: { starter_profile: true, registration_age: age, registration_complete: true }
   };
 }
 
@@ -150,7 +150,7 @@ export async function ensureMemberProfile(auth) {
     if (uploaded) photoPaths = [uploaded];
   }
 
-  const payload = profilePayload(auth, lead, registration, photoPaths.slice(0, 3));
+  const payload = profilePayload(auth, lead, registration, photoPaths.slice(0, 1));
   try {
     await insertRow('duonera_profiles', payload, 20000, auth.session.access_token);
     return payload;
