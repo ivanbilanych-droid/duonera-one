@@ -9,14 +9,14 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="DUONERA">
   <title>DUONERA — soukromé seznámení</title>
-  <link rel="icon" href="assets/duonera-v2-mark.svg?v=2">
+  <link rel="icon" href="assets/duonera-logo.webp?v=1">
   <link rel="manifest" href="v2-manifest.webmanifest?v=1">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/duonera-app-icon-180.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="pwa-install.css?v=3">
-  <link rel="stylesheet" href="v2.css?v=6">
+  <link rel="stylesheet" href="v2.css?v=7">
   <script>
     window.dataLayer=window.dataLayer||[];window.gtag=window.gtag||function(){dataLayer.push(arguments)};
     gtag('consent','default',{analytics_storage:'denied',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});
@@ -30,7 +30,7 @@
 <body>
   <header class="topbar">
     <a class="brand" href="#top" aria-label="DUONERA">
-      <img src="assets/duonera-v2-mark.svg?v=2" alt="">
+      <img src="assets/duonera-logo.webp?v=1" alt="">
       <span>DUONERA<small>PRIVATE INTRODUCTIONS</small></span>
     </a>
     <nav aria-label="Hlavní navigace">
@@ -68,7 +68,27 @@
         <div><i>◇</i><span><b data-i18n="step4">Skutečné spojení</b><small data-i18n="step4s">Budujte vztah, který má smysl</small></span></div>
         <div><i>▣</i><span><b data-i18n="step5">Diskrétně a bezpečně</b><small data-i18n="step5s">Vaše soukromí je na prvním místě</small></span></div>
       </div>
-      <div class="hero-footer" aria-hidden="true"><span>DUONERA</span><a href="#how-it-works"><b data-i18n="howLink">Jak to funguje</b><i>↓</i></a><span>01 / 03</span></div>
+      <div class="hero-footer"><span>DUONERA</span><a href="#about-duonera"><b data-i18n="howLink">Jak to funguje</b><i>↓</i></a><span>01 / 03</span></div>
+    </section>
+
+    <section class="about-duonera" id="about-duonera" aria-labelledby="about-title">
+      <div class="about-intro">
+        <p class="about-kicker">PROČ DUONERA</p>
+        <h2 id="about-title">Diskrétnost. Osobní kvalita. <em>Skutečné spojení.</em></h2>
+        <p>DUONERA není katalog profilů. Je to soukromý způsob seznámení pro lidi, kteří nechtějí nekonečně procházet cizí fotografie. Místo množství dostanete malý, pečlivě vybraný okruh lidí poblíž.</p>
+      </div>
+      <div class="about-grid">
+        <article><b>01</b><h3>Jen tři doporučení</h3><p>Žádné nekonečné listování. Ukážeme vám jen několik relevantních lidí, aby každé doporučení mělo váhu.</p></article>
+        <article><b>02</b><h3>Kontakt až při vzájemném zájmu</h3><p>Vaše kontaktní údaje zůstávají skryté. Spojení se otevře teprve ve chvíli, kdy o sebe projeví zájem oba.</p></article>
+        <article><b>03</b><h3>Soukromí na prvním místě</h3><p>Profily nejsou veřejným katalogem. DUONERA je navržená tak, aby seznámení zůstalo diskrétní, klidné a osobní.</p></article>
+      </div>
+      <div class="about-steps">
+        <p class="about-kicker">JAK TO FUNGUJE</p>
+        <div><span>1</span><p><strong>Vytvoříte soukromý profil.</strong> Vyplníte jen to, co je pro výběr skutečně důležité.</p></div>
+        <div><span>2</span><p><strong>Dostanete osobní výběr.</strong> DUONERA vám nabídne až tři relevantní lidi ve vašem okolí.</p></div>
+        <div><span>3</span><p><strong>Rozhodnete se bez tlaku.</strong> Pokud je zájem vzájemný, kontakt se bezpečně otevře oběma.</p></div>
+      </div>
+      <div class="about-cta"><p>Ne další aplikace na swipování. <strong>Prostor pro skutečné seznámení.</strong></p><button class="gold-cta" type="button" data-open-register><span>Vytvořit soukromý profil</span><b aria-hidden="true">→</b></button></div>
     </section>
   </main>
 
@@ -101,7 +121,7 @@
     </form>
   </dialog>
 
-  <section class="success" hidden><div><img src="assets/duonera-v2-mark.svg?v=2" alt=""><p data-i18n="successEyebrow">VÍTEJTE V DUONERA</p><h2><span data-i18n="success">Váš soukromý profil je připraven,</span> <em data-success-name></em>.</h2><p data-i18n="successText">Potvrďte e-mail. Potom se otevře váš osobní výběr.</p><a class="gold-cta" data-account-after-registration href="v2-app.html"><span data-i18n="openAccount">Otevřít můj účet</span><b>→</b></a></div></section>
+  <section class="success" hidden><div><img src="assets/duonera-logo.webp?v=1" alt=""><p data-i18n="successEyebrow">VÍTEJTE V DUONERA</p><h2><span data-i18n="success">Váš soukromý profil je připraven,</span> <em data-success-name></em>.</h2><p data-i18n="successText">Potvrďte e-mail. Potom se otevře váš osobní výběr.</p><a class="gold-cta" data-account-after-registration href="v2-app.html"><span data-i18n="openAccount">Otevřít můj účet</span><b>→</b></a></div></section>
   <aside class="tracking-consent" aria-label="Nastavení soukromí" hidden><p data-tracking-copy>Pomozte nám měřit, zda DUONERA funguje. Reklamní měření spustíme jen s vaším souhlasem.</p><a href="privacy.html">Soukromí</a><div><button class="tracking-reject" type="button" data-tracking-reject>Jen nutné</button><button class="tracking-accept" type="button" data-tracking-accept>Povolit měření</button></div></aside>
   <div class="toast" role="status" aria-live="polite"></div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.53.0/dist/umd/supabase.js"></script>
