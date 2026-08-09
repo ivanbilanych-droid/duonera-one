@@ -7,3 +7,4 @@
   body:not(.member-page){padding-bottom:78px}
 }
 @media(display-mode:standalone){.pwa-install{display:none!important}}
+.brand img,.success img{content:url("assets/duonera-logo-final.svg")!important;object-fit:cover;border-radius:50%}
