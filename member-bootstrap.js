@@ -119,7 +119,7 @@ function profilePayload(auth, lead, registration, photoPaths) {
       : 50,
     relationship_goal: 'Vážný vztah',
     consent_privacy: true,
-    consent_discovery: false,
+    consent_discovery: registration.consent_discovery === true,
     consent_contact: false,
     is_approved: false,
     is_discoverable: false,
